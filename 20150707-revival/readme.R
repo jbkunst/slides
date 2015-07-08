@@ -1,7 +1,6 @@
 #' ---
 #' title: "useRChile Revival"
 #' author: "Joshua"
-#' date: "`r format(Sys.time(), '%d %B, %Y')`"
 #' output: 
 #'  html_document: 
 #'    keep_md: yes

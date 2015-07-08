@@ -1,6 +1,5 @@
 # useRChile Revival
 Joshua  
-`r format(Sys.time(), '%d %B, %Y')`  
 (Esto se puede ver también por [acá](https://rawgit.com/jbkunst/useRchile/master/20150707-revival/readme.html))
 <br>
 Con el fin de *re*activar el grupo pretendo realizar un tipo de estudio descritivo usando... R?
@@ -160,5 +159,5 @@ t <- data %>%
 ---
 title: "readme.R"
 author: "jkunst"
-date: "Wed Jul 08 12:27:18 2015"
+date: "Wed Jul 08 12:33:55 2015"
 ---

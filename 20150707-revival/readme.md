@@ -159,5 +159,5 @@ t <- data %>%
 ---
 title: "readme.R"
 author: "jkunst"
-date: "Wed Jul 08 12:33:55 2015"
+date: "Wed Jul 08 17:58:48 2015"
 ---

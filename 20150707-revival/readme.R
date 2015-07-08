@@ -1,13 +1,14 @@
 #' ---
-#' title: "userRChile Revival"
-#' author: "Joshua Kunst"
+#' title: "useRChile Revival"
+#' author: "Joshua"
+#' date: "`r format(Sys.time(), '%d %B, %Y')`"
 #' output: 
 #'  html_document: 
 #'    keep_md: yes
 #' ---
 
 #' (Esto se puede ver también por [acá](https://rawgit.com/jbkunst/useRchile/master/20150707-revival/readme.html))
-
+#' <br>
 #' Con el fin de *re*activar el grupo pretendo realizar un tipo de estudio descritivo usando... R?
 
 #' Paquetes (no librerías!) a necesitar!
@@ -16,6 +17,7 @@ rm(list = ls())
 library("dplyr")
 library("ggplot2")
 library("lubridate")
+# library("printr")
 
 #' Leer el archivo
 data <- read.table("useRchile_Member_List_on_07-07-15.txt",
@@ -26,7 +28,7 @@ data <- read.table("useRchile_Member_List_on_07-07-15.txt",
 
 data <- tbl_df(data)
 
-data
+head(data)
 
 #' Ugh, esos nombres!
 names(data) <- names(data) %>% # seleccionamos los nombres
@@ -35,7 +37,7 @@ names(data) <- names(data) %>% # seleccionamos los nombres
   gsub("\\.", "_", .) %>% 
   iconv(to = "ASCII//TRANSLIT") # removemos tildes
 
-data
+head(data)
 
 #' Un poco mejor! Ahora por unos descriptivos
  

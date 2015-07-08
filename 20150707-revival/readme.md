@@ -1,6 +1,8 @@
-# userRChile Revival
-Joshua Kunst  
-(Esto se puede ver también por [acá](https://rawgit.com/jbkunst/useRchile/master/20150707-revival/index.html))
+# useRChile Revival
+Joshua  
+`r format(Sys.time(), '%d %B, %Y')`  
+(Esto se puede ver también por [acá](https://rawgit.com/jbkunst/useRchile/master/20150707-revival/readme.html))
+<br>
 Con el fin de *re*activar el grupo pretendo realizar un tipo de estudio descritivo usando... R?
 Paquetes (no librerías!) a necesitar!
 
@@ -10,6 +12,7 @@ rm(list = ls())
 library("dplyr")
 library("ggplot2")
 library("lubridate")
+# library("printr")
 ```
 
 Leer el archivo
@@ -27,24 +30,19 @@ Le agregamos la clase tbl (paquete dplyr) que uno de sus ventajas es como se vis
 ```r
 data <- tbl_df(data)
 
-data
+head(data)
 ```
 
 ```
-## Source: local data frame [125 x 22]
+## Source: local data frame [6 x 22]
 ## 
-##                           Nombre Identificación.del.usuario Título
-## 1                 Adolfo Alvarez              user 80526342     NA
-## 2  Adrian Leonardo Escobar Gomez             user 189602319     NA
-## 3                    Ale Alarcon             user 182152812     NA
-## 4            Alejandra Ormazabal              user 14436601     NA
-## 5                      Alejandro             user 160635342     NA
-## 6                      Alejandro             user 170556652     NA
-## 7               Alejandro Zahler              user 77138632     NA
-## 8              alexander vergara              user 80398702     NA
-## 9                Alvaro Alliende             user 186169964     NA
-## 10              Alvaro Hernandez             user 152416642     NA
-## ..                           ...                        ...    ...
+##                          Nombre Identificación.del.usuario Título
+## 1                Adolfo Alvarez              user 80526342     NA
+## 2 Adrian Leonardo Escobar Gomez             user 189602319     NA
+## 3                   Ale Alarcon             user 182152812     NA
+## 4           Alejandra Ormazabal              user 14436601     NA
+## 5                     Alejandro             user 160635342     NA
+## 6                     Alejandro             user 170556652     NA
 ## Variables not shown: Identificación.del.miembro (int), Ubicación (chr),
 ##   Se.unió.al.Grupo.el (chr), Última.visita.al.grupo.el (chr),
 ##   Último.evento.presenciado (chr), Total.de.reservaciones (int), Con.RSVP
@@ -65,24 +63,19 @@ names(data) <- names(data) %>% # seleccionamos los nombres
   gsub("\\.", "_", .) %>% 
   iconv(to = "ASCII//TRANSLIT") # removemos tildes
 
-data
+head(data)
 ```
 
 ```
-## Source: local data frame [125 x 22]
+## Source: local data frame [6 x 22]
 ## 
-##                           nombre identificacion_del_usuario titulo
-## 1                 Adolfo Alvarez              user 80526342     NA
-## 2  Adrian Leonardo Escobar Gomez             user 189602319     NA
-## 3                    Ale Alarcon             user 182152812     NA
-## 4            Alejandra Ormazabal              user 14436601     NA
-## 5                      Alejandro             user 160635342     NA
-## 6                      Alejandro             user 170556652     NA
-## 7               Alejandro Zahler              user 77138632     NA
-## 8              alexander vergara              user 80398702     NA
-## 9                Alvaro Alliende             user 186169964     NA
-## 10              Alvaro Hernandez             user 152416642     NA
-## ..                           ...                        ...    ...
+##                          nombre identificacion_del_usuario titulo
+## 1                Adolfo Alvarez              user 80526342     NA
+## 2 Adrian Leonardo Escobar Gomez             user 189602319     NA
+## 3                   Ale Alarcon             user 182152812     NA
+## 4           Alejandra Ormazabal              user 14436601     NA
+## 5                     Alejandro             user 160635342     NA
+## 6                     Alejandro             user 170556652     NA
 ## Variables not shown: identificacion_del_miembro (int), ubicacion (chr),
 ##   se_unio_al_grupo_el (chr), ultima_visita_al_grupo_el (chr),
 ##   ultimo_evento_presenciado (chr), total_de_reservaciones (int), con_rsvp
@@ -167,5 +160,5 @@ t <- data %>%
 ---
 title: "readme.R"
 author: "jkunst"
-date: "Wed Jul 08 12:10:46 2015"
+date: "Wed Jul 08 12:27:18 2015"
 ---

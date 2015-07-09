@@ -3,6 +3,8 @@
 #' author: "Joshua"
 #' output: 
 #'  html_document: 
+#'    theme: journal
+#'    toc: true
 #'    keep_md: yes
 #' ---
 
@@ -16,6 +18,7 @@ rm(list = ls())
 library("dplyr")
 library("ggplot2")
 library("lubridate")
+library("rcdimple")
 # library("printr")
 
 #' Leer el archivo
@@ -49,19 +52,27 @@ t <- data %>%
 
 tail(t)
 
-ggplot(t) + 
-  geom_bar(aes(ubicacion, n), stat = "identity") +
-  coord_flip() +
-  ggtitle("Somos un grupo de R en Chile internacional?!")
+t %>%
+  dimple(x ="ubicacion", y = "n", type = "bar") %>%
+  add_title(html = "<h4>Unit Sales by Month for Fictional Store</h4>")
+
+
 
 #' Como hemos crecido en tamaño durante el tiempo
 data <- data %>% 
-  mutate(se_unio_al_grupo_el_date = gsub("/", "-", se_unio_al_grupo_el)) %>%  
-  mutate(se_unio_al_grupo_el_date = dmy(se_unio_al_grupo_el_date)) 
+  mutate(dat = gsub("/", "-", se_unio_al_grupo_el)) %>%  
+  mutate(dat = as.Date(mdy(dat)))
 
-data %>% select(se_unio_al_grupo_el, se_unio_al_grupo_el_date)
+data %>% select(se_unio_al_grupo_el, dat)
 
 t <- data %>% 
-  group_by(se_unio_al_grupo_el) %>% 
+  group_by(dat) %>% 
   summarise(n = n()) %>% 
-  arrange(se_unio_al_grupo_el)
+  arrange(dat) %>% 
+  mutate(integrantes = cumsum(n))
+
+t
+
+# 
+# ggplot(t) +
+#   geom_line(aes(se_unio_al_grupo_el_date, integrantes), color = "darkred", size = 1.2)

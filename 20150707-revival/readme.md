@@ -1,5 +1,10 @@
 # useRChile Revival
 Joshua  
+<style>
+  text {
+      font-family: Georgia,"Times New Roman",Times,serif;
+  }
+</style>
 (Esto se puede ver también por [acá](https://rawgit.com/jbkunst/useRchile/master/20150707-revival/readme.html))
 <br>
 Con el fin de *re*activar el grupo pretendo realizar un tipo de estudio descritivo usando... R?
@@ -11,6 +16,7 @@ rm(list = ls())
 library("dplyr")
 library("ggplot2")
 library("lubridate")
+library("rcdimple")
 # library("printr")
 ```
 
@@ -112,13 +118,13 @@ tail(t)
 ```
 
 ```r
-ggplot(t) + 
-  geom_bar(aes(ubicacion, n), stat = "identity") +
-  coord_flip() +
-  ggtitle("Somos un grupo de R en Chile internacional?!")
+t %>%
+  dimple(x ="ubicacion", y = "n", type = "bar") %>%
+  add_title(html = "<h4>Unit Sales by Month for Fictional Store</h4>")
 ```
 
-![](readme_files/figure-html/unnamed-chunk-5-1.png) 
+<!--html_preserve--><div id="htmlwidget-2526" style="width:672px;height:480px;" class="dimple"></div>
+<script type="application/json" data-for="htmlwidget-2526">{"x":{"options":{"chart":[],"xAxis":{"type":"addCategoryAxis"},"yAxis":{"type":"addMeasureAxis"},"zAxis":[],"colorAxis":[],"defaultColors":[],"layers":[],"legend":[],"x":"ubicacion","y":"n","type":"bar","title":{"text":null,"html":"<h4>Unit Sales by Month for Fictional Store</h4>"}},"data":{"ubicacion":["Berlin","Brussels","Cajamarca","Chillán","Concepción","Copenhagen","Curicó","Honolulu, HI","Isla de Maipo","Machalí","Mannheim","Medellín","México City","Poznan","Puente Alto","Sydney","Talca","Waterloo, ON","Lima","Viña del Mar","Santiago"],"n":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,103]}},"evals":[]}</script><!--/html_preserve-->
 
 Como hemos crecido en tamaño durante el tiempo
 
@@ -126,7 +132,7 @@ Como hemos crecido en tamaño durante el tiempo
 ```r
 data <- data %>% 
   mutate(se_unio_al_grupo_el_date = gsub("/", "-", se_unio_al_grupo_el)) %>%  
-  mutate(se_unio_al_grupo_el_date = dmy(se_unio_al_grupo_el_date)) 
+  mutate(se_unio_al_grupo_el_date = as.Date(mdy(se_unio_al_grupo_el_date)))
 
 data %>% select(se_unio_al_grupo_el, se_unio_al_grupo_el_date)
 ```
@@ -135,29 +141,56 @@ data %>% select(se_unio_al_grupo_el, se_unio_al_grupo_el_date)
 ## Source: local data frame [125 x 2]
 ## 
 ##    se_unio_al_grupo_el se_unio_al_grupo_el_date
-## 1           02/13/2013      2014-01-02 00:00:00
-## 2           07/07/2015      2015-07-07 00:00:00
-## 3           05/28/2015      2078-06-28 23:06:17
-## 4           11/27/2013      2071-03-06 00:59:44
-## 5           08/16/2014      2052-02-12 19:58:56
-## 6           09/12/2014      2014-12-09 00:00:00
-## 7           02/06/2013      2013-06-02 00:00:00
-## 8           02/12/2013      2013-12-02 00:00:00
-## 9           04/14/2015      1960-07-26 21:24:42
-## 10          07/02/2014      2014-02-07 00:00:00
+## 1           02/13/2013               2013-02-13
+## 2           07/07/2015               2015-07-07
+## 3           05/28/2015               2015-05-28
+## 4           11/27/2013               2013-11-27
+## 5           08/16/2014               2014-08-16
+## 6           09/12/2014               2014-09-12
+## 7           02/06/2013               2013-02-06
+## 8           02/12/2013               2013-02-12
+## 9           04/14/2015               2015-04-14
+## 10          07/02/2014               2014-07-02
 ## ..                 ...                      ...
 ```
 
 ```r
 t <- data %>% 
-  group_by(se_unio_al_grupo_el) %>% 
+  group_by(se_unio_al_grupo_el_date) %>% 
   summarise(n = n()) %>% 
-  arrange(se_unio_al_grupo_el)
+  arrange(se_unio_al_grupo_el_date) %>% 
+  mutate(integrantes = cumsum(n))
+
+t
 ```
+
+```
+## Source: local data frame [111 x 3]
+## 
+##    se_unio_al_grupo_el_date n integrantes
+## 1                2013-01-22 1           1
+## 2                2013-02-06 1           2
+## 3                2013-02-07 4           6
+## 4                2013-02-12 1           7
+## 5                2013-02-13 1           8
+## 6                2013-02-18 1           9
+## 7                2013-02-28 1          10
+## 8                2013-03-06 1          11
+## 9                2013-03-07 1          12
+## 10               2013-03-11 1          13
+## ..                      ... .         ...
+```
+
+```r
+ggplot(t) +
+  geom_line(aes(se_unio_al_grupo_el_date, integrantes), color = "darkred", size = 1.2)
+```
+
+![](readme_files/figure-html/unnamed-chunk-6-1.png) 
 
 
 ---
 title: "readme.R"
-author: "jkunst"
-date: "Wed Jul 08 17:58:48 2015"
+author: "Joshua K"
+date: "Wed Jul 08 23:45:11 2015"
 ---

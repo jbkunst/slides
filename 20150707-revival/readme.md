@@ -1,5 +1,6 @@
 # useRChile Revival
 Joshua  
+<style>svg { font-family: "News Cycle","Arial Narrow Bold",sans-serif;}</style>
 # Introducción
 (Esto se puede ver también por [acá](https://rawgit.com/jbkunst/useRchile/master/20150707-revival/readme.html))
 <br>
@@ -9,16 +10,14 @@ Paquetes (no librerías!) a necesitar!
 
 ```r
 rm(list = ls())
-library("dplyr")
-library("ggplot2")
-library("lubridate")
-library("rcdimple")
-library("scales")
-library("broom")
-library("tm")
-library("htmlwidgets")
-library("knitr")
-library("d3wordcloud")
+library("dplyr") # para realizar agrupaciones
+library("lubridate") # para hace agradable el trabajar con fechas
+library("metricsgraphics") # una de las tantas librerías de viz de js
+library("rcdimple") # otra similar a la anterior
+library("broom") # simplemente para mostrar en un dataframe los coef de los modelos
+library("tm") # para trabajar con las respuestas
+library("d3wordcloud") # mi paquete para hacer nubes de palabras usando d3js!
+library("printr") # esto se usa para que las tablas aparezcan en formato html cuando este script se transforma se 'compila a lo netbook' 
 ```
 
 # Lectura de Datos
@@ -29,35 +28,26 @@ Leer el archivo
 data <- read.table("useRchile_Member_List_on_07-07-15.txt",
                    sep = "\t", fileEncoding = "UTF-8", header = TRUE,
                    stringsAsFactors = FALSE)
-```
 
-Le agregamos la clase tbl (paquete dplyr) que uno de sus ventajas es como se visualiza la realizar el print en consola.
+meetups <- read.table("meetups.txt",
+                   sep = "\t",  header = TRUE,
+                   stringsAsFactors = FALSE)
 
-
-```r
-data <- tbl_df(data)
-
-head(data)
+names(data)
 ```
 
 ```
-## Source: local data frame [6 x 22]
-## 
-##                          Nombre Identificación.del.usuario Título
-## 1                Adolfo Alvarez              user 80526342     NA
-## 2 Adrian Leonardo Escobar Gomez             user 189602319     NA
-## 3                   Ale Alarcon             user 182152812     NA
-## 4           Alejandra Ormazabal              user 14436601     NA
-## 5                     Alejandro             user 160635342     NA
-## 6                     Alejandro             user 170556652     NA
-## Variables not shown: Identificación.del.miembro (int), Ubicación (chr),
-##   Se.unió.al.Grupo.el (chr), Última.visita.al.grupo.el (chr),
-##   Último.evento.presenciado (chr), Total.de.reservaciones (int), Con.RSVP
-##   (int), RSVP.marcada.como.Quizás (int), Sin.RSVP (int),
-##   Meetups.presenciados (int), Ausentes (int), Presentación (chr), Foto
-##   (chr), Organizador.asistente (chr), Lista.de.correo (chr),
-##   URL.del.perfil.del.miembro (chr), X.Qué.esperas.de.este.grupo. (chr),
-##   X.Cómo.encontraste.este.grupo. (chr), X.A.qué.nivel.manejas.R. (chr)
+##  [1] "Nombre"                         "Identificación.del.usuario"    
+##  [3] "Título"                         "Identificación.del.miembro"    
+##  [5] "Ubicación"                      "Se.unió.al.Grupo.el"           
+##  [7] "Última.visita.al.grupo.el"      "Último.evento.presenciado"     
+##  [9] "Total.de.reservaciones"         "Con.RSVP"                      
+## [11] "RSVP.marcada.como.Quizás"       "Sin.RSVP"                      
+## [13] "Meetups.presenciados"           "Ausentes"                      
+## [15] "Presentación"                   "Foto"                          
+## [17] "Organizador.asistente"          "Lista.de.correo"               
+## [19] "URL.del.perfil.del.miembro"     "X.Qué.esperas.de.este.grupo."  
+## [21] "X.Cómo.encontraste.este.grupo." "X.A.qué.nivel.manejas.R."
 ```
 
 Ugh, esos nombres!
@@ -70,70 +60,63 @@ names(data) <- names(data) %>% # seleccionamos los nombres
   gsub("\\.", "_", .) %>% 
   iconv(to = "ASCII//TRANSLIT") # removemos tildes
 
-head(data)
+head(data[,1:5])
 ```
 
-```
-## Source: local data frame [6 x 22]
-## 
-##                          nombre identificacion_del_usuario titulo
-## 1                Adolfo Alvarez              user 80526342     NA
-## 2 Adrian Leonardo Escobar Gomez             user 189602319     NA
-## 3                   Ale Alarcon             user 182152812     NA
-## 4           Alejandra Ormazabal              user 14436601     NA
-## 5                     Alejandro             user 160635342     NA
-## 6                     Alejandro             user 170556652     NA
-## Variables not shown: identificacion_del_miembro (int), ubicacion (chr),
-##   se_unio_al_grupo_el (chr), ultima_visita_al_grupo_el (chr),
-##   ultimo_evento_presenciado (chr), total_de_reservaciones (int), con_rsvp
-##   (int), rsvp_marcada_como_quizas (int), sin_rsvp (int),
-##   meetups_presenciados (int), ausentes (int), presentacion (chr), foto
-##   (chr), organizador_asistente (chr), lista_de_correo (chr),
-##   url_del_perfil_del_miembro (chr), que_esperas_de_este_grupo (chr),
-##   como_encontraste_este_grupo (chr), a_que_nivel_manejas_r (chr)
-```
 
-Un poco mejor! Ahora por unos descriptivos.
+
+nombre                          identificacion_del_usuario   titulo    identificacion_del_miembro  ubicacion   
+------------------------------  ---------------------------  -------  ---------------------------  ------------
+Adolfo Alvarez                  user 80526342                NA                          80526342  Poznan      
+Adrian Leonardo Escobar Gomez   user 189602319               NA                         189602319  Santiago    
+Ale Alarcon                     user 182152812               NA                         182152812  Puente Alto 
+Alejandra Ormazabal             user 14436601                NA                          14436601  Santiago    
+Alejandro                       user 160635342               NA                         160635342  Santiago    
+Alejandro                       user 170556652               NA                         170556652  Santiago    
 
 # Análisis Descriptivo
-Para esta parte agrupamos y obtenemos conteos usando las funciones del paquete `dplyr` y graficamos con el paquete `rcdimple` (wrapper de la librería de javascript dimple).
+## De donde somos?
+
+Para esta parte agrupamos y obtenemos conteos usando las funciones del paquete `dplyr` y graficamos con el paquete `metricsgraphics` 
+(wrapper de la librería de javascript metricsgraphics).
 
 
 ```r
 t <- data %>% 
   group_by(ubicacion) %>% 
   summarise(n = n()) %>% 
-  arrange(n) %>% # los ordenos segun tamaño para que al realizar el 'factor' queden ordenados y plotearlos
+  arrange(desc(n)) %>% # los ordenos segun tamaño para que al realizar el 'factor' queden ordenados y plotearlos
   mutate(ubicacion = factor(ubicacion, levels = ubicacion))
+
+class(t) <- "data.frame"
 
 tail(t)
 ```
 
-```
-## Source: local data frame [6 x 2]
-## 
-##      ubicacion   n
-## 1       Sydney   1
-## 2        Talca   1
-## 3 Waterloo, ON   1
-## 4         Lima   2
-## 5 Viña del Mar   2
-## 6     Santiago 103
-```
-
-Mucha centralización!
-
+     ubicacion        n
+---  -------------  ---
+16   México City      1
+17   Poznan           1
+18   Puente Alto      1
+19   Sydney           1
+20   Talca            1
+21   Waterloo, ON     1
 
 ```r
 t %>%
-  dimple(x ="ubicacion", y = "n", type = "bar") %>%
-  add_title(html = "<h4>De donde Somos?</h4>")
+  mjs_plot(x=n, y=ubicacion, width=800, height=400) %>%
+  mjs_bar()
 ```
 
-<!--html_preserve--><div id="htmlwidget-9694" style="width:672px;height:480px;" class="dimple"></div>
-<script type="application/json" data-for="htmlwidget-9694">{"x":{"options":{"chart":[],"xAxis":{"type":"addCategoryAxis"},"yAxis":{"type":"addMeasureAxis"},"zAxis":[],"colorAxis":[],"defaultColors":[],"layers":[],"legend":[],"x":"ubicacion","y":"n","type":"bar","title":{"text":null,"html":"<h4>De donde Somos?</h4>"}},"data":{"ubicacion":["Berlin","Brussels","Cajamarca","Chillán","Concepción","Copenhagen","Curicó","Honolulu, HI","Isla de Maipo","Machalí","Mannheim","Medellín","México City","Poznan","Puente Alto","Sydney","Talca","Waterloo, ON","Lima","Viña del Mar","Santiago"],"n":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,103]}},"evals":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="mjs-28846c617ec036eb633d746c61d316" class="metricsgraphics" style="width:800px;height:400px;"></div>
+<div id="mjs-28846c617ec036eb633d746c61d316-legend" class="metricsgraphics-legend"></div>
+<script type="application/json" data-for="mjs-28846c617ec036eb633d746c61d316">{"x":{"orig_posix":false,"data":{"ubicacion":["Santiago","Lima","Viña del Mar","Berlin","Brussels","Cajamarca","Chillán","Concepción","Copenhagen","Curicó","Honolulu, HI","Isla de Maipo","Machalí","Mannheim","Medellín","México City","Poznan","Puente Alto","Sydney","Talca","Waterloo, ON"],"n":[103,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},"x_axis":true,"y_axis":true,"baseline_accessor":null,"predictor_accessor":null,"show_confidence_band":null,"show_secondary_x_label":null,"chart_type":"bar","xax_format":"plain","x_label":null,"y_label":null,"markers":null,"baselines":null,"linked":false,"title":null,"description":null,"left":80,"right":10,"bottom":60,"buffer":8,"format":"count","y_scale_type":"linear","yax_count":5,"xax_count":6,"x_rug":false,"y_rug":false,"area":false,"missing_is_hidden":false,"size_accessor":null,"color_accessor":null,"color_type":"number","color_range":["blue","red"],"size_range":[1,5],"bar_height":20,"min_x":null,"max_x":null,"min_y":null,"max_y":null,"bar_margin":1,"binned":true,"bins":null,"least_squares":false,"interpolate":"cardinal","decimals":2,"show_rollover_text":true,"x_accessor":"n","y_accessor":"ubicacion","multi_line":null,"geom":"bar","yax_units":"","legend":null,"legend_target":null,"y_extended_ticks":false,"x_extended_ticks":false,"target":"#mjs-28846c617ec036eb633d746c61d316"},"evals":[]}</script><!--/html_preserve-->
 
-Con la fecha de cuando nos hemos integrado podemos ver a que ritmo crecemos como grupo :D.
+Mucha centralización!
+
+## Fechas de incoropraciones 
+
+Con la fecha de cuando nos hemos integrado podemos ver a que ritmo crecemos como grupo :).
 
 
 ```r
@@ -141,50 +124,65 @@ data <- data %>%
   mutate(se_unio_al_grupo_el_date = gsub("/", "-", se_unio_al_grupo_el)) %>%  
   mutate(se_unio_al_grupo_el_date = as.Date(mdy(se_unio_al_grupo_el_date)))
 
-data %>% select(se_unio_al_grupo_el, se_unio_al_grupo_el_date) %>% head()
-```
-
-```
-## Source: local data frame [6 x 2]
-## 
-##   se_unio_al_grupo_el se_unio_al_grupo_el_date
-## 1          02/13/2013               2013-02-13
-## 2          07/07/2015               2015-07-07
-## 3          05/28/2015               2015-05-28
-## 4          11/27/2013               2013-11-27
-## 5          08/16/2014               2014-08-16
-## 6          09/12/2014               2014-09-12
-```
-
-```r
 t <- data %>% 
   group_by(se_unio_al_grupo_el_date) %>% 
   summarise(n = n()) %>% 
   arrange(se_unio_al_grupo_el_date) %>% 
   mutate(integrantes = cumsum(n))
-
+class(t) <- "data.frame"
 head(t)
 ```
 
-```
-## Source: local data frame [6 x 3]
-## 
-##   se_unio_al_grupo_el_date n integrantes
-## 1               2013-01-22 1           1
-## 2               2013-02-06 1           2
-## 3               2013-02-07 4           6
-## 4               2013-02-12 1           7
-## 5               2013-02-13 1           8
-## 6               2013-02-18 1           9
-```
+
+
+se_unio_al_grupo_el_date     n   integrantes
+-------------------------  ---  ------------
+2013-01-22                   1             1
+2013-02-06                   1             2
+2013-02-07                   4             6
+2013-02-12                   1             7
+2013-02-13                   1             8
+2013-02-18                   1             9
 
 ```r
-ggplot(t, aes(se_unio_al_grupo_el_date, integrantes)) +
-  geom_line(color = "darkred", size = 1.2) +
-  geom_smooth(method="lm", se = FALSE) # groseramente puse el auste de una rl para que en ver el promedio de ingresos por día.
+t %>% filter(integrantes > 100) %>% head(1)
 ```
 
-![](readme_files/figure-html/unnamed-chunk-7-1.png) 
+
+
+se_unio_al_grupo_el_date     n   integrantes
+-------------------------  ---  ------------
+2014-09-24                   1           101
+
+```r
+plot <- t %>%
+  mjs_plot(x=se_unio_al_grupo_el_date, y=integrantes, width=800) %>%
+  mjs_line() %>%
+  mjs_axis_x(xax_format="date") %>% 
+  mjs_line(animate_on_load = TRUE) %>% 
+  mjs_add_baseline(100, "Septiembre 2014, pasamos los 100 integrantes que aún no conozco!")
+```
+
+Incorporemos los meetups pasados
+
+
+```r
+meetups <- meetups %>% 
+  mutate(fecha_en_formato_fecha = paste(dia, mes, año)) %>% 
+  mutate(fecha_en_formato_fecha = as.Date(fecha_en_formato_fecha, "%d %b %Y")) %>% 
+  arrange(fecha_en_formato_fecha)
+  
+for(fila in seq(nrow(meetups))){
+  fecha <- meetups[fila, "fecha_en_formato_fecha"]
+  plot <- plot %>% mjs_add_marker(fecha, sprintf("M%s", fila))
+}
+  
+plot
+```
+
+<!--html_preserve--><div id="mjs-6cecdb0deb03ededf42435ddb05269" class="metricsgraphics" style="width:800px;height:480px;"></div>
+<div id="mjs-6cecdb0deb03ededf42435ddb05269-legend" class="metricsgraphics-legend"></div>
+<script type="application/json" data-for="mjs-6cecdb0deb03ededf42435ddb05269">{"x":{"orig_posix":false,"data":{"se_unio_al_grupo_el_date":["2013-01-22","2013-02-06","2013-02-07","2013-02-12","2013-02-13","2013-02-18","2013-02-28","2013-03-06","2013-03-07","2013-03-11","2013-03-12","2013-03-17","2013-03-18","2013-03-25","2013-04-01","2013-04-17","2013-04-25","2013-05-03","2013-05-04","2013-05-09","2013-05-13","2013-05-16","2013-05-27","2013-05-28","2013-06-09","2013-06-10","2013-06-13","2013-06-14","2013-06-19","2013-06-25","2013-07-01","2013-07-03","2013-07-10","2013-08-07","2013-08-24","2013-08-28","2013-08-30","2013-10-06","2013-10-22","2013-10-31","2013-11-27","2013-12-08","2013-12-14","2013-12-16","2014-01-07","2014-02-15","2014-02-17","2014-02-19","2014-02-22","2014-02-24","2014-03-07","2014-03-08","2014-03-14","2014-03-16","2014-03-24","2014-03-25","2014-04-02","2014-04-03","2014-04-09","2014-04-13","2014-04-20","2014-04-24","2014-04-28","2014-04-29","2014-05-03","2014-05-04","2014-05-06","2014-05-08","2014-05-12","2014-05-15","2014-05-21","2014-05-24","2014-05-29","2014-06-12","2014-06-20","2014-07-01","2014-07-02","2014-07-09","2014-07-11","2014-07-26","2014-07-27","2014-07-28","2014-08-02","2014-08-08","2014-08-13","2014-08-16","2014-08-25","2014-09-12","2014-09-16","2014-09-24","2014-10-05","2014-10-10","2014-10-29","2014-11-13","2014-12-12","2015-01-22","2015-02-19","2015-02-26","2015-03-07","2015-03-28","2015-04-06","2015-04-14","2015-05-08","2015-05-09","2015-05-28","2015-05-31","2015-06-03","2015-06-05","2015-06-22","2015-07-03","2015-07-07"],"n":[1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,2,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,3,1,1],"integrantes":[1,2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,30,31,32,33,34,35,37,38,39,40,41,42,44,45,47,48,49,50,51,52,53,55,56,57,58,59,60,61,62,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,87,88,89,90,91,92,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,113,114,115,116,117,118,119,120,123,124,125]},"x_axis":true,"y_axis":true,"baseline_accessor":null,"predictor_accessor":null,"show_confidence_band":null,"chart_type":"line","xax_format":"date","x_label":null,"y_label":null,"markers":[{"se_unio_al_grupo_el_date":"2013-03-16","label":"M1"},{"se_unio_al_grupo_el_date":"2013-05-11","label":"M2"},{"se_unio_al_grupo_el_date":"2013-06-15","label":"M3"},{"se_unio_al_grupo_el_date":"2013-07-13","label":"M4"},{"se_unio_al_grupo_el_date":"2014-02-20","label":"M5"},{"se_unio_al_grupo_el_date":"2014-03-22","label":"M6"},{"se_unio_al_grupo_el_date":"2014-04-23","label":"M7"},{"se_unio_al_grupo_el_date":"2014-05-14","label":"M8"}],"baselines":[{"value":100,"label":"Septiembre 2014, pasamos los 100 integrantes que aún no conozco!"}],"linked":false,"title":null,"description":null,"left":80,"right":10,"bottom":60,"buffer":8,"format":"count","y_scale_type":"linear","yax_count":5,"xax_count":6,"x_rug":false,"y_rug":false,"area":false,"missing_is_hidden":false,"size_accessor":null,"color_accessor":null,"color_type":"number","color_range":["blue","red"],"size_range":[1,5],"bar_height":20,"min_y":null,"max_y":null,"bar_margin":1,"binned":false,"bins":null,"least_squares":false,"interpolate":"cardinal","decimals":2,"show_rollover_text":true,"x_accessor":"se_unio_al_grupo_el_date","y_accessor":"integrantes","multi_line":null,"geom":"line","yax_units":"","legend":null,"legend_target":null,"y_extended_ticks":false,"x_extended_ticks":false,"target":"#mjs-6cecdb0deb03ededf42435ddb05269","full_height":true,"animate_on_load":true},"evals":[]}</script><!--/html_preserve-->
 
 ```r
 crecimiento_diario <- lm(integrantes ~ se_unio_al_grupo_el_date, data = t)
@@ -192,31 +190,26 @@ crecimiento_diario <- lm(integrantes ~ se_unio_al_grupo_el_date, data = t)
 tidy(crecimiento_diario)
 ```
 
-```
-##                       term      estimate    std.error statistic
-## 1              (Intercept) -2138.8883235 31.156663233 -68.64947
-## 2 se_unio_al_grupo_el_date     0.1365681  0.001931678  70.69923
-##        p.value
-## 1 1.556673e-91
-## 2 6.757266e-93
-```
 
-Ahora veamos el nivel autoevaluado
+
+term                             estimate    std.error   statistic   p.value
+-------------------------  --------------  -----------  ----------  --------
+(Intercept)                 -2138.8883235   31.1566632   -68.64947         0
+se_unio_al_grupo_el_date        0.1365681    0.0019317    70.69923         0
+
+## Nuestro Nivel
 
 
 ```r
-respuestas <- data$como_encontraste_este_grupo
+respuestas <- data$a_que_nivel_manejas_r
 
 head(respuestas)
 ```
 
 ```
-## [1] "Twitter!"                                        
-## [2] "Por El curso de EDX."                            
-## [3] "por meetup"                                      
-## [4] "Por casualidad encontré este grupo."             
-## [5] "googleando"                                      
-## [6] "Del curso en Linea \\Explore Statistics with R\\"
+## [1] "Todos los días aprendo algo nuevo" "Básico."                          
+## [3] "Usuario"                           "Excelente herramienta."           
+## [5] "Intermedio"                        "Recién aprendiendo"
 ```
 
 ```r
@@ -239,17 +232,23 @@ t <- TermDocumentMatrix(corpus) %>%
   data.frame(word = names(.), freq = .) %>%
   tbl_df() %>%
   arrange(desc(freq))
+```
 
+Haremos el gráfico usando la librería `rcdimple`
+
+
+```r
 t %>% 
   filter(freq > 2) %>%
   dimple(x ="word", y = "freq", type = "bar") %>%
-  add_title(html = "<h4>Palabras más comunes entre las respuesta de como encontraron al grupo</h4>")
+  add_title(html = "<h4>Palabras más comunes entre las respuesta: ¿a que nivel manejas R?</h4>")
 ```
 
-<!--html_preserve--><div id="htmlwidget-6766" style="width:672px;height:480px;" class="dimple"></div>
-<script type="application/json" data-for="htmlwidget-6766">{"x":{"options":{"chart":[],"xAxis":{"type":"addCategoryAxis"},"yAxis":{"type":"addMeasureAxis"},"zAxis":[],"colorAxis":[],"defaultColors":[],"layers":[],"legend":[],"x":"word","y":"freq","type":"bar","title":{"text":null,"html":"<h4>Palabras más comunes entre las respuesta de como encontraron al grupo</h4>"}},"data":{"word":["meetup","google","buscando","internet","amigo","googleando","pagina","traves","web","chile","grupos","busqueda","grupo","navegando","recomendacion","twitter","curso","invitacion","knitr","project","vega"],"freq":[18,17,12,10,8,7,7,7,6,5,5,4,4,4,4,4,3,3,3,3,3]}},"evals":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-5676" style="width:672px;height:480px;" class="dimple"></div>
+<script type="application/json" data-for="htmlwidget-5676">{"x":{"options":{"chart":[],"xAxis":{"type":"addCategoryAxis"},"yAxis":{"type":"addMeasureAxis"},"zAxis":[],"colorAxis":[],"defaultColors":[],"layers":[],"legend":[],"x":"word","y":"freq","type":"bar","title":{"text":null,"html":"<h4>Palabras más comunes entre las respuesta: ¿a que nivel manejas R?</h4>"}},"data":{"word":["basico","intermedio","medio","nivel","avanzado","analisis","principiante","usuario","manejo","mas","aprender","datos","estadistica","ninguno","paquetes","recien","trabajo"],"freq":[45,20,15,14,9,6,6,5,4,4,3,3,3,3,3,3,3]}},"evals":[]}</script><!--/html_preserve-->
 
-Ahora estudiemos como conocimos al grupo
+## Como conocimos el grupo?
+
 
 
 ```r
@@ -273,7 +272,6 @@ respuestas <- respuestas %>%
   gsub("(?!')[[:punct:]]", " ", ., perl = TRUE) %>% # limpiamos caracteres de puntuación
   iconv(to = "ASCII//TRANSLIT") # removemos tildes
 
-sw <- c(stopwords(kind = "es"), "través")
 
 corpus <- Corpus(VectorSource(respuestas)) %>%
   tm_map(removePunctuation) %>%
@@ -293,15 +291,15 @@ t <- TermDocumentMatrix(corpus) %>%
 
 
 ```r
-d3wordcloud(t$word, t$freq)
+d3wordcloud(t$word, t$freq, scale = "log", width = 800)
 ```
 
-<!--html_preserve--><div id="htmlwidget-2138" style="width:672px;height:480px;" class="d3wordcloud"></div>
-<script type="application/json" data-for="htmlwidget-2138">{"x":{"data":{"text":["meetup","google","buscando","internet","amigo","googleando","pagina","traves","web","chile","grupos","busqueda","grupo","navegando","recomendacion","twitter","curso","invitacion","knitr","project","vega","buscador","correo","encontre","george","informacion","invito","meetups","nodoschile","oficial","principal","revolution","statistics","trabajo","usuarios","ver","yon","youtube","administrador","analytical","analytics","aplicacion","app","aqui","arme","asociado","bajo","bkn","bloggers","buecando","busque","captura","casualidad","cerda","charla","chilenos","colega","com","comentaron","community","companero","conferencia","conocer","conoci","control","coursera","cran","cuenta","datos","dentro","desarrolladores","desarrollar","dio","dude","dynlang","edx","electronico","emprendimientos","empresa","encargado","engine","estadistica","estadistico","excarvando","explorando","explore","facebook","fundador","fundadores","gente","gogleando","graficas","group","groups","habla","hispana","ingeniero","inscrito","interesaba","interesante","jefe","joshua","librerias","ligas","linea","lista","llego","llegue","mail","mediante","medio","miembro","mineria","mirando","moviles","network","newsletter","nombre","novia","org","organizador","orientada","pajina","paquete","parecio","parte","participar","patricio","pidio","predictiva","procesos","promueve","proyecto","queremos","red","redes","regionalizado","revisando","salio","santiago","search","senalo","sito","sociales","solamente","stgo","sugerido","the","unas","unirme","usando","usara","use","user","usurio","via","video","viendo","wiki","with"],"size":[18,17,12,10,8,7,7,7,6,5,5,4,4,4,4,4,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},"pars":{"font":"Open Sans","fontweight":400,"padding":1,"rotmin":-30,"rotmax":30,"scale":"linear","spiral":"archimedean"}},"evals":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-1894" style="width:800px;height:480px;" class="d3wordcloud"></div>
+<script type="application/json" data-for="htmlwidget-1894">{"x":{"data":{"text":["meetup","google","buscando","internet","amigo","googleando","pagina","traves","web","chile","grupos","busqueda","grupo","navegando","recomendacion","twitter","curso","invitacion","knitr","project","vega","buscador","correo","encontre","george","informacion","invito","meetups","nodoschile","oficial","principal","revolution","statistics","trabajo","usuarios","ver","yon","youtube","administrador","analytical","analytics","aplicacion","app","aqui","arme","asociado","bajo","bkn","bloggers","buecando","busque","captura","casualidad","cerda","charla","chilenos","colega","com","comentaron","community","companero","conferencia","conocer","conoci","control","coursera","cran","cuenta","datos","dentro","desarrolladores","desarrollar","dio","dude","dynlang","edx","electronico","emprendimientos","empresa","encargado","engine","estadistica","estadistico","excarvando","explorando","explore","facebook","fundador","fundadores","gente","gogleando","graficas","group","groups","habla","hispana","ingeniero","inscrito","interesaba","interesante","jefe","joshua","librerias","ligas","linea","lista","llego","llegue","mail","mediante","medio","miembro","mineria","mirando","moviles","network","newsletter","nombre","novia","org","organizador","orientada","pajina","paquete","parecio","parte","participar","patricio","pidio","predictiva","procesos","promueve","proyecto","queremos","red","redes","regionalizado","revisando","salio","santiago","search","senalo","sito","sociales","solamente","stgo","sugerido","the","unas","unirme","usando","usara","use","user","usurio","via","video","viendo","wiki","with"],"size":[18,17,12,10,8,7,7,7,6,5,5,4,4,4,4,4,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},"pars":{"font":"Open Sans","fontweight":400,"padding":1,"rotmin":-30,"rotmax":30,"scale":"log","spiral":"archimedean"}},"evals":[]}</script><!--/html_preserve-->
 
 
 ---
 title: "readme.R"
 author: "Joshua K"
-date: "Fri Jul 10 02:14:29 2015"
+date: "Sat Jul 11 16:36:11 2015"
 ---

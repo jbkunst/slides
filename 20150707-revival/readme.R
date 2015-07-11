@@ -8,6 +8,8 @@
 #'    keep_md: yes
 #' ---
 
+#' <style>svg { font-family: "News Cycle","Arial Narrow Bold",sans-serif;}</style>
+
 #' # Introducción
 
 #' (Esto se puede ver también por [acá](https://rawgit.com/jbkunst/useRchile/master/20150707-revival/readme.html))
@@ -15,18 +17,17 @@
 #' Con el fin de *re*activar el grupo pretendo realizar un tipo de estudio descritivo usando... R?
 
 #' Paquetes (no librerías!) a necesitar!
-#+ fig.width=10, fig.height=5, warning=FALSE, message=FALSE
+#+ warning=FALSE, message=FALSE
 rm(list = ls())
-library("dplyr")
-library("ggplot2")
-library("lubridate")
-library("rcdimple")
-library("scales")
-library("broom")
-library("tm")
-library("htmlwidgets")
-library("knitr")
-library("d3wordcloud")
+library("dplyr") # para realizar agrupaciones
+library("lubridate") # para hace agradable el trabajar con fechas
+library("metricsgraphics") # una de las tantas librerías de viz de js
+library("rcdimple") # otra similar a la anterior
+library("broom") # simplemente para mostrar en un dataframe los coef de los modelos
+library("tm") # para trabajar con las respuestas
+library("d3wordcloud") # mi paquete para hacer nubes de palabras usando d3js!
+library("printr") # esto se usa para que las tablas aparezcan en formato html cuando este script se transforma se 'compila a lo netbook' 
+
 
 #' # Lectura de Datos
 
@@ -35,11 +36,11 @@ data <- read.table("useRchile_Member_List_on_07-07-15.txt",
                    sep = "\t", fileEncoding = "UTF-8", header = TRUE,
                    stringsAsFactors = FALSE)
 
-#' Le agregamos la clase tbl (paquete dplyr) que uno de sus ventajas es como se visualiza la realizar el print en consola.
+meetups <- read.table("meetups.txt",
+                   sep = "\t",  header = TRUE,
+                   stringsAsFactors = FALSE)
 
-data <- tbl_df(data)
-
-head(data)
+names(data)
 
 #' Ugh, esos nombres!
 names(data) <- names(data) %>% # seleccionamos los nombres
@@ -48,57 +49,79 @@ names(data) <- names(data) %>% # seleccionamos los nombres
   gsub("\\.", "_", .) %>% 
   iconv(to = "ASCII//TRANSLIT") # removemos tildes
 
-head(data)
+head(data[,1:5])
 
-#' Un poco mejor! Ahora por unos descriptivos.
-#' 
 
 #' # Análisis Descriptivo
  
-#' Para esta parte agrupamos y obtenemos conteos usando las funciones del paquete `dplyr` y graficamos con el paquete `rcdimple` (wrapper de la librería de javascript dimple).
+#' ## De donde somos?
+#' 
+#' Para esta parte agrupamos y obtenemos conteos usando las funciones del paquete `dplyr` y graficamos con el paquete `metricsgraphics` 
+#' (wrapper de la librería de javascript metricsgraphics).
 
 t <- data %>% 
   group_by(ubicacion) %>% 
   summarise(n = n()) %>% 
-  arrange(n) %>% # los ordenos segun tamaño para que al realizar el 'factor' queden ordenados y plotearlos
+  arrange(desc(n)) %>% # los ordenos segun tamaño para que al realizar el 'factor' queden ordenados y plotearlos
   mutate(ubicacion = factor(ubicacion, levels = ubicacion))
+
+class(t) <- "data.frame"
 
 tail(t)
 
-#' Mucha centralización!
-
 t %>%
-  dimple(x ="ubicacion", y = "n", type = "bar") %>%
-  add_title(html = "<h4>De donde Somos?</h4>")
+  mjs_plot(x=n, y=ubicacion, width=800, height=400) %>%
+  mjs_bar()
 
-
-#' Con la fecha de cuando nos hemos integrado podemos ver a que ritmo crecemos como grupo :D.
+#' Mucha centralización!
+#'
+#' ## Fechas de incoropraciones 
+#' 
+#' Con la fecha de cuando nos hemos integrado podemos ver a que ritmo crecemos como grupo :).
 
 data <- data %>% 
   mutate(se_unio_al_grupo_el_date = gsub("/", "-", se_unio_al_grupo_el)) %>%  
   mutate(se_unio_al_grupo_el_date = as.Date(mdy(se_unio_al_grupo_el_date)))
-
-data %>% select(se_unio_al_grupo_el, se_unio_al_grupo_el_date) %>% head()
 
 t <- data %>% 
   group_by(se_unio_al_grupo_el_date) %>% 
   summarise(n = n()) %>% 
   arrange(se_unio_al_grupo_el_date) %>% 
   mutate(integrantes = cumsum(n))
-
+class(t) <- "data.frame"
 head(t)
 
+t %>% filter(integrantes > 100) %>% head(1)
 
-ggplot(t, aes(se_unio_al_grupo_el_date, integrantes)) +
-  geom_line(color = "darkred", size = 1.2) +
-  geom_smooth(method="lm", se = FALSE) # groseramente puse el auste de una rl para que en ver el promedio de ingresos por día.
+plot <- t %>%
+  mjs_plot(x=se_unio_al_grupo_el_date, y=integrantes, width=800) %>%
+  mjs_line() %>%
+  mjs_axis_x(xax_format="date") %>% 
+  mjs_line(animate_on_load = TRUE) %>% 
+  mjs_add_baseline(100, "Septiembre 2014, pasamos los 100 integrantes que aún no conozco!")
+ 
+#' Incorporemos los meetups pasados
+
+meetups <- meetups %>% 
+  mutate(fecha_en_formato_fecha = paste(dia, mes, año)) %>% 
+  mutate(fecha_en_formato_fecha = as.Date(fecha_en_formato_fecha, "%d %b %Y")) %>% 
+  arrange(fecha_en_formato_fecha)
   
+for(fila in seq(nrow(meetups))){
+  fecha <- meetups[fila, "fecha_en_formato_fecha"]
+  plot <- plot %>% mjs_add_marker(fecha, sprintf("M%s", fila))
+}
+  
+plot
+
 crecimiento_diario <- lm(integrantes ~ se_unio_al_grupo_el_date, data = t)
 
 tidy(crecimiento_diario)
 
-#' Ahora veamos el nivel autoevaluado
-respuestas <- data$como_encontraste_este_grupo
+
+#' ## Nuestro Nivel
+
+respuestas <- data$a_que_nivel_manejas_r
 
 head(respuestas)
 
@@ -122,13 +145,16 @@ t <- TermDocumentMatrix(corpus) %>%
   tbl_df() %>%
   arrange(desc(freq))
 
+#' Haremos el gráfico usando la librería `rcdimple`
+
 t %>% 
   filter(freq > 2) %>%
   dimple(x ="word", y = "freq", type = "bar") %>%
-  add_title(html = "<h4>Palabras más comunes entre las respuesta de como encontraron al grupo</h4>")
+  add_title(html = "<h4>Palabras más comunes entre las respuesta: ¿a que nivel manejas R?</h4>")
 
 
-#' Ahora estudiemos como conocimos al grupo
+#' ## Como conocimos el grupo?
+#' 
 respuestas <- data$como_encontraste_este_grupo
 
 head(respuestas)
@@ -138,7 +164,6 @@ respuestas <- respuestas %>%
   gsub("(?!')[[:punct:]]", " ", ., perl = TRUE) %>% # limpiamos caracteres de puntuación
   iconv(to = "ASCII//TRANSLIT") # removemos tildes
 
-sw <- c(stopwords(kind = "es"), "través")
 
 corpus <- Corpus(VectorSource(respuestas)) %>%
   tm_map(removePunctuation) %>%
@@ -154,4 +179,4 @@ t <- TermDocumentMatrix(corpus) %>%
   arrange(desc(freq))
 
 #' <script src="https://rawgit.com/jbkunst/d3wordcloud/master/inst/htmlwidgets/lib/d3.layout.cloud.js"></script>
-d3wordcloud(t$word, t$freq)
+d3wordcloud(t$word, t$freq, scale = "log", width = 800)

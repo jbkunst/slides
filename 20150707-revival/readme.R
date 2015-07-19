@@ -17,7 +17,7 @@
 #' Con el fin de *re*activar el grupo pretendo realizar un tipo de estudio descritivo usando... R?
 
 #' Paquetes (no librerías!) a necesitar!
-#+ warning=FALSE, message=FALSE
+#+ warning=FALSE, message=FALSE, echo=FALSE
 rm(list = ls())
 library("dplyr") # para realizar agrupaciones
 library("lubridate") # para hace agradable el trabajar con fechas
@@ -69,9 +69,10 @@ class(t) <- "data.frame"
 
 tail(t)
 
-t %>%
-  mjs_plot(x=n, y=ubicacion, width=800, height=400) %>%
-  mjs_bar()
+t %>% 
+  # filter(freq > 2) %>%
+  dimple(x ="ubicacion", y = "n", type = "bar") %>%
+  add_title(html = "<h4>Ubicación?</h4>")
 
 #' Mucha centralización!
 #'

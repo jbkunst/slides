@@ -1,5 +1,5 @@
 #' ---
-#' title: "useRChile Revival"
+#' title: "UseRChile Revival"
 #' author: "Joshua"
 #' output: 
 #'  html_document: 
@@ -8,15 +8,32 @@
 #'    keep_md: yes
 #' ---
 
-#' <style>svg { font-family: "News Cycle","Arial Narrow Bold",sans-serif;}</style>
+#' <style>svg { font-family: "News Cycle","Arial Narrow Bold",sans-serif;}
+#' .metricsgraphics {font-size: 2em}
+#' </style>
 
 #' # Introducción
 
-#' (Esto se puede ver también por [acá](https://rawgit.com/jbkunst/useRchile/master/20150707-revival/readme.html))
-#' <br>
-#' Con el fin de *re*activar el grupo pretendo realizar un tipo de estudio descritivo usando... R?
+#' Hola a todos! La idea de este documento/script/html/etc es intentar despertar al grupo, incentivar una junta,
+#' conocernos *descriptivamente*, en fin, para lo que sirva. Ha estado
+#' con muy poco movimiento nuestro grupo y ya es tiempo de moverrrrnos.
 
-#' Paquetes (no librerías!) a necesitar!
+#' Descargué los datos desde el meetup e intenté hacer algo simple con para ir calentando motores, por lo que
+#' al final de revisar este documento/script/html/etc pasará al menos un de las siguientes cosas:
+#' 
+#'   - El script lo encontrarás tan chanta/desordenado que querrás enseñarme alguno de tus tips.
+#'   - No sabrás algunas cosas y querrás que nos juntemos con unos cuantos usuarios para ver
+#'   lo que se lleva en la comunidad de R hoy en día.
+#'   - No pasará ni lo uno ni lo otro pero de todas formas te nacerá un incentivo de juntarno
+#'   para compartir ideas/conociminetos/organizar nuevas presentaciones. 
+
+#' ## Sobre este script
+#' 
+#' El script/código está [acá](https://github.com/jbkunst/useRchile/blob/master/20150707-revival/readme.R), pero estará
+#' el resultado por [aquí](https://rawgit.com/jbkunst/useRchile/master/20150707-revival/readme.html).
+#' 
+#' Los datos los descargué de la mismísima página de [meetup](http://www.meetup.com/es/useRchile/members/).
+
 #+ warning=FALSE, message=FALSE, echo=FALSE
 rm(list = ls())
 library("dplyr") # para realizar agrupaciones
@@ -28,11 +45,12 @@ library("tm") # para trabajar con las respuestas
 library("d3wordcloud") # mi paquete para hacer nubes de palabras usando d3js!
 library("printr") # esto se usa para que las tablas aparezcan en formato html cuando este script se transforma se 'compila a lo netbook' 
 
+#' # Veamos que nos puede decir los datos
 
-#' # Lectura de Datos
+#' ## Lectura de Datos
 
 #' Leer el archivo
-data <- read.table("useRchile_Member_List_on_07-07-15.txt",
+data <- read.table("useRchile_Member_List_on_07-20-15.txt",
                    sep = "\t", fileEncoding = "UTF-8", header = TRUE,
                    stringsAsFactors = FALSE)
 
@@ -52,20 +70,16 @@ names(data) <- names(data) %>% # seleccionamos los nombres
 head(data[,1:5])
 
 
-#' # Análisis Descriptivo
- 
-#' ## De donde somos?
+#' ## De donde (decimos que) somos?
 #' 
-#' Para esta parte agrupamos y obtenemos conteos usando las funciones del paquete `dplyr` y graficamos con el paquete `metricsgraphics` 
-#' (wrapper de la librería de javascript metricsgraphics).
+#' Para esta parte agrupamos y obtenemos conteos usando las funciones del paquete `dplyr` y graficamos con el paquete `rcdimple` 
+#' (wrapper de la librería de javascript dimple).
 
 t <- data %>% 
   group_by(ubicacion) %>% 
   summarise(n = n()) %>% 
   arrange(desc(n)) %>% # los ordenos segun tamaño para que al realizar el 'factor' queden ordenados y plotearlos
   mutate(ubicacion = factor(ubicacion, levels = ubicacion))
-
-class(t) <- "data.frame"
 
 tail(t)
 
@@ -76,7 +90,7 @@ t %>%
 
 #' Mucha centralización!
 #'
-#' ## Fechas de incoropraciones 
+#' ## ¿Qué tan rápido crecemos?
 #' 
 #' Con la fecha de cuando nos hemos integrado podemos ver a que ritmo crecemos como grupo :).
 
@@ -120,7 +134,7 @@ crecimiento_diario <- lm(integrantes ~ se_unio_al_grupo_el_date, data = t)
 tidy(crecimiento_diario)
 
 
-#' ## Nuestro Nivel
+#' ## Nuestro (autoevaluado) Nivel
 
 respuestas <- data$a_que_nivel_manejas_r
 
@@ -181,3 +195,10 @@ t <- TermDocumentMatrix(corpus) %>%
 
 #' <script src="https://rawgit.com/jbkunst/d3wordcloud/master/inst/htmlwidgets/lib/d3.layout.cloud.js"></script>
 d3wordcloud(t$word, t$freq, scale = "log", width = 800)
+
+#' # Conclusión!
+#' 
+#' Espero que esto incentive una respuesta :D y partamos reuniéndonos 
+#' para programar unas presentaciones, discusiones, etc, les parece?
+#' 
+#' Nos vemos!

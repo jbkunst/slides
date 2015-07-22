@@ -1,7 +1,7 @@
 # Que nos dice la encuesta!
 Antes de partir:   
 - Una buena fuente para ver opciones de ggplot2 están en este este [post](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/))   
-- El script [aca](https://github.com/jbkunst/useRchile/blob/master/20150821-encuesta/readme.R) y link para verlo [aqui](https://rawgit.com/jbkunst/useRchile/master/20150821-encuesta/readme.html).   
+- El script [aca](https://github.com/jbkunst/useRchile/blob/master/20150721-encuesta/readme.R) y link para verlo [aqui](https://rawgit.com/jbkunst/useRchile/master/20150721-encuesta/readme.html).   
 - Esta no es la única (y quizás tampoco la mejor) forma de hacerlo, si alguen se anima con probar otro paquete para analizar los datos sería ideal.
 
 
@@ -28,7 +28,7 @@ conteo oficial!
 
 ```r
 message(nrow(encuesta), " encuestados al ", Sys.Date(), Sys.time())
-> 43 encuestados al 2015-07-222015-07-22 15:49:36
+> 43 encuestados al 2015-07-222015-07-22 15:54:23
 
 names(encuesta) <- c("tiempo", "actividad", "rubro", "agendar", "lugar", "dia")
 
@@ -315,5 +315,5 @@ ggplot(encuestaxp) +
 ---
 title: "readme.R"
 author: "jkunst"
-date: "Wed Jul 22 15:49:34 2015"
+date: "Wed Jul 22 15:54:15 2015"
 ---

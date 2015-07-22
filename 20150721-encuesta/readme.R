@@ -9,7 +9,7 @@
 
 #' Antes de partir:   
 #' - Una buena fuente para ver opciones de ggplot2 están en este este [post](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/))   
-#' - El script [aca](https://github.com/jbkunst/useRchile/blob/master/20150821-encuesta/readme.R) y link para verlo [aqui](https://rawgit.com/jbkunst/useRchile/master/20150821-encuesta/readme.html).   
+#' - El script [aca](https://github.com/jbkunst/useRchile/blob/master/20150721-encuesta/readme.R) y link para verlo [aqui](https://rawgit.com/jbkunst/useRchile/master/20150721-encuesta/readme.html).   
 #' - Esta no es la única (y quizás tampoco la mejor) forma de hacerlo, si alguen se anima con probar otro paquete para analizar los datos sería ideal.
 
 #+ echo=FALSE, messages=FALSE, warning=FALSE

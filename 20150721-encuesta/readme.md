@@ -1,13 +1,12 @@
 # Que nos dice la encuesta!
 Antes de partir:   
-- Una buena fuente para ver opciones de ggplot2 están en este este [post](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/))   
+- Una buena fuente para ver opciones de ggplot2 están en este este [post](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/).   
 - El script [aca](https://github.com/jbkunst/useRchile/blob/master/20150721-encuesta/readme.R) y link para verlo [aqui](https://rawgit.com/jbkunst/useRchile/master/20150721-encuesta/readme.html).   
 - Esta no es la única (y quizás tampoco la mejor) forma de hacerlo, si alguen se anima con probar otro paquete para analizar los datos sería ideal.
 
 
 
-Me alegro que harta gente (sí, para mi 30 personas es muucho!) haya 
-contestado el formulario.
+Me alegro que mucha gente (sí, para mi 40 personas es muucho!) contestó el formulario.
 
 Los datos los los puedes ver en este [lonk](https://docs.google.com/spreadsheets/d/1WeZA4rnkoHgKvGkeJY0h2ec9__kzkKlF5cW89BR6p6s/pub?gid=675352622&single=true&output=csv).
 
@@ -28,7 +27,7 @@ conteo oficial!
 
 ```r
 message(nrow(encuesta), " encuestados al ", Sys.Date(), Sys.time())
-> 43 encuestados al 2015-07-222015-07-22 15:54:23
+> 43 encuestados al 2015-07-222015-07-22 17:11:19
 
 names(encuesta) <- c("tiempo", "actividad", "rubro", "agendar", "lugar", "dia")
 
@@ -40,13 +39,13 @@ encuesta[1:5,]
 
 
 
-actividad                                                   rubro                         agendar          lugar                                                                                                 dia            id
-----------------------------------------------------------  ----------------------------  ---------------  ----------------------------------------------------------------------------------------------------  ------------  ---
-De conversación, compartir ideas, (su rato ameno)           independiente                 Más de un mes?   Santiago Centro                                                                                       Sábado          1
-Aprendizaje con videotutoriales que apunten a un proyecto   Ciencias (Bio/Quim/Fis/Mat)   Más de un mes?   Soy de Perú.  Normalmente en casa o Universidad pero  con la laptop para cualquier videoconferencia   Sábado          2
-De aprendizaje como presentaciones                          Financiero/Negocios           2 semanas más    Santiago Centro                                                                                       Día Laboral     3
-De aprendizaje como presentaciones                          SIG                           1 semana más     Santiago Oriente (Providencia)                                                                        Día Laboral     4
-De conversación, compartir ideas, (su rato ameno)           Financiero/Negocios           1 semana más     Las Condes, Santiago                                                                                  Sábado          5
+|actividad                                                 |rubro                       |agendar        |lugar                                                                                               |dia         | id|
+|:---------------------------------------------------------|:---------------------------|:--------------|:---------------------------------------------------------------------------------------------------|:-----------|--:|
+|De conversación, compartir ideas, (su rato ameno)         |independiente               |Más de un mes? |Santiago Centro                                                                                     |Sábado      |  1|
+|Aprendizaje con videotutoriales que apunten a un proyecto |Ciencias (Bio/Quim/Fis/Mat) |Más de un mes? |Soy de Perú.  Normalmente en casa o Universidad pero  con la laptop para cualquier videoconferencia |Sábado      |  2|
+|De aprendizaje como presentaciones                        |Financiero/Negocios         |2 semanas más  |Santiago Centro                                                                                     |Día Laboral |  3|
+|De aprendizaje como presentaciones                        |SIG                         |1 semana más   |Santiago Oriente (Providencia)                                                                      |Día Laboral |  4|
+|De conversación, compartir ideas, (su rato ameno)         |Financiero/Negocios         |1 semana más   |Las Condes, Santiago                                                                                |Sábado      |  5|
 
 Procederemos a reducir el texto de las respuesta:
 
@@ -147,9 +146,9 @@ encuesta %>% filter(id == 1)
 
 
 
-actividad      rubro   agendar          lugar    dia       id
--------------  ------  ---------------  -------  -------  ---
-Conversación   Otra    Más de un mes?   Centro   Sábado     1
+|actividad    |rubro |agendar        |lugar  |dia    | id|
+|:------------|:-----|:--------------|:------|:------|--:|
+|Conversación |Otra  |Más de un mes? |Centro |Sábado |  1|
 
 Con esto
 
@@ -160,13 +159,13 @@ encuesta2 %>% filter(id == 1)
 
 
 
- id  pregunta    respuesta      
----  ----------  ---------------
-  1  actividad   Conversación   
-  1  rubro       Otra           
-  1  agendar     Más de un mes? 
-  1  lugar       Centro         
-  1  dia         Sábado         
+| id|pregunta  |respuesta      |
+|--:|:---------|:--------------|
+|  1|actividad |Conversación   |
+|  1|rubro     |Otra           |
+|  1|agendar   |Más de un mes? |
+|  1|lugar     |Centro         |
+|  1|dia       |Sábado         |
 
 ```r
 ggplot(encuesta2) +
@@ -228,14 +227,14 @@ head(encuesta3)
 
 
 
-actividad      rubro            conteo
--------------  --------------  -------
-Conversación   Ciencias              1
-Conversación   Financiero            2
-Conversación   Investigación         2
-Conversación   Otra                  3
-Mail           Investigación         2
-Mail           Otra                  1
+|actividad    |rubro         | conteo|
+|:------------|:-------------|------:|
+|Conversación |Ciencias      |      1|
+|Conversación |Financiero    |      2|
+|Conversación |Investigación |      2|
+|Conversación |Otra          |      3|
+|Mail         |Investigación |      2|
+|Mail         |Otra          |      1|
 
 ```r
 
@@ -278,14 +277,14 @@ head(encuesta_pos)
 
 
 
-respuesta        pregunta     respuesta_value   pregunta_value   conteo
----------------  ----------  ----------------  ---------------  -------
-Conversación     actividad              0.125                1        8
-Proyecto         actividad              0.375                1       14
-Presentaciones   actividad              0.625                1       18
-Mail             actividad              0.875                1        3
-Otra             rubro                  0.125                2       12
-Ciencias         rubro                  0.375                2        5
+|respuesta      |pregunta  | respuesta_value| pregunta_value| conteo|
+|:--------------|:---------|---------------:|--------------:|------:|
+|Conversación   |actividad |           0.125|              1|      8|
+|Proyecto       |actividad |           0.375|              1|     14|
+|Presentaciones |actividad |           0.625|              1|     18|
+|Mail           |actividad |           0.875|              1|      3|
+|Otra           |rubro     |           0.125|              2|     12|
+|Ciencias       |rubro     |           0.375|              2|      5|
 
 ```r
 
@@ -315,5 +314,5 @@ ggplot(encuestaxp) +
 ---
 title: "readme.R"
 author: "jkunst"
-date: "Wed Jul 22 15:54:15 2015"
+date: "Wed Jul 22 17:11:17 2015"
 ---

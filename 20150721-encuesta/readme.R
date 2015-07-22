@@ -8,13 +8,13 @@
 #' ---
 
 #' Antes de partir:   
-#' - Una buena fuente para ver opciones de ggplot2 están en este este [post](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/))   
+#' - Una buena fuente para ver opciones de ggplot2 están en este este [post](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/).   
 #' - El script [aca](https://github.com/jbkunst/useRchile/blob/master/20150721-encuesta/readme.R) y link para verlo [aqui](https://rawgit.com/jbkunst/useRchile/master/20150721-encuesta/readme.html).   
 #' - Esta no es la única (y quizás tampoco la mejor) forma de hacerlo, si alguen se anima con probar otro paquete para analizar los datos sería ideal.
 
 #+ echo=FALSE, messages=FALSE, warning=FALSE
 rm(list = ls())
-options(stringsAsFactors = FALSE)
+options(stringsAsFactors = FALSE, digits = 3, knitr.table.format = "markdown")
 suppressPackageStartupMessages(library("RCurl"))
 suppressPackageStartupMessages(library("dplyr"))
 library("tidyr")
@@ -39,8 +39,7 @@ update_geom_defaults("bar", list(fill = "#7cb5ec"))
 update_geom_defaults("text", list(size = 4, colour = "gray30"))
 
 
-#' Me alegro que harta gente (sí, para mi 30 personas es muucho!) haya 
-#' contestado el formulario.
+#' Me alegro que mucha gente (sí, para mi 40 personas es muucho!) contestó el formulario.
 #' 
 #' Los datos los los puedes ver en este [lonk](https://docs.google.com/spreadsheets/d/1WeZA4rnkoHgKvGkeJY0h2ec9__kzkKlF5cW89BR6p6s/pub?gid=675352622&single=true&output=csv).
 

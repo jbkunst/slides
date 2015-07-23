@@ -16,6 +16,7 @@
 rm(list = ls())
 options(stringsAsFactors = FALSE, digits = 3, knitr.table.format = "markdown")
 suppressPackageStartupMessages(library("RCurl"))
+suppressPackageStartupMessages(library("plyr"))
 suppressPackageStartupMessages(library("dplyr"))
 library("tidyr")
 library("ggplot2")
@@ -176,8 +177,9 @@ ggplot(encuesta3, aes(actividad, rubro)) +
 #' Eso es una suerte de *parallel set*, cada linea es uno de nosotros. El tamaño de cada círculo
 #' es proporcional al tamaño de la gente que repondió dicha alternativa.
 
-encuesta_pos <- plyr::ldply(names(encuesta)[-ncol(encuesta)], function(col){
-  respuesta <- unique(encuesta[[col]])
+encuesta_pos <- ldply(names(encuesta)[-ncol(encuesta)], function(col){
+  # col <- sample(names(encuesta), size = 1)
+  respuesta <- encuesta[[col]] %>% table() %>% sort() %>% names()
   df_aux <- data_frame(respuesta,
                        pregunta = col,
                        respuesta_value = (seq(length(respuesta)) - 0.5)/length(respuesta),

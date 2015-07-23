@@ -27,7 +27,7 @@ conteo oficial!
 
 ```r
 message(nrow(encuesta), " encuestados al ", Sys.Date(), Sys.time())
-> 43 encuestados al 2015-07-222015-07-22 17:11:19
+> 44 encuestados al 2015-07-222015-07-22 21:54:19
 
 names(encuesta) <- c("tiempo", "actividad", "rubro", "agendar", "lugar", "dia")
 
@@ -257,8 +257,9 @@ es proporcional al tamaño de la gente que repondió dicha alternativa.
 
 
 ```r
-encuesta_pos <- plyr::ldply(names(encuesta)[-ncol(encuesta)], function(col){
-  respuesta <- unique(encuesta[[col]])
+encuesta_pos <- ldply(names(encuesta)[-ncol(encuesta)], function(col){
+  # col <- sample(names(encuesta), size = 1)
+  respuesta <- encuesta[[col]] %>% table() %>% sort() %>% names()
   df_aux <- data_frame(respuesta,
                        pregunta = col,
                        respuesta_value = (seq(length(respuesta)) - 0.5)/length(respuesta),
@@ -279,12 +280,12 @@ head(encuesta_pos)
 
 |respuesta      |pregunta  | respuesta_value| pregunta_value| conteo|
 |:--------------|:---------|---------------:|--------------:|------:|
-|Conversación   |actividad |           0.125|              1|      8|
-|Proyecto       |actividad |           0.375|              1|     14|
-|Presentaciones |actividad |           0.625|              1|     18|
-|Mail           |actividad |           0.875|              1|      3|
-|Otra           |rubro     |           0.125|              2|     12|
-|Ciencias       |rubro     |           0.375|              2|      5|
+|Mail           |actividad |           0.125|              1|      3|
+|Conversación   |actividad |           0.375|              1|      8|
+|Proyecto       |actividad |           0.625|              1|     14|
+|Presentaciones |actividad |           0.875|              1|     19|
+|Ciencias       |rubro     |           0.125|              2|      5|
+|Otra           |rubro     |           0.375|              2|     12|
 
 ```r
 
@@ -313,6 +314,6 @@ ggplot(encuestaxp) +
 
 ---
 title: "readme.R"
-author: "jkunst"
-date: "Wed Jul 22 17:11:17 2015"
+author: "Joshua K"
+date: "Wed Jul 22 21:54:16 2015"
 ---

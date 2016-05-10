@@ -1,0 +1,199 @@
+---
+title       : ¿Que podemos hacer con R?
+subtitle    : Una breve introducción desde un punto de vista subjetivo
+author      : Joshua Kunst
+job         : Otra usuario más de R
+date        : Sáb 11 Mayo 2013
+logo        : logo_small.png
+biglogo     : mgm.jpg
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+
+
+---
+## Aclaración
+<br>
+Las opiniones vertidas en esta presentación son de exclusiva responsabilidad del autor de esta
+y representan necesariamente el pensamiento del mismo.
+
+```{r setup, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(googleVis)
+library(rCharts)
+library(rNVD3)
+data('tips', package = 'reshape2')
+```
+
+
+
+---  bg:white
+## Agenda
+<br>
+
+> 1. Lo básico
+
+> 2. Lo no tan básico
+
+> 3. Lo quizás avanzado
+
+> 4. Donde podemos ver R en acción?
+
+---  
+## Lo Básico I
+<br>
+
+#### Alguien dijo sumar? (menos mal!)
+
+```{r}
+5 + 5 
+```
+
+#### Alguien dijo vectores? (yeah!)
+
+```{r}
+v <- c(1,2,3)
+t <- seq(1,7, by = 3)
+v*t
+```
+
+
+---  
+## Lo Básico II
+<br>
+####  Creación de tablas? (obvio! como no?)
+
+```{r tidy=FALSE}
+tabla <- data.frame(columna1 = c("hola", "que", "hace?"),
+                    otra_columna = c(3,4,5))
+str(tabla)
+```
+
+####  Lectura de datos? (obvio! * obvio!)<br>
+Distintas tipos de fuentes, texto, excel, motores de bases de datos como myslq, etc! ;)
+
+
+---  
+## Lo Básico III
+<br>
+#### Gráficos! (mmm...)
+```{r tidy=FALSE, fig.height=4, fig.align='center'}
+x <- 1:10
+y <- x^2 + rnorm(length(x))
+plot(x, y)
+```
+
+
+
+---  
+## Lo no tan básico I
+<br>
+#### Más gráficos con ayuda de [***ggplot2***](http://ggplot2.org/) (muy fome el anteior)
+```{r echo=FALSE, message=FALSE}
+data(diamonds)
+```
+```{r, fig.height=4, fig.align='center', message=FALSE}
+ggplot(data=diamonds) + geom_point(aes(x=carat, y=price, color=price, shape= cut)) + geom_smooth(aes(x=carat, y=price)) + facet_wrap(~color)
+```
+
+
+---  
+## Lo no tan básico II
+<br>
+#### Reportería, o esta presentacón!
+
+
+---  
+## Quizás lo avanzado I
+<br>
+#### Y más gráficos con auspicio de [googleVis](http://code.google.com/p/google-motion-charts-with-r) (por que no html?)
+```{r echo=TRUE, message=FALSE}
+M <- gvisMotionChart(Fruits, 'Fruit', 'Year', options=list(width=500, height=300))
+```
+```{r, echo=FALSE, results='asis'}
+print(M, 'chart')
+```
+
+
+
+---  
+## Quizás lo avanzado II
+<br>
+#### Más más gráficos con [rNVD3](https://github.com/ramnathv/rNVD3) (por que no más html?)
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v2.min.js"></script>
+<script src="http://nvd3.org/nv.d3.js"></script>
+<script src="http://nvd3.org/lib/fisheye.js"></script>
+<script src="http://raw.github.com/novus/nvd3/master/src/models/scatterPlusLineChart.js"></script>
+  
+
+```{r echo=TRUE, results='asis', message=FALSE, tidy=FALSE}
+bar <- nvd3Plot( ~ day | sex, data = tips, type = 'multiBarChart', width=800, height=300)
+```
+
+
+```{r echo=FALSE, results='asis', message=FALSE, tidy=FALSE}
+bar <- nvd3Plot( ~ day | sex, data = tips, type = 'multiBarChart', width=800, height=300)
+bar$printChart('barChart')
+```
+
+---  
+## Quizás lo avanzado III
+<br>
+#### Lo que está de moda, crear aplicaciones web con shiny
+<br>
+
+##### 1. [Dónde nos juntamos?](http://jean-robert.github.io/metro.html)
+<br>
+
+##### 2. [Creacion de documentos](http://glimmer.rstudio.com/ropensci/knitr/)
+<br>
+
+##### 2. [Que se ve mas en la TV?](http://glimmer.rstudio.com/pssguy/TVShowRatings/)
+<br>
+
+
+---  
+## Ya, y? Que más?
+ 
+
+
+
+---  
+## Textmining con tinte de SNA
+![](assets/img/network1.png)
+<br>
+[An Example of Social Network Analysis with R using Package igraph](http://rdatamining.wordpress.com/2012/05/17/an-example-of-social-network-analysis-with-r-using-package-igraph/)
+
+
+
+--- 
+## Simulacion de Enjambres
+![](assets/img/2015-05-10-Swarming1.gif)
+<br>
+[Spatial Critter Swarming Simulation](http://www.econometricsbysimulation.com/2013/05/spatial-critter-swarming-simulation.html)
+
+
+
+---  
+## Analisis Espacial en geografía
+![](assets/img/plotmap2.png)
+<br>
+[A brief script geographical data analysis r](http://jkunst.com/post/brief-script-geographical-data-analysis-r/)
+
+
+---  
+## Se pueden realizar varias cosas, no?
+
+
+---  
+## Referencias
+<br>
+ 1. [Knitr](http://yihui.name/knitr/), Elegant, flexible and fast dynamic report generation with R; Yihui Xie.
+ 2. [Slidify](http://ramnathv.github.io/slidify/); Stunning presentations from Markonw; Ramnath Vaidyanathan.
+ 3. [Ggplot2](http://ggplot2.org/); An implementation of the Grammar of Graphics; Hadley Wickham
+
+

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>¿Que podemos hacer con R?</title>
+  <meta charset="utf-8">
+  <meta name="description" content="¿Que podemos hacer con R?">
+  <meta name="author" content="Joshua Kunst">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+  
+     <!-- LOGO SLIDE -->
+    <slide  style="background:black";>
+      <article class="flexbox vcenter">
+        
+      </article>
+    </slide>
+    <!-- END LOGO SLIDE -->
+    
+   <!-- LOGO SLIDE -->
+    <slide  style="background:black";>
+      <article class="flexbox vcenter">
+        <span>
+          <img width='400px' src="assets/img/mgm.jpg">
+        </span>
+      </article>
+    </slide>
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="assets/img/logo_small.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>¿Que podemos hacer con R?</h1>
+        <h2>Una breve introducción desde un punto de vista subjetivo</h2>
+        <p>Joshua Kunst<br/>Otra usuario más de R</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Aclaración</h2>
+  </hgroup>
+  <article>
+    <p><br>
+Las opiniones vertidas en esta presentación son de exclusiva responsabilidad del autor de esta
+y representan necesariamente el pensamiento del mismo.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:white;">
+  <hgroup>
+    <h2>Agenda</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<ol class = "build">
+<li><p>Lo básico</p></li>
+<li><p>Lo no tan básico</p></li>
+<li><p>Lo quizás avanzado</p></li>
+<li><p>Donde podemos ver R en acción?</p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Lo Básico I</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<h4>Alguien dijo sumar? (menos mal!)</h4>
+
+<pre><code class="r">5 + 5
+</code></pre>
+
+<pre><code>## [1] 10
+</code></pre>
+
+<h4>Alguien dijo vectores? (yeah!)</h4>
+
+<pre><code class="r">v &lt;- c(1, 2, 3)
+t &lt;- seq(1, 7, by = 3)
+v * t
+</code></pre>
+
+<pre><code>## [1]  1  8 21
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Lo Básico II</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<h4>Creación de tablas? (obvio! como no?)</h4>
+
+<pre><code class="r">tabla &lt;- data.frame(columna1 = c(&quot;hola&quot;, &quot;que&quot;, &quot;hace?&quot;),
+                    otra_columna = c(3,4,5))
+str(tabla)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    3 obs. of  2 variables:
+##  $ columna1    : Factor w/ 3 levels &quot;hace?&quot;,&quot;hola&quot;,..: 2 3 1
+##  $ otra_columna: num  3 4 5
+</code></pre>
+
+<h4>Lectura de datos? (obvio! * obvio!)<br></h4>
+
+<p>Distintas tipos de fuentes, texto, excel, motores de bases de datos como myslq, etc! ;)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Lo Básico III</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<h4>Gráficos! (mmm...)</h4>
+
+<pre><code class="r">x &lt;- 1:10
+y &lt;- x^2 + rnorm(length(x))
+plot(x, y)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Lo no tan básico I</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<h4>Más gráficos con ayuda de <a href="http://ggplot2.org/"><strong><em>ggplot2</em></strong></a> (muy fome el anteior)</h4>
+
+<pre><code class="r">ggplot(data = diamonds) + geom_point(aes(x = carat, y = price, color = price, 
+    shape = cut)) + geom_smooth(aes(x = carat, y = price)) + facet_wrap(~color)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Lo no tan básico II</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<h4>Reportería, o esta presentacón!</h4>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Quizás lo avanzado I</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<h4>Y más gráficos con auspicio de <a href="http://code.google.com/p/google-motion-charts-with-r">googleVis</a> (por que no html?)</h4>
+
+<pre><code class="r">M &lt;- gvisMotionChart(Fruits, &quot;Fruit&quot;, &quot;Year&quot;, options = list(width = 500, height = 300))
+</code></pre>
+
+<!-- MotionChart generated in R 3.0.0 by googleVis 0.4.2 package -->
+
+<!-- Sat May 11 11:44:24 2013 -->
+
+<!-- jsHeader -->
+
+<script type="text/javascript">
+ 
+// jsData 
+function gvisDataMotionChartID15345ab54198 () {
+  var data = new google.visualization.DataTable();
+  var datajson =
+[
+ [
+ "Apples",
+2008,
+"West",
+98,
+78,
+20,
+"2008-12-31" 
+],
+[
+ "Apples",
+2009,
+"West",
+111,
+79,
+32,
+"2009-12-31" 
+],
+[
+ "Apples",
+2010,
+"West",
+89,
+76,
+13,
+"2010-12-31" 
+],
+[
+ "Oranges",
+2008,
+"East",
+96,
+81,
+15,
+"2008-12-31" 
+],
+[
+ "Bananas",
+2008,
+"East",
+85,
+76,
+9,
+"2008-12-31" 
+],
+[
+ "Oranges",
+2009,
+"East",
+93,
+80,
+13,
+"2009-12-31" 
+],
+[
+ "Bananas",
+2009,
+"East",
+94,
+78,
+16,
+"2009-12-31" 
+],
+[
+ "Oranges",
+2010,
+"East",
+98,
+91,
+7,
+"2010-12-31" 
+],
+[
+ "Bananas",
+2010,
+"East",
+81,
+71,
+10,
+"2010-12-31" 
+] 
+];
+data.addColumn('string','Fruit');
+data.addColumn('number','Year');
+data.addColumn('string','Location');
+data.addColumn('number','Sales');
+data.addColumn('number','Expenses');
+data.addColumn('number','Profit');
+data.addColumn('string','Date');
+data.addRows(datajson);
+return(data);
+}
+ 
+// jsDrawChart
+function drawChartMotionChartID15345ab54198() {
+  var data = gvisDataMotionChartID15345ab54198();
+  var options = {};
+options["width"] =    500;
+options["height"] =    300;
+
+     var chart = new google.visualization.MotionChart(
+       document.getElementById('MotionChartID15345ab54198')
+     );
+     chart.draw(data,options);
+    
+
+}
+  
+ 
+// jsDisplayChart
+(function() {
+  var pkgs = window.__gvisPackages = window.__gvisPackages || [];
+  var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
+  var chartid = "motionchart";
+
+  // Manually see if chartid is in pkgs (not all browsers support Array.indexOf)
+  var i, newPackage = true;
+  for (i = 0; newPackage && i < pkgs.length; i++) {
+    if (pkgs[i] === chartid)
+      newPackage = false;
+  }
+  if (newPackage)
+    pkgs.push(chartid);
+
+  // Add the drawChart function to the global list of callbacks
+  callbacks.push(drawChartMotionChartID15345ab54198);
+})();
+function displayChartMotionChartID15345ab54198() {
+  var pkgs = window.__gvisPackages = window.__gvisPackages || [];
+  var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
+  window.clearTimeout(window.__gvisLoad);
+  // The timeout is set to 100 because otherwise the container div we are
+  // targeting might not be part of the document yet
+  window.__gvisLoad = setTimeout(function() {
+    var pkgCount = pkgs.length;
+    google.load("visualization", "1", { packages:pkgs, callback: function() {
+      if (pkgCount != pkgs.length) {
+        // Race condition where another setTimeout call snuck in after us; if
+        // that call added a package, we must not shift its callback
+        return;
+      }
+      while (callbacks.length > 0)
+        callbacks.shift()();
+    } });
+  }, 100);
+}
+ 
+// jsFooter
+ </script>
+ 
+
+<!-- jsChart -->  
+
+<script type="text/javascript" src="https://www.google.com/jsapi?callback=displayChartMotionChartID15345ab54198"></script>
+ 
+
+<!-- divChart -->
+
+<div id="MotionChartID15345ab54198"
+  style="width: 500px; height: 300px;">
+</div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Quizás lo avanzado II</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<h4>Más más gráficos con <a href="https://github.com/ramnathv/rNVD3">rNVD3</a> (por que no más html?)</h4>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script src="http://d3js.org/d3.v2.min.js"></script>
+
+<script src="http://nvd3.org/nv.d3.js"></script>
+
+<script src="http://nvd3.org/lib/fisheye.js"></script>
+
+<script src="http://raw.github.com/novus/nvd3/master/src/models/scatterPlusLineChart.js"></script>
+  
+
+<pre><code class="r">bar &lt;- nvd3Plot( ~ day | sex, data = tips, type = &#39;multiBarChart&#39;, width=800, height=300)
+</code></pre>
+
+<div id='barChart' class='nvd3Plot'></div>
+
+<script type='text/javascript'>
+    drawbarChart()
+    function drawbarChart(){  
+      var opts = {"id":"barChart","yAxis":[],"x":"day","y":"freq","group":"sex","type":"multiBarChart","width":800,"height":300},
+        data = [{"day":"Fri","sex":"Female","freq":9},{"day":"Fri","sex":"Male","freq":10},{"day":"Sat","sex":"Female","freq":28},{"day":"Sat","sex":"Male","freq":59},{"day":"Sun","sex":"Female","freq":18},{"day":"Sun","sex":"Male","freq":58},{"day":"Thur","sex":"Female","freq":32},{"day":"Thur","sex":"Male","freq":30}]
+  
+      var data = d3.nest()
+        .key(function(d){
+          return opts.group === undefined ? 'main' : d[opts.group]
+        })
+        .entries(data)
+      
+      nv.addGraph(function() {
+        var chart = nv.models[opts.type]()
+          .x(function(d) { return d[opts.x] })
+          .y(function(d) { return d[opts.y] })
+          .width(opts.width)
+          .height(opts.height)
+         
+        
+          
+        
+        
+        
+      
+       d3.select("#" + opts.id)
+        .append('svg')
+        .datum(data)
+        .transition().duration(500)
+        .call(chart);
+
+       nv.utils.windowResize(chart.update);
+       return chart;
+      });
+    };
+</script>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Quizás lo avanzado III</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<h4>Lo que está de moda, crear aplicaciones web con shiny</h4>
+
+<p><br></p>
+
+<h5>1. <a href="http://jean-robert.github.io/metro.html">Dónde nos juntamos?</a></h5>
+
+<p><br></p>
+
+<h5>2. <a href="http://glimmer.rstudio.com/ropensci/knitr/">Creacion de documentos</a></h5>
+
+<p><br></p>
+
+<h5>2. <a href="http://glimmer.rstudio.com/pssguy/TVShowRatings/">Que se ve mas en la TV?</a></h5>
+
+<p><br></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Ya, y? Que más?</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Textmining con tinte de SNA</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/network1.png" alt="">
+<br>
+<a href="http://rdatamining.wordpress.com/2012/05/17/an-example-of-social-network-analysis-with-r-using-package-igraph/">An Example of Social Network Analysis with R using Package igraph</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Simulacion de Enjambres</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/2015-05-10-Swarming1.gif" alt="">
+<br>
+<a href="http://www.econometricsbysimulation.com/2013/05/spatial-critter-swarming-simulation.html">Spatial Critter Swarming Simulation</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Analisis Espacial en geografía</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/plotmap2.png" alt="">
+<br>
+<a href="http://jkunst.com/post/brief-script-geographical-data-analysis-r/">A brief script geographical data analysis r</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Se pueden realizar varias cosas, no?</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Referencias</h2>
+  </hgroup>
+  <article>
+    <p><br></p>
+
+<ol>
+<li><a href="http://yihui.name/knitr/">Knitr</a>, Elegant, flexible and fast dynamic report generation with R; Yihui Xie.</li>
+<li><a href="http://ramnathv.github.io/slidify/">Slidify</a>; Stunning presentations from Markonw; Ramnath Vaidyanathan.</li>
+<li><a href="http://ggplot2.org/">Ggplot2</a>; An implementation of the Grammar of Graphics; Hadley Wickham</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

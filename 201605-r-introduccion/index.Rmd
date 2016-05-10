@@ -1,0 +1,36 @@
+---
+title: false
+author: Joshua Kunst
+date: March 22, 2005
+output:
+  revealjs::revealjs_presentation:
+    css: styles.css
+    theme: night
+    controls: false
+    transition: fade
+    transitionSpeed: slow
+    mathjax: null
+---
+
+```{r setup, include=FALSE}
+source("helpers.R")
+```
+
+
+#
+
+### Intrasdaas das da
+
+## Mmm check
+
+Lorom
+
+## CSS color background {data-background=#ff0000}
+
+Ah!
+
+# Test 2
+
+## Full size image background {data-background="http://hdwallpaperia.com/wp-content/uploads/2013/11/Art-Space.jpg"}
+
+Whoa!

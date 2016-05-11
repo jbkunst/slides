@@ -1,36 +1,71 @@
 ---
-title: false
+title: <br><br>Una Gentil Introduccion a R y la Estadística
 author: Joshua Kunst
-date: March 22, 2005
+date: Mayo 2016
 output:
   revealjs::revealjs_presentation:
-    css: styles.css
-    theme: night
-    controls: false
     transition: fade
-    transitionSpeed: slow
-    mathjax: null
+    css: styles.css
+    incremental: true
+    center: false
+    theme: simple
+    reveal_options:
+      slideNumber: true
+      controls: false
 ---
 
 ```{r setup, include=FALSE}
+library("highcharter")
+options(highcharter.theme =
+          hc_theme_smpl(chart = list(
+            backgroundColor = "transparent",
+            style = list(fontFamily = "Source Sans Pro"))
+            ))
 source("helpers.R")
 ```
 
 
-#
+## Programa
 
-### Intrasdaas das da
+* Introducción a la Estadística (y con R)
+* affsdsdfs asda sasd asdf 
+* asdfasfafgsdfg sdfg sdfgdfg th rthrhfghk kfg d
+* affsdsdfs asda sasd asdf asdfasfafgsdfg sdfg sdfgdfg th rthrhfghk kfg d
 
-## Mmm check
+# Introducción Estar ori {.center}
 
-Lorom
+## Introducción Esta
 
-## CSS color background {data-background=#ff0000}
+bjn asda sdasdasda 
 
-Ah!
+* asdasd 
+* asd asd asd asd asd
 
-# Test 2
+```{r}
+"hello"
+```
+
+## Introducción Esta 2
+
+bjn asda sdasdasda 
+
+* asdasd 
+* asd asd asd asd asd
+
+```{r}
+"hello"
+```
+
+# Otro tema  {.center}
+
+## CSS color background {data-background=gray}
+
+Ah!asd asd a
 
 ## Full size image background {data-background="http://hdwallpaperia.com/wp-content/uploads/2013/11/Art-Space.jpg"}
 
-Whoa!
+Lorom
+
+```{r, echo=FALSE}
+hc_demo()
+```

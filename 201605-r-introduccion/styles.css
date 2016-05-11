@@ -1,3 +1,20 @@
-body {
-  color: red;
+.reveal section p {
+  text-align: left; 
+}
+
+.reveal section ul {
+  padding-top: 1em;
+  list-style: none;
+}
+
+.reveal section li {
+  padding-top: 0.33em;
+}
+
+.reveal section li:before {
+  content: '\b7\a0';
+}
+
+.reveal section .level1 h1 {
+  color: black;
 }

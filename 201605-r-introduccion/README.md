@@ -1,3 +1,5 @@
-# R Introducción
+# Una gentil introducción a R
 
-TBD
+Mayo 2016.
+
+https://rawgit.com/jbkunst/r-material/master/201605-r-introduccion/index.html

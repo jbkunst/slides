@@ -1,21 +1,30 @@
 ---
-title: <br><br>Una Gentil Introduccion a R y la Estadística
+title: <br><br>Una Gentil Introduccion a R<br><small>y la Estadística</small>
 author: Joshua Kunst
 date: Mayo 2016
 output:
   revealjs::revealjs_presentation:
     transition: fade
     css: styles.css
-    incremental: true
+    incremental: false
     center: false
     theme: simple
+    fig_width: 7
+    fig_height: 5
     reveal_options:
       slideNumber: true
       controls: false
+      mouseWheel: true
+      transitionSpeed: fast
+
 ---
 
 ```{r setup, include=FALSE}
 library("highcharter")
+file.remove(dir("wdgts/", full.names = TRUE))
+
+knitr::opts_chunk$set(fig.align = 'center')
+
 options(highcharter.theme =
           hc_theme_smpl(chart = list(
             backgroundColor = "transparent",
@@ -27,45 +36,113 @@ source("helpers.R")
 
 ## Programa
 
-* Introducción a la Estadística (y con R)
-* affsdsdfs asda sasd asdf 
-* asdfasfafgsdfg sdfg sdfgdfg th rthrhfghk kfg d
-* affsdsdfs asda sasd asdf asdfasfafgsdfg sdfg sdfgdfg th rthrhfghk kfg d
+* R
+    - ¿Qué es? ¿Por qué? lo bueno y lo meh y otras características
+    - Desde y Hasta
+* Programación en R
+    - Tipos de variables, asignaciones, funciones populares
+    - Lectura de datos y manipulación de datos
+    - Manos a la obra
+* Aplicación con datos Reales
+    - Esquema/Worflow
+    - TBD
 
-# Introducción Estar ori {.center}
 
-## Introducción Esta
+# R {.center data-background="https://www.r-project.org/logo/Rlogo.png"}
 
-bjn asda sdasdasda 
 
-* asdasd 
-* asd asd asd asd asd
+## FAQ
+
+> The best thing about R is that it was developed by statisticians. The worst thing about R is that ... it was developed by statisticians
+
+¿Que es? Un software *libre* para computación estadística y gráficos con cerca de 30 años
+
+¿Por qué? Un software *libre* para computación estadística y gráficos
+
+¿Lo bueno? Un lenguaje simple. Miles de *paquetes* desarrollados por la comunidad. Academia.
+
+¿Lo meh? No es lo más rápido. No posee la mejor [escalabildiad](https://es.wikipedia.org/wiki/Escalabilidad)
+
+¿A Que se parece? A otros lenguajes de programción como **python**.
+
+¿Descargas? Software: https://www.r-project.org/.  Interfaz (IDE): https://www.rstudio.com/
+
+
+##  Desde I 
+
 
 ```{r}
 "hello"
+
+1 + 3
+
+vector <- c(3, 4, 5)
+
+sum(vector)
+
 ```
 
-## Introducción Esta 2
-
-bjn asda sdasdasda 
-
-* asdasd 
-* asd asd asd asd asd
+## Desde II
 
 ```{r}
-"hello"
+barplot(c(1, 3, 2), main = "Mi primer gráfico :D")
 ```
 
-# Otro tema  {.center}
+## Hasta I
 
-## CSS color background {data-background=gray}
+```{r results='hide', message=FALSE, warning=FALSE}
+library("highcharter")
+library("rgexf")
+library("stringr")
+library("purrr")
+library("resolution")
+library("readr")
 
-Ah!asd asd a
+net <- "http://media.moviegalaxies.com/gexf/316.gexf" %>% 
+  read_lines() %>% 
+  read.gexf() %>% 
+  gexf.to.igraph()
 
-## Full size image background {data-background="http://hdwallpaperia.com/wp-content/uploads/2013/11/Art-Space.jpg"}
+V(net)$name <- str_to_title(V(net)$name)
 
-Lorom
+V(net)$label <- V(net)$name %>% 
+  str_extract_all("^\\w{2}| \\w") %>% 
+  map_chr(function(x) {
+    x %>% unlist() %>% str_c(collapse = "")
+  })
 
-```{r, echo=FALSE}
-hc_demo()
+V(net)$size <- degree(net)^2  # page.rank(net)$vector
+
+V(net)$degree <-  degree(net)
+
+cl <- cluster_resolution(net)
+
+V(net)$comm <- membership(cl)
+
+V(net)$color <- colorize_vector(V(net)$comm)
+
+hc <- hchart(net, minSize = 10, maxSize = 20)
+hc
 ```
+
+## Hasta I
+
+```{r echo=FALSE}
+hc
+```
+
+
+
+## Hasta II {data-background-iframe="https://gallery.shinyapps.io/college_explorer-master/"}
+
+* https://gallery.shinyapps.io/087-crandash/
+* https://gallery.shinyapps.io/shiny-salesman/
+* https://gallery.shinyapps.io/086-bus-dashboard/
+* https://jbkunst.shinyapps.io/cl-educ/
+
+
+# Programación en R  {.center data-background="http://www.interlace.co.nz/wp-content/uploads/2013/07/Blue-Matrix-wallpaper-1920x1200-1.jpg"}
+
+
+# Aplicación con datos Reales {.white .center data-background="https://anthropocenejournal.files.wordpress.com/2013/09/anthroposphere1254.jpg"}
+

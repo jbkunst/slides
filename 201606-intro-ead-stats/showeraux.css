@@ -1,0 +1,48 @@
+.slide {
+  padding: 50px;
+}
+
+
+div.sourceCode {
+  overflow-x: initial;
+}
+
+.slide pre code {
+  font-size: 0.7em;
+}
+
+/* tables */
+/* http://www.smashingmagazine.com/2008/08/top-10-css-table-designs/2/ */
+table {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.6em;
+  border-collapse: collapse;
+	text-align: left;
+	max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  display: block;
+  /*overflow-x:scroll;*/
+  /*white-space: pre;*/
+  overflow-x: auto;
+  word-wrap: normal;
+}
+
+table th {
+	font-weight: normal;
+	padding: 10px 8px;
+	border-bottom: 2px solid;
+}
+
+tr:hover {
+  background-color: #f3f3f3; /* just like highlight */
+}
+
+table td {
+	padding: 9px 8px 0px 8px;
+}

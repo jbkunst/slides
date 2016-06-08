@@ -203,8 +203,6 @@ ggplot(dfdist, aes(x = value)) +
 ```
 </div>
 
-
-
 ## Boxplot
 
 <div class="double">
@@ -213,7 +211,7 @@ Boxplot Un histograma es una bla bla gig asdas dasdasdasd a
 asdada sd
 </p>
 <p class="double-flow">
-<img width="80%" src="http://www.webquest.hawaii.edu/kahihi/mathdictionary/images/boxplot.png">
+<img src="http://image.mathcaptain.com/cms/images/41/box-and-whisker-plot-example.png">
 </p>
 </div>
 

@@ -3,7 +3,7 @@ title: <br><br>Estadística Descriptiva y Análisis Exploratorio de Datos</small
 author: Joshua Kunst
 output:
   rmdshower::shower_presentation:
-    self_contained: false
+    self_contained: true
     theme: material
     ratio: 16x10
     css: showeraux.css

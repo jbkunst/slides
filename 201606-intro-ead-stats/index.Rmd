@@ -76,7 +76,6 @@ dfanscombe <- dfanscombe %>%
 
 > 1. Objetivos
 > 1. Introducción
-> 1. Muestra y Población
 > 1. Tipos de Datos/Variables
 > 1. Medidas de Tendencia y Variabilidad
 > 1. Visualizaciones
@@ -90,13 +89,25 @@ dfanscombe <- dfanscombe %>%
 * Usar lo que descubrimos para refinar nuestra preguntas o elegir nuevas
 preguntas para investigar
 
-## Intro
+# Estadística Descriptiva y AED
 
-asd
+## Estadística Descriptiva y AED
 
-## Muestra y Población
+Es un conjunto de técnicas cya finalidad es entregar un entendimiento 
+básico de los datos y de las relaciones entre las variables.
 
-<img src="http://bolt.mph.ufl.edu/files/2012/07/images-intro-eda.png" class="cover">
+1. ¿Como se distribuyen los datos (concentración/variablidad)?
+1. ¿Existen sesgo en los datos recogidos?
+1. ¿Existen relaciones entre las variables?
+1. ¿Existen datos átipicos?
+
+> Escuchar lo que los datos nos hablan
+
+## { .fullpage }
+
+<div class="fullpage width">
+![worflow](https://raw.githubusercontent.com/rstudio/RStartHere/master/data-science.png)
+</div>
 
 # Tipos de Datos/Variables
 
@@ -148,7 +159,17 @@ node [shape = box, fontname = Roboto, fontsize = 10]
 
 ## Visualización
 
-Usualmente 
+Se refiere a la representación gráfica de los datos
+codificando la información o atributos como:
+
+* Posición
+* Tanmaño
+* Formas
+* Colores
+
+Al igual que las medias de resumenes, existen muchas
+formas de visualizar los datos y cada una de estas 
+posee debilidades y fortalezas.
 
 ## Ejemplo *Anscombe's Quartet*
 
@@ -156,13 +177,37 @@ Usualmente
 knitr::kable(anscombe)
 ```
 
-¿Que tienen en común los $x$, los $y$?
+## Ejemplo *Anscombe's Quartet*
+
+* ¿Que tienen en común los $x$, los $y$?
+* ¿Que media poseen cada $x$, los $y$?
+* ¿Que varianza poseen cada $x$, los $y$?
+* ¿Que correlacion poseen cada $x$, los $y$?
 
 ## Ejemplo *Anscombe's Quartet*
 
 ```{r, echo=TRUE}
 data(anscombe)
 summary(anscombe)
+```
+
+## Ejemplo *Anscombe's Quartet*
+
+```{r, echo=TRUE}
+var(anscombe$x1)
+var(anscombe$x2)
+
+var(anscombe$y2)
+var(anscombe$y4)
+```
+
+## Ejemplo *Anscombe's Quartet*
+
+```{r, echo=TRUE}
+cor(anscombe$x1, anscombe$y1)
+cor(anscombe$x2, anscombe$y2)
+cor(anscombe$x3, anscombe$y3)
+cor(anscombe$x4, anscombe$y4)
 ```
 
 ## { .fullpage }
@@ -182,8 +227,9 @@ ggplot(dfanscombe, aes(x = x, y = y)) +
 
 <div class="double">
 <p class="double-flow">
-Un histograma es una bla bla gig asdas dasdasdasd a
-asdada sd
+Representación para variables continuas en forma de barras donde cada
+barra muestra la cantidad de obseraciones que caen
+en cada intervalo definido por la misma (barra).
 </p>
 <p class="double-flow">
 <img width="80%" src="https://cloud.githubusercontent.com/assets/1775316/15851274/64162640-2c9c-11e6-9b1c-dddea14e05cc.gif">
@@ -207,8 +253,12 @@ ggplot(dfdist, aes(x = value)) +
 
 <div class="double">
 <p class="double-flow">
-Boxplot Un histograma es una bla bla gig asdas dasdasdasd a
-asdada sd
+Gráfico que muestra la posición de los máximos, mínimos,
+y cuartiles de la variable. Principalmente ayuda conocer:
+
+* Rango de la variable
+* Concentración de la variable
+* Existencia de *outiliers*
 </p>
 <p class="double-flow">
 <img src="http://image.mathcaptain.com/cms/images/41/box-and-whisker-plot-example.png">

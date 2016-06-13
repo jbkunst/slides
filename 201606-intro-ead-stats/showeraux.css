@@ -1,5 +1,6 @@
 .slide {
   padding: 50px;
+  padding-bottom: 0px;
 }
 
 
@@ -13,10 +14,18 @@ div.sourceCode {
 
 /* tables */
 /* http://www.smashingmagazine.com/2008/08/top-10-css-table-designs/2/ */
+.slide table {
+  margin: 10px;
+}
+
+.slide table tr:not(:last-of-type) > * {
+  background: transparent
+}
+
 table {
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 0.7em;
   line-height: 1.6em;
   border-collapse: collapse;
 	text-align: left;

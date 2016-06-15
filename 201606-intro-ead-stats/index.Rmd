@@ -159,21 +159,83 @@ node [shape = box, fontname = Roboto, fontsize = 10]
 
 ## Visualización
 
+<div class="double">
+<p class="double-flow">
 Se refiere a la representación gráfica de los datos
-codificando la información o atributos como:
+codificando la información o atributos como: 
+*posición*, *tamaño*, *formas*,  *colores*
+</p>
+<p class="double-flow">
+![viz](img/viz.jpg)
+</p>
+</div>
 
-* Posición
-* Tanmaño
-* Formas
-* Colores
+## { .fullpage }
 
-Al igual que las medias de resumenes, existen muchas
-formas de visualizar los datos y cada una de estas 
-posee debilidades y fortalezas.
+<div class="fullpage width">
+```{r vizex1}
+data(mpg)
+clsss <- count(mpg, class, sort = TRUE)$class[1:5]
+mpg <- mpg %>% 
+  mutate(class = ifelse(class %in% clsss, class, "other"),
+         trans2 = stringr::str_extract(trans, "\\w+")) %>% 
+  distinct(cty, displ)
+ggplot(mpg,
+       aes(x = cty, y = displ, size = cyl, color = drv, shape = trans2)) +
+  geom_point(alpha = 0.75) + 
+  scale_size() + 
+  scale_color_manual("Trans", values = highcharter::hc_theme_smpl()$colors) + 
+  labs(x = "Millas por Galón",
+       y = "Cilindrada",
+       shape = "Transmisión", 
+       color = "Tracción",
+       size = "Cilindros")
+```
+</div>
+
+## { .fullpage }
+
+<div class="fullpage width">
+```{r vizex2}
+library("igraph")
+library("rgexf")
+library("stringr")
+library("purrr")
+library("ggnetwork")
+library("readr")
+library("viridis")
+net <- "http://media.moviegalaxies.com/gexf/316.gexf" %>% 
+  read_lines() %>% 
+  read.gexf() %>% 
+  gexf.to.igraph()
+
+V(net)$name <- str_to_title(V(net)$name)
+V(net)$label <- V(net)$name %>% 
+  str_extract_all("^\\w{2}| \\w") %>% 
+  map_chr(function(x) {
+    x %>% unlist() %>% str_c(collapse = "")
+  })
+V(net)$size <- page.rank(net)$vector
+cl <- cluster_fast_greedy(net)
+V(net)$comm <- membership(cl)
+V(net)$color <- highcharter::colorize(V(net)$comm)
+
+
+# head(ggnetwork(net))
+ggplot(ggnetwork(net),
+       aes(x, y, size = size, color = factor(comm), label = label,
+           xend = xend, yend = yend)) + 
+  geom_edges(aes(size = width), color = "gray", size = 1, alpha = 0.3) +
+  geom_point() +
+  scale_color_viridis(discrete = TRUE) + 
+  theme_blank() + 
+  labs(size = "Pagerank", color = "Comunidad")
+```
+</div>
 
 ## Ejemplo *Anscombe's Quartet*
 
-```{r, results='asis'}
+```{r anscombedata, results='asis'}
 knitr::kable(anscombe)
 ```
 
@@ -182,18 +244,18 @@ knitr::kable(anscombe)
 * ¿Que tienen en común los $x$, los $y$?
 * ¿Que media poseen cada $x$, los $y$?
 * ¿Que varianza poseen cada $x$, los $y$?
-* ¿Que correlacion poseen cada $x$, los $y$?
+* ¿Que correlacion poseen cada $x$, $y$?
 
 ## Ejemplo *Anscombe's Quartet*
 
-```{r, echo=TRUE}
+```{r anscombesummary, echo=TRUE}
 data(anscombe)
 summary(anscombe)
 ```
 
 ## Ejemplo *Anscombe's Quartet*
 
-```{r, echo=TRUE}
+```{r anscombevars, echo=TRUE}
 var(anscombe$x1)
 var(anscombe$x2)
 
@@ -203,7 +265,7 @@ var(anscombe$y4)
 
 ## Ejemplo *Anscombe's Quartet*
 
-```{r, echo=TRUE}
+```{r anscombecors, echo=TRUE}
 cor(anscombe$x1, anscombe$y1)
 cor(anscombe$x2, anscombe$y2)
 cor(anscombe$x3, anscombe$y3)
@@ -213,7 +275,7 @@ cor(anscombe$x4, anscombe$y4)
 ## { .fullpage }
 
 <div class="fullpage width">
-```{r anscombe}
+```{r anscombeplot}
 ggplot(dfanscombe, aes(x = x, y = y)) + 
   geom_point(color = col1, size = 4, shape = 1) +
   geom_smooth(method = "lm", color = col2, alpha = 0.1) + 

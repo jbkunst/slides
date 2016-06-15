@@ -3,13 +3,17 @@
   padding-bottom: 0px;
 }
 
-
 div.sourceCode {
   overflow-x: initial;
 }
 
 .slide pre code {
   font-size: 0.7em;
+}
+
+/* imgs */
+img {
+  width: 100%;
 }
 
 /* tables */

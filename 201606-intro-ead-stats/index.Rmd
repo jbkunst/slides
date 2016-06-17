@@ -184,6 +184,7 @@ ggplot(mpg,
        aes(x = cty, y = displ, size = cyl, color = drv, shape = trans2)) +
   geom_point(alpha = 0.75) + 
   scale_size() + 
+  # scale_shape_manual(values = c(0 , 1)) + 
   scale_color_manual("Trans", values = highcharter::hc_theme_smpl()$colors) + 
   labs(x = "Millas por Galón",
        y = "Cilindrada",
@@ -204,7 +205,7 @@ library("purrr")
 library("ggnetwork")
 library("readr")
 library("viridis")
-net <- "http://media.moviegalaxies.com/gexf/316.gexf" %>% 
+net <- "http://media.moviegalaxies.com/gexf/92.gexf" %>% 
   read_lines() %>% 
   read.gexf() %>% 
   gexf.to.igraph()
@@ -222,6 +223,7 @@ V(net)$color <- highcharter::colorize(V(net)$comm)
 
 
 # head(ggnetwork(net))
+set.seed(123)
 ggplot(ggnetwork(net),
        aes(x, y, size = size, color = factor(comm), label = label,
            xend = xend, yend = yend)) + 
@@ -252,7 +254,6 @@ knitr::kable(anscombe)
 data(anscombe)
 summary(anscombe)
 ```
-
 ## Ejemplo *Anscombe's Quartet*
 
 ```{r anscombevars, echo=TRUE}

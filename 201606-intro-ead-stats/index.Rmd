@@ -77,9 +77,9 @@ dfanscombe <- dfanscombe %>%
 > 1. Objetivos
 > 1. Introducción
 > 1. Tipos de Datos/Variables
-> 1. Medidas de Tendencia y Variabilidad
+> 1. Medidas de tendencia Central y Dispersión
 > 1. Visualizaciones
-> 1. Acción
+> 1. Manipulación de Datos en R
 
 
 ## Objetivos
@@ -89,19 +89,23 @@ dfanscombe <- dfanscombe %>%
 * Usar lo que descubrimos para refinar nuestra preguntas o elegir nuevas
 preguntas para investigar
 
+> Escuchar lo que los datos nos hablan
+
 # Estadística Descriptiva y AED
 
 ## Estadística Descriptiva y AED
 
-Es un conjunto de técnicas cya finalidad es entregar un entendimiento 
+Es un conjunto de técnicas cuya finalidad es entregar un entendimiento 
 básico de los datos y de las relaciones entre las variables.
 
 1. ¿Como se distribuyen los datos (concentración/variablidad)?
 1. ¿Existen sesgo en los datos recogidos?
 1. ¿Existen relaciones entre las variables?
-1. ¿Existen datos átipicos?
+1. ¿Existen datos atípicos?
 
-> Escuchar lo que los datos nos hablan
+
+> En general **no** existen pasos a seguir pues depende mucho de la naturaleza/estructura
+> los datos
 
 ## { .fullpage }
 
@@ -149,11 +153,94 @@ node [shape = box, fontname = Roboto, fontsize = 10]
 ```
 </div>
 
-# Medidas de Tendencia y Variabilidad
+# Medidas de tendencia Central y Dispersión
 
-## Medidas de Tendencia y Variabilidad
+## Medidas de tendencia Central y Dispersión
+
+Son indicadores (generalmente un número) obtenidos de los datos que **resumen** información 
+y nos hablan de alguna característica de la **distribución** de la 
+variable. 
+
+## Medidas de tendencia Central
+
+Nos señalan el valor en **torno al cual se concentran** los datos. Los
+mas usado son:
+
+* Media (promedio): La suma de los datos dividido por la cantidad de los mismos.
+* Mediana: Es el valor que está al medio cuando los datos se ordenan.
+* Moda: Es el valor que más se repite. Este se usa cuando la variable es **Discreta**.
+
+## Medidas de tendencia Central en R
+
+```{r tendcentr1, echo=TRUE}
+datos <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+# media (promedio)
+mean(datos)
+
+# mediana 
+median(datos)
+```
+
+## Medidas de tendencia Central en R (2)
+
+```{r tendcentr2, echo=TRUE}
+datos <- c(0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100)
+
+# media (promedio)
+mean(datos)
+
+# mediana 
+median(datos)
+```
+
+## Medidas de tendencia Central
+
+Lo sucedido anteriormente se conoce como a la sensibilidad que
+posee la media en presencia de datos extremos.
+
+La mediana se dice que es robusta en presencia de outliers.
+
+## { .fullpage }
+
+<div class="fullpage width">
+![](http://schoolbag.info/physics/physics_math/physics_math.files/image790.jpg)
+</div>
 
 
+## Medidas de tendencia Dispersión
+
+Son valores que nos describen la dispersión de los datos. Es decir, **que tan concentrados**
+están. Los mas usados son:
+
+* Desviación estándar: Mide el grado de dispersión en torno a la media
+* Rango: Es el tamaño del intervalo que cubren los datos, el mayor valor menos el mínimo.
+
+## Medidas de tendencia Dispersión en R
+
+```{r dispr, echo=TRUE}
+datos1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+datos2 <- c(0, 1, 1, 1, 1, 10, 10, 10, 10, 11)
+
+mean(datos1)
+mean(datos2)
+
+median(datos1)
+median(datos2)
+```
+
+## Medidas de tendencia Dispersión en R (2)
+
+```{r dispr2, echo=TRUE}
+datos1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+datos2 <- c(0, 1, 1, 1, 1, 10, 10, 10, 10, 11)
+
+sd(datos1)
+sd(datos2)
+
+max(datos1) - min(datos1)
+max(datos2) - min(datos2)
+```
 
 # Visualización
 
@@ -286,6 +373,146 @@ ggplot(dfanscombe, aes(x = x, y = y)) +
 ```
 </div>
 
+# Catálogo de Visualizaciones Populares
+
+## Catálogo de Visualizaciones Populares
+
+Mostraremos visualizaciones que usualmente destancan en 
+el procedimiento exploratorio por ser de fácil lectura y así
+obtener un aprendizaje rápido de los datos. 
+
+Para los siguiente gráficos utilzaremos una tabla que describe
+el consumo y características de ciertos vehículos provenientes
+de http://fueleconomy.gov. 
+
+
+## Catálogo de Visualizaciones Populares
+
+```{r, eval = FALSE}
+install.packages("ggplot2")
+data(mpg)
+?mpg
+```
+
+```{r, echo=TRUE}
+library(ggplot2)
+mpg
+```
+
+
+## Barras
+
+<div class="double">
+<p class="double-flow">
+Gráfico para variables cualitativas o cuantitativas discretas
+con pocas categorías, representando en barra la cantidad
+de casos por categoría. Facilita.
+
+* Ver número de categorías
+* Categorías más comunes (moda)
+</p>
+<p class="double-flow">
+```{r}
+ggplot(mpg, aes(x = class)) +
+  geom_bar(fill = col1, color = col2)
+```
+
+</p>
+</div>
+
+## Barras R
+
+```{r, echo=TRUE, fig.show='hide'}
+clases <- mpg$class
+
+freq <- table(clases)
+
+freq
+
+barplot(freq)
+```
+
+## { .fullpage }
+
+<div class="fullpage width">
+```{r}
+barplot(freq)
+```
+</div>
+
+## Pie 
+
+<div class="double">
+<p class="double-flow">
+Similar al de barras. Muy popular pero
+**altamente NO recomendado**.
+
+* Se comparan áreas en lugar de longitude (X)
+* No útil en el caso de poseer muchas categorías
+* Se necesita agregar una escala de color para diferenciar
+categorías
+</p>
+<p class="double-flow">
+```{r}
+ggplot(mpg, aes(x = factor(1), fill = class)) +
+  geom_bar(width = 1) +
+  coord_polar(theta = "y") +
+  scale_fill_viridis(discrete = TRUE) +
+  theme_blank() 
+```
+
+## Pie R
+
+```{r, echo=TRUE, fig.show='hide'}
+marca <- mpg$manufacturer
+
+freq <- table(marca)
+
+freq
+
+pie(freq)
+```
+
+## { .fullpage }
+
+<div class="fullpage width">
+```{r}
+pie(freq)
+```
+</div>
+
+
+
+
+
+
+## Barras vs Pies
+
+Comparemos, discutamos.
+
+<div class="double">
+```{r}
+ggplot(mpg, aes(x = factor(manufacturer))) +
+  geom_bar(fill = viridis(10)[3], color = viridis(10)[7]) +
+  coord_flip() +
+  labs(x = "Marca")
+```
+</p>
+<p class="double-flow">
+```{r}
+ggplot(mpg, aes(x = factor(1), fill = manufacturer)) +
+  geom_bar(width = 1) +
+  coord_polar(theta = "y") +
+  scale_fill_viridis(discrete = TRUE) +
+  theme_blank() 
+```
+
+## { .fullpage }
+
+<div class="fullpage width">
+![viz](img/omgpie.gif)
+</div>
+
 ## Histograma
 
 <div class="double">
@@ -293,6 +520,10 @@ ggplot(dfanscombe, aes(x = x, y = y)) +
 Representación para variables continuas en forma de barras donde cada
 barra muestra la cantidad de obseraciones que caen
 en cada intervalo definido por la misma (barra).
+
+* Fácil de ver concentraciones
+* Da una visión general de la distribución de la variable
+
 </p>
 <p class="double-flow">
 <img width="80%" src="https://cloud.githubusercontent.com/assets/1775316/15851274/64162640-2c9c-11e6-9b1c-dddea14e05cc.gif">
@@ -312,15 +543,34 @@ ggplot(dfdist, aes(x = value)) +
 ```
 </div>
 
+## Histrograma R
+
+```{r, echo=TRUE, fig.show='hide'}
+millasgalon <- mpg$cty
+
+summary(millasgalon)
+
+hist(millasgalon)
+```
+
+## { .fullpage }
+
+<div class="fullpage width">
+```{r}
+hist(millasgalon)
+``` 
+</div>
+
+
 ## Boxplot
 
 <div class="double">
 <p class="double-flow">
 Gráfico que muestra la posición de los máximos, mínimos,
-y cuartiles de la variable. Principalmente ayuda conocer:
+y cuartiles de la variable:
 
 * Rango de la variable
-* Concentración de la variable
+* Concentración de la variable (50%)
 * Existencia de *outiliers*
 </p>
 <p class="double-flow">
@@ -340,3 +590,277 @@ ggplot(dfdist) +
   coord_flip()
 ```
 </div>
+
+## Boxplot R
+
+```{r, echo=TRUE, fig.show='hide'}
+millasgalon <- mpg$cty
+
+boxplot(millasgalon, horizontal = TRUE)
+```
+
+## { .fullpage }
+
+<div class="fullpage width">
+```{r}
+boxplot(millasgalon, horizontal = TRUE)
+``` 
+</div>
+
+## Boxplot R (2)
+
+```{r, echo=TRUE, fig.show='hide'}
+millasgalon <- mpg$cty
+
+clases <- mpg$class
+
+boxplot(millasgalon ~ clases, horizontal = TRUE)
+```
+
+## { .fullpage }
+
+<div class="fullpage width">
+```{r}
+boxplot(millasgalon ~ clases, horizontal = TRUE, , cex.axis = 0.4)
+``` 
+</div>
+
+## Scatter
+
+<div class="double">
+<p class="double-flow">
+Diagrama de puntos relacionando dos variables continuas
+en un plano.
+
+* Pueden estudiarse relaciones
+* Se puede abusar codificando colores y formas
+
+https://bl.ocks.org/nbremer/raw/eb0d1fd4118b731d069e2ff98dfadc47/
+</p>
+<p class="double-flow">
+```{r}
+ggplot(mpg, aes(x = cty, y = displ)) +
+  geom_point(color = viridis(10)[2], size = 3) + 
+  labs(x = "Rendimiento Ciudad", 
+       y = "Cilindrada")
+```
+</p>
+</div>
+
+
+## Scatter R
+
+```{r, echo=TRUE, fig.show='hide'}
+millasgalon <- mpg$cty
+
+cilindrada <- mpg$displ
+
+plot(millasgalon, cilindrada)
+```
+
+## { .fullpage }
+
+<div class="fullpage width">
+```{r}
+plot(millasgalon, cilindrada)
+``` 
+</div>
+
+
+## Treemaps
+
+<div class="double">
+<p class="double-flow">
+Diagrama que permite visualizar una *característca* 
+(media, minimo, suma) de una variable continua en jerarquías
+(dos o más variables categóricas).
+
+Permite utilizar color para agregar otra información
+</p>
+<p class="double-flow">
+<img src="http://cdn.free-power-point-templates.com/articles/wp-content/uploads/2012/08/treemaps.png">
+</p>
+</div>
+
+
+## Treemaps R
+
+```{r, eval=FALSE}
+install.packages("treemap") # una vez
+```
+
+```{r, echo=TRUE, fig.show='hide'}
+library(treemap)
+
+treemap(mpg, c("class", "model"), vSize = "cyl", fun.aggregate = "mean")
+```
+
+## { .fullpage }
+
+<div class="fullpage width">
+```{r}
+treemap(mpg, c("class", "model"), vSize = "cyl", fun.aggregate = "mean")
+``` 
+</div>
+
+## Parcoord
+
+<div class="double">
+<p class="double-flow">
+Permite visualizar data multidimensional. Cada 
+línea  representa una observación. cada observacion a través de cada
+variable
+
+Su principal característica es visualizar data multidimensional.
+
+http://bl.ocks.org/syntagmatic/raw/3150059/
+</p>
+<p class="double-flow">
+<img src="https://www.safaribooksonline.com/blog/wp-content/uploads/2014/03/fig023.png">
+</p>
+</div>
+
+
+## Parcoord R
+
+```{r, echo=TRUE, fig.show='hide'}
+library(MASS)
+
+# seleccionamos columnas con numers
+mpgnum <- mpg[, c(3, 5, 8, 9) ]
+
+head(mpgnum, 3)
+
+parcoord(mpgnum, var.label = TRUE)
+
+# existen mejores implementaciones
+```
+
+## { .fullpage }
+
+<div class="fullpage width">
+```{r}
+MASS::parcoord(mpgnum, var.label = TRUE)
+``` 
+</div>
+
+
+
+
+
+
+# Manipulación de Datos en R
+
+## Manipulación de Datos en R
+
+El `Data wrangling` se refiere a los pasos necesarios
+para obtener datos ordenados/bien definidos a partir 
+de datos brutos.
+
+## Acciones
+
+Las funciones más utilizadas corresponde a las siguientes
+accciones:
+
+* Filtrar filas `filter`.
+* Ordenar los datos `arrange`
+* Seleecionar columnas `select`
+* Trasnformar nuevas variabes `mutate`
+* Resumir información `summarise` por grupos `group_by`
+
+## Filtrar Filas
+
+`filter` permite selccionar subconjuto de filas. Primer argumento
+son los datos, seguido por expressiones para filtras
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+select <- dplyr::select
+```
+
+
+```{r}
+library(dplyr)
+filter(mpg, manufacturer == "ford")
+```
+
+## Filtrar Filas
+
+Podemos poner más de un criterio:
+
+```{r}
+filter(mpg, year > 2000, drv == "r")
+```
+
+## Ordenar
+
+`arrange` permite ordenar las filas de acuerdo
+a columnas
+
+```{r}
+arrange(mpg, displ)
+```
+
+## Selccionar Columnas
+
+`select` ayuda a seleccionar determinadas columnas 
+de un data frame
+
+```{r}
+library(dplyr)
+select(mpg, year, class, fl)
+```
+
+## Transformar Nuevas Columnas
+
+`mutate` permite trasnformar/combiar columas en otras nuevas
+
+```{r}
+mpg2 <- select(mpg, cty, hwy)
+
+mutate(mpg2, comb = cty + hwy)
+```
+
+## Transformar Nuevas Columnas
+
+Podemos crear más de una columna a la vez
+
+```{r}
+mutate(mpg2,
+       comb = cty + hwy,
+       cty2 = 2*cty)
+
+```
+
+## Resumir Información
+
+`summarise` se utiliza junto con `group_by`
+
+```{r}
+mpgg <- group_by(mpg, class)
+summarise(mpgg, meancty = mean(cty))
+```
+
+## Resumir Información 2
+
+`summarise` se utiliza junto con `group_by`
+
+```{r}
+summarise(mpgg, meancty = mean(cty), n = n())
+```
+
+# A aplicar lo aprendido con `flights`
+
+## `flights`
+
+```{r, eval=FALSE}
+install.packages("nycflights13")
+```
+
+
+```{r}
+library(nycflights13)
+dim(flights)
+flights
+```
+

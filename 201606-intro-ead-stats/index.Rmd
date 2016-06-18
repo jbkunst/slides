@@ -3,7 +3,7 @@ title: <br><br>Estadística Descriptiva y Análisis Exploratorio de Datos</small
 author: Joshua Kunst
 output:
   rmdshower::shower_presentation:
-    self_contained: true
+    self_contained: false
     theme: material
     ratio: 16x10
     css: showeraux.css
@@ -207,7 +207,6 @@ La mediana se dice que es robusta en presencia de outliers.
 ![](http://schoolbag.info/physics/physics_math/physics_math.files/image790.jpg)
 </div>
 
-
 ## Medidas de tendencia Dispersión
 
 Son valores que nos describen la dispersión de los datos. Es decir, **que tan concentrados**
@@ -240,6 +239,33 @@ sd(datos2)
 
 max(datos1) - min(datos1)
 max(datos2) - min(datos2)
+```
+
+## Bonus: Medida de Asociación
+
+Para variables continuas se puede obtener la **correlación**
+que indica el grado de asociación lineal entre dos variables
+
+* Es un número fácil de interpretar, cercano a -1 se asocian negatiavamente,
+0: no existe asociación linea, cercano a 1 existe asociación lineal positiva (*)
+* Solamente mide asociación lineal (-)
+
+## { .fullpage }
+
+<div class="fullpage width">
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Correlation_examples2.svg/400px-Correlation_examples2.svg.png)
+</div>
+
+## Bonus: Medidas de Asociación R
+
+```{r, echo=TRUE}
+v1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+v2 <- c(5, 7, 8, 10, 13, 15, 14, 18, 19, 20)
+v3 <- c(10, -10, 5, -4, 15, -13, 0, 1, 3, -4)
+
+cor(v1, v2)
+
+cor(v1, v3)
 ```
 
 # Visualización
@@ -480,11 +506,6 @@ pie(freq)
 pie(freq)
 ```
 </div>
-
-
-
-
-
 
 ## Barras vs Pies
 
@@ -745,10 +766,6 @@ MASS::parcoord(mpgnum, var.label = TRUE)
 </div>
 
 
-
-
-
-
 # Manipulación de Datos en R
 
 ## Manipulación de Datos en R
@@ -767,6 +784,7 @@ accciones:
 * Seleecionar columnas `select`
 * Trasnformar nuevas variabes `mutate`
 * Resumir información `summarise` por grupos `group_by`
+* Consolidar, juntar información `join`
 
 ## Filtrar Filas
 
@@ -849,6 +867,33 @@ summarise(mpgg, meancty = mean(cty))
 summarise(mpgg, meancty = mean(cty), n = n())
 ```
 
+## Joins
+
+`left_join` y sus similares ayudan a juntar dos data frames
+a través de una **llave**
+ 
+ 
+```{r}
+library(nycflights13)
+data("flights")
+data("airlines")
+
+head(flights)
+
+head(airlines)
+```
+
+## Joins
+
+
+```{r}
+f1 <- select(flights, year, month, day, carrier)
+head(f1)
+
+left_join(f1, airlines, by = "carrier")
+```
+
+
 # A aplicar lo aprendido con `flights`
 
 ## `flights`
@@ -857,10 +902,15 @@ summarise(mpgg, meancty = mean(cty), n = n())
 install.packages("nycflights13")
 ```
 
-
 ```{r}
 library(nycflights13)
-dim(flights)
-flights
+data(package = "nycflights13")
 ```
+
+airlines                                         Airline names.
+airports                                         Airport metadata
+flights                                          Flights data
+planes                                           Plane metadata.
+weather                                          Hourly weather data
+
 

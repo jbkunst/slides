@@ -1,0 +1,25 @@
+---
+title: Data Viz desde un amateur <br> y lo aprendido en algunos años
+output:
+  revealjs::revealjs_presentation:
+    css: styles.css
+    transition: fade
+    mathjax: null
+---
+
+## Holas! Soy Joshua
+
+- Evangelizador de *R*
+
+- Estadístico mutante
+
+- Me gusta el `código`
+
+
+## Que vengo a contar
+
+- De mi workflow de trabajo
+
+- Recomendaciones *subjetivas*
+
+- Algunos post/viz que he realiado

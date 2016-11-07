@@ -1,4 +1,7 @@
-p {
-  text-align: left;
-  color: red;
+.reveal  {
+  font-size: 1.5em;
+}
+
+.reveal section ul {
+  padding-top: 1.0em;
 }

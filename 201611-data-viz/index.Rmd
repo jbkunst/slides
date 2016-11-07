@@ -1,10 +1,19 @@
 ---
-title: Data Viz desde un amateur <br> y lo aprendido en algunos años
+title: <br><br>Data Viz desde un amateur <br> y lo aprendido en algunos años
 output:
   revealjs::revealjs_presentation:
-    css: styles.css
-    transition: fade
     mathjax: null
+    transition: fade
+    css: styles.css
+    incremental: false
+    center: false
+    theme: simple
+    fig_width: 7
+    fig_height: 5
+    reveal_options:
+      slideNumber: true
+      controls: false
+      mouseWheel: false
 ---
 
 ## Holas! Soy Joshua
@@ -16,10 +25,27 @@ output:
 - Me gusta el `código`
 
 
-## Que vengo a contar
+## Que vengo a contar/*vender*
 
 - De mi workflow de trabajo
 
 - Recomendaciones *subjetivas*
 
-- Algunos post/viz que he realiado
+- Algunos post/viz/*One-hit wonder(s)* que he realiado
+
+## Worflow
+
+- Para todo uso R. Incluso para 
+
+## Recomendaciones
+
+- Escribir código, por que sí, y también por que no. Así aumentamos el 
+valor esperado de errores **detectados**. 
+
+- 
+
+## One-hit wonders
+
+### Que preguntamos en StackOverflow {data-background="http://jkunst.com/images/what-do-we-ask-in-stackoverflow/unnamed-chunk-9-1.png"}
+
+## Gra

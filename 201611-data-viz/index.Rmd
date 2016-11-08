@@ -10,8 +10,8 @@ output:
     incremental: true
     center: false
     theme: simple
-    fig_width: 7
-    fig_height: 5
+    fig_width: 5
+    fig_height: 4
     reveal_options:
       slideNumber: true
       controls: false
@@ -45,15 +45,17 @@ output:
 
 ## <span style="color:white">Algunos post que he escrito</span> {data-background="https://3.bp.blogspot.com/-q5j3jizOL60/VV52DuTGcaI/AAAAAAAAIUQ/ZGG6FzWp0pw/s1600/tmhnks.gif"}
 
-# ¿Qué preguntamos en Stack Overflow?
+# ¿Qué preguntamos en Stack Overflow? {.center data-background="http://tableless.com.br/wp-content/uploads/2014/01/stackoverflow-portugues.jpg"}
 
 ![SOlogo](http://www.skrenta.com/images/stackoverflow.jpg)
+
 ## Contexto
 
 > - StackOverflow (SO) es el sitio de Q&A más grande
 del universo
 > - Preguntas de código, lenguajes, etc. 
 > - Mucha información
+
 
 ## ¿Por qué? 
 
@@ -70,9 +72,21 @@ del universo
 > - Conteos de tags por años
 > - Conteos de preguntas por combinaciones de tags (2)
 
-## Visualización/Resultado
+## Ranking por año
 
 ![Ranking por año](http://jkunst.com/images/what-do-we-ask-in-stackoverflow/unnamed-chunk-9-1.png)
 
-## Visualización/Resultado
+## Relación tags/tags {data-background-iframe="http://jkunst.com/htmlwidgets/tagoverflow.html"}
 
+## Relación tags/tags vs2 
+
+![tagstags](http://jkunst.com/images/what-do-we-ask-in-stackoverflow/unnamed-chunk-19-1.png) { width: 200px; }
+
+## Moralejas
+
+![tagstags](img/fallm.png)
+
+## Moralejas
+
+> - Saber que conclusiones se pueden obtener de tus datos/viz
+> - Siempre existen alternativas para visualizar mejor lo que se desea

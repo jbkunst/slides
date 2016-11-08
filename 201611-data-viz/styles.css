@@ -1,13 +1,13 @@
 .reveal h1 {
   font-family: 'Bangers', sans-serif;
+  color: #212121;
 }
 
 .reveal h2, 
 .reveal .level2 > h1 {
-  font-family: 'Kalam', cursive;
+  font-family: 'Covered By Your Grace', cursive;
+  color: #212121;
 }
-
- 
 
 .reveal p, .reveal li {
   font-family: 'Roboto Condensed', sans-serif;
@@ -18,9 +18,8 @@
   font-style: italic;
 }
 
-
 .reveal section p {
-  text-align: left;
+  text-align: center;
   font-size: 0.75em;
 }
 
@@ -32,36 +31,3 @@
 .reveal section li {
   padding-top: 0.75em;
 }
-
-.section-title-white > h1 {
-  color: white;
-}
-
-/*
-
-
-
-
-
-.reveal section ul ul {
-  font-size: 0.8em;
-}
-
-.reveal section li:before {
-  content: '\b7\a0';
-}
-
-.reveal section h1 {
-  font-size: 1.5em;
-}
-
-.reveal section .level1 h1 {
-  font-size: 1.5em;
-   color: white;
-}
-
-.reveal section .level2 h1 {
- font-size: 1.5em;
-}
-
-*/

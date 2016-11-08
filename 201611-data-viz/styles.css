@@ -1,7 +1,67 @@
-.reveal  {
-  font-size: 1.5em;
+.reveal h1 {
+  font-family: 'Bangers', sans-serif;
+}
+
+.reveal h2, 
+.reveal .level2 > h1 {
+  font-family: 'Kalam', cursive;
+}
+
+ 
+
+.reveal p, .reveal li {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.reveal p, .reveal li > span {
+  font-size: 0.75em;
+  font-style: italic;
+}
+
+
+.reveal section p {
+  text-align: left;
+  font-size: 0.75em;
 }
 
 .reveal section ul {
-  padding-top: 1.0em;
+  padding-top: 1.75em;
+  list-style: none;
 }
+
+.reveal section li {
+  padding-top: 0.75em;
+}
+
+.section-title-white > h1 {
+  color: white;
+}
+
+/*
+
+
+
+
+
+.reveal section ul ul {
+  font-size: 0.8em;
+}
+
+.reveal section li:before {
+  content: '\b7\a0';
+}
+
+.reveal section h1 {
+  font-size: 1.5em;
+}
+
+.reveal section .level1 h1 {
+  font-size: 1.5em;
+   color: white;
+}
+
+.reveal section .level2 h1 {
+ font-size: 1.5em;
+}
+
+*/

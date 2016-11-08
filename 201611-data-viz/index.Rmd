@@ -1,11 +1,13 @@
 ---
-title: <br><br>Data Viz desde un amateur <br> y lo aprendido en algunos años
+title: '<br><br>Data Viz desde un amateur<br><small>y lo aprendido en algunos años</small>
+<link href="https://fonts.googleapis.com/css?family=Bangers|Roboto+Condensed|Kalam" rel="stylesheet">'
+author: Joshua Kunst, Nov 16
 output:
   revealjs::revealjs_presentation:
     mathjax: null
     transition: fade
     css: styles.css
-    incremental: false
+    incremental: true
     center: false
     theme: simple
     fig_width: 7
@@ -16,24 +18,30 @@ output:
       mouseWheel: false
 ---
 
-## Holas! Soy Joshua
+# Quien creo ser {.section-title-white .center data-background="http://cliparts.co/cliparts/8cE/bkB/8cEbkByXi.jpg"}
 
-- Evangelizador de *R*
+## De dia, alguien normal {data-background="http://i.giphy.com/l2JHVUriDGEtWOx0c.gif"}
 
-- Estadístico mutante
+## De noche, hacker {.section-title-white data-background=#000 data-background-iframe="http://giphy.com/embed/YQitE4YNQNahy"}
 
-- Me gusta el `código`
+## Nah
 
+- Estadístico <span>Y un mix de cosas debido a la experiencia</span>
+- Evangelizador de **R** <span>Oh sí!</span>
+- Esporádicamente blogero <span>Cuando el tiempo da</span>
+- Me gusta escribir `código` <span>Sep</span>
+- Analizar y visualizar datos <span>Cuado la imaginación da</span>
+- Compartir todo lo anterior <span>En forma de paquetes y demases</span>
 
-## Que vengo a contar/*vender*
+# Que vengo a contar {.center}
 
-- De mi workflow de trabajo
+## De mi workflow de <strike>trabajo</strike> vida {data-background="http://r4ds.had.co.nz/diagrams/data-science.png"}
 
-- Recomendaciones *subjetivas*
+## Recomendaciones subjetivas {data-background="https://www.r-project.org/logo/Rlogo.png"}
 
-- Algunos post/viz/*One-hit wonder(s)* que he realiado
+## Algunos post que he realizado {data-background="https://www.r-project.org/logo/Rlogo.png"}
 
-## Worflow
+# Workflow
 
 - Para todo uso R. Incluso para 
 
@@ -46,6 +54,7 @@ valor esperado de errores **detectados**.
 
 ## One-hit wonders
 
-### Que preguntamos en StackOverflow {data-background="http://jkunst.com/images/what-do-we-ask-in-stackoverflow/unnamed-chunk-9-1.png"}
 
-## Gra
+# TY
+
+

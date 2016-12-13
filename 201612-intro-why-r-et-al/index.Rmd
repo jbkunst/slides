@@ -1,7 +1,7 @@
 ---
 title: '<br><br>Qué es esto de R en la pega?<br><small>Una bienvenida al mundo de R</small>
 <link href="https://fonts.googleapis.com/css?family=Bangers|Roboto+Condensed|Covered+By+Your+Grace" rel="stylesheet">'
-author: Joshua Kunst, Nov 16
+author: Joshua Kunst, Dic 16
 output:
   revealjs::revealjs_presentation:
     mathjax: null

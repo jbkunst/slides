@@ -1,0 +1,33 @@
+.reveal h1 {
+  font-family: 'Bangers', sans-serif;
+  color: #212121;
+}
+
+.reveal h2, 
+.reveal .level2 > h1 {
+  font-family: 'Covered By Your Grace', cursive;
+  color: #212121;
+}
+
+.reveal p, .reveal li {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.reveal p, .reveal li > span {
+  font-size: 0.75em;
+  font-style: italic;
+}
+
+.reveal section p {
+  text-align: center;
+  font-size: 0.75em;
+}
+
+.reveal section ul {
+  padding-top: 1.75em;
+  list-style: none;
+}
+
+.reveal section li {
+  padding-top: 0.75em;
+}

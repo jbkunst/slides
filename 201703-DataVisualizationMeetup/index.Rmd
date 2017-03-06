@@ -1,7 +1,7 @@
 ---
-title: '<br><br>Qué es esto de R en la pega?<br><small>Una bienvenida al mundo de R</small>
-<link href="https://fonts.googleapis.com/css?family=Bangers|Roboto+Condensed|Covered+By+Your+Grace" rel="stylesheet">'
-author: Joshua Kunst, Dic 16
+title: '<br><br>¡Un worflow para un Aficionado a la Visualización!<br><small>Y algunas herramientas</small>
+<link href="https://fonts.googleapis.com/css?family=Bangers|Roboto+Condensed|Oswald" rel="stylesheet">'
+author: Joshua Kunst, Marzo 17
 output:
   revealjs::revealjs_presentation:
     mathjax: null
@@ -18,7 +18,7 @@ output:
       mouseWheel: false
 ---
 
-# Bienvenido {.section-title-white .center data-background="http://i.giphy.com/RbVOveSAHkk2A.gif"}
+# Holas {.section-title-white .center data-background="http://i.giphy.com/oJiCqvIqPZE3u.gif"}
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
@@ -27,76 +27,45 @@ library(rwars)
 library(highcharter)
 ```
 
+## Me presento
 
-## Nah! Que es R y Rstudio?
+- Soy Estadístico de profesión
+- ~~De día ejecuto SQL y de noche también~~
+- Escribo código para compartir
+- A veces aparezco en [highcharts.js](http://www.highcharts.com/blog/)
 
-- R es un lenguaje de programación _wakatela!_
-- Rstudio es un (IDE) una máscara para ser más productivo _yuju!_
-- R es software libre, no se paga y está un poco de moda ahora
-- 
+## Que veremos?
 
-## Workflow de <strike>trabajo</strike> vida del día a día
+- Algunas visualizaciones _one-hit wonder_
+- Un proyecto personal 
+- Conversar si gustan
 
-![DSflow](http://r4ds.had.co.nz/diagrams/data-science.png)
+# One-hit Wonders
 
-## Jerga
+## 1st-hit 
 
-- Paquetes: Un paquete es un conjunto de funciones
-- Script: Un archivo que contiene instrucciones en lenguaje R
-- Joshua: El master de R por ahora hasta que los superen sus alumnos
-- Ustedes: Alumnos ultramotivados a darle un cambio de aire a sus vidas
+http://jkunst.com/r/what-do-we-ask-in-stackoverflow/
 
-## R posee más de 8000 mil paquetes
+## 2nd-hit
 
-![tidyverse](https://www.rstudio.com/wp-content/uploads/2015/01/Untitled.001.jpeg)
+http://jkunst.com/r/pokemon-visualize-em-all/
 
-## Y que me importa a MHEE!! Que se puede hacer con ellos?
+# Proyecto Personal
 
-- Lectura de datos desde muchas fuentes
-- Manipulación de datos, pa'rriba pa'abajo al lado y paentro.
-- Gráficos kawais
-- Presentaciones, aplicaciones web, documentos
+## 
 
-__Y como?!__
+![DSflow](https://raw.githubusercontent.com/jbkunst/highcharter/master/highcharter-logo.png)
 
-## Testing
+- Que es? Wrapper de R para highcharts
+- Que intenta ser? Más que un wrapper para highcharts.
+- Como? Una ayuda a quienes no _js/html_ hablantes para hacer visualizaciones atractivas
 
-```{r}
-swmovies <- get_all_films()
+## Demo I
 
-swdata <- map_df(swmovies$results, function(x){
-  data_frame(
-    movie = x$title,
-    species = length(x$species),
-    planets = length(x$planets),
-    characters = length(x$characters),
-    vehicles = length(x$vehicles),
-    release = x$release_date
-  )
-}) 
+## Demo II
 
-swdata <- swdata %>% 
-  gather(key, number, -movie, -release) %>% 
-  arrange(release)
+# Gracias. Conversemos! { .center } 
 
 
-hchart(swdata, "line", hcaes(x = movie, y = number, group = key),
-       color = c("#e5b13a", "#4bd5ee", "#4AA942", "#FAFAFA")) %>% 
-  hc_title(
-    text = "Diversity in <span style=\"color:#e5b13a\"> STAR WARS</span> movies",
-    useHTML = TRUE) %>% 
-  hc_tooltip(table = TRUE, sort = TRUE) %>% 
-  hc_credits(
-    enabled = TRUE,
-    text = "Source: SWAPI via rwars package",
-    href = "https://swapi.co/") %>% 
-  hc_add_theme(
-    hc_theme_flatdark(
-      chart = list(
-        backgroundColor = "transparent",
-        divBackgroundImage = "http://www.wired.com/images_blogs/underwire/2013/02/xwing-bg.gif"
-      )
-    )
-  )
-```
+
 

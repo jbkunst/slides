@@ -1,5 +1,7 @@
 ---
-title: '<br><br>¡Un worflow para un Aficionado a la Visualización!<br><small>Y algunas herramientas</small>
+title: '<br><br>¡Un worflow para un Aficionado!<br><small>Y el cuento de como
+R|Estadística nos ayuda a explorar contado a través de un ejemplo conocido
+por todos nosotros</small>
 <link href="https://fonts.googleapis.com/css?family=Bangers|Roboto+Condensed|Oswald" rel="stylesheet">'
 author: Joshua Kunst, Marzo 17
 output:
@@ -23,22 +25,27 @@ output:
 ```{r, include = FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
 library(tidyverse)
-library(rwars)
+library(igraph)
 library(highcharter)
+library(viridis)
+library(hrbrthemes)
+library(jbkmisc)
+theme_set(theme_jbk())
+options(highcharter.theme = hc_theme_elementary())
 ```
 
 ## Me presento
 
-- Soy Estadístico de profesión
-- ~~De día ejecuto SQL y de noche también~~
-- Escribo código para compartir
+- Soy Estadístico
+- De día: Riesgo (simulo, analizo data, ejecuto SQL)
+- ~~De noche:~~ Escribo código para compartir
 - A veces aparezco en [highcharts.js](http://www.highcharts.com/blog/)
 
 ## Que veremos?
 
 - Algunas visualizaciones _one-hit wonder_
-- Un proyecto personal 
-- Conversar si gustan
+- Presentarles un proyecto personal 
+- C
 
 # One-hit Wonders
 
@@ -60,11 +67,124 @@ http://jkunst.com/r/pokemon-visualize-em-all/
 - Que intenta ser? Más que un wrapper para highcharts.
 - Como? Una ayuda a quienes no _js/html_ hablantes para hacer visualizaciones atractivas
 
-## Demo I
+# Demo: Metro
 
-## Demo II
+## Idea
 
-# Gracias. Conversemos! { .center } 
+WHAT?
+
+## Data
+```{r}
+data <- readRDS("data/data_subidas_metro.rds")
+data
+```
+
+## Explorar
+```{r}
+d1 <- filter(data, paraderosubida %in% c("Plaza Maipu", "Laguna Sur")) 
+hw_grid(
+  d1 %>% 
+    hchart("line", hcaes(mediahora, subidas_laboral_promedio, group = paraderosubida)) %>% 
+    hc_xAxis(type = "datetime") %>% 
+    hc_tooltip(sort = TRUE, table = TRUE, xDateFormat = "%H:%S"),
+  d1 %>% 
+    spread(paraderosubida, subidas_laboral_promedio) %>% 
+    hchart("point", hcaes(`Laguna Sur`, `Plaza Maipu`, size = mediahora), maxSize = "5%") %>% 
+    hc_xAxis(min = 0) %>% 
+    hc_yAxis(min = 0)
+) %>% htmltools::browsable()
+
+```
+
+## Explorar
+```{r}
+d2 <- filter(data, paraderosubida %in% c("Universidad De Chile", "Plaza De Puente Alto"))
+hw_grid(
+  d2 %>% 
+    hchart("line", hcaes(mediahora, subidas_laboral_promedio, group = paraderosubida)) %>% 
+    hc_xAxis(type = "datetime") %>% 
+    hc_tooltip(sort = TRUE, table = TRUE, xDateFormat = "%H:%S"),
+  d2 %>% 
+    spread(paraderosubida, subidas_laboral_promedio) %>% 
+    hchart("point", hcaes(`Plaza De Puente Alto`, `Universidad De Chile`, size = mediahora), maxSize = "5%") %>% 
+    hc_xAxis(min = 0) %>% 
+    hc_yAxis(min = 0)
+) %>% htmltools::browsable()
+```
+
+## Correlaciones
+```
+pairwise_cor(data, paraderosubida, mediahora, subidas_laboral_promedio,
+             upper = FALSE) 
+```
+```{r}
+dcor <- readRDS("data/data_subidas_metro_cor.rds")
+dcor
+```
+
+```
+dcorf <- seleccionamos_las_mas_grandes(dcor)
+```
+
+## Network
+
+``` 
+g <- graph_from_data_frame(dcorf, directed = FALSE)
+g <- maquillamos_red(g)
+hchart(g)
+```
+
+```{r}
+hchart(readRDS("data/data_g.rds"), layout = layout.auto)
+```
+
+## Podemos hacerlo mejor?
+
+## Autoencoder
+
+![autoencoder](http://nghiaho.com/wp-content/uploads/2012/12/autoencoder_network1.png)
+
+## Preparando Datos
+
+```
+data2 <- spread(data, mediahora, subidas_laboral_promedio)
+data2
+```
+```{r}
+data2 <- readRDS("data/data_subidas_metro_autoencoder.rds")
+data2
+```
+
+## Resumir información
+```{r}
+dautoenc <- readRDS("data/data_subidas_metro_autoencoder_output.rds")
+dautoenc
+```
+
+## Resumir información
+```{r, echo=TRUE}
+dautoenc <- readRDS("data/data_subidas_metro_autoencoder_output_km.rds")
+hchart(dautoenc, "point", hcaes(x = x, y = y))
+```
+
+## Agrupamos
+```{r}
+hchart(dautoenc, "point", hcaes(x, y, group = group, name = paraderosubida),
+       dataLabels = list(enabled = TRUE, format =  "{point.name}")) %>% 
+  hc_chart(zoomType = "xy") %>% 
+  hc_colors(hex_to_rgba(viridis(4)))
+```
+
+## Agrupamos {data-background="trendgroup.png"}
+
+# Gracias. Conversemos! { .center }
+
+## Créditos
+
+- Chloe
+- Meetups
+- R & Rstudio
+- Comunidad
 
 
 

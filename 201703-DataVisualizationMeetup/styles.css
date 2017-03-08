@@ -1,6 +1,3 @@
-img {
-  width: 600;
-}
 .reveal h1 {
   font-family: 'Bangers', sans-serif;
   color: #212121;
@@ -8,12 +5,20 @@ img {
 
 .reveal h2, 
 .reveal .level2 > h1 {
-  font-family: 'Oswald';
+  font-family: 'Acme';
   color: #212121;
 }
 
 .reveal p, .reveal li {
   font-family: 'Roboto Condensed', sans-serif;
+}
+
+.reveal a {
+    color: #43447D;
+    text-decoration: none;
+    -webkit-transition: color .15s ease;
+    -moz-transition: color .15s ease;
+    transition: color .15s ease;
 }
 
 .reveal p, .reveal li > span {
@@ -34,3 +39,5 @@ img {
 .reveal section li {
   padding-top: 0.75em;
 }
+
+.reveal .section-title-white > h1 { color: white;}

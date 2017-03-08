@@ -1,3 +1,7 @@
+#+include=FALSE
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+
+#+include=TRUE
 # ws & packages -----------------------------------------------------------
 rm(list = ls())
 
@@ -96,7 +100,7 @@ saveRDS(dcor, "data/data_subidas_metro_cor.rds")
 # network -----------------------------------------------------------------
 dcorf <- dcor %>%
   arrange(desc(correlation)) %>%
-  filter(row_number() <= 400)
+  filter(row_number() <= 250)
 
 g <- graph_from_data_frame(dcorf, directed = FALSE)
 hchart(g)
@@ -167,7 +171,7 @@ dh2o <- as.h2o(data2)
 mod_autoenc <- h2o.deeplearning(
   x = names(dh2o)[-1],
   training_frame = dh2o,
-  hidden = c(400, 200, 2, 200, 400),
+  hidden = c(400, 100, 2, 100, 400),
   epochs = 50,
   activation = "Tanh",
   autoencoder = TRUE
@@ -185,7 +189,7 @@ saveRDS(dautoenc, "data/data_subidas_metro_autoencoder_output.rds")
 hchart(dautoenc, "point", hcaes(x = x, y = y, name = paraderosubida),
        dataLabels = list(enabled = TRUE, format =  "{point.name}"))
   
-dkmod <- map_df(1:15, function(k){
+dkmod <- map_df(seq(1, 20, by = 3), function(k){
   mod.km <- h2o.kmeans(training_frame = as.h2o(dautoenc), k = k, x = c("x", "y"))  
   mod.km@model$model_summary
 })
@@ -201,7 +205,7 @@ mod_km <- h2o.kmeans(training_frame = as.h2o(dautoenc), k = 4, x = c("x", "y"))
 dautoenc <- dautoenc %>% 
   mutate(group = as.vector(h2o.predict(object = mod_km, newdata = as.h2o(.))),
          group = as.numeric(group) + 1,
-         group = paste("group", group))
+         group = paste("grupo", group))
 
 saveRDS(dautoenc, "data/data_subidas_metro_autoencoder_output_km.rds")
 
@@ -229,3 +233,101 @@ ggplot(data, aes(mh, subidas_laboral_promedio)) +
     caption = "jkunst.com"
   )
 ggsave("trendgroup.png", width = 16, height = 9)
+
+
+makechart <- function(d) {
+  
+  col <- viridis(4)[as.numeric(str_extract(unique(d$group), "\\d"))]
+  col <- str_replace(col, "FF$", "")
+  print(col)
+  
+  g <- unique(d$group)
+  
+  hchart(d, "line",
+         hcaes(mediahora, subidas_laboral_promedio, group = paraderosubida),
+         enableMouseTracking = FALSE, showInLegend = FALSE, color = hex_to_rgba("gray", 0.3)) %>% 
+    hc_subtitle(text = g) %>% 
+    hc_xAxis(type = "datetime", title = list(text = "")) %>% 
+    hc_tooltip(sort = TRUE, table = TRUE, xDateFormat = "%H:%S") %>% 
+    hc_add_series(lm(subidas_laboral_promedio ~ poly(mediahora, 5, raw = TRUE), data = d),
+                  name = "ploy smooth", color = col, showInLegend = FALSE) %>% 
+    hc_yAxis(min = 0, max = 5100, title = list(text = ""))
+
+}
+
+smoothcharts <- data %>% 
+  mutate(g = str_extract(group, "\\d"), g = as.numeric(g)) %>% 
+  group_by(group, g) %>% 
+  do(chart = makechart(.))
+
+chartlst <- smoothcharts$chart
+  
+saveRDS(chartlst, "data/data_subidas_metro_polysmooths.rds")
+
+hw_grid(chartlst) %>% htmltools::browsable()
+  
+
+# gtfs --------------------------------------------------------------------
+rm(list = ls())
+# https://analyzegps.carto.com/tables/comunas_santiago/public
+# stgo <- geojsonio::geojson_read("data/comunas_santiago.geojson")
+
+# https://github.com/jlhonora/geo/blob/master/low_res/region_metropolitana_de_santiago/all.geojson
+# stgo <- geojsonio::geojson_read("data/all.geojson")
+# stgo <- rmapshaper::ms_simplify(stgo, keep = 0.001)
+
+routes <- read_csv("data/routes.txt")
+trips <- read_csv("data/trips.txt")
+stops <- read_csv("data/stops.txt")
+shapes <-read_csv("data/shapes.txt")
+
+stops_metro <- stops %>% filter(!grepl("\\d", stop_id))
+
+shapes_colors <- distinct(shapes, shape_id) %>% 
+  left_join(distinct(trips, shape_id, route_id)) %>% 
+  left_join(distinct(routes, route_id, route_color)) %>% 
+  mutate(route_color = paste0("#", route_color))
+
+routes_metro <- filter(routes, grepl("^L\\d",route_id))
+
+shapes_metro <- routes %>% 
+  filter(grepl("^L\\d",route_id)) %>% 
+  semi_join(trips, .) %>% 
+  semi_join(shapes, .) %>% 
+  ### IMPORTANTE
+  filter(str_detect(shape_id, "I"))
+
+shapes_colors_metro <-routes %>% 
+  filter(grepl("^L\\d",route_id)) %>% 
+  semi_join(trips, .) %>% 
+  semi_join(shapes_colors, .)
+
+rm(shapes, routes, stops, trips)
+
+
+
+stopsmarkeropts <- list(
+  enabled = TRUE,
+  fillColor = "white",
+  lineWidth = 1,
+  radius = 4,
+  lineColor = "#545454",
+  states = list(
+    hover = list(
+      fillColor = "white",
+      lineColor = "#545454"
+    )
+  )
+)
+
+
+highchart(type = "map") %>% 
+  hc_add_series(mapData = NULL, showInLegend = FALSE) %>% 
+  hc_add_series(stops_metro, "point", hcaes(stop_lon, stop_lat),
+                name = "Estaciones",
+                marker = stopsmarkeropts,
+                tooltip = list(headerFormat = "{point.name}")) %>% 
+  hc_add_series(shapes_metro, "line", hcaes(shape_pt_lon, shape_pt_lat, group = shape_id),
+                color = unique(shapes_colors_metro$route_color),
+                enableMouseTracking = FALSE, lineWidth = 4, zIndex = -4) %>% 
+  hc_yAxis(reversed = FALSE)

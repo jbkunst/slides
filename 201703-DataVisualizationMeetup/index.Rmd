@@ -2,10 +2,11 @@
 title: '<br><br>¡Un worflow para un Aficionado!<br><small>Y el cuento de como
 R|Estadística nos ayuda a explorar contado a través de un ejemplo conocido
 por todos nosotros</small>
-<link href="https://fonts.googleapis.com/css?family=Bangers|Roboto+Condensed|Oswald" rel="stylesheet">'
+<link href="https://fonts.googleapis.com/css?family=Bangers|Roboto+Condensed|Acme" rel="stylesheet">'
 author: Joshua Kunst, Marzo 17
 output:
   revealjs::revealjs_presentation:
+    self_contained: false
     mathjax: null
     transition: fade
     css: styles.css
@@ -37,25 +38,31 @@ options(highcharter.theme = hc_theme_elementary())
 ## Me presento
 
 - Soy Estadístico
-- De día: Riesgo (simulo, analizo data, ejecuto SQL)
-- ~~De noche:~~ Escribo código para compartir
+- De día trabajo Riesgo (70%) y Proyectos personales (30%)
+- Escribo código para compartir
 - A veces aparezco en [highcharts.js](http://www.highcharts.com/blog/)
+- Evangelizado[R](https://cran.r-project.org/)
 
-## Que veremos?
+## Que haremos?
 
-- Algunas visualizaciones _one-hit wonder_
-- Presentarles un proyecto personal 
-- C
+Vengo a vende[R](https://cran.r-project.org/) y a [R](https://cran.r-project.org/)egalar.
 
-# One-hit Wonders
+- Motivar a quienes no han escrito código hace un tiempo a 
+desempolvar esas manos
+- Motivar a quien no ha escrito codigo para automatizar su workflow
 
-## 1st-hit 
 
-http://jkunst.com/r/what-do-we-ask-in-stackoverflow/
+## Como lo haremos?
 
-## 2nd-hit
+- Revisar un worflow de trabajo
+- Mostrar uno de mis _one-hit wonder_
+- Presentar highcharter (PP)
+- Jugar con un ejemplo guíado
 
-http://jkunst.com/r/pokemon-visualize-em-all/
+
+# Workflow de <strike>trabajo</strike> vida del día a día
+
+![DSflow](http://r4ds.had.co.nz/diagrams/data-science.png)
 
 # Proyecto Personal
 
@@ -65,13 +72,15 @@ http://jkunst.com/r/pokemon-visualize-em-all/
 
 - Que es? Wrapper de R para highcharts
 - Que intenta ser? Más que un wrapper para highcharts.
-- Como? Una ayuda a quienes no _js/html_ hablantes para hacer visualizaciones atractivas
+- Como? Una ayuda a quienes no _js/html_ hablantes para hacer visualizaciones atractivas 
+ofreciendo (EMHO) 
 
-# Demo: Metro
+# Demo I: Metro {.section-title-white .center data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png" }
 
 ## Idea
 
-WHAT?
+Se tienen el ingreso promedio de personas cada media hora. Exploremos que
+estaciones se _comportan_ de forma similar.
 
 ## Data
 ```{r}
@@ -114,8 +123,8 @@ hw_grid(
 
 ## Correlaciones
 ```
-pairwise_cor(data, paraderosubida, mediahora, subidas_laboral_promedio,
-             upper = FALSE) 
+dcor <- pairwise_cor(data, paraderosubida, mediahora, subidas_laboral_promedio,
+                     upper = FALSE) 
 ```
 ```{r}
 dcor <- readRDS("data/data_subidas_metro_cor.rds")
@@ -135,7 +144,8 @@ hchart(g)
 ```
 
 ```{r}
-hchart(readRDS("data/data_g.rds"), layout = layout.auto)
+set.seed(1)
+hchart(readRDS("data/data_g.rds"))
 ```
 
 ## Podemos hacerlo mejor?
@@ -161,13 +171,16 @@ dautoenc <- readRDS("data/data_subidas_metro_autoencoder_output.rds")
 dautoenc
 ```
 
+
 ## Resumir información
-```{r, echo=TRUE}
+```{r}
 dautoenc <- readRDS("data/data_subidas_metro_autoencoder_output_km.rds")
-hchart(dautoenc, "point", hcaes(x = x, y = y))
+```
+```{r, echo=TRUE}
+hchart(dautoenc, "point", hcaes(x = x, y = y), name = "Estaciones")
 ```
 
-## Agrupamos
+## Creamos grupos
 ```{r}
 hchart(dautoenc, "point", hcaes(x, y, group = group, name = paraderosubida),
        dataLabels = list(enabled = TRUE, format =  "{point.name}")) %>% 
@@ -175,17 +188,25 @@ hchart(dautoenc, "point", hcaes(x, y, group = group, name = paraderosubida),
   hc_colors(hex_to_rgba(viridis(4)))
 ```
 
-## Agrupamos {data-background="trendgroup.png"}
+## Qué nos dicen estos grupos?
+```{r}
+chartlst <- readRDS("data/data_subidas_metro_polysmooths.rds")
+
+hw_grid(chartlst, ncol = 4) %>% htmltools::browsable()
+```
+
+# En definitiva
+
+- Utilice tanto h2o para el autoencoder (JAVA)
+- Como highcharts (javascript)
+- Por lo que R es buen lenguaje
 
 # Gracias. Conversemos! { .center }
 
 ## Créditos
 
-- Chloe
-- Meetups
-- R & Rstudio
-- Comunidad
-
+> - Eat eggs
+> - Drink coffee
 
 
 

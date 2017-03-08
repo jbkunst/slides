@@ -1,6 +1,6 @@
+# init --------------------------------------------------------------------
 #+include=FALSE
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
-
 #+include=TRUE
 # ws & packages -----------------------------------------------------------
 rm(list = ls())
@@ -54,6 +54,13 @@ data <- complete(data, paraderosubida, mediahora,
                  fill = list(subidas_laboral_promedio = 0)) 
 
 data <- filter(data, mediahora != 0)
+
+data <- data %>% 
+  mutate(paraderosubida = str_replace(paraderosubida, " L\\d$", "")) %>% 
+  group_by(paraderosubida, mediahora) %>% 
+  summarise(subidas_laboral_promedio = sum(subidas_laboral_promedio))
+  
+count(count(data, paraderosubida), n)
 
 glimpse(data)
 saveRDS(data, "data/data_subidas_metro.rds")
@@ -146,7 +153,6 @@ V(g)$color <- colorize(dvert$comm)
 
 saveRDS(g, "data/data_g.rds")
 
-
 set.seed(1)
 hchart(g) %>% 
   hc_add_theme(
@@ -155,7 +161,6 @@ hchart(g) %>%
       xAxis = list(visible = FALSE)
     )
   )
-
 
 # autoencoder -------------------------------------------------------------
 data2 <- data %>% 
@@ -167,6 +172,7 @@ data2
 saveRDS(data2, "data/data_subidas_metro_autoencoder.rds")
 
 dh2o <- as.h2o(data2)
+str(dh2o)
 
 mod_autoenc <- h2o.deeplearning(
   x = names(dh2o)[-1],
@@ -182,7 +188,6 @@ dautoenc <- h2o.deepfeatures(mod_autoenc, dh2o, layer = 3) %>%
   tbl_df() %>% 
   setNames(c("x", "y")) %>% 
   mutate(paraderosubida = data2$paraderosubida)
-
 
 saveRDS(dautoenc, "data/data_subidas_metro_autoencoder_output.rds")
 
@@ -264,11 +269,11 @@ chartlst <- smoothcharts$chart
   
 saveRDS(chartlst, "data/data_subidas_metro_polysmooths.rds")
 
-hw_grid(chartlst) %>% htmltools::browsable()
+hw_grid(chartlst, ncol = 4) %>% htmltools::browsable()
   
 
 # gtfs --------------------------------------------------------------------
-rm(list = ls())
+# rm(list = ls())
 # https://analyzegps.carto.com/tables/comunas_santiago/public
 # stgo <- geojsonio::geojson_read("data/comunas_santiago.geojson")
 
@@ -281,12 +286,9 @@ trips <- read_csv("data/trips.txt")
 stops <- read_csv("data/stops.txt")
 shapes <-read_csv("data/shapes.txt")
 
-stops_metro <- stops %>% filter(!grepl("\\d", stop_id))
-
-shapes_colors <- distinct(shapes, shape_id) %>% 
-  left_join(distinct(trips, shape_id, route_id)) %>% 
-  left_join(distinct(routes, route_id, route_color)) %>% 
-  mutate(route_color = paste0("#", route_color))
+stops_metro <- stops %>%
+  filter(!grepl("\\d", stop_id)) %>% 
+  mutate(stop_url = basename(stop_url))
 
 routes_metro <- filter(routes, grepl("^L\\d",route_id))
 
@@ -295,39 +297,121 @@ shapes_metro <- routes %>%
   semi_join(trips, .) %>% 
   semi_join(shapes, .) %>% 
   ### IMPORTANTE
-  filter(str_detect(shape_id, "I"))
+  filter(str_detect(shape_id, "-I")) %>% 
+  mutate(shape_id2 = str_replace(shape_id, "-I", ""))
 
-shapes_colors_metro <-routes %>% 
-  filter(grepl("^L\\d",route_id)) %>% 
-  semi_join(trips, .) %>% 
-  semi_join(shapes_colors, .)
+colors_metro <- distinct(shapes, shape_id) %>% 
+  left_join(distinct(trips, shape_id, route_id)) %>% 
+  left_join(distinct(routes, route_id, route_color)) %>% 
+  semi_join(shapes_metro) %>% 
+  mutate(route_color = paste0("#", route_color))
+  
+str_to_id2 <- function(x) {
+  str_to_id(x) %>% 
+    str_replace_all("á", "a") %>%
+    str_replace_all("é", "e") %>% 
+    str_replace_all("í", "i") %>% 
+    str_replace_all("ó", "o") %>% 
+    str_replace_all("ú", "u") %>% 
+    str_replace_all("ñ", "n") %>% 
+    str_replace_all("`", "") %>% 
+    str_replace_all("_de_", "_")
+}
 
-rm(shapes, routes, stops, trips)
+dautoenc <- mutate(dautoenc, id = str_to_id2(paraderosubida))
 
+data3 <- data %>% 
+  group_by(paraderosubida, group) %>% 
+  do(tmsr = { list_parse(select(., x = mediahora, y = subidas_laboral_promedio) ) }) %>%
+  # do(sequence = list(.$subidas_laboral_promedio)) %>% 
+  ungroup() %>% 
+  mutate(id = str_to_id2(paraderosubida))
 
+data4 <- data %>% 
+  group_by(paraderosubida, group) %>% 
+  summarise(median = median(subidas_laboral_promedio)) %>% 
+  ungroup() %>% 
+  mutate(id = str_to_id2(paraderosubida))
+data4
+
+stops_metro_data <- stops_metro %>% 
+  mutate(id = str_to_id2(stop_name)) %>% 
+  left_join(data3) %>% 
+  left_join(data4) %>% 
+  filter(!is.na(group))
+
+rm(shapes, routes, stops, trips, data3, data4)
+
+glimpse(stops_metro_data)  
+
+count(stops_metro_data, group)
 
 stopsmarkeropts <- list(
   enabled = TRUE,
-  fillColor = "white",
-  lineWidth = 1,
-  radius = 4,
-  lineColor = "#545454",
-  states = list(
-    hover = list(
-      fillColor = "white",
-      lineColor = "#545454"
-    )
+  symbol = "circle",
+  lineWidth = 2,
+  radius = 5
   )
-)
 
-
-highchart(type = "map") %>% 
+hcsw <- highchart(type = "map") %>% 
   hc_add_series(mapData = NULL, showInLegend = FALSE) %>% 
-  hc_add_series(stops_metro, "point", hcaes(stop_lon, stop_lat),
-                name = "Estaciones",
+  hc_add_series(stops_metro_data, "point", hcaes(stop_lon, stop_lat, group = group, size = median),
                 marker = stopsmarkeropts,
-                tooltip = list(headerFormat = "{point.name}")) %>% 
-  hc_add_series(shapes_metro, "line", hcaes(shape_pt_lon, shape_pt_lat, group = shape_id),
-                color = unique(shapes_colors_metro$route_color),
+                color = hex_to_rgba(viridis(4), alpha = 0.75), minSize = "1%", maxSize = "2%",
+                tooltip = list(headerFormat = "{point.name}")) %>%
+  hc_add_series(shapes_metro, "line", hcaes(shape_pt_lon, shape_pt_lat, group = shape_id2),
+                color = colors_metro$route_color,
                 enableMouseTracking = FALSE, lineWidth = 4, zIndex = -4) %>% 
-  hc_yAxis(reversed = FALSE)
+  hc_legend(align = "right", verticalAlign = "top", layout = "vertical") %>% 
+  hc_yAxis(reversed = FALSE) %>% 
+  hc_tooltip(
+    useHTML = TRUE,
+    positioner = JS("function () { return { x: this.chart.plotLeft + 15, y: 200 + 0 }; }"),
+    headerFormat = "{point.stop_name}",
+    pointFormatter = JS("
+function(){
+  
+  var thiz = this;
+  console.log(thiz);
+
+  setTimeout(function() {
+          $('#minichart').highcharts({
+            title : {
+              text: ''
+            },
+          	subtitle: {
+            	text: thiz.stop_name,
+              align: 'left'
+            },
+            exporting: {
+              enabled: false
+            },
+            legend: {
+            	enabled: false
+            },
+            credits: {
+            	enabled: false
+            },
+            series: [{
+            	animation: false,
+              color: thiz.color,
+              data: thiz.tmsr
+            }],
+            yAxis: {
+            	title: ''
+            },
+            xAxis: {
+            	type: 'datetime'
+            }
+          });
+        }, 0);
+        return '<div id=\"minichart\" style=\"width: 250px; height: 150px;\"></div>';
+}                        
+                        ")
+  )
+
+hcsw
+
+saveRDS(hcsw, "data/data_subidas_metro_hcsw.rds")
+
+htmlwidgets::saveWidget(hcsw, "hcsw.html")

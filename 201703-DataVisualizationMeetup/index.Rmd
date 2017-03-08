@@ -195,6 +195,14 @@ chartlst <- readRDS("data/data_subidas_metro_polysmooths.rds")
 hw_grid(chartlst, ncol = 4) %>% htmltools::browsable()
 ```
 
+## Y si agregamos GTFS {data-background-iframe="hcsw.html"}
+
+## 
+```{r}
+readRDS("data/data_subidas_metro_hcsw.rds")
+```
+
+
 # En definitiva
 
 - Utilice tanto h2o para el autoencoder (JAVA)

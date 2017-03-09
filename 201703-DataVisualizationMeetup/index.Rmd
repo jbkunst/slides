@@ -39,7 +39,7 @@ options(highcharter.theme = hc_theme_smpl(chart = list(backgroundColor = "transp
 
 - Soy Estadístico
 - De día trabajo Riesgo (70%) y Proyectos personales (30%)
-- Escribo código para compartir
+- Escribo código para compartir en [jkunst.com](http://jkunst.com)
 - A veces aparezco en [highcharts.js](http://www.highcharts.com/blog/)
 - Evangelizado[R](https://cran.r-project.org/)
 
@@ -104,14 +104,14 @@ herramienta para el entendimiento
 
 ![DSflow](https://raw.githubusercontent.com/jbkunst/highcharter/master/highcharter-logo.png)
 
-- Que es? Wrapper de R para highcharts
+- Que es? Wrapper/interfaz de R para highcharts
 - Que intenta ser? Más que un wrapper para highcharts.
 - Como? Una ayuda a quienes no _js/html_ hablantes para hacer visualizaciones
 atractivas de forma simple.
 
 # Ejemplo Guiado: Metro {.section-title-white .center data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png" }
 
-## Que haremos?
+## Que estudiaremos?
 
 - Exploremos que estaciones se _comportan_ de forma similar
 - Con la facilidad que R y highcharter nos ofrecen (espero!)
@@ -144,7 +144,7 @@ c <- d1 %>%
   select(-1) %>%
   {cor(.[[1]], .[[2]])}
 ```
-Correlación igual a `r round(c, 3)`
+corr: `r round(c, 3)`
 
 ## Explorar
 ```{r}
@@ -165,7 +165,7 @@ c <-d2 %>%
   select(-1) %>%
   {cor(.[[1]], .[[2]])}
 ```
-Correlación igual a `r round(c, 3)`
+corr: `r round(c, 3)`
 
 ## Correlaciones
 ```
@@ -255,13 +255,26 @@ readRDS("data/data_subidas_metro_hcsw.rds")
 
 ## Quizás un poco mejor {.section-title-white .center data-background="http://i.giphy.com/aLdiZJmmx4OVW.gif"}
 
-# En definitiva {.center}
+# En Resumen {.center}
 
-- 
+## InteRfaces
 
-# A ustedes y a los organizadores. Conversemos! {.section-title-white .center data-background="http://i.giphy.com/5xtDarmwsuR9sDRObyU.gif"}
+Hay que pensar en R como un buen leguaje de interfaces para otras
+herramientas
 
-# {data-background=#f8f8f8}
+- Usamos h2o.ai (JAVA) para el autoencoder
+- Para la red usamos igraph (C)
+- Visualizamos en highcharts (Javascript)
+- Esta presentación (html/css)
+
+## Gracias! Conversemos! {.center data-background=""}
+
+## Recursos
+
+> - Highcharter GH page:  https://github.com/jbkunst/highcharter
+> - Presentación: http://jkunst.com/r-material/201703-DataVisualizationMeetup
+> - Código: http://jkunst.com/r-material/201703-DataVisualizationMeetup/code.html
+> - Blog: http://jkunst.com
 
 
 

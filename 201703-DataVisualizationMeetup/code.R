@@ -75,7 +75,7 @@ hw_grid(
     hc_tooltip(sort = TRUE, table = TRUE, xDateFormat = "%H:%S"),
   d1 %>% 
     spread(paraderosubida, subidas_laboral_promedio) %>% 
-    hchart("point", hcaes(`Laguna Sur`, `Plaza Maipu`, size = mediahora), maxSize = "5%") %>% 
+    hchart("point", hcaes(`Laguna Sur`, `Plaza Maipu`), color = "#2c3e50") %>% 
     hc_xAxis(min = 0) %>% 
     hc_yAxis(min = 0)
 ) %>% htmltools::browsable()
@@ -88,7 +88,7 @@ hw_grid(
     hc_tooltip(sort = TRUE, table = TRUE, xDateFormat = "%H:%S"),
   d2 %>% 
     spread(paraderosubida, subidas_laboral_promedio) %>% 
-    hchart("point", hcaes(`Plaza De Puente Alto`, `Universidad De Chile`, size = mediahora), maxSize = "5%") %>% 
+    hchart("point", hcaes(`Plaza De Puente Alto`, `Universidad De Chile`), color = "#2c3e50") %>%  
     hc_xAxis(min = 0) %>% 
     hc_yAxis(min = 0)
 ) %>% htmltools::browsable()
@@ -173,7 +173,6 @@ data2
 saveRDS(data2, "data/data_subidas_metro_autoencoder.rds")
 
 dh2o <- as.h2o(data2)
-str(dh2o)
 
 mod_autoenc <- h2o.deeplearning(
   x = names(dh2o)[-1],
@@ -238,7 +237,7 @@ ggplot(data, aes(mh, subidas_laboral_promedio)) +
     x = "Hora", y = "Subida promedio",
     caption = "jkunst.com"
   )
-ggsave("trendgroup.png", width = 16, height = 9)
+# ggsave("trendgroup.png", width = 16, height = 9)
 
 
 makechart <- function(d) {
@@ -275,13 +274,7 @@ hw_grid(chartlst, ncol = 4) %>% htmltools::browsable()
 
 # gtfs --------------------------------------------------------------------
 # rm(list = ls())
-# https://analyzegps.carto.com/tables/comunas_santiago/public
-# stgo <- geojsonio::geojson_read("data/comunas_santiago.geojson")
-
-# https://github.com/jlhonora/geo/blob/master/low_res/region_metropolitana_de_santiago/all.geojson
-# stgo <- geojsonio::geojson_read("data/all.geojson")
-# stgo <- rmapshaper::ms_simplify(stgo, keep = 0.001)
-
+#' http://datos.gob.cl/dataset/1587
 routes <- read_csv("data/routes.txt")
 trips <- read_csv("data/trips.txt")
 stops <- read_csv("data/stops.txt")

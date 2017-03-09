@@ -1,15 +1,15 @@
 ---
-title: '<br><br>¡Un worflow para un Aficionado!<br><small>Y el cuento de como
-R|Estadística nos ayuda a explorar contado a través de un ejemplo conocido
-por todos nosotros</small>
-<link href="https://fonts.googleapis.com/css?family=Bangers|Roboto+Condensed|Acme" rel="stylesheet">'
+title: '<br><br>¡Un Aficionado a la Visualización!<br><small id="st">Y la historia 
+aleatoria de como la estadística, análisis de datos y el código nos ayudan a explorar los datos contado
+a través de un ejemplo con moraleja</small>
+<link href="https://fonts.googleapis.com/css?family=Bangers|Roboto+Condensed|Oswald" rel="stylesheet">'
 author: Joshua Kunst, Marzo 17
 output:
   revealjs::revealjs_presentation:
     self_contained: false
     mathjax: null
     transition: fade
-    css: styles.css
+    css: ['css/fira_code.css', 'css/styles.css']
     incremental: true
     center: false
     theme: simple
@@ -21,7 +21,7 @@ output:
       mouseWheel: false
 ---
 
-# Holas {.section-title-white .center data-background="http://i.giphy.com/oJiCqvIqPZE3u.gif"}
+# Holas {.center data-background="http://i.giphy.com/oJiCqvIqPZE3u.gif"}
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
@@ -32,7 +32,7 @@ library(viridis)
 library(hrbrthemes)
 library(jbkmisc)
 theme_set(theme_jbk())
-options(highcharter.theme = hc_theme_elementary())
+options(highcharter.theme = hc_theme_smpl(chart = list(backgroundColor = "transparent")))
 ```
 
 ## Me presento
@@ -43,28 +43,62 @@ options(highcharter.theme = hc_theme_elementary())
 - A veces aparezco en [highcharts.js](http://www.highcharts.com/blog/)
 - Evangelizado[R](https://cran.r-project.org/)
 
-## Que haremos?
+## Que haré(mos)?
 
-Vengo a vende[R](https://cran.r-project.org/) y a [R](https://cran.r-project.org/)egalar.
 
-- Motivar a quienes no han escrito código hace un tiempo a 
-desempolvar esas manos
-- Motivar a quien no ha escrito codigo para automatizar su workflow
+- Motivar a quien no ha escrito codigo
+- Vende[R](https://cran.r-project.org/)
+- Y [R](https://cran.r-project.org/)egalar
 
 
 ## Como lo haremos?
 
-- Revisar un worflow de trabajo
+- Revisar mi adoptado worflow de trabajo
 - Mostrar uno de mis _one-hit wonder_
 - Presentar highcharter (PP)
-- Jugar con un ejemplo guíado
+- Jugar con un ejemplo guiado
 
+# Workflow {.section-title-white .center data-background="http://i.giphy.com/pBLInoiV7V73y.gif"}
 
-# Workflow de <strike>trabajo</strike> vida del día a día
+##
 
 ![DSflow](http://r4ds.had.co.nz/diagrams/data-science.png)
 
-# Proyecto Personal
+- Programar, pues **seguramente** lo repetiremos más de una vez (ej: reproducibilidad)
+- Repetir, repetir hasta entender
+- Usar la visualización no tan solo como un producto final sino como 
+herramienta para el entendimiento
+
+
+# One-hit Wonder {.section-title-white .center data-background="http://i.giphy.com/XEeASREtdxeSc.gif"}
+
+## ¿Qué preguntamos en Stack Overflow?
+
+- Que se hizo? Analizar el gran dump de 27gb en xml de SO
+- Por que? Por querer aprender y saber si R aparecía
+- Con que? Entusiasmo. Duh.
+
+## Resultado
+
+![Ranking por año](http://jkunst.com/images/what-do-we-ask-in-stackoverflow/unnamed-chunk-9-1.png)
+
+## Resultado
+
+![tagstags](http://jkunst.com/images/what-do-we-ask-in-stackoverflow/unnamed-chunk-19-1.png)
+
+## Logros?
+
+- Me _retwitteó_ tufte (como lo hace con mil tweets más :( )
+- El gráfico apareció en Vox :/ (LUN tecnológico)
+
+![tagstags](img/fallm.png)
+
+## Moraleja
+
+- Saber que conclusiones se pueden obtener de tus datos/viz
+- Siempre existen alternativas para visualizar mejor lo que se desea
+
+# Proyecto Personal {.section-title-black .center data-background="img/contribs.png"}
 
 ## 
 
@@ -72,17 +106,20 @@ desempolvar esas manos
 
 - Que es? Wrapper de R para highcharts
 - Que intenta ser? Más que un wrapper para highcharts.
-- Como? Una ayuda a quienes no _js/html_ hablantes para hacer visualizaciones atractivas 
-ofreciendo (EMHO) 
+- Como? Una ayuda a quienes no _js/html_ hablantes para hacer visualizaciones
+atractivas de forma simple.
 
-# Demo I: Metro {.section-title-white .center data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png" }
+# Ejemplo Guiado: Metro {.section-title-white .center data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png" }
 
-## Idea
+## Que haremos?
 
-Se tienen el ingreso promedio de personas cada media hora. Exploremos que
-estaciones se _comportan_ de forma similar.
+- Exploremos que estaciones se _comportan_ de forma similar
+- Con la facilidad que R y highcharter nos ofrecen (espero!)
 
 ## Data
+
+Se tienen el ingreso promedio de personas cada media hora
+
 ```{r}
 data <- readRDS("data/data_subidas_metro.rds")
 data
@@ -98,12 +135,16 @@ hw_grid(
     hc_tooltip(sort = TRUE, table = TRUE, xDateFormat = "%H:%S"),
   d1 %>% 
     spread(paraderosubida, subidas_laboral_promedio) %>% 
-    hchart("point", hcaes(`Laguna Sur`, `Plaza Maipu`, size = mediahora), maxSize = "5%") %>% 
+    hchart("point", hcaes(`Laguna Sur`, `Plaza Maipu`), color = "#2c3e50") %>% 
     hc_xAxis(min = 0) %>% 
     hc_yAxis(min = 0)
 ) %>% htmltools::browsable()
-
+c <- d1 %>% 
+  spread(paraderosubida, subidas_laboral_promedio) %>%
+  select(-1) %>%
+  {cor(.[[1]], .[[2]])}
 ```
+Correlación igual a `r round(c, 3)`
 
 ## Explorar
 ```{r}
@@ -115,11 +156,16 @@ hw_grid(
     hc_tooltip(sort = TRUE, table = TRUE, xDateFormat = "%H:%S"),
   d2 %>% 
     spread(paraderosubida, subidas_laboral_promedio) %>% 
-    hchart("point", hcaes(`Plaza De Puente Alto`, `Universidad De Chile`, size = mediahora), maxSize = "5%") %>% 
+    hchart("point", hcaes(`Plaza De Puente Alto`, `Universidad De Chile`), color = "#2c3e50") %>%  
     hc_xAxis(min = 0) %>% 
     hc_yAxis(min = 0)
 ) %>% htmltools::browsable()
+c <-d2 %>% 
+  spread(paraderosubida, subidas_laboral_promedio) %>%
+  select(-1) %>%
+  {cor(.[[1]], .[[2]])}
 ```
+Correlación igual a `r round(c, 3)`
 
 ## Correlaciones
 ```
@@ -148,13 +194,18 @@ set.seed(1)
 hchart(readRDS("data/data_g.rds"))
 ```
 
-## Podemos hacerlo mejor?
+## Podemos hacerlo mejor? {.center data-background="http://i.giphy.com/O5qZxbtslfLd6.gif"}
 
 ## Autoencoder
 
 ![autoencoder](http://nghiaho.com/wp-content/uploads/2012/12/autoencoder_network1.png)
 
+Modelo/Técnica usada para reducir la dimensionalidad de la información: resumir.
+
 ## Preparando Datos
+
+Los datos los necesitamos en formato _ancho_ para así tener una
+fila(observación) por estación.
 
 ```
 data2 <- spread(data, mediahora, subidas_laboral_promedio)
@@ -162,17 +213,19 @@ data2
 ```
 ```{r}
 data2 <- readRDS("data/data_subidas_metro_autoencoder.rds")
-data2
+data2 %>% select(1:7)
 ```
 
-## Resumir información
+## Al aplicar el modelo
+
+Luego de obtener la capa intermedia:
+
 ```{r}
 dautoenc <- readRDS("data/data_subidas_metro_autoencoder_output.rds")
 dautoenc
 ```
 
-
-## Resumir información
+## Observar la representación gráfica
 ```{r}
 dautoenc <- readRDS("data/data_subidas_metro_autoencoder_output_km.rds")
 ```
@@ -195,26 +248,20 @@ chartlst <- readRDS("data/data_subidas_metro_polysmooths.rds")
 hw_grid(chartlst, ncol = 4) %>% htmltools::browsable()
 ```
 
-## Y si agregamos GTFS {data-background-iframe="hcsw.html"}
-
-## 
+## Alguien dijo Geográficamente? {data-background=#f8f8f8}
 ```{r}
 readRDS("data/data_subidas_metro_hcsw.rds")
 ```
 
+## Quizás un poco mejor {.section-title-white .center data-background="http://i.giphy.com/aLdiZJmmx4OVW.gif"}
 
-# En definitiva
+# En definitiva {.center}
 
-- Utilice tanto h2o para el autoencoder (JAVA)
-- Como highcharts (javascript)
-- Por lo que R es buen lenguaje
+- 
 
-# Gracias. Conversemos! { .center }
+# A ustedes y a los organizadores. Conversemos! {.section-title-white .center data-background="http://i.giphy.com/5xtDarmwsuR9sDRObyU.gif"}
 
-## Créditos
-
-> - Eat eggs
-> - Drink coffee
+# {data-background=#f8f8f8}
 
 
 

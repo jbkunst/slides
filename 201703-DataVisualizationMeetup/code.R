@@ -24,7 +24,7 @@ library(viridis)
 library(hrbrthemes)
 library(jbkmisc)
 theme_set(theme_jbk())
-options(highcharter.theme = hc_theme_elementary())
+options(highcharter.theme = hc_theme_smpl(chart = list(backgroundColor = "transparent")))
 
 jbkmisc::wf_create_folders()
 
@@ -58,7 +58,8 @@ data <- filter(data, mediahora != 0)
 data <- data %>% 
   mutate(paraderosubida = str_replace(paraderosubida, " L\\d$", "")) %>% 
   group_by(paraderosubida, mediahora) %>% 
-  summarise(subidas_laboral_promedio = sum(subidas_laboral_promedio))
+  summarise(subidas_laboral_promedio = sum(subidas_laboral_promedio)) %>% 
+  ungroup()
   
 count(count(data, paraderosubida), n)
 
@@ -349,24 +350,24 @@ count(stops_metro_data, group)
 stopsmarkeropts <- list(
   enabled = TRUE,
   symbol = "circle",
-  lineWidth = 2,
-  radius = 5
+  lineWidth = 1,
+  radius = 4
   )
 
 hcsw <- highchart(type = "map") %>% 
   hc_add_series(mapData = NULL, showInLegend = FALSE) %>% 
-  hc_add_series(stops_metro_data, "point", hcaes(stop_lon, stop_lat, group = group, size = median),
+  hc_add_series(stops_metro_data, "point", hcaes(stop_lon, stop_lat, group = group),
                 marker = stopsmarkeropts,
-                color = hex_to_rgba(viridis(4), alpha = 0.75), minSize = "1%", maxSize = "2%",
+                color = hex_to_rgba(viridis(4), alpha = 0.75), minSize = "1%", maxSize = "3%",
                 tooltip = list(headerFormat = "{point.name}")) %>%
   hc_add_series(shapes_metro, "line", hcaes(shape_pt_lon, shape_pt_lat, group = shape_id2),
-                color = colors_metro$route_color,
-                enableMouseTracking = FALSE, lineWidth = 4, zIndex = -4) %>% 
+                color = hex_to_rgba(colors_metro$route_color, 0.5),
+                enableMouseTracking = FALSE, lineWidth = 6, zIndex = -4) %>% 
   hc_legend(align = "right", verticalAlign = "top", layout = "vertical") %>% 
   hc_yAxis(reversed = FALSE) %>% 
   hc_tooltip(
     useHTML = TRUE,
-    positioner = JS("function () { return { x: this.chart.plotLeft + 15, y: 200 + 0 }; }"),
+    positioner = JS("function () { return { x: this.chart.plotLeft + 15, y: 300 + 0 }; }"),
     headerFormat = "{point.stop_name}",
     pointFormatter = JS("
 function(){
@@ -414,4 +415,4 @@ hcsw
 
 saveRDS(hcsw, "data/data_subidas_metro_hcsw.rds")
 
-htmlwidgets::saveWidget(hcsw, "hcsw.html")
+# htmlwidgets::saveWidget(hcsw, "hcsw.html")

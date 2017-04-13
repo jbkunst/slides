@@ -11,8 +11,8 @@ library(stringr)
 
 files <- dir(".", recursive = TRUE, pattern = "index.html", full.names = TRUE)
 files <- setdiff(files, "./index.html")
-
-
+files <- sort(files, decreasing = TRUE)
+files <- keep(files, function(x) length(unlist(str_extract_all(x, "/"))) == 2)
 ```
 
 ```{r, results='asis', echo=FALSE}

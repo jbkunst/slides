@@ -17,13 +17,12 @@ ggplot2::theme_set(jbkmisc::theme_jbk())
 #' 
 #' ## Requisitos
 #' 
-#' - conocer readr, dplyr y magrittr
-#' -
+#' - conocer readr, dplyr y magrittr -
 #' 
 #' ## Cargando Datos y Paquetes
-#'
+#' 
 #' Los datos son obtenidos de
-#'
+#' 
 library(readr)
 library(dplyr)
 library(ggplot2)
@@ -71,14 +70,15 @@ dfsubidas %>%
 #' 
 ggplot(dfsubidas, aes(mediahora, subidas_laboral_promedio)) + 
   geom_line(aes(group = paraderosubida), alpha = 0.25) +
-  geom_smooth() + 
+  geom_smooth(size = 1.3) + 
   scale_x_time() 
 
 dfsubidas2 <- spread(dfsubidas, mediahora, subidas_laboral_promedio)
 dfsubidas2
 
 dfsubidas3 <- select(dfsubidas2, -1) %>% 
-  mutate_all(function(x) ifelse(is.na(x), 0, x))
+  mutate_all(function(x) ifelse(is.na(x), 0, x)) %>% 
+  mutate_all(scale)
 
 kmeans <- map_df(1:10, function(k){ # k <- 6
   set.seed(123)
@@ -156,18 +156,20 @@ stops_metro_data <- stops_metro %>%
   mutate(id = str_to_id2(stop_name)) %>% 
   left_join(select(dfsubidas2, grupo, id)) 
 
-
 ggplot()+
   geom_path(data = shapes_metro,
             aes(x = shape_pt_lon, y = shape_pt_lat, group = shape_id, color = shape_id),
-            size = 2) + 
-  # scale_color_manual(values = colors_metro$route_color) + 
+            size = 1.2) + 
+  
   geom_point(data = stops_metro_data,
              aes(x = stop_lon, y = stop_lat, color = factor(grupo)),
-             size = 2, alpha = 0.8) +
+             size = 2, alpha = 0.95) +
+  
+  scale_color_manual(values = c(colors_metro$route_color, viridis(K))) +
   # scale_color_viridis(discrete = TRUE) +
   facet_wrap(~grupo) +
   scale_x_continuous(breaks = NULL) + 
   scale_y_continuous(breaks = NULL) + 
   coord_fixed() +
-  theme(legend.position = "none")
+  theme_minimal() + 
+  theme(legend.position = "left")

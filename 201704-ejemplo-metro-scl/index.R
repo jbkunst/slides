@@ -13,65 +13,132 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ggplot2::theme_set(jbkmisc::theme_jbk())
 #' ## Introducción
 #' 
-#' asd asd
+#' Ejercicio de manipulación de datos y visualización de datos 
+#' de subidas de paraderos del metro de Santiago.
 #' 
-#' ## Requisitos
+#' Se utilizará:
 #' 
-#' - conocer readr, dplyr y magrittr -
+#' - `readr` para la lectura de datos.
+#' - `dplyr` y `tidy` para manipulación de información.
+#' - `ggplot2` para la visualización.
+#' - `stringr` para tratamiento de strings.#' 
 #' 
-#' ## Cargando Datos y Paquetes
-#' 
-#' Los datos son obtenidos de
+#' ## Cargando paquetes
 #' 
 library(readr)
 library(dplyr)
 library(ggplot2)
+library(hrbrthemes)
 library(viridis)
 library(stringr)
 library(tidyr)
 library(purrr)
 
+#'
+#' ## Estudiando las dubidad de 
+#' 
+#' Los datos de _matrices de viaje son obtenidos de Directorio de Transporte
+#' Público: http://www.dtpm.gob.cl/index.php/2013-04-29-20-33-57/matrices-de-viaje.
+#' 
 dfsubidas <- read_csv2("data/2015.04_Subidas_paradero_mediahora_web.csv")
+
+#' Primera inspección;
 dfsubidas
 
-#' `dplyr` reconoce la columna como tiempo! 
-#' 
+#' La tabla contiene información de subidas promedios en días laborales por 
+#' cada media hora. La variable `subidas_laboral_promedio` se ha cargado como 
+#' carácter en lugar de numérica. 
 dfsubidas <- mutate(dfsubidas, subidas_laboral_promedio = as.numeric(subidas_laboral_promedio))
 dfsubidas
 
+#' Cuantos paraderos contiene la tabla:
 count(dfsubidas, paraderosubida)
 
-#' Filtramos solamente paradas de metro
+#' Contiene `r nrow(count(dfsubidas, paraderosubida))`. Filtramos solamente 
+#' paradas de metro. 
+#' 
+set.seed(1234)
+sample(dfsubidas$paraderosubida, 20)
+
+#' Luego de explorar un poco está columna se selecciona lo que __no__ posea
+#' un string que comience con T, L, I o E y un guión: 
 dfsubidas <- filter(dfsubidas, !str_detect(paraderosubida, "^(T|L|I|E)?-")) 
 count(dfsubidas, paraderosubida)
 
+#' Y luego del filtros nos quedamos con 106 estaciones (de metro supuestamente).
+#' Sin embargo vemos que aparece _Baquedano_ dos veces dado que es una estación
+#' de combinación. En esta oportunidad la consideraremos como una por lo que 
+#' al nomnre de la estación removeremos la parte que hace distición a que línea 
+#' es `" L\\d"` donde `"\\d"` es algún número.
+#' 
+#' Entonces removemos, agrupamos para sumar los casos de combinaciones:
+#' 
 dfsubidas <- dfsubidas %>% 
   mutate(paraderosubida = str_replace(paraderosubida, " L\\d$", "")) %>% 
   group_by(paraderosubida, mediahora) %>% 
   summarise(subidas_laboral_promedio = sum(subidas_laboral_promedio)) %>% 
   ungroup()
 
+count(dfsubidas, paraderosubida)
+
+#' ;)!.
+#' 
+#' Ahora contemos si todas las estaciones contiene la misma cantidad de 
+#' registros
 dfsubidas %>% 
   count(paraderosubida) %>% 
   count(n)
 
+#' Existe una estación que contiene 38 registros y otras 38 estaciones
+#' que contiene 36 regitros.
+#' 
 dfsubidas %>% 
   count(mediahora)
 
-dfsubidas <- filter(dfsubidas, mediahora != 0)
+dfsubidas %>% 
+  count(mediahora) %>% 
+  filter(n != 101)
 
+# Eliminaremos las 12AM.
+dfsubidas <- filter(dfsubidas, mediahora != 0)
 
 # dfsubidas <- complete(dfsubidas, paraderosubida, mediahora,
                  # fill = list(subidas_laboral_promedio = 0)) 
 
-dfsubidas %>% 
-  count(paraderosubida) %>% 
-  count(n)
+#' Ahora visualizaremos los registros por líneas y veremos la tencendia
+#' a través de un suavizamientos: 
+gg <- ggplot(dfsubidas) + 
+  geom_line(aes(mediahora, subidas_laboral_promedio,
+                group = paraderosubida), alpha = 0.25) +
+  geom_smooth(aes(mediahora, subidas_laboral_promedio), size = 1.3) + 
+  scale_x_time() +
+  scale_y_comma()
+gg
+#' Se observa lo esperado: mucha gente ingresa a las 8 y 18.30 app además
+#' de un leve peak a las 13.00 horas. 
 #' 
-ggplot(dfsubidas, aes(mediahora, subidas_laboral_promedio)) + 
-  geom_line(aes(group = paraderosubida), alpha = 0.25) +
-  geom_smooth(size = 1.3) + 
-  scale_x_time() 
+#' Por diversión agregaremos las horas puntas:
+library(lubridate)
+
+dfhorarios <- data_frame(
+  xmin = c(hms("7:00:00"), hms("18:00:00")),
+  xmax = c(hms("8:59:59"), hms("19:59:69")),
+  ymin = c(0, 0),
+  ymax = rep(7000, 2),
+  g = c(1, 2)
+)
+
+gg <- gg +
+  geom_rect(data = dfhorarios,
+            aes(xmin = xmin, xmax = xmax,
+                ymin = ymin, ymax = ymax), alpha = 0.2)
+
+gg
+#'
+#'  ## Agrupando Estaciones 
+#' 
+#' Vemos que algunas estaciones 
+
 
 dfsubidas2 <- spread(dfsubidas, mediahora, subidas_laboral_promedio)
 dfsubidas2

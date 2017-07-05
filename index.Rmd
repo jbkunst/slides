@@ -1,6 +1,8 @@
 ---
 title: "R material"
-output: html_document
+output:
+  html_document:
+    theme: paper
 ---
 
 ```{r setup, include=FALSE}
@@ -16,18 +18,13 @@ files <- keep(files, function(x) length(unlist(str_extract_all(x, "/"))) == 2)
 ```
 
 ```{r, results='asis', echo=FALSE}
-
-map(files, function(f){
-  tags$a(
-    f %>% 
-      dirname() %>% 
-      str_replace("./", "") %>% 
-      str_replace_all("-", " ") %>% 
-      str_to_title(),
-    href = str_replace(f, "./", "")
-  ) %>% 
-    tags$li()
-}) %>% 
+files %>% 
+  map(dirname) %>% 
+  map(str_replace, "./", "") %>% 
+  map(str_replace_all, "-", " ") %>% 
+  map(str_to_title) %>% 
+  map2(files, function(x, y) tags$a(x, href = y)) %>% 
+  map(tags$li) %>% 
   tags$ul()
 ```
 

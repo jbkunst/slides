@@ -1,38 +1,89 @@
 ---
-title: "Untitled"
+title: "Highcharter en 45 minutos o más... o menos"
+author: Joshua Kunst, Julio 2017
 output:
-  rmdshower::shower_presentation:
+  revealjs::revealjs_presentation:
     self_contained: false
-    katex: false
-    ratio: 16x10
-    theme: earl2016
+    mathjax: null
+    transition: fade
+    css: ["styles.css"]
+    incremental: true
+    center: false
+    theme: simple
+    fig_width: 5
+    fig_height: 4
+    reveal_options:
+      slideNumber: true
+      controls: false
+      mouseWheel: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+# Holas {.white .center data-background=#99B433}
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
+source("setup.R")
 ```
 
-## R Markdown
+## Testing
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
+```{r, echo=TRUE}
+x <- AirPassengers
+fcst <- forecast(x) 
+hchart(fcst)
 ```
 
-## Slide with Plot
 
-```{r pressure}
-plot(pressure)
-```
+## Me presento
+
+- Soy Estadístico
+- De día hago como que trabajo en riesgo trabajo Riesgo (70%) y Proyectos personales (30%)
+- Escribo código para compartir en [jkunst.com](http://jkunst.com)
+- Me gusta escribir código (en [R](https://cran.r-project.org/), por si acaso)
+
+## Que haré(mos)?
+
+- Motivar a quien no ha escrito codigo
+- Vende[R](https://cran.r-project.org/)
+- Y [R](https://cran.r-project.org/)egalar
+
+
+## Como lo haremos?
+
+- Revisar mi adoptado worflow de trabajo
+- Mostrar uno de mis _one-hit wonder_
+- Presentar highcharter (PP)
+- Jugar con un ejemplo guiado
+
+# Workflow {.section-title-white .center data-background="http://i.giphy.com/pBLInoiV7V73y.gif"}
+
+##
+
+![DSflow](http://r4ds.had.co.nz/diagrams/data-science.png)
+
+- Programar, pues **seguramente** lo repetiremos más de una vez (ej: reproducibilidad)
+- Repetir, repetir hasta entender
+- Usar la visualización no tan solo como un producto final sino como 
+herramienta para el entendimiento
+
+# Proyecto Personal {.section-title-black .center data-background="img/contribs.png"}
+
+## 
+
+![DSflow](https://raw.githubusercontent.com/jbkunst/highcharter/master/highcharter-logo.png)
+
+- Que es? Wrapper/interfaz de R para highcharts
+- Que intenta ser? Más que un wrapper para highcharts.
+- Como? Una ayuda a quienes no _js/html_ hablantes para hacer visualizaciones
+atractivas de forma simple.
+
+
+# Gracias
+
+> - Highcharter GH page:  https://github.com/jbkunst/highcharter
+> - Presentación: http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/
+> - Código: http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/code.html
+> - Blog: http://jkunst.com
+
+
 

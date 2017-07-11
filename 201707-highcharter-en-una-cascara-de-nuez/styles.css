@@ -9,6 +9,7 @@
 
 /* for Datalegreya */
 body {
+  background-color: #FAFAFA;
   -webkit-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
   -moz-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
   -webkit-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
@@ -46,6 +47,9 @@ body {
 .reveal .black > h1 { color: black;}
 
 /* Styles for text p li */
+reveal p {
+   padding-top: 1.75em;
+}
 .reveal p, .reveal li {
   color: #555555;
   font-family: "Open Sans", sans-serif;
@@ -57,7 +61,7 @@ body {
 .reveal code { font-family: "Fira Mono"; }
 
 /* ul li lists with more space */
-.reveal section ul { padding-top: 2em; list-style: none;}
+.reveal section ul { padding-top: 1.75em; list-style: none;}
 .reveal section li { padding: 0.5em; }
 .reveal section li:before {
   content: "\f101"; /* FontAwesome Unicode */
@@ -66,5 +70,10 @@ body {
   display: inline-block;
   margin-left: -1.5em; /* same as padding-left set on li */
   width: 1.5em; /* same as padding-left set on li */
+}
+
+/* img */
+.reveal section img {
+  border: none;
 }
 

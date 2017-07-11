@@ -17,13 +17,11 @@ output:
       controls: false
       mouseWheel: false
 ---
-
-# Quién soy y que haré(mos)? {.white .center data-background=#D32F2F}
-
 ```{r, include = FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
 source("setup.R")
 ```
+
+# `r ico("exclamation-triangle")` Quién soy y que haré(mos) { .center }
 
 ## Quién soy
 
@@ -31,26 +29,55 @@ source("setup.R")
 - En Proyectos Personales (30%)
 - Me gusta escribir código (en [R](https://cran.r-project.org/)!)
 - Y compartirlo en [jkunst.com](http://jkunst.com)
-- De casualidad soy Estadístico
+- De casualidad soy Estadístico y por tanto useR
 
 ## Que haré(mos)?
 
-- Revisar un poco, solo un poco de historia
-- Que es `highcharter`? Que es `highchartsJS`?
-- Implementación del API de `highchartsJS` en `highcharter`
+- Recordar/revisar formas de visualizar en R para contextualizar
+- Que es `highcharter`? Que es `highchartsJS`? y como funcionan
 - Función genérica `hchart`
 - Ejemplos simples, y quizás algunos más complejos.
 - Si el tiempo da, integración con `shiny`, `rmarkdown`
 
-# Historia  {.white .center data-background=#D32F2F}
+#  `r ico("history")` Historia { .center }
 
-## R base 
+## R base (desde ~2000)
 
-## Lattice
+El clásico de siempre!
 
-## ggplot2
+```{r}
+y <- rpois(100, lambda = 5)
+plot(table(y))
+```
+
+## R base (desde ~2000)
+
+Rápido para hacer cosas simples, pero escala muy mal (emo).
+
+```{r}
+plot(AirPassengers)
+```
+
+## Lattice & ggplot2
+
+sdfsd
 
 ## htmlwidgets
+
+- Surgió como la segunda iteración del paquete `rCharts` para hacer gráficos 
+interactivos usando librerías de javascript (basadas en web).
+- `htmlwidgets` provee un _framework_ -una estandarización- para que un desarrollador
+porte una librería javascript a R
+- Al realizar una librería basada en `htmlwidgets` viene `shiny`-`rmakrdown` _ready_
+
+## htmlwidgets
+
+Existe casi un paquete por cada librería javascript allá suelta en la web
+
+<iframe src="http://gallery.htmlwidgets.org/" width = "900" height = "700" frameborder="0" align="center"
+style="-ms-zoom: 0.5; -moz-transform: scale(0.5); -moz-transform-origin: 0 0; -o-transform: scale(0.5); -o-transform-origin: 0 0; -webkit-transform: scale(0.5); -webkit-transform-origin: 0 0;"></iframe>
+
+## En Resumen 
 
 ## Consideraciones
 
@@ -58,18 +85,67 @@ R es muy flexible lo que lleva a:
 
 - Tener gran variedad de opciones `r ico("thumbs-o-up", "#337ab7")`
 - Pero con la consideración de que cada paquete tiene su propia sintaxis `r ico("exclamation-triangle", "#d58512")`
+- _Peeero_ siempre estarás acompañado de la buena comunidad que R posee para ayudarte `r ico("smile-o", "green")`
 
-# `highchartsJS` y `highcharter`, Que son? {.white .center data-background=#D32F2F}
+# `r ico("line-chart")` `highchartsJS` y `highcharter`, Y como funcionan? { .center }
 
-# API de `highchartsJS` en R {.white .center data-background=#D32F2F}
+## `highchartsJS` y `highcharter`
 
-# `hchart` al rescate {.white .center data-background=#D32F2F}
+- `highchartsJS` Es una popular -entre otras- librería de javascript de visualización
+- Es muy madura (por no decir vieja) y *flexible*, tiene muchas muchas opciones. Ya veremos
+- Muchos tipos de gráficos
+- `highcharter` no es más que el _wrapper_ highcharts para R. Por lo que hereda
+lo bueno y lo malo
 
-# Ejemplos :D {.white .center data-background=#D32F2F}
+## API de `highchartsJS`
 
-# Vamos a la consola? {.white .center data-background=#D32F2F}
+## API de `highchartsJS` en R
 
-# Gracias {.white .center data-background=#D32F2F}
+## Ok ok
+
+`r ico("quote-left")` ... Ok ok Todo puede ser muy bonito, pero requiere 
+de mucho código... que lata! `r ico("quote-right")`
+
+# `r ico("fast-forward ")` `hchart` al rescate y otros atajos { .center }
+
+## `hchart` 
+
+- Es una función genérica, vale decir, graficará _algo_ dependiendo del tipo de
+objeto que se le de
+- La idea es la misma que la función `plot` de siempre
+- Están las implementaciones para series de tiempo, forecast, data.frames, 
+componenetes principales, matrices y varias otras
+- Simplemente un `r ico("magic", "royalblue")` `hchart(objeto)`
+
+## `hchart` 
+
+```{r}
+x <- rnorm(1000)
+hchart(x)
+```
+
+## `hchart`
+
+```{r}
+hchart(density(x), color = "skyblue", name = "Densidad!", type = "area")
+```
+
+
+## `hciconarray`
+
+```{r}
+ hciconarray(c("car", "truck", "plane"), c(40, 15, 10),
+             icons = c("car", "truck", "plane")) %>% 
+  hc_add_dependency_fa()
+```
+
+
+# Ejemplos :D { .center }
+
+# Vamos a la consola? { .center }
+
+# Gracias { .center }
+
 
 ## Gracias
 

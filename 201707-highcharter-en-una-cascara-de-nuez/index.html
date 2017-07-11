@@ -4,50 +4,13 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Joshua Kunst, Julio 2017" />
-  <title>Highcharter en 45 minutos o más… o menos</title>
+  <title></title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/reveal.css"/>
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
 
@@ -481,94 +444,68 @@ style.innerHTML = style_script;
 document.getElementsByTagName('head')[0].appendChild(style);
 </script>
 
-    <script src="index_files/htmlwidgets-0.8/htmlwidgets.js"></script>
-    <script src="index_files/jquery-1.11.1/jquery.min.js"></script>
-    <script src="index_files/proj4js-2.3.15/proj4.js"></script>
-    <link href="index_files/highcharts-5.0.7/css/motion.css" rel="stylesheet" />
-    <script src="index_files/highcharts-5.0.7/highstock.js"></script>
-    <script src="index_files/highcharts-5.0.7/highcharts-3d.js"></script>
-    <script src="index_files/highcharts-5.0.7/highcharts-more.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/annotations.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/broken-axis.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/data.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/drilldown.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/exporting.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/funnel.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/heatmap.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/map.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/no-data-to-display.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/offline-exporting.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/solid-gauge.js"></script>
-    <script src="index_files/highcharts-5.0.7/modules/treemap.js"></script>
-    <script src="index_files/highcharts-5.0.7/plugins/export-csv.js"></script>
-    <script src="index_files/highcharts-5.0.7/plugins/grouped-categories.js"></script>
-    <script src="index_files/highcharts-5.0.7/plugins/motion.js"></script>
-    <script src="index_files/highcharts-5.0.7/plugins/multicolor_series.js"></script>
-    <script src="index_files/highcharts-5.0.7/custom/reset.js"></script>
-    <script src="index_files/highcharts-5.0.7/custom/symbols-extra.js"></script>
-    <script src="index_files/highcharts-5.0.7/custom/text-symbols.js"></script>
-    <link href="index_files/htmlwdgtgrid-1/htmlwdgtgrid.css" rel="stylesheet" />
-    <script src="index_files/highchart-binding-0.5.0.9999/highchart.js"></script>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
 <section>
-    <h1 class="title">Highcharter en 45 minutos o más… o menos</h1>
+    <h1 class="title"><div id="brand">
+h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r|2{userchile}
+</div></h1>
     <h2 class="author">Joshua Kunst, Julio 2017</h2>
 </section>
 
-<section><section id="holas" class="titleslide slide level1 white center" data-background="#99B433"><h1>Holas</h1></section><section id="testing" class="slide level2">
-<h1>Testing</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>AirPassengers
-fcst &lt;-<span class="st"> </span><span class="kw">forecast</span>(x) 
-<span class="kw">hchart</span>(fcst)</code></pre></div>
-<div id="htmlwidget-ebf710b1c615348d1004" style="width:100%;height:500px;" class="highchart html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ebf710b1c615348d1004">{"x":{"hc_opts":{"title":{"text":null},"yAxis":{"title":{"text":null}},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"xAxis":{"type":"datetime"},"series":[{"data":[[-662688000000,112],[-660009600000,118],[-657590400000,132],[-654912000000,129],[-652320000000,121],[-649641600000,135],[-647049600000,148],[-644371200000,148],[-641692800000,136],[-639100800000,119],[-636422400000,104],[-633830400000,118],[-631152000000,115],[-628473600000,126],[-626054400000,141],[-623376000000,135],[-620784000000,125],[-618105600000,149],[-615513600000,170],[-612835200000,170],[-610156800000,158],[-607564800000,133],[-604886400000,114],[-602294400000,140],[-599616000000,145],[-596937600000,150],[-594518400000,178],[-591840000000,163],[-589248000000,172],[-586569600000,178],[-583977600000,199],[-581299200000,199],[-578620800000,184],[-576028800000,162],[-573350400000,146],[-570758400000,166],[-568080000000,171],[-565401600000,180],[-562896000000,193],[-560217600000,181],[-557625600000,183],[-554947200000,218],[-552355200000,230],[-549676800000,242],[-546998400000,209],[-544406400000,191],[-541728000000,172],[-539136000000,194],[-536457600000,196],[-533779200000,196],[-531360000000,236],[-528681600000,235],[-526089600000,229],[-523411200000,243],[-520819200000,264],[-518140800000,272],[-515462400000,237],[-512870400000,211],[-510192000000,180],[-507600000000,201],[-504921600000,204],[-502243200000,188],[-499824000000,235],[-497145600000,227],[-494553600000,234],[-491875200000,264],[-489283200000,302],[-486604800000,293],[-483926400000,259],[-481334400000,229],[-478656000000,203],[-476064000000,229],[-473385600000,242],[-470707200000,233],[-468288000000,267],[-465609600000,269],[-463017600000,270],[-460339200000,315],[-457747200000,364],[-455068800000,347],[-452390400000,312],[-449798400000,274],[-447120000000,237],[-444528000000,278],[-441849600000,284],[-439171200000,277],[-436665600000,317],[-433987200000,313],[-431395200000,318],[-428716800000,374],[-426124800000,413],[-423446400000,405],[-420768000000,355],[-418176000000,306],[-415497600000,271],[-412905600000,306],[-410227200000,315],[-407548800000,301],[-405129600000,356],[-402451200000,348],[-399859200000,355],[-397180800000,422],[-394588800000,465],[-391910400000,467],[-389232000000,404],[-386640000000,347],[-383961600000,305],[-381369600000,336],[-378691200000,340],[-376012800000,318],[-373593600000,362],[-370915200000,348],[-368323200000,363],[-365644800000,435],[-363052800000,491],[-360374400000,505],[-357696000000,404],[-355104000000,359],[-352425600000,310],[-349833600000,337],[-347155200000,360],[-344476800000,342],[-342057600000,406],[-339379200000,396],[-336787200000,420],[-334108800000,472],[-331516800000,548],[-328838400000,559],[-326160000000,463],[-323568000000,407],[-320889600000,362],[-318297600000,405],[-315619200000,417],[-312940800000,391],[-310435200000,419],[-307756800000,461],[-305164800000,472],[-302486400000,535],[-299894400000,622],[-297216000000,606],[-294537600000,508],[-291945600000,461],[-289267200000,390],[-286675200000,432]],"name":"Series","zIndex":3},{"data":[[-283996800000,441.747902362038],[-281318400000,433.093126703208],[-278899200000,496.606740061733],[-276220800000,483.526306575507],[-273628800000,485.10264043318],[-270950400000,551.10851018355],[-268358400000,613.381035695143],[-265680000000,610.435926392563],[-263001600000,530.949377091267],[-260409600000,462.50316245249],[-257731200000,402.012990058083],[-255139200000,450.839055867027],[-252460800000,458.242894048511],[-249782400000,448.886713393452],[-247363200000,514.29434685196],[-244684800000,500.34792364875],[-242092800000,501.588276998791],[-239414400000,569.404927187612],[-236822400000,633.276206923549],[-234144000000,629.781274996199],[-231465600000,547.390772203994],[-228873600000,476.498342845133],[-226195200000,413.901037903669],[-223603200000,463.868513835305]],"name":"ETS(M,Ad,M)","zIndex":2,"id":"armb4pjfxb"},{"data":[[-283996800000,462.567454046538,420.928350677537],[-281318400000,458.59384737836,407.592406028056],[-278899200000,530.892974907902,462.320505215563],[-276220800000,521.354124942918,445.698488208095],[-273628800000,527.192506994044,443.012773872317],[-270950400000,603.361226478337,498.855793888764],[-268358400000,676.248444931779,550.513626458507],[-265680000000,677.510522792077,543.361329993048],[-263001600000,593.085478753746,468.813275428788],[-260409600000,519.843855960979,405.162468944001],[-257731200000,454.581310501912,349.444669614255],[-255139200000,512.785846057013,388.89226567704],[-252460800000,524.193757227447,392.292030869576],[-249782400000,516.367291447706,381.406135339197],[-247363200000,594.853412119043,433.735281584878],[-244684800000,581.83724115112,418.85860614638],[-242092800000,586.363392351583,416.813161646],[-239414400000,669.102869524909,469.706984850314],[-236822400000,747.966259124155,518.586154722943],[-234144000000,747.589417166549,511.97313282585],[-231465600000,653.017709812939,441.763834595048],[-228873600000,571.234393358983,381.762292331283],[-226195200000,498.595037538907,329.207038268432],[-223603200000,561.460597680048,366.276429990562]],"name":"ETS(M,Ad,M) level 80","type":"arearange","fillOpacity":0.1,"zIndex":1,"lineWidth":0,"linkedTo":"armb4pjfxb"},{"data":[[-283996800000,473.588658967528,409.907145756547],[-281318400000,472.093113474614,394.093139931802],[-278899200000,549.043011274446,444.170468849019],[-276220800000,541.378962377416,425.673650773597],[-273628800000,549.473536455872,420.731744410488],[-270950400000,631.022143614796,471.194876752305],[-268358400000,709.528441088686,517.233630301599],[-265680000000,713.017669301005,507.85418348412],[-263001600000,625.978344065705,435.920410116829],[-260409600000,550.198185537597,374.808139367383],[-257731200000,482.409298382892,321.616681733275],[-255139200000,545.578495928994,356.09961580506],[-252460800000,559.106035302692,357.37975279433],[-249782400000,552.089351662696,345.684075124207],[-247363200000,637.498805257499,391.089888446422],[-244684800000,624.975080076531,375.720767220969],[-242092800000,631.24062759,371.935926407583],[-239414400000,721.879772186,416.930082189224],[-236822400000,808.679505348518,457.87290849858],[-234144000000,809.953280514634,449.609269477765],[-231465600000,708.933232981073,385.848311426915],[-228873600000,621.38462915372,331.612056536546],[-226195200000,543.429332710264,284.372743097075],[-223603200000,613.122726193608,314.614301477002]],"name":"ETS(M,Ad,M) level 95","type":"arearange","fillOpacity":0.1,"zIndex":1,"lineWidth":0,"linkedTo":"armb4pjfxb"}]},"theme":{"colors":["#d35400","#2980b9","#2ecc71","#f1c40f","#2c3e50","#7f8c8d"],"chart":{"style":{"fontFamily":"Roboto","color":"#666666"},"backgroundColor":"transparent"},"title":{"align":"left","style":{"fontFamily":"Roboto Condensed","fontWeight":"bold"}},"subtitle":{"align":"left","style":{"fontFamily":"Roboto Condensed"}},"legend":{"align":"right","verticalAlign":"bottom"},"xAxis":{"gridLineWidth":1,"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"yAxis":{"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"plotOptions":{"line":{"marker":{"enabled":false}},"spline":{"marker":{"enabled":false}},"area":{"marker":{"enabled":false}},"areaspline":{"marker":{"enabled":false}},"bubble":{"maxSize":"10%"}}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":["Roboto","Roboto+Condensed"],"debug":false},"evals":[],"jsHooks":[]}</script>
-</section><section id="me-presento" class="slide level2">
-<h1>Me presento</h1>
+<section><section id="quien-soy-y-que-haremos" class="titleslide slide level1 white center" data-background="#D32F2F"><h1>Quién soy y que haré(mos)?</h1></section><section id="quien-soy" class="slide level2">
+<h1>Quién soy</h1>
 <ul>
-<li class="fragment">Soy Estadístico</li>
-<li class="fragment">De día hago como que trabajo en riesgo trabajo Riesgo (70%) y Proyectos personales (30%)</li>
-<li class="fragment">Escribo código para compartir en <a href="http://jkunst.com">jkunst.com</a></li>
-<li class="fragment">Me gusta escribir código (en <a href="https://cran.r-project.org/">R</a>, por si acaso)</li>
+<li class="fragment">De día hago como que trabajo en riesgo (70%)</li>
+<li class="fragment">En Proyectos Personales (30%)</li>
+<li class="fragment">Me gusta escribir código (en <a href="https://cran.r-project.org/">R</a>!)</li>
+<li class="fragment">Y compartirlo en <a href="http://jkunst.com">jkunst.com</a></li>
+<li class="fragment">De casualidad soy Estadístico</li>
 </ul>
 </section><section id="que-haremos" class="slide level2">
 <h1>Que haré(mos)?</h1>
 <ul>
-<li class="fragment">Motivar a quien no ha escrito codigo</li>
-<li class="fragment">Vende<a href="https://cran.r-project.org/">R</a></li>
-<li class="fragment">Y <a href="https://cran.r-project.org/">R</a>egalar</li>
-</ul>
-</section><section id="como-lo-haremos" class="slide level2">
-<h1>Como lo haremos?</h1>
-<ul>
-<li class="fragment">Revisar mi adoptado worflow de trabajo</li>
-<li class="fragment">Mostrar uno de mis <em>one-hit wonder</em></li>
-<li class="fragment">Presentar highcharter (PP)</li>
-<li class="fragment">Jugar con un ejemplo guiado</li>
+<li class="fragment">Revisar un poco, solo un poco de historia</li>
+<li class="fragment">Que es <code>highcharter</code>? Que es <code>highchartsJS</code>?</li>
+<li class="fragment">Implementación del API de <code>highchartsJS</code> en <code>highcharter</code></li>
+<li class="fragment">Función genérica <code>hchart</code></li>
+<li class="fragment">Ejemplos simples, y quizás algunos más complejos.</li>
+<li class="fragment">Si el tiempo da, integración con <code>shiny</code>, <code>rmarkdown</code></li>
 </ul>
 </section></section>
-<section><section id="workflow" class="titleslide slide level1 section-title-white center" data-background="http://i.giphy.com/pBLInoiV7V73y.gif"><h1>Workflow</h1></section><section id="section" class="slide level2">
-<h1></h1>
-<p><img src="http://r4ds.had.co.nz/diagrams/data-science.png" alt="DSflow" /></p>
+<section><section id="historia" class="titleslide slide level1 white center" data-background="#D32F2F"><h1>Historia</h1></section><section id="r-base" class="slide level2">
+<h1>R base</h1>
+</section><section id="lattice" class="slide level2">
+<h1>Lattice</h1>
+</section><section id="ggplot2" class="slide level2">
+<h1>ggplot2</h1>
+</section><section id="htmlwidgets" class="slide level2">
+<h1>htmlwidgets</h1>
+</section><section id="consideraciones" class="slide level2">
+<h1>Consideraciones</h1>
+<p>R es muy flexible lo que lleva a:</p>
 <ul>
-<li class="fragment">Programar, pues <strong>seguramente</strong> lo repetiremos más de una vez (ej: reproducibilidad)</li>
-<li class="fragment">Repetir, repetir hasta entender</li>
-<li class="fragment">Usar la visualización no tan solo como un producto final sino como herramienta para el entendimiento</li>
+<li class="fragment">Tener gran variedad de opciones <span style="color:#337ab7"> <i class="fa fa-thumbs-o-up"></i> </span></li>
+<li class="fragment">Pero con la consideración de que cada paquete tiene su propia sintaxis <span style="color:#d58512"> <i class="fa fa-exclamation-triangle"></i> </span></li>
 </ul>
 </section></section>
-<section><section id="proyecto-personal" class="titleslide slide level1 section-title-black center" data-background="img/contribs.png"><h1>Proyecto Personal</h1></section><section id="section-1" class="slide level2">
-<h1></h1>
-<p><img src="https://raw.githubusercontent.com/jbkunst/highcharter/master/highcharter-logo.png" alt="DSflow" /></p>
+<section><section id="highchartsjs-y-highcharter-que-son" class="titleslide slide level1 white center" data-background="#D32F2F"><h1><code>highchartsJS</code> y <code>highcharter</code>, Que son?</h1></section></section>
+<section><section id="api-de-highchartsjs-en-r" class="titleslide slide level1 white center" data-background="#D32F2F"><h1>API de <code>highchartsJS</code> en R</h1></section></section>
+<section><section id="hchart-al-rescate" class="titleslide slide level1 white center" data-background="#D32F2F"><h1><code>hchart</code> al rescate</h1></section></section>
+<section><section id="ejemplos-d" class="titleslide slide level1 white center" data-background="#D32F2F"><h1>Ejemplos :D</h1></section></section>
+<section><section id="vamos-a-la-consola" class="titleslide slide level1 white center" data-background="#D32F2F"><h1>Vamos a la consola?</h1></section></section>
+<section><section id="gracias" class="titleslide slide level1 white center" data-background="#D32F2F"><h1>Gracias</h1></section><section id="gracias-1" class="slide level2">
+<h1>Gracias</h1>
 <ul>
-<li class="fragment">Que es? Wrapper/interfaz de R para highcharts</li>
-<li class="fragment">Que intenta ser? Más que un wrapper para highcharts.</li>
-<li class="fragment">Como? Una ayuda a quienes no <em>js/html</em> hablantes para hacer visualizaciones atractivas de forma simple.</li>
+<li>Highcharter website: <a href="https://github.com/jbkunst/highcharter" class="uri">https://github.com/jbkunst/highcharter</a></li>
+<li>Presentación: <a href="http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/" class="uri">http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/</a></li>
+<li>Código: <a href="http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/code.html" class="uri">http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/code.html</a></li>
+<li>Mah Blog: <a href="http://jkunst.com" class="uri">http://jkunst.com</a></li>
 </ul>
 </section></section>
-<section><section id="gracias" class="titleslide slide level1"><h1>Gracias</h1></section></section>
     </div>
   </div>
 

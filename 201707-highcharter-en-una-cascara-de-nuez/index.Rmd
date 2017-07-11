@@ -1,6 +1,6 @@
 ---
-title: "Highcharter en 45 minutos o más... o menos"
-author: Joshua Kunst, Julio 2017
+title: "<div id=\"brand\">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r|2{userchile}</div>"
+author: "Joshua Kunst, Julio 2017"
 output:
   revealjs::revealjs_presentation:
     self_contained: false
@@ -18,72 +18,65 @@ output:
       mouseWheel: false
 ---
 
-# Holas {.white .center data-background=#99B433}
+# Quién soy y que haré(mos)? {.white .center data-background=#D32F2F}
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
 source("setup.R")
 ```
 
-## Testing
+## Quién soy
 
-```{r, echo=TRUE}
-x <- AirPassengers
-fcst <- forecast(x) 
-hchart(fcst)
-```
-
-
-## Me presento
-
-- Soy Estadístico
-- De día hago como que trabajo en riesgo trabajo Riesgo (70%) y Proyectos personales (30%)
-- Escribo código para compartir en [jkunst.com](http://jkunst.com)
-- Me gusta escribir código (en [R](https://cran.r-project.org/), por si acaso)
+- De día hago como que trabajo en riesgo (70%)
+- En Proyectos Personales (30%)
+- Me gusta escribir código (en [R](https://cran.r-project.org/)!)
+- Y compartirlo en [jkunst.com](http://jkunst.com)
+- De casualidad soy Estadístico
 
 ## Que haré(mos)?
 
-- Motivar a quien no ha escrito codigo
-- Vende[R](https://cran.r-project.org/)
-- Y [R](https://cran.r-project.org/)egalar
+- Revisar un poco, solo un poco de historia
+- Que es `highcharter`? Que es `highchartsJS`?
+- Implementación del API de `highchartsJS` en `highcharter`
+- Función genérica `hchart`
+- Ejemplos simples, y quizás algunos más complejos.
+- Si el tiempo da, integración con `shiny`, `rmarkdown`
 
+# Historia  {.white .center data-background=#D32F2F}
 
-## Como lo haremos?
+## R base 
 
-- Revisar mi adoptado worflow de trabajo
-- Mostrar uno de mis _one-hit wonder_
-- Presentar highcharter (PP)
-- Jugar con un ejemplo guiado
+## Lattice
 
-# Workflow {.section-title-white .center data-background="http://i.giphy.com/pBLInoiV7V73y.gif"}
+## ggplot2
 
-##
+## htmlwidgets
 
-![DSflow](http://r4ds.had.co.nz/diagrams/data-science.png)
+## Consideraciones
 
-- Programar, pues **seguramente** lo repetiremos más de una vez (ej: reproducibilidad)
-- Repetir, repetir hasta entender
-- Usar la visualización no tan solo como un producto final sino como 
-herramienta para el entendimiento
+R es muy flexible lo que lleva a:
 
-# Proyecto Personal {.section-title-black .center data-background="img/contribs.png"}
+- Tener gran variedad de opciones `r ico("thumbs-o-up", "#337ab7")`
+- Pero con la consideración de que cada paquete tiene su propia sintaxis `r ico("exclamation-triangle", "#d58512")`
 
-## 
+# `highchartsJS` y `highcharter`, Que son? {.white .center data-background=#D32F2F}
 
-![DSflow](https://raw.githubusercontent.com/jbkunst/highcharter/master/highcharter-logo.png)
+# API de `highchartsJS` en R {.white .center data-background=#D32F2F}
 
-- Que es? Wrapper/interfaz de R para highcharts
-- Que intenta ser? Más que un wrapper para highcharts.
-- Como? Una ayuda a quienes no _js/html_ hablantes para hacer visualizaciones
-atractivas de forma simple.
+# `hchart` al rescate {.white .center data-background=#D32F2F}
 
+# Ejemplos :D {.white .center data-background=#D32F2F}
 
-# Gracias
+# Vamos a la consola? {.white .center data-background=#D32F2F}
 
-> - Highcharter GH page:  https://github.com/jbkunst/highcharter
+# Gracias {.white .center data-background=#D32F2F}
+
+## Gracias
+
+> - Highcharter website:  https://github.com/jbkunst/highcharter
 > - Presentación: http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/
 > - Código: http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/code.html
-> - Blog: http://jkunst.com
+> - Mah Blog: http://jkunst.com
 
 
 

@@ -1,6 +1,6 @@
 ---
 title: "<div id=\"brand\">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r|2{userchile}</div>"
-author: "Joshua Kunst, Julio 2017"
+author: "<div id=\"subbrand\">Joshua Kunst, Julio 2017</div>"
 output:
   revealjs::revealjs_presentation:
     self_contained: false
@@ -14,30 +14,37 @@ output:
     fig_height: 4
     reveal_options:
       slideNumber: true
-      controls: false
+      co<ntrols: false
       mouseWheel: false
 ---
 ```{r, include = FALSE}
 source("setup.R")
 ```
 
-# `r ico("exclamation-triangle")` Quién soy y que haré(mos) { .center }
+# `r ico("exclamation-triangle")` Quien soy y que haré(mos) { .center data-background="https://media.giphy.com/media/3o7buirYcmV5nSwIRW/giphy.gif" }
 
-## Quién soy
+## Quien soy
 
 - De día hago como que trabajo en riesgo (70%)
 - En Proyectos Personales (30%)
-- Me gusta escribir código (en [R](https://cran.r-project.org/)!)
+- Me gusta escribir código (en `r R()`)
 - Y compartirlo en [jkunst.com](http://jkunst.com)
-- De casualidad soy Estadístico y por tanto useR
+- De casualidad soy Estadístico <span class="fragment">de la misma forma use`r R()`</span>
 
-## Que haré(mos)?
+## Que haremos
 
-- Recordar/revisar formas de visualizar en R para contextualizar
-- Que es `highcharter`? Que es `highchartsJS`? y como funcionan
+- Presentarles highcharter
+- Que n ació por el gusto de aprender
+- 
+
+## Como lo haremos
+
+- Revisar formas de visualizar en `r R()`
+- Qué es __highcharts__?
+- Como usar __highcharter__?
 - Función genérica `hchart`
-- Ejemplos simples, y quizás algunos más complejos.
-- Si el tiempo da, integración con `shiny`, `rmarkdown`
+- Ejemplos simples<span class="fragment">, y quizás algunos más complejos</span>
+- Integracion con `shiny`<span class="fragment">, `rmarkdown`</span>
 
 #  `r ico("history")` Historia { .center }
 
@@ -52,7 +59,7 @@ plot(table(y))
 
 ## R base (desde ~2000)
 
-Rápido para hacer cosas simples, pero escala muy mal (emo).
+Rápido para hacer cosas simples, pero no escala de la mejor manera.
 
 ```{r}
 plot(AirPassengers)
@@ -64,42 +71,149 @@ sdfsd
 
 ## htmlwidgets
 
-- Surgió como la segunda iteración del paquete `rCharts` para hacer gráficos 
-interactivos usando librerías de javascript (basadas en web).
+- Surgió como la 2da iteración de `rCharts` para graficar usando 
+librerías de javascript (basadas en web).
 - `htmlwidgets` provee un _framework_ -una estandarización- para que un desarrollador
-porte una librería javascript a R
-- Al realizar una librería basada en `htmlwidgets` viene `shiny`-`rmakrdown` _ready_
+porte una librería javascript a `r R()`
+- Una librería basada en `htmlwidgets` viene `shiny`-`rmarkdown` _ready_
 
 ## htmlwidgets
 
-Existe casi un paquete por cada librería javascript allá suelta en la web
-
-<iframe src="http://gallery.htmlwidgets.org/" width = "900" height = "700" frameborder="0" align="center"
-style="-ms-zoom: 0.5; -moz-transform: scale(0.5); -moz-transform-origin: 0 0; -o-transform: scale(0.5); -o-transform-origin: 0 0; -webkit-transform: scale(0.5); -webkit-transform-origin: 0 0;"></iframe>
+<iframe src="http://gallery.htmlwidgets.org/" height="500" width="1024" frameborder="0" scrolling="yes"></iframe>
 
 ## En Resumen 
 
 ## Consideraciones
 
-R es muy flexible lo que lleva a:
+`r R()` es muy flexible lo que lleva a:
 
 - Tener gran variedad de opciones `r ico("thumbs-o-up", "#337ab7")`
-- Pero con la consideración de que cada paquete tiene su propia sintaxis `r ico("exclamation-triangle", "#d58512")`
-- _Peeero_ siempre estarás acompañado de la buena comunidad que R posee para ayudarte `r ico("smile-o", "green")`
+- Considerar que cada paquete tiene su propia sintaxis `r ico("exclamation-triangle", "#d58512")`
+- _Peeero_ siempre estarás acompañado de la buena comunidad que R posee `r ico("smile-o", "green")`
 
-# `r ico("line-chart")` `highchartsJS` y `highcharter`, Y como funcionan? { .center }
+# `r ico("line-chart")` highcharts { .center }
 
-## `highchartsJS` y `highcharter`
+## highcharts 
 
-- `highchartsJS` Es una popular -entre otras- librería de javascript de visualización
-- Es muy madura (por no decir vieja) y *flexible*, tiene muchas muchas opciones. Ya veremos
-- Muchos tipos de gráficos
-- `highcharter` no es más que el _wrapper_ highcharts para R. Por lo que hereda
-lo bueno y lo malo
+- __highcharts__ es una popular -entre otras- librería de javascript de visualización
+- Muy madura (por no decir vieja) y flexible 
+- Muchos tipos de gráficos<span class="fragment">, incluyendo financieros y mapas</span>
+- __highcharter__ no es más que el _wrapper_ highcharts para R<span class="fragment">. Por lo que hereda
+todas sus características `r ico("check", "#00FF00")`</span>
 
-## API de `highchartsJS`
+## Como luce un highcharts
 
-## API de `highchartsJS` en R
+```{r, echo=FALSE}
+data("favorite_bars")
+data("favorite_pies")
+
+dpie <- data.frame(
+  pie = c("Limón", "Berries", "Manzana", "Maracuyá", "Frambuesas"),
+  porcentaje = c(100, 85, 75, 64, 57)
+)
+dbar <- data.frame(
+  bar = c("Radicales", "Singular", "Liguria", "Clinic", "Clan"),
+  porcentaje = c(30, 28, 27, 12, 3)
+)
+
+hchart(dpie, "column", hcaes(x = pie, y = porcentaje), name = "Pies") %>%
+  hc_add_series(dbar, "pie", hcaes(name = bar, y = porcentaje), name = "Bars") %>%
+  # Options for each type of series
+  hc_plotOptions(
+    series = list(
+      showInLegend = FALSE,
+      tooltip = list(pointFormat = "<span style=\"color:{point.color}\">\u25CF</span> {series.name}: <b>{point.y}%</b><br/>")
+    ),
+    column = list(
+      colorByPoint = TRUE
+    ),
+    pie = list(
+      colorByPoint = TRUE, center = c('85%', '15%'),
+      size = 140, dataLabels = list(enabled = FALSE)
+    )) %>%
+  # Axis
+  hc_yAxis(
+    title = list(text = "porcentaje de sabor"),
+    labels = list(format = "{value}%"), max = 100
+  ) %>% 
+  # Titles and credits
+  hc_title(
+    text = "Un <i>bar</i> chart que describes mis <i>pies</i> favoritos
+    incluyendo un <i>pie</i> chart describiendo mis <i>bars</i> favoritos",
+    useHTML = TRUE
+  ) %>%
+  hc_subtitle(text = "En porcentaje de sabor e impresión") %>% 
+  hc_credits(
+    enabled = TRUE, text = "Un chiste <i>mal</i> traducido de HIMYM",
+    href = "https://www.youtube.com/watch?v=f_J8QU1m0Ng", 
+    useHTML = TRUE,
+    style = list(fontSize = "12px")
+  )
+```
+
+## Highcharts Demo
+
+<iframe src="https://www.highcharts.com/demo" height="500" width="1024" frameborder="0" scrolling="yes"></iframe>
+
+## Highcharts API
+
+<iframe src="http://api.highcharts.com/highcharts" height="500" width="1024" frameborder="0" scrolling="yes"></iframe>
+
+# `r ico("code")` highchartrs en `r R()` { .center }
+
+## highcharts en `r R()`
+
+- __highcharter__ implementa todas los atributos como funciones `hc_*`
+- Por ej: para el titulo (`title`) se debe usar `hc_title()` y así
+- ¿Los parámetros?<span class="fragment"> de la API http://api.highcharts.com/highcharts</span>
+- Buscas, ves el ejemplo, y luegos implementas en `r R()`. 
+
+## Inicializando
+
+```{r}
+# install.package("highcharter")
+# source("https://install-github.me/jbkunst/highcharter")
+library(highcharter)
+hc <- highchart()
+hc
+```
+
+## Títulos y subtítulos
+
+```{r}
+hc <- hc %>% 
+  hc_title(text = "Usuarios por mes") %>% 
+  hc_subtitle(text = "Fuente: Aleatoria")
+hc
+```
+
+## Agregando data
+
+```{r}
+hc <- hc %>% 
+  hc_add_series(data = c(20, 25, 37, 30, 70), name = "Usuarios por mes")
+hc
+```
+
+## Cambiando opciones 
+
+```{r}
+hc %>% 
+  hc_chart(
+    type = "column",
+    options3d = list(enabled = TRUE, beta = 15, alpha = 15)
+    )
+```
+
+## Cambiando opciones 
+```{r}
+hc %>% 
+ hc_chart(
+   borderColor = '#EBBA95', borderRadius = 10, borderWidth = 2,
+   backgroundColor = "gray20"
+ )
+```
+
 
 ## Ok ok
 
@@ -110,12 +224,12 @@ de mucho código... que lata! `r ico("quote-right")`
 
 ## `hchart` 
 
-- Es una función genérica, vale decir, graficará _algo_ dependiendo del tipo de
-objeto que se le de
-- La idea es la misma que la función `plot` de siempre
-- Están las implementaciones para series de tiempo, forecast, data.frames, 
-componenetes principales, matrices y varias otras
-- Simplemente un `r ico("magic", "royalblue")` `hchart(objeto)`
+- Función genérica<span class="fragment">, graficará _algo_ dependiendo del tipo de
+objeto</span>
+- El mismo espíritu que `plot`
+- La idea es tener algo _boss/production-ready_ al instante
+- Implementados series de tiempo, forecast, data.frames, PCA, dist, ...
+- Simplemente un `r ico("magic", "royalblue")` ` hchart(objeto)`
 
 ## `hchart` 
 
@@ -127,32 +241,32 @@ hchart(x)
 ## `hchart`
 
 ```{r}
-hchart(density(x), color = "skyblue", name = "Densidad!", type = "area")
+hchart(density(x), color = "skyblue", name = "Densidad!")
 ```
 
 
 ## `hciconarray`
 
 ```{r}
- hciconarray(c("car", "truck", "plane"), c(40, 15, 10),
-             icons = c("car", "truck", "plane")) %>% 
-  hc_add_dependency_fa()
+ hciconarray(c("auto", "camion", "avion"), c(40, 15, 10),
+             icons = c("car", "truck", "plane"))
 ```
 
 
 # Ejemplos :D { .center }
 
-# Vamos a la consola? { .center }
+# `r ico("code")` Vamos al ~~kioskito~~ consola? { .center }
 
 # Gracias { .center }
 
 
-## Gracias
+# Links de interés
 
 > - Highcharter website:  https://github.com/jbkunst/highcharter
 > - Presentación: http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/
 > - Código: http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/code.html
 > - Mah Blog: http://jkunst.com
+> - https://dantonnoriega.github.io/ultinomics.org/post/2017-04-05-highcharter-explainer.html
 
 
 

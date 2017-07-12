@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Pathway+Gothic+One|Open+Sans:300|Open+Sans+Condensed:300|Fira+Mono");
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,500|Open+Sans:300,400,500");
+@import url("https://fonts.googleapis.com/css?family=Fira+Mono");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
 @font-face {
   font-family: 'Datalegreya-Gradient';
@@ -27,18 +28,25 @@ body {
   font-family: 'Datalegreya-Gradient', sans-serif;
   font-size: 2.5em;
   padding-top: 1em;
+  font-weight: 300;
   text-align:center;
   vertical-align:middle;
   display: table;
   width: 100%;
 }
 
+#subbrand {
+  color: #555555;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 300;
+}
+
 /* Styles for titles */
 .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
   color: #555555;
-  font-family: "Pathway Gothic One", sans-serif;
+  font-family: "Alegreya Sans SC", sans-serif;
   word-spacing: 0.2em;
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: 0.0em;
 }
 
@@ -47,18 +55,15 @@ body {
 .reveal .black > h1 { color: black;}
 
 /* Styles for text p li */
-reveal p {
-   padding-top: 1.75em;
-}
 .reveal p, .reveal li {
   color: #555555;
   font-family: "Open Sans", sans-serif;
+  font-weight: 300;
   font-size: 80%;
-  letter-spacing: 0.0em;
+  letter-spacing: 0;
 }
 
-/* code */
-.reveal code { font-family: "Fira Mono"; }
+.reveal p { padding-top: 0.25em;}
 
 /* ul li lists with more space */
 .reveal section ul { padding-top: 1.75em; list-style: none;}
@@ -66,14 +71,14 @@ reveal p {
 .reveal section li:before {
   content: "\f101"; /* FontAwesome Unicode */
   font-family: FontAwesome;
-  font-size: 80%;
   display: inline-block;
   margin-left: -1.5em; /* same as padding-left set on li */
   width: 1.5em; /* same as padding-left set on li */
 }
 
+/* code */
+.reveal code { font-family: "Fira Mono"; }
+
 /* img */
-.reveal section img {
-  border: none;
-}
+.reveal section img { border: none; }
 

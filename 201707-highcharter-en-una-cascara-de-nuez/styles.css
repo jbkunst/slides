@@ -53,6 +53,9 @@ body {
 /* some colors for title slides */
 .reveal .white > h1 { color: white;}
 .reveal .black > h1 { color: black;}
+.reveal .left > h1 { text-align: left; }
+.reveal .right > h1 { text-align: right; }
+
 
 /* Styles for text p li */
 .reveal p, .reveal li {
@@ -77,7 +80,7 @@ body {
 }
 
 /* code */
-.reveal code { font-family: "Fira Mono"; }
+.reveal code { font-family: "Fira Mono"; font-size: 85%;}
 
 /* img */
 .reveal section img { border: none; }

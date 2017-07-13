@@ -23,7 +23,7 @@ editor_options:
 source("setup.R")
 ```
 
-# `r ico("exclamation-triangle")` Quien soy y que haré(mos) { .center data-background="https://media.giphy.com/media/3o7buirYcmV5nSwIRW/giphy.gif" }
+# `r ico("exclamation-triangle")` Quien soy y que haré(mos) { .center .left data-background="https://media.giphy.com/media/3o7buirYcmV5nSwIRW/giphy.gif" }
 
 ## Quien soy
 
@@ -42,7 +42,13 @@ source("setup.R")
 - Ejemplos simples<span class="fragment">, y quizás algunos más complejos</span>
 - Integracion con `shiny`<span class="fragment">, `rmarkdown`</span>
 
-#  `r ico("history")` Historia { .center }
+## Por que lo haríamos?
+
+- La visualización ayuda a descubrir y explicar
+- En muchos casos resume un _gran_ desarrollo que hemos hecho
+- Y bueno, en general es mejor recibido si es claro y __atractivo__
+
+# `r ico("history")` Historia { .center }
 
 ## R base (desde ~2000)
 
@@ -87,7 +93,7 @@ porte una librería javascript a `r R()`
 - Considerar que cada paquete tiene su propia sintaxis `r ico("exclamation-triangle", "#d58512")`
 - _Peeero_ siempre estarás acompañado de la buena comunidad que R posee `r ico("smile-o", "green")`
 
-# `r ico("line-chart")` highcharts { .center }
+# `r ico("line-chart")` highcharts { .left .white data-background-iframe="demo_0.html" }
 
 ## Highcharts 
 
@@ -160,9 +166,9 @@ hchart(dpie, "column", hcaes(x = pie, y = porcentaje), name = "Pies") %>%
 ## Highcharts en `r R()`
 
 - __highcharter__ implementa todas los atributos como funciones `hc_*`
-- Por ej: para el titulo (`title`) se debe usar `hc_title()` y así
+- Por ej: para el titulo (`title`) se debe usar `hc_title()` y así...
 - ¿Los parámetros?<span class="fragment"> de la API http://api.highcharts.com/highcharts</span>
-- Buscas, ves el ejemplo, y luegos implementas en `r R()`. 
+- Por lo que para partir: buscas, ves el ejemplo, y luegos implementas en `r R()`. 
 
 ## Inicializando
 
@@ -178,43 +184,77 @@ hc
 
 ```{r}
 hc <- hc %>% 
-  hc_title(text = "Usuarios por mes") %>% 
-  hc_subtitle(text = "Fuente: Aleatoria")
+  hc_title(text = "Stock") %>% 
+  hc_subtitle(text = "Fuente: Imaginación")
 hc
 ```
 
 ## Agregando data
 
 ```{r}
+ventas <- 1:12 + rnorm(12) + 2
 hc <- hc %>% 
-  hc_add_series(data = 1:12 + rnorm(12) + 2, name = "Ventas")
+  hc_add_series(data = ventas, name = "Ventas")
 hc
 ```
 
-## Cambiando opciones 
+## Agregando más data
 
 ```{r}
-hc %>% 
-  hc_add_series(data = 1:12 + rnorm(12) + 2, name = "Competencia") %>% 
-  hc_chart(type = "column",
-           options3d = list(enabled = TRUE, beta = 15, alpha = 15))
+ventas2 <- ventas*.7 + rnorm(12, sd = 0.8)
+hc <- hc %>% 
+  hc_add_series(data = ventas2, name = "Competencia")
+hc
 ```
+
+## Configurando opciones
+```{r}
+hc %>% 
+  hc_chart(
+    type = "column", borderColor = '#EBBA95', borderRadius = 10,
+    options3d = list(enabled = TRUE, alpha = 15, beta = 15))
+```
+
 
 ## Configurando ejes
 
 ```{r}
 hc <- hc %>% 
   hc_xAxis(categories = month.abb) %>% 
-  hc_yAxis(labels = list(format = "MM${value:.1f}"))
+  hc_yAxis(labels = list(format = "${value:.1f}"))
 hc
 ```
 
-## Ok ok
+## Entonces
 
-`r ico("quote-left")` ... Ok ok Todo puede ser muy bonito, pero requiere 
-de mucho código... que lata! `r ico("quote-right")`
+```{r}
+hcf <- highchart() %>%
+  hc_title(text = "Stock") %>% 
+  hc_subtitle(text = "Fuente: Imaginación") %>% 
+  hc_add_series(data = ventas, name = "Ventas", color = "#3B5997",
+                type = "area", fillOpacity = 0.15, lineWidth = 2)  %>% 
+  hc_add_series(data = ventas2, name = "Compentencia", visible = FALSE) %>% 
+  hc_xAxis(categories = month.abb) %>% 
+  hc_yAxis(labels = list(format = "${value:.1f}")) %>% 
+  hc_tooltip(valueDecimals = 2, valuePrefix = "$", table = TRUE)  
+```
 
-# `r ico("fast-forward ")` `hchart` al rescate y otros atajos { .center }
+
+```{r include=FALSE}
+htmlwidgets::saveWidget(hcf, "demo_1.html")
+```
+
+## Entonces 
+
+<iframe src="demo_1.html" height="500" width="1024" frameborder="0" scrolling="yes"></iframe>
+
+## Ehmmm...
+
+- `r ico("quote-left")` ... Ok ok Todo puede ser muy bonito, pero requiere 
+de mucho código... que lata!
+- `r ico("quote-left")` ... Y que _sucede_ si tengo 20 series? Una por una? Pff!
+
+# `r ico("fast-forward ")` `hchart` al rescate <br><small>y otros atajos</small>{ .white .left data-background="img/drakehotlinebling.jpg" }
 
 ## `hchart` 
 
@@ -238,16 +278,53 @@ hchart(x)
 hchart(density(x), color = "skyblue", name = "Densidad!")
 ```
 
+## `hchart` (+ bonus!)
+
+```{r}
+library(forecast)
+hchart(forecast(AirPassengers, h = 30)) %>% 
+  hc_exporting(enabled = TRUE)
+```
+
+## `hchart`
+
+```{r}
+hchart(princomp(USArrests, cor = TRUE))
+```
+
+## `hchart`
+
+```{r}
+hchart(cor(mtcars))
+```
 
 ## `hciconarray`
 
 ```{r}
- hciconarray(c("auto", "camion", "avion"), c(40, 15, 10),
-             icons = c("car", "truck", "plane"))
+hciconarray(c("auto", "camion", "avion"), c(40, 15, 10),
+            icons = c("car", "truck", "plane"))
+```
+
+## `hcmap`
+
+```{r}
+hcmap("countries/cl/cl-all")
+```
+
+## `hcmap`
+
+```{r}
+data("USArrests", package = "datasets")
+USArrests <- mutate(USArrests, "woe-name" = rownames(USArrests))
+
+hcmap(map = "countries/us/us-all", data = USArrests,
+      joinBy = "woe-name", value = "UrbanPop", name = "Urban Population")
 ```
 
 
-# Ejemplos :D { .center }
+
+
+# Ejemplos :D { }
 
 # `r ico("code")` Vamos al ~~kioskito~~ consola? { .center }
 

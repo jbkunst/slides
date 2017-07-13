@@ -16,6 +16,8 @@ output:
       slideNumber: true
       co<ntrols: false
       mouseWheel: false
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r, include = FALSE}
 source("setup.R")
@@ -33,15 +35,9 @@ source("setup.R")
 
 ## Que haremos
 
-- Presentarles highcharter
-- Que n ació por el gusto de aprender
-- 
-
-## Como lo haremos
-
 - Revisar formas de visualizar en `r R()`
 - Qué es __highcharts__?
-- Como usar __highcharter__?
+- Cómo usar __highcharter__?
 - Función genérica `hchart`
 - Ejemplos simples<span class="fragment">, y quizás algunos más complejos</span>
 - Integracion con `shiny`<span class="fragment">, `rmarkdown`</span>
@@ -93,12 +89,12 @@ porte una librería javascript a `r R()`
 
 # `r ico("line-chart")` highcharts { .center }
 
-## highcharts 
+## Highcharts 
 
 - __highcharts__ es una popular -entre otras- librería de javascript de visualización
 - Muy madura (por no decir vieja) y flexible 
 - Muchos tipos de gráficos<span class="fragment">, incluyendo financieros y mapas</span>
-- __highcharter__ no es más que el _wrapper_ highcharts para R<span class="fragment">. Por lo que hereda
+- __highcharter__ es un poco más que el _wrapper_ highcharts para `r R()`<span class="fragment">. Por lo que hereda
 todas sus características `r ico("check", "#00FF00")`</span>
 
 ## Como luce un highcharts
@@ -161,7 +157,7 @@ hchart(dpie, "column", hcaes(x = pie, y = porcentaje), name = "Pies") %>%
 
 # `r ico("code")` highchartrs en `r R()` { .center }
 
-## highcharts en `r R()`
+## Highcharts en `r R()`
 
 - __highcharter__ implementa todas los atributos como funciones `hc_*`
 - Por ej: para el titulo (`title`) se debe usar `hc_title()` y así
@@ -191,7 +187,7 @@ hc
 
 ```{r}
 hc <- hc %>% 
-  hc_add_series(data = c(20, 25, 37, 30, 70), name = "Usuarios por mes")
+  hc_add_series(data = 1:12 + rnorm(12) + 2, name = "Ventas")
 hc
 ```
 
@@ -199,21 +195,19 @@ hc
 
 ```{r}
 hc %>% 
-  hc_chart(
-    type = "column",
-    options3d = list(enabled = TRUE, beta = 15, alpha = 15)
-    )
+  hc_add_series(data = 1:12 + rnorm(12) + 2, name = "Competencia") %>% 
+  hc_chart(type = "column",
+           options3d = list(enabled = TRUE, beta = 15, alpha = 15))
 ```
 
-## Cambiando opciones 
+## Configurando ejes
+
 ```{r}
-hc %>% 
- hc_chart(
-   borderColor = '#EBBA95', borderRadius = 10, borderWidth = 2,
-   backgroundColor = "gray20"
- )
+hc <- hc %>% 
+  hc_xAxis(categories = month.abb) %>% 
+  hc_yAxis(labels = list(format = "MM${value:.1f}"))
+hc
 ```
-
 
 ## Ok ok
 

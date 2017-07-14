@@ -14,16 +14,46 @@ output:
     fig_height: 4
     reveal_options:
       slideNumber: true
-      co<ntrols: false
+      controls: false
       mouseWheel: false
 editor_options: 
   chunk_output_type: console
 ---
+
 ```{r, include = FALSE}
 source("setup.R")
 ```
 
-# `r ico("exclamation-triangle")` Quien soy y que haré(mos) { .center .left data-background="https://media.giphy.com/media/3o7buirYcmV5nSwIRW/giphy.gif" }
+## `r ico("exclamation-triangle", "#ff0033")` Advertencia 
+
+<script>
+(function (H) {
+    H.wrap(H.Pointer.prototype, 'normalize', function (proceed, e) {
+        var e = proceed.call(this,e);
+        var zoom = Reveal.getScale();
+        if(zoom>1) {
+        var positionX = e.pageX - e.chartX;
+        var positionY = e.pageY - e.chartY;
+        e.chartX = Math.round((e.pageX - positionX*zoom)/zoom);
+        e.chartY = Math.round((e.pageY - positionY*zoom)/zoom); 
+        } else {
+          e.chartX = Math.round(e.chartX/zoom);
+          e.chartY = Math.round(e.chartY/zoom);
+        }
+      return e;
+    });
+}(Highcharts));
+</script>
+
+
+<br>
+
+Todos los gráficos de `r ico("pie-chart")`, _3D_ y la combinación de estos 
+en esta presentación son ilustrativos y no representan el 
+estilo ni el gusto de quien lo presenta
+
+
+# `r ico("info-circle", "#FFCC00")` Quien soy y que haré(mos) { .center .white data-background="https://i.giphy.com/3o7GVDAkLp4cEMbzwc.gif" }
 
 ## Quien soy
 
@@ -31,7 +61,7 @@ source("setup.R")
 - En Proyectos Personales (30%)
 - Me gusta escribir código (en `r R()`)
 - Y compartirlo en [jkunst.com](http://jkunst.com)
-- De casualidad soy Estadístico <span class="fragment">de la misma forma use`r R()`</span>
+- De casualidad soy Estadístico <span class="fragment">. Así mismo use`r R()`</span>
 
 ## Que haremos
 
@@ -39,27 +69,28 @@ source("setup.R")
 - Qué es __highcharts__?
 - Cómo usar __highcharter__?
 - Función genérica `hchart`
-- Ejemplos simples<span class="fragment">, y quizás algunos más complejos</span>
-- Integracion con `shiny`<span class="fragment">, `rmarkdown`</span>
+- Ejemplos simples<span class="fragment">, y quizás algunos más complejos</span><span class="fragment">. Integración con `shiny`<span class="fragment">, `rmarkdown`</span><span class="fragment">. Si el tiempo da</span>
 
 ## Por que lo haríamos?
 
-- La visualización ayuda a descubrir y explicar
+- La __visualización__ ayuda a descubrir y explicar
 - En muchos casos resume un _gran_ desarrollo que hemos hecho
 - Y bueno, en general es mejor recibido si es claro y __atractivo__
 
-# `r ico("history")` Historia { .center }
+<span class="fragment">![](img/joewink.gif)</span>
 
-## R base (desde ~2000)
+# `r ico("history")` Historia { .right .white data-background="img/oldpc.gif"}
 
-El clásico de siempre!
+## R base
+
+Haciendo visualizaciones desde 2000 AC
 
 ```{r}
-y <- rpois(100, lambda = 5)
+y <- rpois(100, lambda = 3)
 plot(table(y))
 ```
 
-## R base (desde ~2000)
+## R base
 
 Rápido para hacer cosas simples, pero no escala de la mejor manera.
 
@@ -67,23 +98,28 @@ Rápido para hacer cosas simples, pero no escala de la mejor manera.
 plot(AirPassengers)
 ```
 
-## Lattice & ggplot2
+## ggplot2 & Lattice
 
-sdfsd
+- `lattice` basado en _trellis_
+- `ggplot2` basado en _gramar of graphics_
+- Paquetes con buen soporte en datos multivariados (colores, facets, ...)
+- `ggplot2` es el rey de los gráficos estáticos
+- Muy flexible dado que existe la posibilidad de crear extensiones + temas
 
 ## htmlwidgets
 
 - Surgió como la 2da iteración de `rCharts` para graficar usando 
 librerías de javascript (basadas en web).
-- `htmlwidgets` provee un _framework_ -una estandarización- para que un desarrollador
+- Permite a usuarios ~~ab~~usar de estás librerías sin necesariamente conocer js
+- Provee un _framework_ -una estandarización- para que un desarrollador
 porte una librería javascript a `r R()`
-- Una librería basada en `htmlwidgets` viene `shiny`-`rmarkdown` _ready_
+- Una librería basada en `htmlwidgets` viene `shiny` & `rmarkdown` _ready_
 
 ## htmlwidgets
 
-<iframe src="http://gallery.htmlwidgets.org/" height="500" width="1024" frameborder="0" scrolling="yes"></iframe>
+Para la mayoría de las librerías sueltas en la web existe un paquete para `r R()`
 
-## En Resumen 
+<iframe src="http://gallery.htmlwidgets.org/" height="450" width="1024" frameborder="0" scrolling="yes"></iframe>
 
 ## Consideraciones
 
@@ -98,60 +134,14 @@ porte una librería javascript a `r R()`
 ## Highcharts 
 
 - __highcharts__ es una popular -entre otras- librería de javascript de visualización
-- Muy madura (por no decir vieja) y flexible 
+- Muy ~~vieja~~ madura y flexible 
 - Muchos tipos de gráficos<span class="fragment">, incluyendo financieros y mapas</span>
 - __highcharter__ es un poco más que el _wrapper_ highcharts para `r R()`<span class="fragment">. Por lo que hereda
 todas sus características `r ico("check", "#00FF00")`</span>
 
 ## Como luce un highcharts
 
-```{r, echo=FALSE}
-data("favorite_bars")
-data("favorite_pies")
-
-dpie <- data.frame(
-  pie = c("Limón", "Berries", "Manzana", "Maracuyá", "Frambuesas"),
-  porcentaje = c(100, 85, 75, 64, 57)
-)
-dbar <- data.frame(
-  bar = c("Radicales", "Singular", "Liguria", "Clinic", "Clan"),
-  porcentaje = c(30, 28, 27, 12, 3)
-)
-
-hchart(dpie, "column", hcaes(x = pie, y = porcentaje), name = "Pies") %>%
-  hc_add_series(dbar, "pie", hcaes(name = bar, y = porcentaje), name = "Bars") %>%
-  # Options for each type of series
-  hc_plotOptions(
-    series = list(
-      showInLegend = FALSE,
-      tooltip = list(pointFormat = "<span style=\"color:{point.color}\">\u25CF</span> {series.name}: <b>{point.y}%</b><br/>")
-    ),
-    column = list(
-      colorByPoint = TRUE
-    ),
-    pie = list(
-      colorByPoint = TRUE, center = c('85%', '15%'),
-      size = 140, dataLabels = list(enabled = FALSE)
-    )) %>%
-  # Axis
-  hc_yAxis(
-    title = list(text = "porcentaje de sabor"),
-    labels = list(format = "{value}%"), max = 100
-  ) %>% 
-  # Titles and credits
-  hc_title(
-    text = "Un <i>bar</i> chart que describes mis <i>pies</i> favoritos
-    incluyendo un <i>pie</i> chart describiendo mis <i>bars</i> favoritos",
-    useHTML = TRUE
-  ) %>%
-  hc_subtitle(text = "En porcentaje de sabor e impresión") %>% 
-  hc_credits(
-    enabled = TRUE, text = "Un chiste <i>mal</i> traducido de HIMYM",
-    href = "https://www.youtube.com/watch?v=f_J8QU1m0Ng", 
-    useHTML = TRUE,
-    style = list(fontSize = "12px")
-  )
-```
+<iframe src="demo_1.html" height="500" width="1024" frameborder="0" scrolling="yes"></iframe>
 
 ## Highcharts Demo
 
@@ -161,9 +151,9 @@ hchart(dpie, "column", hcaes(x = pie, y = porcentaje), name = "Pies") %>%
 
 <iframe src="http://api.highcharts.com/highcharts" height="500" width="1024" frameborder="0" scrolling="yes"></iframe>
 
-# `r ico("code")` highchartrs en `r R()` { .center }
+# `r ico("code")` highchartrs en `r R()` { .white data-background="img/r.jpg" }
 
-## Highcharts en `r R()`
+## Highcharts en `r R()` 
 
 - __highcharter__ implementa todas los atributos como funciones `hc_*`
 - Por ej: para el titulo (`title`) se debe usar `hc_title()` y así...
@@ -192,7 +182,7 @@ hc
 ## Agregando data
 
 ```{r}
-ventas <- 1:12 + rnorm(12) + 2
+ventas <- abs(1:12 + rnorm(12) + 2)
 hc <- hc %>% 
   hc_add_series(data = ventas, name = "Ventas")
 hc
@@ -201,7 +191,7 @@ hc
 ## Agregando más data
 
 ```{r}
-ventas2 <- ventas*.7 + rnorm(12, sd = 0.8)
+ventas2 <- abs(ventas*.7 + rnorm(12, sd = 0.8))
 hc <- hc %>% 
   hc_add_series(data = ventas2, name = "Competencia")
 hc
@@ -211,7 +201,7 @@ hc
 ```{r}
 hc %>% 
   hc_chart(
-    type = "column", borderColor = '#EBBA95', borderRadius = 10,
+    type = "column", borderColor = '#EBBA95', borderRadius = 10, borderWidth = 3,
     options3d = list(enabled = TRUE, alpha = 15, beta = 15))
 ```
 
@@ -235,18 +225,16 @@ hcf <- highchart() %>%
                 type = "area", fillOpacity = 0.15, lineWidth = 2)  %>% 
   hc_add_series(data = ventas2, name = "Compentencia", visible = FALSE) %>% 
   hc_xAxis(categories = month.abb) %>% 
-  hc_yAxis(labels = list(format = "${value:.1f}")) %>% 
+  hc_yAxis(labels = list(format = "${value:.1f}"), min = 0) %>% 
   hc_tooltip(valueDecimals = 2, valuePrefix = "$", table = TRUE)  
-```
-
-
-```{r include=FALSE}
-htmlwidgets::saveWidget(hcf, "demo_1.html")
 ```
 
 ## Entonces 
 
-<iframe src="demo_1.html" height="500" width="1024" frameborder="0" scrolling="yes"></iframe>
+```{r include=FALSE}
+sw(hcf, "demo_2.html")
+```
+<iframe src="demo_2.html" height="500" width="1024" frameborder="0" scrolling="yes"></iframe>
 
 ## Ehmmm...
 
@@ -254,7 +242,9 @@ htmlwidgets::saveWidget(hcf, "demo_1.html")
 de mucho código... que lata!
 - `r ico("quote-left")` ... Y que _sucede_ si tengo 20 series? Una por una? Pff!
 
-# `r ico("fast-forward ")` `hchart` al rescate <br><small>y otros atajos</small>{ .white .left data-background="img/drakehotlinebling.jpg" }
+<span class="fragment">![](img/powerrangers.gif)</span>
+
+# `r ico("hand-peace-o")` `hchart` al rescate <br><small>y otros atajos</small>{ .white .left data-background="img/drakehotlinebling.jpg" }
 
 ## `hchart` 
 
@@ -298,11 +288,25 @@ hchart(princomp(USArrests, cor = TRUE))
 hchart(cor(mtcars))
 ```
 
+## `hchart` en `data.frame`s
+
+```{r}
+data(economics, economics_long, package = "ggplot2")
+print(economics, n = 3); print(economics_long, n = 3)
+```
+
+## `hchart` en `data.frame`s
+
+```{r}
+hchart(economics_long, "line", hcaes(date, value01, group = variable)) %>% 
+  hc_tooltip(shared = TRUE, valueDecimals = 2)
+```
+
 ## `hciconarray`
 
 ```{r}
 hciconarray(c("auto", "camion", "avion"), c(40, 15, 10),
-            icons = c("car", "truck", "plane"))
+            icons = c("car", "truck", "plane"), size = 6)
 ```
 
 ## `hcmap`
@@ -321,23 +325,16 @@ hcmap(map = "countries/us/us-all", data = USArrests,
       joinBy = "woe-name", value = "UrbanPop", name = "Urban Population")
 ```
 
+# `r ico("code")` Vamos al ~~kioskito~~ consola? { .white .center  data-background="img/welcome.gif" }
 
+# Gracias { .white data-background="img/bob.gif"}
 
+## Links de interés
 
-# Ejemplos :D { }
-
-# `r ico("code")` Vamos al ~~kioskito~~ consola? { .center }
-
-# Gracias { .center }
-
-
-# Links de interés
-
-> - Highcharter website:  https://github.com/jbkunst/highcharter
+> - `r ico("twitter", "#00aced")` & `r ico("github", "black")` __jbkunst__
+> - `r ico("cloud", "royalblue")` http://jkunst.com
+> - Highcharter devsite:  https://github.com/jbkunst/highcharter
 > - Presentación: http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/
 > - Código: http://jkunst.com/r-material/201707-highcharter-en-una-cascara-de-nuez/code.html
-> - Mah Blog: http://jkunst.com
-> - https://dantonnoriega.github.io/ultinomics.org/post/2017-04-05-highcharter-explainer.html
-
 
 

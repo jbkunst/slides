@@ -51,9 +51,10 @@ body {
 }
 
 /* some colors for title slides */
-.reveal .white > h1 { color: white;}
+.reveal .white > h1{ color: white;}
 .reveal .black > h1 { color: black;}
-.reveal .left > h1 { text-align: left; }
+
+.reveal .left  > h1 { text-align: left; }
 .reveal .right > h1 { text-align: right; }
 
 

@@ -1,22 +1,88 @@
+#' ---
+#' title: "Código ejemplo"
+#' author: "Joshua Kunst</div>"
+#' output:
+#'   html_document:
+#'     self_contained: false
+#'     theme: paper
+#'     keep_md: true
+#'     lib_dir: index_files
+#' mathjax: null
+#' ---
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
+#+
+
+
+# setup -------------------------------------------------------------------
 library(highcharter)
 library(tidyverse)
 library(rvest)
 library(stringr)
 library(forcats)
 library(janitor)
+library(tidyr)
+library(readr)
+library(lubridate)
 
-data(mpg, package = "ggplot2")
-glimpse(mpg)
+options(highcharter.theme = hc_theme_smpl(chart = list(backgroundColor = "transparent")))
+data(gapminder, package = "gapminder")
+
+# users -------------------------------------------------------------------
+users <- read_tsv("useRchile_Member_List_on_07-14-17.xls.txt")
+users <- clean_names(users)
+glimpse(users)
+
+
+users <- users %>% 
+  mutate(unio = mdy(se_unió_al_grupo_el),
+         mesunio =  unio - days(day(unio - 1)))
+
+users2 <- count(users, mesunio)
+
+hchart(users2, "line", hcaes(mesunio, n), name = "usuarios")
+
+hchart(users2, "line", hcaes(mesunio, cumsum(n)))
+
+
+
 
 
 # hchart en data frames ---------------------------------------------------
+data(mpg, package = "ggplot2")
+glimpse(mpg)
 mpg2 <- count(mpg, year, manufacturer)
 
 hchart(mpg2, "column", hcaes(manufacturer, n, group = year))
 hchart(mpg2, "bar", hcaes(manufacturer, n, group = year))
 
 
+
+
+# hchart2 -----------------------------------------------------------------
+gp1 <- gapminder %>% 
+  arrange(desc(year)) %>% 
+  distinct(country, .keep_all = TRUE)
+gp1
+
+gp2 <- gapminder %>% 
+  group_by(country) %>% 
+  do(data = .$lifeExp)
+gp2
+
+gp <- left_join(gp1, gp2)
+
+
+hc <- hchart(gp1, "scatter",
+             hcaes(gdpPercap, lifeExp, size = pop, group = continent))
+hc 
+
+
+hchart(gp1, "treemap", hcaes(name = country, value = pop, color = lifeExp))
+
 # temas -------------------------------------------------------------------
+ventas <- 1:12 + rnorm(12) + 2
+ventas2 <- ventas*.7 + rnorm(12, sd = 0.8)
 hcf <- highchart() %>%
   hc_title(text = "Stock") %>% 
   hc_subtitle(text = "Fuente: Imaginación") %>% 
@@ -91,7 +157,7 @@ dsis <- dsis %>%
   mutate(date = as.Date(date, format = "%d-%B-%Y")) %>%
   mutate(location_shows_interactive_map = str_to_title(location_shows_interactive_map))
 
-hcmap(showInLegend = FALSE, download_map_data = FALSE) %>% 
+hcmap(showInLegend = FALSE, download_map_data = TRUE) %>% 
   hc_add_series(data = dsis, type = "mapbubble",
                 hcaes(lat = lat, lon = lon, z = mag,
                       name = location_shows_interactive_map),
@@ -123,12 +189,8 @@ dpop <- dpop %>%
 # glimpse(mapdata)
 
 
-hcmap(map = "countries/cl/cl-all", data = dpop,
+hcmap(map = "countries/cl/cl-all", data = dpop, download_map_data = TRUE,
       joinBy = "fips", value = "población_2020", name = "población_2020")
-
-hcmap("", showInLegend = FALSE) 
-
-
 
 dsis <- read_html("http://www.sismologia.cl/links/tabla.html") %>% 
   html_nodes("a") %>% 
@@ -152,3 +214,67 @@ hcmap("countries/cl/cl-all", showInLegend = FALSE) %>%
                 hcaes(lat = Latitud, lon = Longitud, z = mag,
                       name = Referencia),
                 name = "Sismos", maxSize = '10%')
+
+
+# ejemplo 3 ---------------------------------------------------------------
+gp2 <- gapminder %>% 
+  group_by(country) %>% 
+  do(data = .$lifeExp)
+gp2
+
+gp <- left_join(gp1, gp2)
+
+
+hc <- hchart(gp, "scatter",
+             hcaes(gdpPercap, lifeExp, size = pop, group = continent))
+hc 
+
+
+hc <- hc %>% 
+  hc_xAxis(type = "logarithmic")
+hc
+
+hc %>% 
+  hc_tooltip(
+    useHTML = TRUE,
+    positioner = JS("function () { return { x: this.chart.plotLeft + 15, y: 0 }; }"),
+    headerFormat = "{point.country}",
+    pointFormatter = JS("
+                        function(){
+                        
+                        var thiz = this;
+                        console.log(thiz);
+                        setTimeout(function() {
+                        $('#minichart').highcharts({
+                        title : {
+                        text: ''
+                        },
+                        subtitle: {
+                        text: thiz.country,
+                        align: 'left'
+                        },
+                        exporting: {
+                        enabled: false
+                        },
+                        legend: {
+                        enabled : false
+                        },
+                        series: [{
+                        animation: false,
+                        color: thiz.color,
+                        pointStart: 1952,
+                        data: thiz.data
+                        }],
+                        yAxis: {
+                        title: ''
+                        },
+                        xAxis: {
+                        }
+                        });
+                        }, 0);
+                        return '<div id=\"minichart\" style=\"width: 250px; height: 150px;\"></div>';
+                        }                        
+                        ")
+      )
+
+

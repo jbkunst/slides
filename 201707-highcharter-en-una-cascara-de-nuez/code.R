@@ -11,10 +11,8 @@
 #' ---
 
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
-#+
-
-
 # setup -------------------------------------------------------------------
+rm(list = ls())
 library(highcharter)
 library(tidyverse)
 library(rvest)
@@ -26,7 +24,6 @@ library(readr)
 library(lubridate)
 
 options(highcharter.theme = hc_theme_smpl(chart = list(backgroundColor = "transparent")))
-data(gapminder, package = "gapminder")
 
 # users -------------------------------------------------------------------
 users <- read_tsv("useRchile_Member_List_on_07-14-17.xls.txt")
@@ -34,17 +31,54 @@ users <- clean_names(users)
 glimpse(users)
 
 
-users <- users %>% 
-  mutate(unio = mdy(se_unió_al_grupo_el),
-         mesunio =  unio - days(day(unio - 1)))
+users <- mutate(users, unio = mdy(se_unió_al_grupo_el))
+filter(users, str_detect(nombre, "Joshua"))
 
-users2 <- count(users, mesunio)
+users2 <- users %>% 
+  group_by(unio) %>% 
+  summarise(
+    n = n(),
+    quienes = as.character(tags$ul(map(nombre, tags$li)))
+  )
+  
+hchart(users2, "line", hcaes(unio, n), name = "usuarios")
 
-hchart(users2, "line", hcaes(mesunio, n), name = "usuarios")
+hc <- hchart(users2, "line", hcaes(unio, cumsum(n)), name = "usuarios")
 
-hchart(users2, "line", hcaes(mesunio, cumsum(n)))
+hc <- hc %>% 
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = "{point.y}<br>{point.quienes}"
+  ) %>% 
+  hc_chart(
+    zoomType = "x"
+  )
 
+hc
 
+meetups <- read_tsv("meetups.txt")
+meetups <- meetups %>% 
+  mutate(dt = paste(dia, mes, anio),
+         id = row_number()) %>% 
+  mutate(dt = as.Date(dt, "%d %b %Y"),
+         dt = ymd(dt)) %>% 
+  arrange(dt)
+
+mtps <- meetups %>% 
+  rowwise() %>% 
+  do(l = 
+    list(label = list(text = sprintf("#%s", .$id)),
+         color = "#AFAFAF",
+         width = 1,
+         zIndex = 2,
+         value = datetime_to_timestamp(.$dt))
+  ) %>% 
+  pull(l)
+
+hc %>% 
+  hc_xAxis(
+    plotLines = mtps
+  )
 
 
 
@@ -55,30 +89,6 @@ mpg2 <- count(mpg, year, manufacturer)
 
 hchart(mpg2, "column", hcaes(manufacturer, n, group = year))
 hchart(mpg2, "bar", hcaes(manufacturer, n, group = year))
-
-
-
-
-# hchart2 -----------------------------------------------------------------
-gp1 <- gapminder %>% 
-  arrange(desc(year)) %>% 
-  distinct(country, .keep_all = TRUE)
-gp1
-
-gp2 <- gapminder %>% 
-  group_by(country) %>% 
-  do(data = .$lifeExp)
-gp2
-
-gp <- left_join(gp1, gp2)
-
-
-hc <- hchart(gp1, "scatter",
-             hcaes(gdpPercap, lifeExp, size = pop, group = continent))
-hc 
-
-
-hchart(gp1, "treemap", hcaes(name = country, value = pop, color = lifeExp))
 
 # temas -------------------------------------------------------------------
 ventas <- 1:12 + rnorm(12) + 2
@@ -216,65 +226,105 @@ hcmap("countries/cl/cl-all", showInLegend = FALSE) %>%
                 name = "Sismos", maxSize = '10%')
 
 
-# ejemplo 3 ---------------------------------------------------------------
-gp2 <- gapminder %>% 
-  group_by(country) %>% 
-  do(data = .$lifeExp)
-gp2
 
-gp <- left_join(gp1, gp2)
+# avanzado? ---------------------------------------------------------------
+data(gapminder, package = "gapminder")
+glimpse(gapminder)
 
+gp <- gapminder %>% 
+  arrange(desc(year)) %>% 
+  distinct(country, .keep_all = TRUE)
+gp
 
-hc <- hchart(gp, "scatter",
-             hcaes(gdpPercap, lifeExp, size = pop, group = continent))
-hc 
-
-
-hc <- hc %>% 
-  hc_xAxis(type = "logarithmic")
-hc
+hc <- hchart(gp, "point", hcaes(lifeExp, gdpPercap, size = pop, group = continent))
 
 hc %>% 
+  hc_yAxis(type = "logarithmic")
+
+gp2 <- gapminder %>% 
+  group_by(country) %>% 
+  do(lifeexpdata = .$lifeExp)
+gp2
+
+gp <- left_join(gp, gp2)
+
+
+hc <- hchart(gp, "point", hcaes(lifeExp, gdpPercap, size = pop, group = continent)) %>% 
+  hc_yAxis(type = "logarithmic")
+
+hc
+
+minichart <- "function(){
+var thiz = this;
+console.log(thiz);
+setTimeout(function() {
+$('#minichart').highcharts({
+title : {
+text: ''
+},
+subtitle: {
+text: thiz.country,
+align: 'left'
+},
+exporting: {
+enabled: false
+},
+legend: {
+enabled : false
+},
+series: [{
+animation: false,
+color: thiz.color,
+pointStart: 1952,
+data: thiz.lifeexpdata
+}],
+yAxis: {
+title: ''
+},
+xAxis: {
+}
+});
+}, 0);
+return '<div id=\"minichart\" style=\"width: 250px; height: 150px;\"></div>';
+}                        
+"
+
+hc <- hc %>% 
   hc_tooltip(
     useHTML = TRUE,
-    positioner = JS("function () { return { x: this.chart.plotLeft + 15, y: 0 }; }"),
+    positioner = JS("function () { return { x: this.chart.plotLeft + 0, y: 0 }; }"),
     headerFormat = "{point.country}",
-    pointFormatter = JS("
-                        function(){
-                        
-                        var thiz = this;
-                        console.log(thiz);
-                        setTimeout(function() {
-                        $('#minichart').highcharts({
-                        title : {
-                        text: ''
-                        },
-                        subtitle: {
-                        text: thiz.country,
-                        align: 'left'
-                        },
-                        exporting: {
-                        enabled: false
-                        },
-                        legend: {
-                        enabled : false
-                        },
-                        series: [{
-                        animation: false,
-                        color: thiz.color,
-                        pointStart: 1952,
-                        data: thiz.data
-                        }],
-                        yAxis: {
-                        title: ''
-                        },
-                        xAxis: {
-                        }
-                        });
-                        }, 0);
-                        return '<div id=\"minichart\" style=\"width: 250px; height: 150px;\"></div>';
-                        }                        
-                        ")
+    pointFormatter = JS(minichart)
       )
+hc
 
+gp3 <- gapminder %>% 
+  select(country, x = lifeExp, y = gdpPercap, z = pop) %>% 
+  nest(-country) %>% 
+  rename(sequence = data) %>% 
+  mutate(sequence = map(sequence, list_parse))
+
+gp <- left_join(gp, gp3)
+
+hc <- hchart(gp, "point", hcaes(lifeExp, gdpPercap, size = pop, group = continent, name = country),
+             dataLabels = list(enebled = TRUE)) %>% 
+  hc_yAxis(type = "logarithmic")
+
+hc
+
+hc <- hc %>% 
+  hc_motion(enabled = TRUE, series = 0:4, labels = sort(unique(gapminder$year)),
+            loop = FALSE, autoPlay = TRUE, 
+            updateInterval = 500, magnet = list(step =  1)) %>% 
+  hc_xAxis(min = 20, max = 90) %>% 
+  hc_yAxis(type = "logarithmic", min = 100, max = 100000) %>% 
+  hc_tooltip(
+    useHTML = TRUE,
+    positioner = JS("function () { return { x: this.chart.plotLeft + 50, y: 50 }; }"),
+    headerFormat = "{point.country}",
+    pointFormatter = JS(minichart)
+  ) %>% 
+  hc_title(text = "Honorando a <i>Hans Rosling</i>", useHTML = TRUE)
+hc
+  
 

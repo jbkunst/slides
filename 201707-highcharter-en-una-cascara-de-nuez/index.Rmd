@@ -134,10 +134,10 @@ Para la mayoría de las librerías sueltas en la web existe un paquete para `r R
 ## Highcharts 
 
 - __highcharts__ es una popular -entre otras- librería de javascript de visualización
-- Muy ~~vieja~~ madura y flexible 
+- Muy ~~vieja~~ madura y flexible. Muchos plugins! 
 - Muchos tipos de gráficos<span class="fragment">, incluyendo financieros y mapas</span>
 - __highcharter__ es un poco más que el _wrapper_ highcharts para `r R()`<span class="fragment">. Por lo que hereda
-todas sus características `r ico("check", "#00FF00")`</span>
+todas sus características. Yay! `r ico("check", "#00FF00")`</span>
 
 ## Como luce un highcharts
 
@@ -325,7 +325,7 @@ hcmap(map = "countries/us/us-all", data = USArrests,
       joinBy = "woe-name", value = "UrbanPop", name = "Urban Population")
 ```
 
-# `r ico("code")` Vamos al ~~kioskito~~ consola? { .white .center  data-background="img/welcome.gif" }
+# `r ico("code")` Vamos al codear! { .white .center  data-background="img/hacker.gif" }
 
 # Gracias { .white data-background="img/bob.gif"}
 

@@ -156,6 +156,110 @@ hct %>%
   hc_yAxis(min = -10, max = 40, labels = list(format = "{value} °C"))
 
 
+
+# custom ------------------------------------------------------------------
+tables <- read_html("https://en.wikipedia.org/wiki/Winter_Olympic_Games") %>% 
+  html_table(fill = TRUE)
+
+dgames <- tables[[5]]
+dgames <- clean_names(dgames)
+dgames <- dmap_if(dgames, is.character, str_trim)
+
+dgames <- dgames[-1, ]
+dgames <- filter(dgames, !games %in% c("1940", "1944"))
+dgames <- filter(dgames, !year %in% seq(2018, by = 4, length.out = 4))
+# Not sure how re-read data to get the right column types. So a dirty trick.
+tf <- tempfile(fileext = ".csv")
+write_csv(dgames, tf)
+dgames <- read_csv(tf)
+
+dgames <- mutate(dgames,
+                 nations = str_extract(nations, "\\d+"),
+                 nations = as.numeric(nations))
+
+glimpse(dgames)
+
+hcgames <- hchart(dgames, "areaspline", hcaes(year, nations, name = host), name = "Nations") %>% 
+  hc_title(text = "Number of Participating Nations in every Winter Olympic Games") %>%
+  hc_xAxis(title = list(text = "Time")) %>% 
+  hc_yAxis(title = list(text = "Nations"))
+
+hcgames
+
+
+urlico <- "url(https://raw.githubusercontent.com/tugmaks/flags/2d15d1870266cf5baefb912378ecfba418826a79/flags/flags-iso/flat/24/%s.png)"
+
+library(countrycode)
+
+dgames <- dgames %>% 
+  mutate(country = str_extract(host, ", .*$"),
+         country = str_replace(country, ", ", ""),
+         country = str_trim(country)) %>% 
+  mutate(countrycode = countrycode(country, origin = "country.name", destination = "iso2c")) %>% 
+  mutate(marker = sprintf(urlico, countrycode),
+         marker = map(marker, function(x) list(symbol = x)),
+         flagicon = sprintf(urlico, countrycode),
+         flagicon = str_replace_all(flagicon, "url\\(|\\)", "")) %>% 
+  rename(men = competitors_2, women = competitors_3)
+
+glimpse(dgames)
+
+urlimg <- "http://jkunst.com/images/add-style/winter_olimpics.jpg"
+ttvars <- c("year", "nations", "sports", "competitors", "women", "men", "events")
+tt <- tooltip_table(
+  ttvars,
+  sprintf("{point.%s}", ttvars), img = tags$img(src="{point.flagicon}", style = "text-align: center;")
+)
+
+hcgames2 <- hchart(dgames, "areaspline", hcaes(year, nations, name = host), name = "Nations") %>% 
+  hc_colors(hex_to_rgba("white", 0.8)) %>% 
+  hc_title(
+    text = "Number of Participating Nations in every Winter Olympic Games",
+    align = "left",
+    style = list(color = "white")
+  ) %>% 
+  hc_credits(
+    enabled = TRUE,
+    text = "Data from Wipiedia",
+    href = "https://en.wikipedia.org/wiki/Winter_Olympic_Games"
+  ) %>% 
+  hc_xAxis(
+    title = list(text = "Time", style = list(color = "white")),
+    gridLineWidth = 0,
+    labels = list(style = list(color = "white"))
+  ) %>% 
+  hc_yAxis(
+    lineWidth = 1,
+    tickWidth = 1,
+    tickLength = 10,
+    title = list(text = "Nations", style = list(color = "white")),
+    gridLineWidth = 0,
+    labels = list(style = list(color = "white"))
+  ) %>% 
+  hc_chart(
+    divBackgroundImage = urlimg,
+    backgroundColor = hex_to_rgba("black", 0.10)
+  ) %>% 
+  hc_tooltip(
+    headerFormat = as.character(tags$h4("{point.key}", tags$br())),
+    pointFormat = tt,
+    useHTML = TRUE,
+    backgroundColor = "transparent",
+    borderColor = "transparent",
+    shadow = FALSE,
+    style = list(color = "white", fontSize = "0.8em", fontWeight = "normal"),
+    positioner = JS("function () { return { x: this.chart.plotLeft + 15, y: this.chart.plotTop + 0 }; }"),
+    shape = "square"
+  ) %>% 
+  hc_plotOptions(
+    series = list(
+      states = list(hover = list(halo = list(size  = 30)))
+    )
+  ) %>% 
+  hc_add_theme(hc_theme_elementary())
+
+hcgames2
+
 # ejemplo 3 ---------------------------------------------------------------
 dsis <- read_html("http://ds.iris.edu/seismon/eventlist/index.phtml") %>% 
   html_node("table") %>% 

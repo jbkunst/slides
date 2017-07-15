@@ -1,16 +1,17 @@
 #' ---
 #' title: "Código ejemplo"
-#' author: "Joshua Kunst</div>"
+#' author: "Joshua Kunst"
 #' output:
 #'   html_document:
 #'     self_contained: false
 #'     theme: paper
-#'     keep_md: true
 #'     lib_dir: index_files
 #' mathjax: null
 #' ---
 
+#+
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
+#+
 # setup -------------------------------------------------------------------
 rm(list = ls())
 library(highcharter)
@@ -163,7 +164,7 @@ tables <- read_html("https://en.wikipedia.org/wiki/Winter_Olympic_Games") %>%
 
 dgames <- tables[[5]]
 dgames <- clean_names(dgames)
-dgames <- dmap_if(dgames, is.character, str_trim)
+dgames <- mutate_if(dgames, is.character, str_trim)
 
 dgames <- dgames[-1, ]
 dgames <- filter(dgames, !games %in% c("1940", "1944"))

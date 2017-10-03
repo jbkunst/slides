@@ -12,8 +12,8 @@ output:
     center: false
     # center: true
     theme: simple
-    fig_width: 6
-    fig_height: 3.5
+    fig_width: 8
+    fig_height: 4
     reveal_options:
       slideNumber: true
       controls: false
@@ -22,16 +22,375 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Holas {.center data-background="http://i.giphy.com/oJiCqvIqPZE3u.gif"}
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE,
+  dev = "svg",
+  cache = FALSE
+  )
+
 library(tidyverse)
+
+library(ggdendro)
 library(igraph)
-library(highcharter)
+library(ggnetwork)
+library(widyr)
 library(viridis)
 library(hrbrthemes)
+library(ggrepel)
+library(scales)
 library(jbkmisc)
-theme_set(theme_jbk())
-options(highcharter.theme = hc_theme_smpl(chart = list(backgroundColor = "transparent")))
+library(gridExtra)
+
+library(h2o)
+localH2O <- h2o.init(nthreads = -2)
+
+# ggplot ------------------------------------------------------------------
+theme_set(
+  theme_jbk(
+    base_family = "Roboto Condensed", plot_margin = margin(5, 5, 5, 5)
+    )
+  )
+main_color <- "#E53935"
+update_geom_defaults("line",  list(colour = main_color, size = 0.75))
+update_geom_defaults("point", list(colour = main_color, size = 1.5, alpha = 0.65))
+update_geom_defaults("bar",   list(fill = main_color))
+update_geom_defaults("text",  list(size = 4, colour = "#666666"))
+```
+
+# Que haré(mos)?
+
+- Workflow de análisis de datos (AD)
+- Visualización en el contexto del __Análisis__ de Datos
+- Viajar a través de un ejemplo guiado
+
+
+# Workflow en Análisis de Datos
+ 
+----
+
+En la mayoría de los __proyectos__
+
+![DSflow](img/tidy-data.png)
+
+----
+
+- Es fácil, muy fácil equivocarse
+- Pero más fácil es aprender de errores que de cosas que 
+salen a la primera
+
+# Visualización en el AD
+
+# Ejemplo Guiado: Metro {.white .left data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png" }
+
+## Que estudiaremos?
+
+- Exploremos que estaciones se _comportan_ de forma similar
+- Con la facilidad que R y highcharter nos ofrecen (espero!)
+
+----
+
+Se tienen el ingreso promedio de personas cada media hora
+
+```{r}
+data <- readRDS("data/data_subidas_metro.rds")
+data
+```
+
+----
+
+Por ejemplo para __Pedro De Valdivia__
+
+```{r}
+data %>%
+  filter(paraderosubida == "Pedro De Valdivia")
+```
+
+----
+
+Si exploramos __Plaza Maipú__ con __Laguna Sur__
+
+
+```{r}
+d1 <- filter(data, paraderosubida %in% c("Plaza Maipu", "Laguna Sur")) 
+
+grid.arrange(
+  ggplot(d1) +
+    geom_line(aes(mediahora, subidas_laboral_promedio, color = paraderosubida)) +
+    scale_color_viridis(option = "B", discrete = TRUE, end = .8) +
+    scale_x_datetime(date_labels = "%H:%M") +
+    scale_y_continuous(label = comma),
+  d1 %>% 
+    spread(paraderosubida, subidas_laboral_promedio) %>% 
+    ggplot() +
+    geom_point(aes(`Laguna Sur`, `Plaza Maipu`, color = mediahora)) + 
+    scale_color_viridis(option = "B") +
+     scale_x_continuous(label = comma) +
+     scale_y_continuous(label = comma) ,
+  nrow = 1
+)
+
+c <- d1 %>% 
+  spread(paraderosubida, subidas_laboral_promedio) %>%
+  select(-1) %>%
+  {cor(.[[1]], .[[2]])}
+```
+
+correlación: `r round(c, 3)`
+
+----
+
+Si exploramos __Universidad De Chile__ con __Plaza De Puente Alto__
+
+```{r}
+d2 <- filter(data, paraderosubida %in% c("Universidad De Chile", "Plaza De Puente Alto"))
+
+grid.arrange(
+  ggplot(d2) +
+    geom_line(aes(mediahora, subidas_laboral_promedio, color = paraderosubida)) +
+    scale_color_viridis(option = "B", discrete = TRUE, end = .8) +
+    scale_x_datetime(date_labels = "%H:%M") +
+     scale_y_continuous(label = comma),
+  d2 %>% 
+    spread(paraderosubida, subidas_laboral_promedio) %>% 
+    ggplot() +
+    geom_point(aes(`Universidad De Chile`, `Plaza De Puente Alto`, color = mediahora)) + 
+    scale_color_viridis(option = "B") +
+     scale_x_continuous(label = comma) +
+     scale_y_continuous(label = comma),
+  nrow = 1
+)
+
+c <-d2 %>% 
+  spread(paraderosubida, subidas_laboral_promedio) %>%
+  select(-1) %>%
+  {cor(.[[1]], .[[2]])}
+```
+
+correlación: `r round(c, 3)`
+
+----
+
+Entonces ¿Y si calculamos todas las corrleaciones a pares?
+
+```{r}
+dcor <- data %>%
+  pairwise_cor(paraderosubida, mediahora, subidas_laboral_promedio,
+               upper = FALSE) %>% 
+  arrange(desc(correlation))
+
+# dcor <- readRDS("data/data_subidas_metro_cor.rds")
+
+dcor
+```
+
+----
+
+¿Alguien dijo heatmap?
+
+```{r}
+ggplot(dcor) +
+  geom_tile(aes(item1, item2, fill = correlation)) + 
+  scale_fill_viridis(option = "B") + 
+  theme_null()
+```
+
+---- 
+
+Claramente se ve...
+
+<img src="https://i.giphy.com/media/9ohlKnRDAmotG/giphy.webp" onerror="this.onerror=null;this.src='https://i.giphy.com/9ohlKnRDAmotG.gif';" alt="" width="500px">
+
+----
+
+Mmmm... Veamos solamente las asociaciones más fuertes
+
+
+```{r}
+dcorf <- dcor %>%
+  arrange(desc(correlation)) %>%
+  filter(row_number() <= 250)
+
+g <- graph_from_data_frame(dcorf, directed = FALSE)
+
+E(g)$weight <- dcorf$correlation^2
+
+wc <- cluster_fast_greedy(g)
+nc <- length(unique(membership(wc)))
+
+dvert <- data_frame(
+  paraderosubida = V(g)$name
+  ) %>% 
+  mutate(
+    comm = membership(wc)
+  ) %>% 
+  left_join(
+    data %>%
+      group_by(paraderosubida) %>%
+      summarise(n = sum(subidas_laboral_promedio))) %>% 
+  left_join(
+    data %>%
+      group_by(paraderosubida) %>% 
+      summarise(tend = cor(seq(1, 37), subidas_laboral_promedio))) %>% 
+  ungroup()
+
+V(g)$label <- dvert$paraderosubida
+V(g)$size <- dvert$n
+V(g)$subidas_totales_miles <- round(dvert$n/1000, 2)
+V(g)$comm <- membership(wc)
+V(g)$tendencia <- round(dvert$tend, 2)
+V(g)$color <- dvert$comm
+
+set.seed(123)
+
+ggnet <- ggnetwork(g)
+dfnet2 <- ggnet %>%
+  as.matrix() %>%
+  as.data.frame() %>%
+  tbl_df() %>%
+  select(x, y, vertex.names, weight, size, color) %>%
+  mutate_all(as.character) %>%
+  mutate_at(vars(x, y, weight, size), as.numeric) %>%
+  filter(is.na(weight))
+
+ggplot(ggnet) + 
+  geom_edges(aes(x, y, size = width, color = factor(comm),
+           xend = xend, yend = yend), color = "gray", size = 1) +
+  geom_point(aes(x, y, size = size, color = factor(comm))) +
+  geom_text_repel(aes(x, y, label = vertex.names, size = size),
+                  data = dfnet2, color = "#666666",
+                  family = "Roboto Condensed") +
+  scale_color_viridis(discrete = TRUE) + 
+  theme_blank() +
+  labs(size = "Subidas", color = "Comunidad")
+```
+
+Yay!
+
+----
+
+Ahora sí!
+
+<img src="https://i.giphy.com/media/12WxFiMHBUl1RK/giphy.webp" onerror="this.onerror=null;this.src='https://i.giphy.com/12WxFiMHBUl1RK.gif';" alt="" width="400px">
+
+Nop, no tanto
+
+----
+
+¿Qué tan cercanas son las estaciones según sus valores y no por __UN__ solo valor?
+
+```{r}
+dspread <- data %>%
+  spread(mediahora, subidas_laboral_promedio) 
+
+ddist <- dspread %>% 
+  select(-paraderosubida) %>% 
+  as.matrix()
+
+row.names(ddist) <- dspread$paraderosubida
+
+hc <- hclust(dist(ddist), "ave")
+
+dendr <- dendro_data(hc, type="rectangle") 
+
+ggplot() + 
+  geom_segment(data=segment(dendr), aes(x=x, y=y, xend=xend, yend=yend)) + 
+  geom_text(data=label(dendr), angle = 45,
+            aes(x=x, y=y, label=label, hjust=1, vjust = 0), size = 2) +
+  # coord_flip() + scale_y_reverse(expand=c(0.2, 0)) +
+  scale_y_sqrt(expand=c(0.2, 0)) +
+  theme_null()
+```
+
+Esto se llama dendograma
+
+----
+
+¿Y si resumimos? (vía _autoencoder_)
+
+```{r, cache=TRUE, include=FALSE}
+data2 <- data %>% 
+  mutate(mediahora = paste0("m", as.numeric(mediahora))) %>% 
+  ungroup() %>% 
+  spread(mediahora, subidas_laboral_promedio)
+data2
+
+dh2o <- as.h2o(data2)
+
+mod_autoenc <- h2o.deeplearning(
+  x = names(dh2o)[-1],
+  training_frame = dh2o,
+  hidden = c(400, 100, 2, 100, 400),
+  epochs = 50,
+  activation = "Tanh",
+  autoencoder = TRUE
+)
+
+dautoenc <- h2o.deepfeatures(mod_autoenc, dh2o, layer = 3) %>% 
+  as.data.frame() %>% 
+  tbl_df() %>% 
+  setNames(c("x", "y")) %>% 
+  mutate(paraderosubida = data2$paraderosubida)
+
+dkmod <- map_df(seq(1, 10, by = 1), function(k){
+  mod.km <- h2o.kmeans(training_frame = as.h2o(dautoenc), k = k, x = c("x", "y"))  
+  mod.km@model$model_summary
+})
+
+dkmod <- dkmod %>%
+  mutate(wc_ss = within_cluster_sum_of_squares/total_sum_of_squares,
+         bt_ss = between_cluster_sum_of_squares/total_sum_of_squares)
+
+mod_km <- h2o.kmeans(training_frame = as.h2o(dautoenc), k = 4, x = c("x", "y"))  
+
+dautoenc <- dautoenc %>% 
+  mutate(group = as.vector(h2o.predict(object = mod_km, newdata = as.h2o(.))),
+         group = as.numeric(group) + 1,
+         group = paste("grupo", group))
+
+dataf <- left_join(data, select(dautoenc, paraderosubida, group))
+```
+
+```{r, fig.height=6}
+ggplot(dautoenc, aes(x, y)) +
+  geom_point(size = 2) +
+  # geom_text_repel(aes(label = paraderosubida), size = 2.5, alpha = 0.75,
+  #                 segment.size = 0.25,segment.alpha = 0.5) +
+  theme_null()
+```
+
+---- 
+
+Ahora agrupamos por k-media... y?!
+
+```{r, fig.height=6}
+ggplot(dautoenc, aes(x, y)) +
+  geom_point(aes(color = group), size = 2) +
+  geom_text_repel(data = filter(dautoenc, group != "grupo 1"),
+                  aes(label = paraderosubida), size = 2.5, alpha = 0.5,
+                  segment.size = 0.25,segment.alpha = 0.5) +
+  scale_color_viridis(option = "B", discrete = TRUE, end = .8) +
+  theme_null() +
+  theme(legend.position = "bottom")
+```
+
+
+
+---- 
+
+Mostramos grupos por separado y su comportamiento estimado
+
+```{r, fig.height=6}
+ggplot(dataf, aes(mediahora, subidas_laboral_promedio)) + 
+  geom_line(aes(group = paraderosubida), alpha = 0.25, color = "gray") + 
+  geom_smooth(aes(group = group, color = group), line = 1.2, se = FALSE) + 
+  scale_color_viridis(option = "B", discrete = TRUE, end = .8) +
+  scale_y_comma() + 
+  scale_x_datetime(date_labels = "%H:%M") + 
+  facet_wrap(~group, scales = "free_x")  +
+  theme(legend.position = "bottom") + 
+  labs(x = "Hora", y = "Subida promedio")
 ```

@@ -457,7 +457,122 @@ Joshua Kunst, Septiembre 2017
 </div></h2>
 </section>
 
-<section><section id="holas" class="titleslide slide level1 center" data-background="http://i.giphy.com/oJiCqvIqPZE3u.gif"><h1>Holas</h1></section></section>
+<section><section id="que-haremos" class="titleslide slide level1"><h1>Que haré(mos)?</h1></section></section>
+<section><section id="workflow-en-analisis-de-datos" class="titleslide slide level1"><h1>Workflow en Análisis de Datos</h1></section><section class="slide level2">
+
+<p>En la mayoría de los <strong>proyectos</strong></p>
+<p><img src="img/tidy-data.png" alt="DSflow" /></p>
+</section><section class="slide level2">
+
+<ul>
+<li class="fragment">Es fácil, muy fácil equivocarse</li>
+<li class="fragment">Pero más fácil es aprender de errores que de cosas que salen a la primera</li>
+</ul>
+</section></section>
+<section><section id="visualizacion-en-el-ad" class="titleslide slide level1"><h1>Visualización en el AD</h1></section></section>
+<section><section id="ejemplo-guiado-metro" class="titleslide slide level1 white left" data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png"><h1>Ejemplo Guiado: Metro</h1></section><section id="que-estudiaremos" class="slide level2">
+<h2>Que estudiaremos?</h2>
+<ul>
+<li class="fragment">Exploremos que estaciones se <em>comportan</em> de forma similar</li>
+<li class="fragment">Con la facilidad que R y highcharter nos ofrecen (espero!)</li>
+</ul>
+</section><section class="slide level2">
+
+<p>Se tienen el ingreso promedio de personas cada media hora</p>
+<pre><code>## # A tibble: 3,737 x 3
+##    paraderosubida           mediahora subidas_laboral_promedio
+##             &lt;chr&gt;              &lt;dttm&gt;                    &lt;dbl&gt;
+##  1      Alcantara 1970-01-01 05:30:00                      2.6
+##  2      Alcantara 1970-01-01 06:00:00                     13.2
+##  3      Alcantara 1970-01-01 06:30:00                     53.4
+##  4      Alcantara 1970-01-01 07:00:00                    184.8
+##  5      Alcantara 1970-01-01 07:30:00                    364.0
+##  6      Alcantara 1970-01-01 08:00:00                    546.2
+##  7      Alcantara 1970-01-01 08:30:00                    478.6
+##  8      Alcantara 1970-01-01 09:00:00                    359.0
+##  9      Alcantara 1970-01-01 09:30:00                    275.4
+## 10      Alcantara 1970-01-01 10:00:00                    229.6
+## # ... with 3,727 more rows</code></pre>
+</section><section class="slide level2">
+
+<p>Por ejemplo para <strong>Pedro De Valdivia</strong></p>
+<pre><code>## # A tibble: 37 x 3
+##       paraderosubida           mediahora subidas_laboral_promedio
+##                &lt;chr&gt;              &lt;dttm&gt;                    &lt;dbl&gt;
+##  1 Pedro De Valdivia 1970-01-01 05:30:00                     36.8
+##  2 Pedro De Valdivia 1970-01-01 06:00:00                    167.8
+##  3 Pedro De Valdivia 1970-01-01 06:30:00                    314.6
+##  4 Pedro De Valdivia 1970-01-01 07:00:00                    758.8
+##  5 Pedro De Valdivia 1970-01-01 07:30:00                   1201.2
+##  6 Pedro De Valdivia 1970-01-01 08:00:00                   1469.8
+##  7 Pedro De Valdivia 1970-01-01 08:30:00                   1363.4
+##  8 Pedro De Valdivia 1970-01-01 09:00:00                   1151.0
+##  9 Pedro De Valdivia 1970-01-01 09:30:00                    999.0
+## 10 Pedro De Valdivia 1970-01-01 10:00:00                    911.0
+## # ... with 27 more rows</code></pre>
+</section><section class="slide level2">
+
+<p>Si exploramos <strong>Plaza Maipú</strong> con <strong>Laguna Sur</strong></p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-4-1.svg" width="768" /></p>
+<p>correlación: 0.996</p>
+</section><section class="slide level2">
+
+<p>Si exploramos <strong>Universidad De Chile</strong> con <strong>Plaza De Puente Alto</strong></p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-5-1.svg" width="768" /></p>
+<p>correlación: -0.372</p>
+</section><section class="slide level2">
+
+<p>Entonces ¿Y si calculamos todas las corrleaciones a pares?</p>
+<pre><code>## # A tibble: 5,050 x 3
+##           item1                     item2 correlation
+##           &lt;chr&gt;                     &lt;chr&gt;       &lt;dbl&gt;
+##  1   Laguna Sur              Las Parcelas   0.9979128
+##  2  Plaza Maipu                 San Pablo   0.9962208
+##  3   Laguna Sur               Plaza Maipu   0.9960967
+##  4      Del Sol              Las Parcelas   0.9960689
+##  5    La Granja                 San Ramon   0.9960405
+##  6 Las Parcelas               Plaza Maipu   0.9955500
+##  7 Las Parcelas Protectora De La Infancia   0.9953642
+##  8  Plaza Maipu Protectora De La Infancia   0.9953066
+##  9    El Parron                 Lo Ovalle   0.9951739
+## 10      Neptuno                 San Pablo   0.9951252
+## # ... with 5,040 more rows</code></pre>
+</section><section class="slide level2">
+
+<p>¿Alguien dijo heatmap?</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-7-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Claramente se ve…</p>
+<p><img src="https://i.giphy.com/media/9ohlKnRDAmotG/giphy.webp" onerror="this.onerror=null;this.src='https://i.giphy.com/9ohlKnRDAmotG.gif';" alt="" width="500px"></p>
+</section><section class="slide level2">
+
+<p>Mmmm… Veamos solamente las asociaciones más fuertes</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-8-1.svg" width="768" /></p>
+<p>Yay!</p>
+</section><section class="slide level2">
+
+<p>Ahora sí!</p>
+<p><img src="https://i.giphy.com/media/12WxFiMHBUl1RK/giphy.webp" onerror="this.onerror=null;this.src='https://i.giphy.com/12WxFiMHBUl1RK.gif';" alt="" width="400px"></p>
+<p>Nop, no tanto</p>
+</section><section class="slide level2">
+
+<p>¿Qué tan cercanas son las estaciones según sus valores y no por <strong>UN</strong> solo valor?</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-9-1.svg" width="768" /></p>
+<p>Esto se llama dendograma</p>
+</section><section class="slide level2">
+
+<p>¿Y si resumimos? (vía <em>autoencoder</em>)</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-11-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Ahora agrupamos por k-media… y?!</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-12-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Mostramos grupos por separado y su comportamiento estimado</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-13-1.svg" width="768" /></p>
+</section></section>
     </div>
   </div>
 

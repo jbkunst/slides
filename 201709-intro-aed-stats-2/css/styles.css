@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,500|Open+Sans:300,400,500");
+@import url("https://fonts.googleapis.com/css?family=Fira+Mono");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+@font-face {
+  font-family: 'Datalegreya-Gradient';
+  src: url('https://cdn.rawgit.com/figs-lab/datalegreya/master/font-files/Datalegreya-Gradient.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* for Datalegreya */
+body {
+  background-color: #FAFAFA;
+  -webkit-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  -moz-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  -webkit-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  -ms-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* for Datalegreya */
+#brand {
+  color: #555555;
+  font-family: 'Datalegreya-Gradient', sans-serif;
+  font-size: 2.5em;
+  padding-top: 0.05em;
+  font-weight: 300;
+  text-align:center;
+  vertical-align:middle;
+  display: table;
+  width: 100%;
+}
+
+#subbrand {
+  color: #555555;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 300;
+}
+
+/* Styles for titles */
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  color: #555555;
+  font-family: "Alegreya Sans SC", sans-serif;
+  word-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.0em;
+}
+
+/* some colors for title slides */
+.reveal .white > h1,
+.reveal .white > h2 { color: white; }
+.reveal .black > h1,
+.reveal .black > h2 { color: black; }
+
+.reveal .left  > h1,
+.reveal .left  > h2 { text-align: left; }
+.reveal .right > h1,
+.reveal .right > h2 { text-align: right; }
+
+.reveal h2 { padding-bottom: 0.55em; }
+
+/* Styles for text p li */
+.reveal p, .reveal li {
+  color: #555555;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  font-size: 80%;
+  letter-spacing: 0;
+}
+.reveal p { padding-top: 0.55em; padding-bottom: 0.55em;}
+
+/* ul li lists with more space */
+.reveal section ul { padding-top: 0.55em; padding-bottom: 0.55em; list-style: none;}
+.reveal section li { padding: 0.5em; }
+.reveal section li:before {
+  content: "\f101"; /* FontAwesome Unicode */
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -1.5em; /* same as padding-left set on li */
+  width: 1.5em; /* same as padding-left set on li */
+}
+/* nested lists */
+.reveal section ul li ul {padding-top: 0em; padding-bottom: 0em;}
+
+/* code */
+.reveal code { font-family: "Fira Mono"; font-size: 85%;}
+
+/* img */
+.reveal section img { border: none; }
+

@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="css\styles.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title"><div id="brand">
+a|1e|2d|1
+</div>
+<div id="brand">
+e|1s|2t|1a|2d|3i|2s|2t|1i|1c|2a|1
+</div></h1>
+    <h2 class="author"><div id="subbrand">
+Joshua Kunst, Septiembre 2017
+</div></h2>
+</section>
+
+<section><section id="section" class="titleslide slide level1" data-background="img/data-culture.jpg"><h1></h1></section><section id="que-haremos" class="slide level2">
+<h2>Que haremos?</h2>
+<ul>
+<li>Introducción</li>
+<li>Análsis Exploratorio de Datos (AED)</li>
+<li>Estadística Descriptiva (ED)
+<ul>
+<li>Medidas de Tendencia</li>
+<li>Visualización de datos</li>
+</ul></li>
+<li>Estudiar Ejemplos <span class="fragment">, hacer ejemplos</span><span class="fragment">, <strong>equivocarnos</strong></span><span class="fragment">, <strong>corregirnos</strong></span><span class="fragment">, vivir ejemplos</span></li>
+</ul>
+</section></section>
+<section><section id="introduccion" class="titleslide slide level1 center white" data-background="#F44336"><h1>Introducción</h1></section><section id="introduccion-1" class="slide level2">
+<h2>Introducción</h2>
+<p><img src="https://visualizacion-uc.github.io/procesamiento-y-analisis-de-datos/clases/img/tidy-data.png" height="350px" /></p>
+<p>Fuente: R for Data Science, Wickham &amp; Grolemund</p>
+</section><section id="introduccion-2" class="slide level2">
+<h2>Introducción</h2>
+<p>Antes de <strong>explicar</strong> debemos <strong>entender</strong></p>
+<p><span class="fragment"> El Análisis <strong>Exploratorio</strong> y la Estadística <strong>Descriptiva</strong> son parte clave para el entendimiento</span></p>
+<p><span class="fragment"> AED y ED van de la mano. AED es el fin y ED una herramienta para lograrlo </span></p>
+<p><span class="fragment"><span> <i class="fa fa-quote-left"></i> </span> Escuchar lo que los datos nos hablan</span></p>
+</section><section id="glosario" class="slide level2">
+<h2>Glosario</h2>
+<ul>
+<li>Una <strong>variable</strong> es una cantidad, que puede ser medida: estatura, magnitud de un sismo, velocidad de un huracán, inteligencia (<strong>¿?</strong>)</li>
+<li>Un <strong>valor</strong> es un estado de la variable cuando se mide: 1.20 metros, 8° Richter</li>
+<li>Una <strong>observación</strong> o <strong>caso</strong> es un conjunto de mediciones -no de la misma variable necesariamente- pero si en un mismo instante y a un mismo objeto.</li>
+</ul>
+</section><section id="glosario-1" class="slide level2">
+<h2>Glosario</h2>
+<ul>
+<li><strong>Datos tabulados</strong> es un conjunto de <em>valores</em> cada uno asociado a una <em>variable</em> y una <em>observación</em></li>
+</ul>
+<p><img src="http://garrettgman.github.io/images/tidy-1.png" /></p>
+</section><section id="prerequisitos" class="slide level2">
+<h2>Prerequisitos</h2>
+<p>Antes de partir necesitamos:</p>
+<ul>
+<li class="fragment">Entusiasmo</li>
+<li class="fragment">Mantener la mente abierta</li>
+<li class="fragment">Familiarizado con <code>ggplot2</code> y <code>dplyr</code></li>
+</ul>
+</section></section>
+<section><section id="analisis-exploratorio-de-datos" class="titleslide slide level1 center white" data-background="#3F51B5"><h1>Análisis Exploratorio de Datos</h1></section><section id="analisis-exploratorio-de-datos-1" class="slide level2">
+<h2>Análisis Exploratorio de Datos</h2>
+<p>No existe definición formal con reglas a seguir. Es un <strong>estado mental</strong></p>
+<ul>
+<li class="fragment">Generar preguntas acerca de los datos</li>
+<li class="fragment">Buscar respuestas visualizando, transformando los datos</li>
+<li class="fragment">Hacer nuevas preguntas a partir de lo aprendido</li>
+</ul>
+<p><span class="fragment"><strong>Generar conocimiento</strong></span></p>
+</section><section class="slide level2">
+
+<p>Generar conocimiento no solo implica extraer la información que tratan de medir los datos</p>
+<p><span class="fragment">Este conocimiento puede estar también en conocer si los datos fueron bien medidos o existen algunos registros datos mal registrados</span></p>
+<p><span class="fragment"><strong>Validar calidad de los datos</strong></span></p>
+</section><section id="visualizando-distribuciones" class="slide level2 right white" data-background-iframe="vis-dis.html">
+<h2>Visualizando Distribuciones</h2>
+</section><section id="distribucion" class="slide level2">
+<h2>Distribución</h2>
+<p>Distribución se relaciona a la forma que varían los datos de medición en medición</p>
+<p><span class="fragment">Estudiando la forma de como se distribuyen los datos podemos ver cuales son los más comunes, o ver si exsiten casos raros<span></p>
+<p><span class="fragment">Y variará principalmente del tipo de variable analizada: <strong>categórica</strong> o <strong>continua</strong></span></p>
+</section><section id="dataset-legos" class="slide level2 left white" data-background="http://media-cdn.timesfreepress.com/img/photos/2016/07/25/1469464845_0727MfeatLibrary1-C_t1070_h5be62d5b4b340aded4d6baf5bd671ee4fd6571f4.jpg">
+<h2>Dataset Legos</h2>
+</section><section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># cargar paquete con funciones que nos ayudarán</span>
+<span class="kw">library</span>(tidyverse)
+
+<span class="co"># leo datos desde una url</span>
+legos &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/seankross/lego/master/data-tidy/legosets.csv&quot;</span>)
+
+<span class="co"># primer paso! paso #1</span>
+<span class="kw">glimpse</span>(legos)</code></pre></div>
+<pre><code>## Observations: 6,172
+## Variables: 14
+## $ Item_Number  &lt;chr&gt; &quot;10246&quot;, &quot;10247&quot;, &quot;10248&quot;, &quot;10249&quot;, &quot;10581&quot;, &quot;105...
+## $ Name         &lt;chr&gt; &quot;Detective&#39;s Office&quot;, &quot;Ferris Wheel&quot;, &quot;Ferrari F4...
+## $ Year         &lt;int&gt; 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2...
+## $ Theme        &lt;chr&gt; &quot;Advanced Models&quot;, &quot;Advanced Models&quot;, &quot;Advanced M...
+## $ Subtheme     &lt;chr&gt; &quot;Modular Buildings&quot;, &quot;Fairground&quot;, &quot;Vehicles&quot;, &quot;W...
+## $ Pieces       &lt;int&gt; 2262, 2464, 1158, 898, 13, 39, 32, 105, 13, 11, 5...
+## $ Minifigures  &lt;int&gt; 6, 10, NA, NA, 1, 2, 2, 3, 2, 2, 3, 1, NA, NA, NA...
+## $ Image_URL    &lt;chr&gt; &quot;http://images.brickset.com/sets/images/10246-1.j...
+## $ GBP_MSRP     &lt;dbl&gt; 132.99, 149.99, 69.99, 59.99, 9.99, 16.99, 19.99,...
+## $ USD_MSRP     &lt;dbl&gt; 159.99, 199.99, 99.99, 79.99, 9.99, 19.99, 24.99,...
+## $ CAD_MSRP     &lt;dbl&gt; 199.99, 229.99, 119.99, NA, 12.99, 24.99, 29.99, ...
+## $ EUR_MSRP     &lt;dbl&gt; 149.99, 179.99, 89.99, 69.99, 9.99, 19.99, 24.99,...
+## $ Packaging    &lt;chr&gt; &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, ...
+## $ Availability &lt;chr&gt; &quot;Retail - limited&quot;, &quot;Retail - limited&quot;, &quot;LEGO exc...</code></pre>
+</section><section class="slide level2">
+
+<p>¿Cuántos temas hay?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">legos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(Theme, <span class="dt">sort =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## # A tibble: 115 x 2
+##                      Theme     n
+##                      &lt;chr&gt; &lt;int&gt;
+##  1                   Duplo   471
+##  2               Star Wars   379
+##  3                    Town   314
+##  4 Collectable Minifigures   311
+##  5                    City   282
+##  6                Bionicle   276
+##  7                 Technic   243
+##  8                 Creator   219
+##  9                  Castle   206
+## 10                  Racers   195
+## # ... with 105 more rows</code></pre>
+</section><section class="slide level2">
+
+<p>¿Cuántos temas hay?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Theme))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-5-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántos temas hay?</p>
+<p><img src="https://i.giphy.com/media/JSueytO5O29yM/giphy.webp" onerror="this.onerror=null;this.src='https://i.giphy.com/JSueytO5O29yM.gif';" alt="" style="width:300px"></p>
+<p><span class="fragment">Muy <strong>seguro</strong> nos encontraremos con cosas de este estilo donde tenemos que modificar nuestros resultados</span></p>
+</section><section class="slide level2">
+
+<p>¿Cuántos temas hay?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(forcats)
+
+<span class="co"># creamos variable derivada que agrupe grupe las otras</span>
+<span class="co"># categorías que no corresponden a los 7 más grandes </span>
+<span class="co"># fct_lump</span>
+legos &lt;-<span class="st"> </span><span class="kw">mutate</span>(legos, <span class="dt">Theme2 =</span> <span class="kw">fct_lump</span>(Theme, <span class="dt">n =</span> <span class="dv">7</span>))
+<span class="kw">ggplot</span>(legos) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Theme2))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-6-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuáles son los tipos de envoltorio?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">legos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(Packaging, <span class="dt">sort =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## # A tibble: 14 x 2
+##                Packaging     n
+##                    &lt;chr&gt; &lt;int&gt;
+##  1                   Box  3102
+##  2         Not specified  1747
+##  3               Polybag   619
+##  4             Foil pack   291
+##  5          Blister pack   100
+##  6              Canister    78
+##  7           Loose Parts    72
+##  8                   Tub    40
+##  9                Bucket    36
+## 10                 Other    36
+## 11        Shrink-wrapped    18
+## 12 Box with backing card    17
+## 13           Plastic box    10
+## 14                   Tag     6</code></pre>
+</section><section class="slide level2">
+
+<p>¿Cuáles son los tipos de envoltorio?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Packaging))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-8-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>¿Y esas etiquetas?</p>
+<p><img src="https://i.giphy.com/media/tu54GM19sqJOw/giphy.webp" onerror="this.onerror=null;this.src='https://i.giphy.com/tu54GM19sqJOw.gif';" alt="" style="width: 500px;"></p>
+</section><section class="slide level2">
+
+<p>¿Y esas etiquetas?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Packaging)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>() <span class="co"># rotar :D</span></code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-9-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>¿Y esas etiquetas?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">legos &lt;-<span class="st"> </span><span class="kw">mutate</span>(legos, <span class="dt">Packaging =</span> <span class="kw">fct_infreq</span>(Packaging)) <span class="co"># ordenar</span>
+<span class="kw">ggplot</span>(legos) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Packaging)) <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="co"># rotar :D</span></code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-10-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>¿Desde cuándo se <em>tenemos registros</em> de sets de legos?*</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Year))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-11-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántas piezas traen los sets?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(Pieces))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-12-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántas piezas traen los sets?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">legos &lt;-<span class="st"> </span><span class="kw">mutate</span>(legos, <span class="dt">Pieces2 =</span> <span class="kw">ifelse</span>(Pieces <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>, <span class="dv">1000</span>, Pieces))
+<span class="kw">ggplot</span>(legos) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(Pieces2))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-13-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántas minifuguras traen los sets?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(Minifigures))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-14-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántos sets traen más de 25 figuras? ¿Cuáles son?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">legos <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Minifigures <span class="op">&gt;</span><span class="st"> </span><span class="dv">25</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(Name, Year, Theme, Minifigures)</code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##                            Name  Year     Theme Minifigures
+##                           &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;       &lt;int&gt;
+## 1     The Battle for Helms Deep  2013     Games          28
+## 2 Star Wars: The Battle of Hoth  2012     Games          32
+## 3             Community Workers  2006 Education          31
+## 4             Community Workers  2005 Education          31
+## 5             Community Workers  1996     Dacta          30</code></pre>
+</section><section id="al-infinito-y-mas-alla" class="slide level2">
+<h2>Al infinito y más allá</h2>
+<p><img src="https://i.giphy.com/media/yns3VgsP30GDm/giphy.webp" onerror="this.onerror=null;this.src='https://i.giphy.com/yns3VgsP30GDm.gif';" alt="" style="width: 500px;"></p>
+</section></section>
+<section><section id="estadistica-descriptiva" class="titleslide slide level1 center white" data-background="#4CAF50"><h1>Estadística Descriptiva</h1></section><section id="estadistica-descriptiva-1" class="slide level2">
+<h2>Estadística Descriptiva</h2>
+<p>Conjunto de procedimientos para <strong>resumir</strong> datos</p>
+<ul>
+<li class="fragment">Medidas de tendencia central y dispersión<span class="fragment">. No solo basta con ver que valores puede tomar una variable<span></li>
+<li class="fragment">Visualización de datos<span class="fragment">. Distintos gráficos nos cuentan diferente información acerca de la variable(s)<span></li>
+</ul>
+<p><span class="fragment"><strong>Sintetizar información</strong><span></p>
+</section><section id="motivacion" class="slide level2">
+<h2>Motivación</h2>
+<ul>
+<li>Te mandan un <em>inocente</em> archivo</li>
+<li>Te pieden que describas el contenido</li>
+<li>Y obtengas información relevante</li>
+<li>Claramente nunca habías visto este tipo de información</li>
+</ul>
+</section><section class="slide level2">
+
+<p>Lo abres y</p>
+<p><span class="fragment"> <img src="img/excel-data.png" /> <span></p>
+</section><section id="glosario-2" class="slide level2">
+<h2>Glosario</h2>
+<p>Tipos de Variables</p>
+<ul>
+<li>Categórica
+<ul>
+<li>Nominal. Especie: perro, gato</li>
+<li>Ordinal. Satistacción bueno, malo, …</li>
+</ul></li>
+<li>Cuantitativa
+<ul>
+<li>Discreta. # hijos: 0, 1, 2, …</li>
+<li>Continua. Peso; 3.54, 5.45</li>
+</ul></li>
+</ul>
+</section><section id="medidas-de-tendencia-y-dispersion" class="slide level2">
+<h2>Medidas de Tendencia y Dispersión</h2>
+<p>Son indicadores (generalmente un número) obtenidos de los datos que <strong>resumen</strong> información y nos hablan de alguna característica de la <strong>distribución</strong> de la variable</p>
+<p><span class="fragment">Nos ayudan a tener una idea más fina en <strong>donde se concentran</strong> las variables y que <strong>tan concentrados</strong> están los valores</span></p>
+</section><section id="medidas-de-tendencia-central" class="slide level2">
+<h2>Medidas de Tendencia Central</h2>
+<p>Nos señalan el valor en <em>torno al cual se concentran los datos</em></p>
+<ul>
+<li><strong>Media</strong> o <strong>Promedio</strong>: La suma de los datos dividido por la cantidad de los mismos</li>
+<li>Mediana: Es el valor que está al medio cuando los datos se ordenan</li>
+<li>Moda: Es el valor que más se repite. Este se usa cuando la variable es <em>discreta</em></li>
+</ul>
+</section><section id="medidas-de-dispersion" class="slide level2">
+<h2>Medidas de Dispersión</h2>
+<p>Son valores que nos describen la dispersión de los datos. Es decir, <strong>que tan concentrados</strong> están:</p>
+<ul>
+<li><strong>Desviación estándar</strong>: Mide el grado de dispersión en torno a la media</li>
+<li>Rango: Es el tamaño del intervalo que cubren los datos, el mayor valor menos el mínimo</li>
+</ul>
+</section><section id="ejemplo-equipos" class="slide level2">
+<h2>Ejemplo equipos</h2>
+</section><section id="datasaurus" class="slide level2 white right" data-background="img/datasaurus.jpg">
+<h2>DataSaurus</h2>
+</section><section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(datasauRus) <span class="co"># install.packages(&quot;datasauRus&quot;)</span>
+
+<span class="co"># exploramos</span>
+datasaurus_dozen</code></pre></div>
+<pre><code>## # A tibble: 1,846 x 3
+##    dataset       x       y
+##      &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1    dino 55.3846 97.1795
+##  2    dino 51.5385 96.0256
+##  3    dino 46.1538 94.4872
+##  4    dino 42.8205 91.4103
+##  5    dino 40.7692 88.3333
+##  6    dino 38.7179 84.8718
+##  7    dino 35.6410 79.8718
+##  8    dino 33.0769 77.5641
+##  9    dino 28.9744 74.4872
+## 10    dino 26.1538 71.4103
+## # ... with 1,836 more rows</code></pre>
+</section><section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># contamos categorías de la variable `dataset`</span>
+datasaurus_dozen <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(dataset)</code></pre></div>
+<pre><code>## # A tibble: 13 x 2
+##       dataset     n
+##         &lt;chr&gt; &lt;int&gt;
+##  1       away   142
+##  2   bullseye   142
+##  3     circle   142
+##  4       dino   142
+##  5       dots   142
+##  6    h_lines   142
+##  7 high_lines   142
+##  8 slant_down   142
+##  9   slant_up   142
+## 10       star   142
+## 11    v_lines   142
+## 12 wide_lines   142
+## 13    x_shape   142</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># creamos dos sub data frames</span>
+d1 &lt;-<span class="st"> </span>datasaurus_dozen <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(dataset <span class="op">==</span><span class="st"> &quot;away&quot;</span>)
+d2 &lt;-<span class="st"> </span>datasaurus_dozen <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(dataset <span class="op">==</span><span class="st"> &quot;dino&quot;</span>)</code></pre></div>
+</section><section class="slide level2">
+
+<p>Exploramos la primera</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(d1)</code></pre></div>
+<pre><code>## Observations: 142
+## Variables: 3
+## $ dataset &lt;chr&gt; &quot;away&quot;, &quot;away&quot;, &quot;away&quot;, &quot;away&quot;, &quot;away&quot;, &quot;away&quot;, &quot;away&quot;...
+## $ x       &lt;dbl&gt; 32.33111, 53.42146, 63.92020, 70.28951, 34.11883, 67.6...
+## $ y       &lt;dbl&gt; 61.411101, 26.186880, 30.832194, 82.533649, 45.734551,...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d1 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">x_mean =</span> <span class="kw">mean</span>(x),
+    <span class="dt">y_mean =</span> <span class="kw">mean</span>(y),
+    <span class="dt">x_sd =</span> <span class="kw">sd</span>(x),
+    <span class="dt">y_sd =</span> <span class="kw">sd</span>(y),
+    <span class="dt">xy_corr =</span> <span class="kw">cor</span>(x, y)
+  )</code></pre></div>
+<pre><code>## # A tibble: 1 x 5
+##    x_mean   y_mean     x_sd     y_sd     xy_corr
+##     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+## 1 54.2661 47.83472 16.76982 26.93974 -0.06412835</code></pre>
+</section><section class="slide level2">
+
+<p>Luego la segunda</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(d2)</code></pre></div>
+<pre><code>## Observations: 142
+## Variables: 3
+## $ dataset &lt;chr&gt; &quot;dino&quot;, &quot;dino&quot;, &quot;dino&quot;, &quot;dino&quot;, &quot;dino&quot;, &quot;dino&quot;, &quot;dino&quot;...
+## $ x       &lt;dbl&gt; 55.3846, 51.5385, 46.1538, 42.8205, 40.7692, 38.7179, ...
+## $ y       &lt;dbl&gt; 97.1795, 96.0256, 94.4872, 91.4103, 88.3333, 84.8718, ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d2 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">x_mean =</span> <span class="kw">mean</span>(x),
+    <span class="dt">y_mean =</span> <span class="kw">mean</span>(y),
+    <span class="dt">x_sd =</span> <span class="kw">sd</span>(x),
+    <span class="dt">y_sd =</span> <span class="kw">sd</span>(y),
+    <span class="dt">xy_corr =</span> <span class="kw">cor</span>(x, y)
+  )</code></pre></div>
+<pre><code>## # A tibble: 1 x 5
+##     x_mean   y_mean     x_sd    y_sd     xy_corr
+##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
+## 1 54.26327 47.83225 16.76514 26.9354 -0.06447185</code></pre>
+</section><section class="slide level2">
+
+<p>Resultados muy similares ¿Asumimos que los datos distribuyen igual?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(d1) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(x, y))
+<span class="kw">ggplot</span>(d2) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(x, y))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-21-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasaurus_dozen <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(dataset) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">x_mean =</span> <span class="kw">mean</span>(x),
+    <span class="dt">y_mean =</span> <span class="kw">mean</span>(y),
+    <span class="dt">x_sd =</span> <span class="kw">sd</span>(x),
+    <span class="dt">y_sd =</span> <span class="kw">sd</span>(y),
+    <span class="dt">xy_corr =</span> <span class="kw">cor</span>(x, y)
+  )</code></pre></div>
+<pre><code>## # A tibble: 13 x 6
+##       dataset   x_mean   y_mean     x_sd     y_sd     xy_corr
+##         &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+##  1       away 54.26610 47.83472 16.76982 26.93974 -0.06412835
+##  2   bullseye 54.26873 47.83082 16.76924 26.93573 -0.06858639
+##  3     circle 54.26732 47.83772 16.76001 26.93004 -0.06834336
+##  4       dino 54.26327 47.83225 16.76514 26.93540 -0.06447185
+##  5       dots 54.26030 47.83983 16.76774 26.93019 -0.06034144
+##  6    h_lines 54.26144 47.83025 16.76590 26.93988 -0.06171484
+##  7 high_lines 54.26881 47.83545 16.76670 26.94000 -0.06850422
+##  8 slant_down 54.26785 47.83590 16.76676 26.93610 -0.06897974
+##  9   slant_up 54.26588 47.83150 16.76885 26.93861 -0.06860921
+## 10       star 54.26734 47.83955 16.76896 26.93027 -0.06296110
+## 11    v_lines 54.26993 47.83699 16.76996 26.93768 -0.06944557
+## 12 wide_lines 54.26692 47.83160 16.77000 26.93790 -0.06657523
+## 13    x_shape 54.26015 47.83972 16.76996 26.93000 -0.06558334</code></pre>
+</section><section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">filter</span>(datasaurus_dozen, dataset <span class="op">!=</span><span class="st"> &quot;circle&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(x, y, <span class="dt">color =</span> dataset), <span class="dt">size =</span> <span class="fl">0.6</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dataset) <span class="op">+</span><span class="st"> </span><span class="co"># hacer mini multiples segun la variable dataset</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-23-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>Si te dicen que en una película a la mitad se pone entretenida, existen <strong>muchas</strong> películas que que cumplen dicha característica y no necesariamente habla de la que tu conoces que a la mitad se vuelve entretenida</p>
+<p><img src="https://github.com/stephlocke/lazyCDN/raw/master/DinoSequential.gif?raw=true" alt="" style="max-width:100%;"></p>
+</section><section id="visualizacion-de-datos" class="slide level2 left" data-background="http://www.wordstream.com/images/data-visualization-tools-concept.png">
+<h2>Visualización de datos</h2>
+</section><section id="visualizacion-de-datos-1" class="slide level2">
+<h2>Visualización de datos</h2>
+<p>Se refiere a la representación gráfica de los datos <strong>codificando la información</strong> como: posición, tamaño, formas, colores</p>
+<p><img src="img/data-viz.jpg" width="60%"></p>
+</section><section class="slide level2">
+
+<p><img src="index_files/figure-revealjs/unnamed-chunk-24-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p><img src="index_files/figure-revealjs/unnamed-chunk-25-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p><img src="index_files/figure-revealjs/unnamed-chunk-26-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Existen muchos tipos de gráficos, y su uso dependerá:</p>
+<ul>
+<li>Tipo de variable</li>
+<li>Información que quiero extraer</li>
+</ul>
+<p><span class="fragment">No todos los gráficos tiene ek mismo <strong>objetivo</strong>. Ni tampoco comparten siempre la dificultad para ser <strong>interpretados</strong></span></p>
+</section><section id="variables-categoricas" class="slide level2">
+<h2>Variables Categóricas</h2>
+<p>La forma más usual de visualizar una variable categórica es a través de gráfico de <strong>barras</strong> o <strong>columnas</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">legos2 &lt;-<span class="st"> </span><span class="kw">filter</span>(legos, Theme2 <span class="op">!=</span><span class="st"> &quot;Other&quot;</span>)
+<span class="kw">ggplot</span>(legos2) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Theme, <span class="dt">fill =</span> Theme))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-27-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>También un muy usado es el <strong>pie chart</strong></p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-28-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>También un muy (<strong>ab</strong>)usado es el <strong>pie chart</strong></p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-29-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p><img src="img/omgpie.gif" width="80%"></p>
+</section><section class="slide level2">
+
+<p>También existen otras alternativas como el <strong>treemap</strong> ¿?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(treemapify) <span class="co"># install.packages(&quot;treemapify&quot;)</span>
+<span class="kw">ggplot</span>(<span class="kw">count</span>(legos2, Theme)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_treemap</span>(<span class="kw">aes</span>(<span class="dt">area =</span> n, <span class="dt">fill =</span> n)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_treemap_text</span>(<span class="kw">aes</span>(<span class="dt">area =</span> n, <span class="dt">label =</span> Theme), <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>)</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-30-1.svg" width="576" /></p>
+</section><section id="variables-numericas" class="slide level2">
+<h2>Variables Numéricas</h2>
+<p>La forma más usual de visualizar la distribución es usando el <strong>histograma</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos2) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(Year))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-31-1.svg" width="576" /></p>
+</section><section class="slide level2">
+
+<p>Revisemos <a href="http://tinlizzie.org/histograms/" class="uri">http://tinlizzie.org/histograms/</a></p>
+<p><img src="img/hist.png" width = "60%"></p>
+</section><section class="slide level2">
+
+<p>Según la forma de la distribución, existen categorías:</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-32-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Existen otras alternativas. En datos simétricos:</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-33-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Datos bimodales</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-34-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Datos uniformemente distribuídos</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-35-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Variable Asimétrica</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-36-1.svg" width="768" /></p>
+</section><section id="variables-categoricas-1" class="slide level2">
+<h2>2 Variables Categóricas</h2>
+<p>El heatmap es una usual alternativa</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">legos2 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Pieces_cat =</span> <span class="kw">cut_number</span>(Pieces, <span class="dv">7</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(Theme, Pieces_cat) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(Theme, Pieces_cat, <span class="dt">fill =</span> n)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis</span>()</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-37-1.svg" width="576" /></p>
+</section><section id="variables-numericas-tips" class="slide level2">
+<h2>2 Variables Numéricas + Tips</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Pieces, USD_MSRP))</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-38-1.svg" width="576" /></p>
+<p><span class="fragment">Wakatela</span></p>
+</section><section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Pieces, USD_MSRP)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_sqrt</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_sqrt</span>()</code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-39-1.svg" width="576" /></p>
+<p><span class="fragment">Le sigue faltando cariño</span></p>
+</section><section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos2) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Pieces, USD_MSRP, <span class="dt">size =</span> Minifigures, <span class="dt">color =</span> Year, <span class="dt">shape =</span> Theme), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Precio USD&quot;</span>, <span class="dt">labels =</span> dollar, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">300</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Piezas&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2000</span>)) </code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-40-1.svg" width="576" /></p>
+<p><span class="fragment">No saturar de <em>cariño</em></span></p>
+</section><section class="slide level2">
+
+<p><img style="-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;background-image:linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);" src="https://media.giphy.com/media/xT9IglR8r8KULx7RpC/giphy.gif"></p>
+<p><strong>No saturar ni sobre complejizar</strong></p>
+</section><section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(legos) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Pieces, USD_MSRP, <span class="dt">size =</span> Minifigures, <span class="dt">color =</span> Year), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Precio USD&quot;</span>, <span class="dt">labels =</span> dollar, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">300</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Piezas&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2000</span>)) </code></pre></div>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-41-1.svg" width="576" /></p>
+</section><section id="menciones-honrosas-menos-estandar" class="slide level2">
+<h2>Menciones Honrosas (menos estándar)</h2>
+</section><section id="lollipop" class="slide level2">
+<h2>Lollipop</h2>
+<p><img src="http://uc-r.github.io/public/images/visual/lollipop/lollipop-icon.png" /></p>
+<p>Fuente: <a href="http://uc-r.github.io/lollipop" class="uri">http://uc-r.github.io/lollipop</a></p>
+</section><section id="joyploy" class="slide level2">
+<h2>Joyploy</h2>
+<p><img class="aligncenter size-medium wp-image-70496" src="https://pbs.twimg.com/media/DIkVLlDXkAEVIO6.jpg" alt="" width="500"></p>
+</section></section>
+<section><section id="ejercicio-i" class="titleslide slide level1 center white" data-background="#03A9F4"><h1>Ejercicio I</h1></section><section id="datos" class="slide level2">
+<h2>Datos</h2>
+<p>Dado la contigencia, estudiaremos la magnitud de los temblores en el pasado mes.</p>
+<p>seismic monitor data api <a href="https://earthquake.usgs.gov/fdsnws/event/1/" class="uri">https://earthquake.usgs.gov/fdsnws/event/1/</a></p>
+</section><section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+
+data &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&quot;https://earthquake.usgs.gov/fdsnws/event/1/query?starttime=2017-09-01&amp;endtime=2017-09-31&amp;format=text&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>)
+<span class="kw">glimpse</span>(data)</code></pre></div>
+<pre><code>## Observations: 9,962
+## Variables: 13
+## $ `#EventID`        &lt;chr&gt; &quot;ak16965324&quot;, &quot;ci38015888&quot;, &quot;us2000axbj&quot;, &quot;u...
+## $ Time              &lt;dttm&gt; 2017-09-30 23:50:56, 2017-09-30 23:43:39, 2...
+## $ Latitude          &lt;dbl&gt; 63.14940, 36.06100, 42.65200, 42.65450, 42.6...
+## $ Longitude         &lt;dbl&gt; -152.7432, -117.4702, -111.4566, -111.4606, ...
+## $ `Depth/km`        &lt;dbl&gt; 11.60, 4.54, 6.15, 4.98, 3.19, 39.10, 2.96, ...
+## $ Author            &lt;chr&gt; &quot;ak&quot;, &quot;ci&quot;, &quot;us&quot;, &quot;us&quot;, &quot;us&quot;, &quot;ak&quot;, &quot;ci&quot;, &quot;u...
+## $ Catalog           &lt;chr&gt; &quot;ak&quot;, &quot;ci&quot;, &quot;us&quot;, &quot;us&quot;, &quot;us&quot;, &quot;ak&quot;, &quot;ci&quot;, &quot;u...
+## $ Contributor       &lt;chr&gt; &quot;ak&quot;, &quot;ci&quot;, &quot;us&quot;, &quot;us&quot;, &quot;us&quot;, &quot;ak&quot;, &quot;ci&quot;, &quot;u...
+## $ ContributorID     &lt;chr&gt; &quot;ak16965324&quot;, &quot;ci38015888&quot;, &quot;us2000axbj&quot;, &quot;u...
+## $ MagType           &lt;chr&gt; &quot;ml&quot;, &quot;ml&quot;, &quot;ml&quot;, &quot;ml&quot;, &quot;ml&quot;, &quot;ml&quot;, &quot;ml&quot;, &quot;m...
+## $ Magnitude         &lt;dbl&gt; 1.10, 0.64, 3.20, 2.80, 2.70, 1.20, 1.87, 5....
+## $ MagAuthor         &lt;chr&gt; &quot;ak&quot;, &quot;ci&quot;, &quot;us&quot;, &quot;us&quot;, &quot;us&quot;, &quot;ak&quot;, &quot;ci&quot;, &quot;u...
+## $ EventLocationName &lt;chr&gt; &quot;145km E of McGrath, Alaska&quot;, &quot;33km N of Sea...</code></pre>
+</section></section>
+<section><section id="dudas" class="titleslide slide level1 center white" data-background="#FF5722"><h1>Dudas?!</h1></section></section>
+    </div>
+  </div>
+
+  <script src="index_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="index_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+        // Transition style
+        transition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'index_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

@@ -91,33 +91,33 @@ gg_dists <- function(k = "Simetrica", color = "#673AB7") {
 # 
 # df <- data_frame(
 #   name = sample(head(LETTERS, 5), size = 200, replace = TRUE, prob = (1:5)^(1.2))
-# ) %>% 
-#   count(name) %>% 
-#   rename(y = n) %>% 
+# ) %>%
+#   count(name) %>%
+#   rename(y = n) %>%
 #   mutate(color = colorize(name, rev(viridis(5))))
 # df
 # 
 # set.seed(123)
 # 
-# x <- c(rgamma(6000, 5, 5), rnorm(3000, 3, 1)) %>% 
-#   abs() %>% 
+# x <- c(rgamma(6000, 5, 5), rnorm(3000, 3, 1)) %>%
+#   abs() %>%
 #   { .[. < quantile(., .999)]}
 # 
-# hc <- hchart(x, color = "#21908C") %>% 
+# hc <- hchart(x, color = "#21908C") %>%
 #   hc_add_series(
 #     data = df, type = "pie", center = c('70%', '50%'), size = 350,
-#     dataLabels = list(enabled = FALSE), 
+#     dataLabels = list(enabled = FALSE),
 #     innerSize =  '60%', borderWidth = 0
-#   ) %>% 
+#   ) %>%
 #   hc_plotOptions(
 #     series = list(showInLegend = FALSE)
-#   ) %>% 
+#   ) %>%
 #   hc_add_theme(
 #     hc_theme_merge(
 #       hc_theme_null(), hc_theme_flatdark()
 #     )
-#   ) 
+#   )
 # 
 # hc
-#   
+# 
 # sw(hc, "vis-dis.html")

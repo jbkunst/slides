@@ -1,0 +1,37 @@
+---
+title: "<div id=\"brand\">v|1i|2z|1 e|1n|2 e|2l|1 a|1n|2a|1l|2i|1s|1i|2s|1 d|1e|0 d|1a|1t|1o|3s|3</div>"
+author: "<div id=\"subbrand\">Joshua Kunst, Septiembre 2017</div>"
+output:
+  revealjs::revealjs_presentation:
+    self_contained: false
+    reveal_plugins: ["zoom"]
+    mathjax: null
+    transition: fade
+    css: ["css/styles.css"]
+    incremental: true
+    center: false
+    # center: true
+    theme: simple
+    fig_width: 6
+    fig_height: 3.5
+    reveal_options:
+      slideNumber: true
+      controls: false
+      mouseWheel: false
+editor_options: 
+  chunk_output_type: console
+---
+
+# Holas {.center data-background="http://i.giphy.com/oJiCqvIqPZE3u.gif"}
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
+library(tidyverse)
+library(igraph)
+library(highcharter)
+library(viridis)
+library(hrbrthemes)
+library(jbkmisc)
+theme_set(theme_jbk())
+options(highcharter.theme = hc_theme_smpl(chart = list(backgroundColor = "transparent")))
+```

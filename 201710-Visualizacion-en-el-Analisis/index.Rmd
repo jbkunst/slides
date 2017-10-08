@@ -1,6 +1,6 @@
 ---
 title: "<div id=\"brand\">v|1i|2z|1 e|1n|2 e|2l|1 a|1n|2a|1l|2i|1s|1i|2s|1 d|1e|0 d|1a|1t|1o|3s|3</div>"
-author: "<div id=\"subbrand\">Joshua Kunst, Septiembre 2017</div>"
+author: "<div id=\"subbrand\">Joshua Kunst, Octubre 2017</div>"
 output:
   revealjs::revealjs_presentation:
     self_contained: false
@@ -12,8 +12,7 @@ output:
     center: false
     # center: true
     theme: simple
-    fig_width: 8
-    fig_height: 4
+    fig_height: 6
     reveal_options:
       slideNumber: true
       controls: false
@@ -33,7 +32,6 @@ knitr::opts_chunk$set(
   )
 
 library(tidyverse)
-
 library(ggdendro)
 library(igraph)
 library(ggnetwork)
@@ -44,6 +42,7 @@ library(ggrepel)
 library(scales)
 library(jbkmisc)
 library(gridExtra)
+library(stringr)
 
 library(h2o)
 localH2O <- h2o.init(nthreads = -2)
@@ -61,43 +60,239 @@ update_geom_defaults("bar",   list(fill = main_color))
 update_geom_defaults("text",  list(size = 4, colour = "#666666"))
 ```
 
-# Que haré(mos)?
+## Que haré(mos)?
 
-- Workflow de análisis de datos (AD)
+- Contexto: Workflow de análisis de datos (AD)
 - Visualización en el contexto del __Análisis__ de Datos
 - Viajar a través de un ejemplo guiado
 
 
-# Workflow en Análisis de Datos
+# Workflow en Análisis de Datos { .center .white data-background="#F44336"}
  
 ----
 
-En la mayoría de los __proyectos__
+En la mayoría de los __proyectos__ de datos
 
 ![DSflow](img/tidy-data.png)
 
 ----
 
-- Es fácil, muy fácil equivocarse
-- Pero más fácil es aprender de errores que de cosas que 
-salen a la primera
+El análisis Exploratorio de datos se puede __simplificar__ como
 
-# Visualización en el AD
+- Generar preguntas acerca de los datos
+- Buscar respuestas visualizando, transformando los datos
+- Hacer nuevas preguntas a partir de lo aprendido
+- Visualzación es no solo el producto final sino un __herramienta__
+- Es fácil, muy fácil equivocarse. Pero más fácil es aprender de 
+errores que de cosas que salen a la primera
+- En algún momento hay que detenerse
 
-# Ejemplo Guiado: Metro {.white .left data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png" }
+# Visualización en el Análisis de datos  { .center .white data-background="#3F51B5"}
 
-## Que estudiaremos?
+____
 
-- Exploremos que estaciones se _comportan_ de forma similar
-- Con la facilidad que R y highcharter nos ofrecen (espero!)
+Se refiere a la representación gráfica de los datos __codificando la información__ como: posición, tamaño, formas, colores
+
+<img src="img/data-viz.jpg" width="60%">
 
 ----
 
-Se tienen el ingreso promedio de personas cada media hora
+```{r, cache=TRUE}
+# legos <- read_csv("https://raw.githubusercontent.com/seankross/lego/master/data-tidy/legosets.csv")
+ggplot(lego::legosets) + 
+  geom_point(aes(Pieces, USD_MSRP, size = Minifigures, color = Year), alpha = 0.7) +
+  scale_color_viridis(option = "A") + 
+  scale_y_sqrt(name = "Precio USD", labels = dollar, limits = c(0, 300)) +
+  scale_x_sqrt(name = "Piezas", labels = comma, limits = c(0, 2000)) 
+```
+
+
+----
+
+```{r, cache=TRUE}
+# install.packages(c("rgexf", "ggnetwork", "intergraph"))
+# 316
+library(igraph)
+library(rgexf)
+library(stringr)
+library(ggnetwork)
+library(ggrepel)
+
+net <- "http://media.moviegalaxies.com/gexf/92.gexf" %>% 
+  read_lines() %>% 
+  read.gexf() %>% 
+  gexf.to.igraph()
+
+V(net)$name <- str_to_title(V(net)$name)
+V(net)$label <- V(net)$name %>% 
+  str_extract_all("^\\w{2}| \\w") %>% 
+  map_chr(function(x) {
+    x %>% unlist() %>% str_c(collapse = "")
+  })
+V(net)$size <- page.rank(net)$vector
+cl <- cluster_fast_greedy(net)
+V(net)$comm <- membership(cl)
+V(net)$color <- V(net)$comm
+
+# head(ggnetwork(net))
+set.seed(123)
+ggnet <- ggnetwork(net)
+dfnet2 <- ggnet %>%
+  as.matrix() %>%
+  as.data.frame() %>%
+  tbl_df() %>%
+  select(x, y, vertex.names, weight, size) %>%
+  mutate_all(as.character) %>%
+  mutate_at(vars(x, y, weight, size), as.numeric) %>%
+  filter(is.na(weight))
+
+ggplot(ggnet) + 
+  geom_edges(aes(x, y, size = width, color = factor(comm),
+           xend = xend, yend = yend), color = "gray", size = 1) +
+  geom_point(aes(x, y, size = size, color = factor(comm))) +
+  geom_text_repel(aes(x, y, label = vertex.names, size = size),
+                  data = dfnet2, color = "#666666",
+                  family = "Roboto Condensed") +
+  scale_color_viridis(discrete = TRUE) + 
+  theme_blank() +
+  labs(size = "Pagerank", color = "Comunidad")
+```
+
+----
+
+Ayuda a resumir información. Revisemos http://tinlizzie.org/histograms/
+
+<img src="img/hist.png" width = "60%">
+
+
+## La importancia de la Visualización: DataSaurus { .white .right data-background="img/datasaurus.jpg"}
+
+----
+
+La pregunta es, si tenemos promedios y desviaciones parecidas (iguales):
+¿Son muy parecidos los grupos de datos?
+
+
+```{r, results='asis'}
+library(datasauRus) # install.packages("datasauRus")
+
+# exploramos
+datasauRus::datasaurus_dozen_wide %>% 
+  head(n = 10) %>% 
+  knitr::kable()
+```
+
+----
+
+Seleccionemos 2 grupos de datos:
+
+```{r}
+d1 <- datasaurus_dozen %>% filter(dataset == "away")
+head(d1, n = 3) %>% knitr::kable()
+
+```
+
+Y el segundo
+
+```{r}
+d2 <- datasaurus_dozen %>% filter(dataset == "dino")
+head(d2, n = 3) %>% knitr::kable()
+```
+
+----
+
+Exploramos la primera
+
+```{r}
+d1 %>% 
+  summarise(
+    x_mean = mean(x),
+    y_mean = mean(y),
+    x_sd = sd(x),
+    y_sd = sd(y),
+    xy_corr = cor(x, y)
+  ) %>% knitr::kable()
+```
+
+Luego la segunda
+
+```{r}
+d2 %>% 
+  summarise(
+    x_mean = mean(x),
+    y_mean = mean(y),
+    x_sd = sd(x),
+    y_sd = sd(y),
+    xy_corr = cor(x, y)
+  ) %>% knitr::kable()
+```
+
+---- 
+
+Resultados muy similares ¿Asumimos que los datos distribuyen igual?
+
+```{r}
+bind_rows(d1, d2) %>% 
+  ggplot() +
+  geom_point(aes(x, y), size = 1, color = "gray50") +
+  facet_wrap(~ dataset) +
+  coord_equal()
+```
+
+----
+
+Y de hecho
+
+
+```{r}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarise(
+    x_mean = mean(x),
+    y_mean = mean(y),
+    x_sd = sd(x),
+    y_sd = sd(y),
+    xy_corr = cor(x, y)
+  ) %>% knitr::kable()
+```
+
+----
+
+```{r}
+ggplot(filter(datasaurus_dozen, dataset != "circle")) +
+  geom_point(aes(x, y, color = dataset), size = 0.6) + 
+  facet_wrap(~ dataset) + # hacer mini multiples segun la variable dataset
+  theme(legend.position = "none")
+```
+
+----
+
+Si te dicen que en una película a la mitad se pone entretenida, existen
+__muchas__ películas que que cumplen dicha característica y no necesariamente
+habla de la que tu conoces que a la mitad se vuelve entretenida 
+
+
+<img src="img/DinoSequential.gif" alt="" style="max-width:100%;">
+
+# Subidas al Metro {.white .left data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png" }
+
+----
+
+¿Qué podríamos hacer?
+
+- Explorar que estaciones se _comportan_ de forma similar
+- Probar varias visualizaciones para tener _conocimiento_ y 
+entrar al ciclo del Análisis Exploratorio
+
+----
+
+__Datos__: Ingreso promedio de personas cada media hora
 
 ```{r}
 data <- readRDS("data/data_subidas_metro.rds")
-data
+data %>% 
+  head(10) %>% 
+  knitr::kable()
 ```
 
 ----
@@ -106,7 +301,9 @@ Por ejemplo para __Pedro De Valdivia__
 
 ```{r}
 data %>%
-  filter(paraderosubida == "Pedro De Valdivia")
+  filter(paraderosubida == "Pedro De Valdivia") %>% 
+  head(10) %>% 
+  knitr::kable()
 ```
 
 ----
@@ -116,6 +313,11 @@ Si exploramos __Plaza Maipú__ con __Laguna Sur__
 
 ```{r}
 d1 <- filter(data, paraderosubida %in% c("Plaza Maipu", "Laguna Sur")) 
+
+c <- d1 %>% 
+  spread(paraderosubida, subidas_laboral_promedio) %>%
+  select(-1) %>%
+  {cor(.[[1]], .[[2]])}
 
 grid.arrange(
   ggplot(d1) +
@@ -129,17 +331,14 @@ grid.arrange(
     geom_point(aes(`Laguna Sur`, `Plaza Maipu`, color = mediahora)) + 
     scale_color_viridis(option = "B") +
      scale_x_continuous(label = comma) +
-     scale_y_continuous(label = comma) ,
+     scale_y_continuous(label = comma) +
+    labs(caption = paste("Correlacíón", round(c, 3))),
   nrow = 1
 )
 
-c <- d1 %>% 
-  spread(paraderosubida, subidas_laboral_promedio) %>%
-  select(-1) %>%
-  {cor(.[[1]], .[[2]])}
+rm(d1, c)
 ```
 
-correlación: `r round(c, 3)`
 
 ----
 
@@ -147,6 +346,11 @@ Si exploramos __Universidad De Chile__ con __Plaza De Puente Alto__
 
 ```{r}
 d2 <- filter(data, paraderosubida %in% c("Universidad De Chile", "Plaza De Puente Alto"))
+
+c <-d2 %>% 
+  spread(paraderosubida, subidas_laboral_promedio) %>%
+  select(-1) %>%
+  {cor(.[[1]], .[[2]])}
 
 grid.arrange(
   ggplot(d2) +
@@ -160,21 +364,17 @@ grid.arrange(
     geom_point(aes(`Universidad De Chile`, `Plaza De Puente Alto`, color = mediahora)) + 
     scale_color_viridis(option = "B") +
      scale_x_continuous(label = comma) +
-     scale_y_continuous(label = comma),
+     scale_y_continuous(label = comma) +
+    labs(caption = paste("Correlacíón", round(c, 3))),
   nrow = 1
 )
 
-c <-d2 %>% 
-  spread(paraderosubida, subidas_laboral_promedio) %>%
-  select(-1) %>%
-  {cor(.[[1]], .[[2]])}
+rm(d2, c)
 ```
-
-correlación: `r round(c, 3)`
 
 ----
 
-Entonces ¿Y si calculamos todas las corrleaciones a pares?
+Entonces ¿Y si calculamos todas las correlaciones a pares?
 
 ```{r}
 dcor <- data %>%
@@ -280,7 +480,7 @@ Nop, no tanto
 
 ----
 
-¿Qué tan cercanas son las estaciones según sus valores y no por __UN__ solo valor?
+¿Qué tan cercanas son las estaciones según sus valores?
 
 ```{r}
 dspread <- data %>%
@@ -305,11 +505,9 @@ ggplot() +
   theme_null()
 ```
 
-Esto se llama dendograma
-
 ----
 
-¿Y si resumimos? (vía _autoencoder_)
+¿Y si resumimos usando un __autoencoder__?
 
 ```{r, cache=TRUE, include=FALSE}
 data2 <- data %>% 
@@ -354,7 +552,7 @@ dautoenc <- dautoenc %>%
 dataf <- left_join(data, select(dautoenc, paraderosubida, group))
 ```
 
-```{r, fig.height=6}
+```{r}
 ggplot(dautoenc, aes(x, y)) +
   geom_point(size = 2) +
   # geom_text_repel(aes(label = paraderosubida), size = 2.5, alpha = 0.75,
@@ -364,9 +562,9 @@ ggplot(dautoenc, aes(x, y)) +
 
 ---- 
 
-Ahora agrupamos por k-media... y?!
+Ahora agrupamos por __k-medias__... y?!
 
-```{r, fig.height=6}
+```{r}
 ggplot(dautoenc, aes(x, y)) +
   geom_point(aes(color = group), size = 2) +
   geom_text_repel(data = filter(dautoenc, group != "grupo 1"),
@@ -377,13 +575,11 @@ ggplot(dautoenc, aes(x, y)) +
   theme(legend.position = "bottom")
 ```
 
-
-
 ---- 
 
-Mostramos grupos por separado y su comportamiento estimado
+Mostramos grupos por separado... _voilà_
 
-```{r, fig.height=6}
+```{r}
 ggplot(dataf, aes(mediahora, subidas_laboral_promedio)) + 
   geom_line(aes(group = paraderosubida), alpha = 0.25, color = "gray") + 
   geom_smooth(aes(group = group, color = group), line = 1.2, se = FALSE) + 
@@ -394,3 +590,95 @@ ggplot(dataf, aes(mediahora, subidas_laboral_promedio)) +
   theme(legend.position = "bottom") + 
   labs(x = "Hora", y = "Subida promedio")
 ```
+
+
+----
+
+O podemos agrear componente geoespacial
+
+```{r, cache=TRUE}
+routes <- read_csv("data/routes.txt")
+trips <- read_csv("data/trips.txt")
+stops <- read_csv("data/stops.txt")
+shapes <-read_csv("data/shapes.txt")
+
+stops_metro <- stops %>%
+  filter(!grepl("\\d", stop_id)) %>% 
+  mutate(stop_url = basename(stop_url))
+
+routes_metro <- filter(routes, grepl("^L\\d",route_id))
+
+shapes_metro <- routes %>% 
+  filter(grepl("^L\\d",route_id)) %>% 
+  semi_join(trips, .) %>% 
+  semi_join(shapes, .) %>% 
+  ### IMPORTANTE
+  filter(str_detect(shape_id, "-I")) %>% 
+  mutate(shape_id2 = str_replace(shape_id, "-I", ""))
+
+colors_metro <- distinct(shapes, shape_id) %>% 
+  left_join(distinct(trips, shape_id, route_id)) %>% 
+  left_join(distinct(routes, route_id, route_color)) %>% 
+  semi_join(shapes_metro) %>% 
+  mutate(route_color = paste0("#", route_color))
+  
+str_to_id2 <- function(x) {
+   x %>%
+    as.character() %>%
+    str_trim() %>%
+    str_to_lower() %>% 
+    str_replace_all("\\\\s+", "_") %>%
+    str_replace_all("\\\\\\\\|/", "_") %>%
+    str_replace_all("\\\\[|\\\\]", "_") %>%
+    str_replace_all("_+", "_") %>%
+    str_replace_all("_$|^_", "") %>% 
+    str_replace_all("á", "a") %>%
+    str_replace_all("é", "e") %>% 
+    str_replace_all("í", "i") %>% 
+    str_replace_all("ó", "o") %>% 
+    str_replace_all("ú", "u") %>% 
+    str_replace_all("ñ", "n") %>% 
+    str_replace_all("`", "") %>% 
+    str_replace_all("_de_", "_")
+}
+
+dautoenc <- mutate(dautoenc, id = str_to_id2(paraderosubida))
+
+data4 <- dataf %>% 
+  group_by(paraderosubida, group) %>% 
+  summarise(median = median(subidas_laboral_promedio)) %>% 
+  ungroup() %>% 
+  mutate(id = str_to_id2(paraderosubida))
+
+stops_metro_data <- stops_metro %>% 
+  mutate(id = str_to_id2(stop_name)) %>% 
+  # left_join(data3) %>% 
+  left_join(data4) %>% 
+  filter(!is.na(group))
+
+rm(shapes, routes, stops, trips, data3, data4)
+
+ggplot() +
+  geom_path(data = shapes_metro, aes(shape_pt_lon, shape_pt_lat, color = shape_id2)) +
+  # scale_color_manual(values = colors_metro$route_color) +
+  geom_point(data = stops_metro_data, aes(stop_lon, stop_lat, size = median, fill = group)) + 
+  scale_color_viridis(option = "B", discrete = TRUE, end = .8) +
+  facet_wrap(~group) +
+  coord_equal() +
+  theme_null()
+```
+
+----
+
+Ahora, quizás quizás un poco mejor
+
+<img style="-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;background-image:linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);" src="http://i.giphy.com/aLdiZJmmx4OVW.gif" width="400px">
+
+
+# Conversemos :)! { .center .white data-background="#FF5722"}
+
+## Conversemos
+
+> - `r ico("cloud", "royalblue")` http://jkunst.com
+> - Presentación: http://jkunst.com/r-material/201710-Visualizacion-en-el-Analisis/index.html
+> - `r ico("twitter", "#00aced")` & `r ico("github", "black")` __jbkunst__

@@ -453,76 +453,746 @@ document.getElementsByTagName('head')[0].appendChild(style);
 v|1i|2z|1 e|1n|2 e|2l|1 a|1n|2a|1l|2i|1s|1i|2s|1 d|1e|0 d|1a|1t|1o|3s|3
 </div></h1>
     <h2 class="author"><div id="subbrand">
-Joshua Kunst, Septiembre 2017
+Joshua Kunst, Octubre 2017
 </div></h2>
 </section>
 
-<section><section id="que-haremos" class="titleslide slide level1"><h1>Que haré(mos)?</h1></section></section>
-<section><section id="workflow-en-analisis-de-datos" class="titleslide slide level1"><h1>Workflow en Análisis de Datos</h1></section><section class="slide level2">
+<section id="que-haremos" class="slide level2">
+<h2>Que haré(mos)?</h2>
+<ul>
+<li class="fragment">Contexto: Workflow de análisis de datos (AD)</li>
+<li class="fragment">Visualización en el contexto del <strong>Análisis</strong> de Datos</li>
+<li class="fragment">Viajar a través de un ejemplo guiado</li>
+</ul>
+</section>
+<section><section id="workflow-en-analisis-de-datos" class="titleslide slide level1 center white" data-background="#F44336"><h1>Workflow en Análisis de Datos</h1></section><section class="slide level2">
 
-<p>En la mayoría de los <strong>proyectos</strong></p>
+<p>En la mayoría de los <strong>proyectos</strong> de datos</p>
 <p><img src="img/tidy-data.png" alt="DSflow" /></p>
 </section><section class="slide level2">
 
+<p>El análisis Exploratorio de datos se puede <strong>simplificar</strong> como</p>
 <ul>
-<li class="fragment">Es fácil, muy fácil equivocarse</li>
-<li class="fragment">Pero más fácil es aprender de errores que de cosas que salen a la primera</li>
+<li class="fragment">Generar preguntas acerca de los datos</li>
+<li class="fragment">Buscar respuestas visualizando, transformando los datos</li>
+<li class="fragment">Hacer nuevas preguntas a partir de lo aprendido</li>
+<li class="fragment">Visualzación es no solo el producto final sino un <strong>herramienta</strong></li>
+<li class="fragment">Es fácil, muy fácil equivocarse. Pero más fácil es aprender de errores que de cosas que salen a la primera</li>
+<li class="fragment">En algún momento hay que detenerse</li>
 </ul>
 </section></section>
-<section><section id="visualizacion-en-el-ad" class="titleslide slide level1"><h1>Visualización en el AD</h1></section></section>
-<section><section id="ejemplo-guiado-metro" class="titleslide slide level1 white left" data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png"><h1>Ejemplo Guiado: Metro</h1></section><section id="que-estudiaremos" class="slide level2">
-<h2>Que estudiaremos?</h2>
+<section><section id="visualizacion-en-el-analisis-de-datos" class="titleslide slide level1 center white" data-background="#3F51B5"><h1>Visualización en el Análisis de datos</h1></section><section class="slide level2">
+
+<p>Se refiere a la representación gráfica de los datos <strong>codificando la información</strong> como: posición, tamaño, formas, colores</p>
+<p><img src="img/data-viz.jpg" width="60%"></p>
+</section><section class="slide level2">
+
+<p><img src="index_files/figure-revealjs/unnamed-chunk-2-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p><img src="index_files/figure-revealjs/unnamed-chunk-3-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Ayuda a resumir información. Revisemos <a href="http://tinlizzie.org/histograms/" class="uri">http://tinlizzie.org/histograms/</a></p>
+<p><img src="img/hist.png" width = "60%"></p>
+</section><section id="la-importancia-de-la-visualizacion-datasaurus" class="slide level2 white right" data-background="img/datasaurus.jpg">
+<h2>La importancia de la Visualización: DataSaurus</h2>
+</section><section class="slide level2">
+
+<p>La pregunta es, si tenemos promedios y desviaciones parecidas (iguales): ¿Son muy parecidos los grupos de datos?</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">away_x</th>
+<th style="text-align: right;">away_y</th>
+<th style="text-align: right;">bullseye_x</th>
+<th style="text-align: right;">bullseye_y</th>
+<th style="text-align: right;">circle_x</th>
+<th style="text-align: right;">circle_y</th>
+<th style="text-align: right;">dino_x</th>
+<th style="text-align: right;">dino_y</th>
+<th style="text-align: right;">dots_x</th>
+<th style="text-align: right;">dots_y</th>
+<th style="text-align: right;">h_lines_x</th>
+<th style="text-align: right;">h_lines_y</th>
+<th style="text-align: right;">high_lines_x</th>
+<th style="text-align: right;">high_lines_y</th>
+<th style="text-align: right;">slant_down_x</th>
+<th style="text-align: right;">slant_down_y</th>
+<th style="text-align: right;">slant_up_x</th>
+<th style="text-align: right;">slant_up_y</th>
+<th style="text-align: right;">star_x</th>
+<th style="text-align: right;">star_y</th>
+<th style="text-align: right;">v_lines_x</th>
+<th style="text-align: right;">v_lines_y</th>
+<th style="text-align: right;">wide_lines_x</th>
+<th style="text-align: right;">wide_lines_y</th>
+<th style="text-align: right;">x_shape_x</th>
+<th style="text-align: right;">x_shape_y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">32.33111</td>
+<td style="text-align: right;">61.41110</td>
+<td style="text-align: right;">51.20389</td>
+<td style="text-align: right;">83.33978</td>
+<td style="text-align: right;">55.99303</td>
+<td style="text-align: right;">79.27726</td>
+<td style="text-align: right;">55.3846</td>
+<td style="text-align: right;">97.1795</td>
+<td style="text-align: right;">51.14792</td>
+<td style="text-align: right;">90.86741</td>
+<td style="text-align: right;">53.36657</td>
+<td style="text-align: right;">90.20803</td>
+<td style="text-align: right;">57.61323</td>
+<td style="text-align: right;">83.90517</td>
+<td style="text-align: right;">52.87202</td>
+<td style="text-align: right;">97.34322</td>
+<td style="text-align: right;">47.69520</td>
+<td style="text-align: right;">95.24119</td>
+<td style="text-align: right;">58.21361</td>
+<td style="text-align: right;">91.88189</td>
+<td style="text-align: right;">50.48151</td>
+<td style="text-align: right;">93.22270</td>
+<td style="text-align: right;">65.81554</td>
+<td style="text-align: right;">95.58837</td>
+<td style="text-align: right;">38.33776</td>
+<td style="text-align: right;">92.47272</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">53.42146</td>
+<td style="text-align: right;">26.18688</td>
+<td style="text-align: right;">58.97447</td>
+<td style="text-align: right;">85.49982</td>
+<td style="text-align: right;">50.03225</td>
+<td style="text-align: right;">79.01307</td>
+<td style="text-align: right;">51.5385</td>
+<td style="text-align: right;">96.0256</td>
+<td style="text-align: right;">50.51713</td>
+<td style="text-align: right;">89.10239</td>
+<td style="text-align: right;">52.80198</td>
+<td style="text-align: right;">90.08806</td>
+<td style="text-align: right;">51.27439</td>
+<td style="text-align: right;">82.81798</td>
+<td style="text-align: right;">59.01414</td>
+<td style="text-align: right;">93.57487</td>
+<td style="text-align: right;">44.60998</td>
+<td style="text-align: right;">93.07583</td>
+<td style="text-align: right;">58.19605</td>
+<td style="text-align: right;">92.21499</td>
+<td style="text-align: right;">50.28241</td>
+<td style="text-align: right;">97.60998</td>
+<td style="text-align: right;">65.67227</td>
+<td style="text-align: right;">91.93340</td>
+<td style="text-align: right;">35.75187</td>
+<td style="text-align: right;">94.11677</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">63.92020</td>
+<td style="text-align: right;">30.83219</td>
+<td style="text-align: right;">51.87207</td>
+<td style="text-align: right;">85.82974</td>
+<td style="text-align: right;">51.28846</td>
+<td style="text-align: right;">82.43594</td>
+<td style="text-align: right;">46.1538</td>
+<td style="text-align: right;">94.4872</td>
+<td style="text-align: right;">50.20748</td>
+<td style="text-align: right;">85.46005</td>
+<td style="text-align: right;">47.05413</td>
+<td style="text-align: right;">90.45894</td>
+<td style="text-align: right;">50.75390</td>
+<td style="text-align: right;">76.75413</td>
+<td style="text-align: right;">56.37511</td>
+<td style="text-align: right;">96.30515</td>
+<td style="text-align: right;">43.85638</td>
+<td style="text-align: right;">94.08587</td>
+<td style="text-align: right;">58.71823</td>
+<td style="text-align: right;">90.31053</td>
+<td style="text-align: right;">50.18670</td>
+<td style="text-align: right;">99.69468</td>
+<td style="text-align: right;">39.00272</td>
+<td style="text-align: right;">92.26184</td>
+<td style="text-align: right;">32.76722</td>
+<td style="text-align: right;">88.51829</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70.28951</td>
+<td style="text-align: right;">82.53365</td>
+<td style="text-align: right;">48.17993</td>
+<td style="text-align: right;">85.04512</td>
+<td style="text-align: right;">51.17054</td>
+<td style="text-align: right;">79.16529</td>
+<td style="text-align: right;">42.8205</td>
+<td style="text-align: right;">91.4103</td>
+<td style="text-align: right;">50.06948</td>
+<td style="text-align: right;">83.05767</td>
+<td style="text-align: right;">42.44843</td>
+<td style="text-align: right;">89.50770</td>
+<td style="text-align: right;">37.02118</td>
+<td style="text-align: right;">81.95447</td>
+<td style="text-align: right;">37.83920</td>
+<td style="text-align: right;">94.35944</td>
+<td style="text-align: right;">41.57893</td>
+<td style="text-align: right;">90.30357</td>
+<td style="text-align: right;">57.27837</td>
+<td style="text-align: right;">89.90761</td>
+<td style="text-align: right;">50.32691</td>
+<td style="text-align: right;">90.02205</td>
+<td style="text-align: right;">37.79530</td>
+<td style="text-align: right;">93.53246</td>
+<td style="text-align: right;">33.72961</td>
+<td style="text-align: right;">88.62227</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">34.11883</td>
+<td style="text-align: right;">45.73455</td>
+<td style="text-align: right;">41.68320</td>
+<td style="text-align: right;">84.01794</td>
+<td style="text-align: right;">44.37791</td>
+<td style="text-align: right;">78.16463</td>
+<td style="text-align: right;">40.7692</td>
+<td style="text-align: right;">88.3333</td>
+<td style="text-align: right;">50.56285</td>
+<td style="text-align: right;">82.93782</td>
+<td style="text-align: right;">42.70404</td>
+<td style="text-align: right;">90.44263</td>
+<td style="text-align: right;">42.88176</td>
+<td style="text-align: right;">80.18477</td>
+<td style="text-align: right;">39.88537</td>
+<td style="text-align: right;">90.63466</td>
+<td style="text-align: right;">49.17742</td>
+<td style="text-align: right;">96.61053</td>
+<td style="text-align: right;">58.08202</td>
+<td style="text-align: right;">92.00814</td>
+<td style="text-align: right;">50.45621</td>
+<td style="text-align: right;">89.98741</td>
+<td style="text-align: right;">35.51390</td>
+<td style="text-align: right;">89.59919</td>
+<td style="text-align: right;">37.23825</td>
+<td style="text-align: right;">83.72493</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">67.67072</td>
+<td style="text-align: right;">37.11095</td>
+<td style="text-align: right;">37.89042</td>
+<td style="text-align: right;">82.56749</td>
+<td style="text-align: right;">45.01027</td>
+<td style="text-align: right;">77.88086</td>
+<td style="text-align: right;">38.7179</td>
+<td style="text-align: right;">84.8718</td>
+<td style="text-align: right;">50.28853</td>
+<td style="text-align: right;">82.97525</td>
+<td style="text-align: right;">32.37894</td>
+<td style="text-align: right;">90.14414</td>
+<td style="text-align: right;">37.15571</td>
+<td style="text-align: right;">84.95411</td>
+<td style="text-align: right;">44.07741</td>
+<td style="text-align: right;">84.12585</td>
+<td style="text-align: right;">42.65225</td>
+<td style="text-align: right;">90.56064</td>
+<td style="text-align: right;">57.48945</td>
+<td style="text-align: right;">88.08529</td>
+<td style="text-align: right;">30.46485</td>
+<td style="text-align: right;">82.08923</td>
+<td style="text-align: right;">39.21945</td>
+<td style="text-align: right;">83.54348</td>
+<td style="text-align: right;">36.02720</td>
+<td style="text-align: right;">82.04078</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">53.25913</td>
+<td style="text-align: right;">97.47577</td>
+<td style="text-align: right;">39.54897</td>
+<td style="text-align: right;">80.81260</td>
+<td style="text-align: right;">48.55982</td>
+<td style="text-align: right;">78.78837</td>
+<td style="text-align: right;">35.6410</td>
+<td style="text-align: right;">79.8718</td>
+<td style="text-align: right;">25.58348</td>
+<td style="text-align: right;">82.91489</td>
+<td style="text-align: right;">32.53070</td>
+<td style="text-align: right;">70.15740</td>
+<td style="text-align: right;">38.73186</td>
+<td style="text-align: right;">83.78936</td>
+<td style="text-align: right;">31.49703</td>
+<td style="text-align: right;">67.91256</td>
+<td style="text-align: right;">30.12333</td>
+<td style="text-align: right;">81.14430</td>
+<td style="text-align: right;">28.08874</td>
+<td style="text-align: right;">63.51079</td>
+<td style="text-align: right;">30.50160</td>
+<td style="text-align: right;">82.30713</td>
+<td style="text-align: right;">31.58820</td>
+<td style="text-align: right;">77.02805</td>
+<td style="text-align: right;">39.23928</td>
+<td style="text-align: right;">79.26372</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">63.51498</td>
+<td style="text-align: right;">25.10008</td>
+<td style="text-align: right;">39.64957</td>
+<td style="text-align: right;">82.66453</td>
+<td style="text-align: right;">42.14227</td>
+<td style="text-align: right;">76.88063</td>
+<td style="text-align: right;">33.0769</td>
+<td style="text-align: right;">77.5641</td>
+<td style="text-align: right;">25.48358</td>
+<td style="text-align: right;">82.92909</td>
+<td style="text-align: right;">33.36526</td>
+<td style="text-align: right;">70.45934</td>
+<td style="text-align: right;">31.00053</td>
+<td style="text-align: right;">82.57948</td>
+<td style="text-align: right;">25.95260</td>
+<td style="text-align: right;">73.03318</td>
+<td style="text-align: right;">31.91552</td>
+<td style="text-align: right;">79.79041</td>
+<td style="text-align: right;">28.08547</td>
+<td style="text-align: right;">63.59020</td>
+<td style="text-align: right;">30.48957</td>
+<td style="text-align: right;">77.72988</td>
+<td style="text-align: right;">32.65778</td>
+<td style="text-align: right;">80.11386</td>
+<td style="text-align: right;">39.78452</td>
+<td style="text-align: right;">82.26057</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">67.98054</td>
+<td style="text-align: right;">80.95717</td>
+<td style="text-align: right;">34.75060</td>
+<td style="text-align: right;">80.01109</td>
+<td style="text-align: right;">41.02697</td>
+<td style="text-align: right;">76.40959</td>
+<td style="text-align: right;">28.9744</td>
+<td style="text-align: right;">74.4872</td>
+<td style="text-align: right;">25.44353</td>
+<td style="text-align: right;">82.87420</td>
+<td style="text-align: right;">32.65610</td>
+<td style="text-align: right;">70.05107</td>
+<td style="text-align: right;">25.98550</td>
+<td style="text-align: right;">74.34939</td>
+<td style="text-align: right;">36.43472</td>
+<td style="text-align: right;">62.29405</td>
+<td style="text-align: right;">27.88772</td>
+<td style="text-align: right;">75.44558</td>
+<td style="text-align: right;">28.08727</td>
+<td style="text-align: right;">63.12328</td>
+<td style="text-align: right;">30.45025</td>
+<td style="text-align: right;">79.83489</td>
+<td style="text-align: right;">31.64160</td>
+<td style="text-align: right;">77.61083</td>
+<td style="text-align: right;">35.16603</td>
+<td style="text-align: right;">84.15649</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">67.37247</td>
+<td style="text-align: right;">29.72040</td>
+<td style="text-align: right;">27.56084</td>
+<td style="text-align: right;">72.84783</td>
+<td style="text-align: right;">34.57531</td>
+<td style="text-align: right;">72.72484</td>
+<td style="text-align: right;">26.1538</td>
+<td style="text-align: right;">71.4103</td>
+<td style="text-align: right;">25.56511</td>
+<td style="text-align: right;">82.92410</td>
+<td style="text-align: right;">22.95509</td>
+<td style="text-align: right;">70.42690</td>
+<td style="text-align: right;">23.71457</td>
+<td style="text-align: right;">75.09805</td>
+<td style="text-align: right;">24.99748</td>
+<td style="text-align: right;">75.44156</td>
+<td style="text-align: right;">27.54823</td>
+<td style="text-align: right;">75.16476</td>
+<td style="text-align: right;">27.57803</td>
+<td style="text-align: right;">62.82104</td>
+<td style="text-align: right;">30.51839</td>
+<td style="text-align: right;">68.25258</td>
+<td style="text-align: right;">30.98714</td>
+<td style="text-align: right;">63.94403</td>
+<td style="text-align: right;">40.62212</td>
+<td style="text-align: right;">78.54210</td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level2">
+
+<p>Seleccionemos 2 grupos de datos:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">dataset</th>
+<th style="text-align: right;">x</th>
+<th style="text-align: right;">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">away</td>
+<td style="text-align: right;">32.33111</td>
+<td style="text-align: right;">61.41110</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">away</td>
+<td style="text-align: right;">53.42146</td>
+<td style="text-align: right;">26.18688</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">away</td>
+<td style="text-align: right;">63.92020</td>
+<td style="text-align: right;">30.83219</td>
+</tr>
+</tbody>
+</table>
+<p>Y el segundo</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">dataset</th>
+<th style="text-align: right;">x</th>
+<th style="text-align: right;">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">dino</td>
+<td style="text-align: right;">55.3846</td>
+<td style="text-align: right;">97.1795</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dino</td>
+<td style="text-align: right;">51.5385</td>
+<td style="text-align: right;">96.0256</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dino</td>
+<td style="text-align: right;">46.1538</td>
+<td style="text-align: right;">94.4872</td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level2">
+
+<p>Exploramos la primera</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">x_mean</th>
+<th style="text-align: right;">y_mean</th>
+<th style="text-align: right;">x_sd</th>
+<th style="text-align: right;">y_sd</th>
+<th style="text-align: right;">xy_corr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">54.2661</td>
+<td style="text-align: right;">47.83472</td>
+<td style="text-align: right;">16.76983</td>
+<td style="text-align: right;">26.93974</td>
+<td style="text-align: right;">-0.0641284</td>
+</tr>
+</tbody>
+</table>
+<p>Luego la segunda</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">x_mean</th>
+<th style="text-align: right;">y_mean</th>
+<th style="text-align: right;">x_sd</th>
+<th style="text-align: right;">y_sd</th>
+<th style="text-align: right;">xy_corr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">54.26327</td>
+<td style="text-align: right;">47.83225</td>
+<td style="text-align: right;">16.76514</td>
+<td style="text-align: right;">26.9354</td>
+<td style="text-align: right;">-0.0644719</td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level2">
+
+<p>Resultados muy similares ¿Asumimos que los datos distribuyen igual?</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-9-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Y de hecho</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">dataset</th>
+<th style="text-align: right;">x_mean</th>
+<th style="text-align: right;">y_mean</th>
+<th style="text-align: right;">x_sd</th>
+<th style="text-align: right;">y_sd</th>
+<th style="text-align: right;">xy_corr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">away</td>
+<td style="text-align: right;">54.26610</td>
+<td style="text-align: right;">47.83472</td>
+<td style="text-align: right;">16.76983</td>
+<td style="text-align: right;">26.93974</td>
+<td style="text-align: right;">-0.0641284</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bullseye</td>
+<td style="text-align: right;">54.26873</td>
+<td style="text-align: right;">47.83082</td>
+<td style="text-align: right;">16.76924</td>
+<td style="text-align: right;">26.93573</td>
+<td style="text-align: right;">-0.0685864</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">circle</td>
+<td style="text-align: right;">54.26732</td>
+<td style="text-align: right;">47.83772</td>
+<td style="text-align: right;">16.76001</td>
+<td style="text-align: right;">26.93004</td>
+<td style="text-align: right;">-0.0683434</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dino</td>
+<td style="text-align: right;">54.26327</td>
+<td style="text-align: right;">47.83225</td>
+<td style="text-align: right;">16.76514</td>
+<td style="text-align: right;">26.93540</td>
+<td style="text-align: right;">-0.0644719</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dots</td>
+<td style="text-align: right;">54.26030</td>
+<td style="text-align: right;">47.83983</td>
+<td style="text-align: right;">16.76774</td>
+<td style="text-align: right;">26.93019</td>
+<td style="text-align: right;">-0.0603414</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">h_lines</td>
+<td style="text-align: right;">54.26144</td>
+<td style="text-align: right;">47.83025</td>
+<td style="text-align: right;">16.76590</td>
+<td style="text-align: right;">26.93988</td>
+<td style="text-align: right;">-0.0617148</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">high_lines</td>
+<td style="text-align: right;">54.26881</td>
+<td style="text-align: right;">47.83545</td>
+<td style="text-align: right;">16.76670</td>
+<td style="text-align: right;">26.94000</td>
+<td style="text-align: right;">-0.0685042</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">slant_down</td>
+<td style="text-align: right;">54.26785</td>
+<td style="text-align: right;">47.83590</td>
+<td style="text-align: right;">16.76676</td>
+<td style="text-align: right;">26.93610</td>
+<td style="text-align: right;">-0.0689797</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">slant_up</td>
+<td style="text-align: right;">54.26588</td>
+<td style="text-align: right;">47.83150</td>
+<td style="text-align: right;">16.76885</td>
+<td style="text-align: right;">26.93861</td>
+<td style="text-align: right;">-0.0686092</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">star</td>
+<td style="text-align: right;">54.26734</td>
+<td style="text-align: right;">47.83955</td>
+<td style="text-align: right;">16.76896</td>
+<td style="text-align: right;">26.93027</td>
+<td style="text-align: right;">-0.0629611</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">v_lines</td>
+<td style="text-align: right;">54.26993</td>
+<td style="text-align: right;">47.83699</td>
+<td style="text-align: right;">16.76996</td>
+<td style="text-align: right;">26.93768</td>
+<td style="text-align: right;">-0.0694456</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wide_lines</td>
+<td style="text-align: right;">54.26692</td>
+<td style="text-align: right;">47.83160</td>
+<td style="text-align: right;">16.77000</td>
+<td style="text-align: right;">26.93790</td>
+<td style="text-align: right;">-0.0665752</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x_shape</td>
+<td style="text-align: right;">54.26015</td>
+<td style="text-align: right;">47.83972</td>
+<td style="text-align: right;">16.76996</td>
+<td style="text-align: right;">26.93000</td>
+<td style="text-align: right;">-0.0655833</td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level2">
+
+<p><img src="index_files/figure-revealjs/unnamed-chunk-11-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Si te dicen que en una película a la mitad se pone entretenida, existen <strong>muchas</strong> películas que que cumplen dicha característica y no necesariamente habla de la que tu conoces que a la mitad se vuelve entretenida</p>
+<p><img src="img/DinoSequential.gif" alt="" style="max-width:100%;"></p>
+</section></section>
+<section><section id="subidas-al-metro" class="titleslide slide level1 white left" data-background="http://pre01.deviantart.net/b377/th/pre/f/2016/136/4/9/subway_wallpaper_by_nightbronies-da2pjzk.png"><h1>Subidas al Metro</h1></section><section class="slide level2">
+
+<p>¿Qué podríamos hacer?</p>
 <ul>
-<li class="fragment">Exploremos que estaciones se <em>comportan</em> de forma similar</li>
-<li class="fragment">Con la facilidad que R y highcharter nos ofrecen (espero!)</li>
+<li class="fragment">Explorar que estaciones se <em>comportan</em> de forma similar</li>
+<li class="fragment">Probar varias visualizaciones para tener <em>conocimiento</em> y entrar al ciclo del Análisis Exploratorio</li>
 </ul>
 </section><section class="slide level2">
 
-<p>Se tienen el ingreso promedio de personas cada media hora</p>
-<pre><code>## # A tibble: 3,737 x 3
-##    paraderosubida           mediahora subidas_laboral_promedio
-##             &lt;chr&gt;              &lt;dttm&gt;                    &lt;dbl&gt;
-##  1      Alcantara 1970-01-01 05:30:00                      2.6
-##  2      Alcantara 1970-01-01 06:00:00                     13.2
-##  3      Alcantara 1970-01-01 06:30:00                     53.4
-##  4      Alcantara 1970-01-01 07:00:00                    184.8
-##  5      Alcantara 1970-01-01 07:30:00                    364.0
-##  6      Alcantara 1970-01-01 08:00:00                    546.2
-##  7      Alcantara 1970-01-01 08:30:00                    478.6
-##  8      Alcantara 1970-01-01 09:00:00                    359.0
-##  9      Alcantara 1970-01-01 09:30:00                    275.4
-## 10      Alcantara 1970-01-01 10:00:00                    229.6
-## # ... with 3,727 more rows</code></pre>
+<p><strong>Datos</strong>: Ingreso promedio de personas cada media hora</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">paraderosubida</th>
+<th style="text-align: left;">mediahora</th>
+<th style="text-align: right;">subidas_laboral_promedio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 05:30:00</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 06:00:00</td>
+<td style="text-align: right;">13.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 06:30:00</td>
+<td style="text-align: right;">53.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 07:00:00</td>
+<td style="text-align: right;">184.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 07:30:00</td>
+<td style="text-align: right;">364.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 08:00:00</td>
+<td style="text-align: right;">546.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 08:30:00</td>
+<td style="text-align: right;">478.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 09:00:00</td>
+<td style="text-align: right;">359.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 09:30:00</td>
+<td style="text-align: right;">275.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alcantara</td>
+<td style="text-align: left;">1970-01-01 10:00:00</td>
+<td style="text-align: right;">229.6</td>
+</tr>
+</tbody>
+</table>
 </section><section class="slide level2">
 
 <p>Por ejemplo para <strong>Pedro De Valdivia</strong></p>
-<pre><code>## # A tibble: 37 x 3
-##       paraderosubida           mediahora subidas_laboral_promedio
-##                &lt;chr&gt;              &lt;dttm&gt;                    &lt;dbl&gt;
-##  1 Pedro De Valdivia 1970-01-01 05:30:00                     36.8
-##  2 Pedro De Valdivia 1970-01-01 06:00:00                    167.8
-##  3 Pedro De Valdivia 1970-01-01 06:30:00                    314.6
-##  4 Pedro De Valdivia 1970-01-01 07:00:00                    758.8
-##  5 Pedro De Valdivia 1970-01-01 07:30:00                   1201.2
-##  6 Pedro De Valdivia 1970-01-01 08:00:00                   1469.8
-##  7 Pedro De Valdivia 1970-01-01 08:30:00                   1363.4
-##  8 Pedro De Valdivia 1970-01-01 09:00:00                   1151.0
-##  9 Pedro De Valdivia 1970-01-01 09:30:00                    999.0
-## 10 Pedro De Valdivia 1970-01-01 10:00:00                    911.0
-## # ... with 27 more rows</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">paraderosubida</th>
+<th style="text-align: left;">mediahora</th>
+<th style="text-align: right;">subidas_laboral_promedio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 05:30:00</td>
+<td style="text-align: right;">36.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 06:00:00</td>
+<td style="text-align: right;">167.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 06:30:00</td>
+<td style="text-align: right;">314.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 07:00:00</td>
+<td style="text-align: right;">758.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 07:30:00</td>
+<td style="text-align: right;">1201.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 08:00:00</td>
+<td style="text-align: right;">1469.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 08:30:00</td>
+<td style="text-align: right;">1363.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 09:00:00</td>
+<td style="text-align: right;">1151.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 09:30:00</td>
+<td style="text-align: right;">999.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pedro De Valdivia</td>
+<td style="text-align: left;">1970-01-01 10:00:00</td>
+<td style="text-align: right;">911.0</td>
+</tr>
+</tbody>
+</table>
 </section><section class="slide level2">
 
 <p>Si exploramos <strong>Plaza Maipú</strong> con <strong>Laguna Sur</strong></p>
-<p><img src="index_files/figure-revealjs/unnamed-chunk-4-1.svg" width="768" /></p>
-<p>correlación: 0.996</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-14-1.svg" width="768" /></p>
 </section><section class="slide level2">
 
 <p>Si exploramos <strong>Universidad De Chile</strong> con <strong>Plaza De Puente Alto</strong></p>
-<p><img src="index_files/figure-revealjs/unnamed-chunk-5-1.svg" width="768" /></p>
-<p>correlación: -0.372</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-15-1.svg" width="768" /></p>
 </section><section class="slide level2">
 
-<p>Entonces ¿Y si calculamos todas las corrleaciones a pares?</p>
+<p>Entonces ¿Y si calculamos todas las correlaciones a pares?</p>
 <pre><code>## # A tibble: 5,050 x 3
 ##           item1                     item2 correlation
 ##           &lt;chr&gt;                     &lt;chr&gt;       &lt;dbl&gt;
@@ -540,7 +1210,7 @@ Joshua Kunst, Septiembre 2017
 </section><section class="slide level2">
 
 <p>¿Alguien dijo heatmap?</p>
-<p><img src="index_files/figure-revealjs/unnamed-chunk-7-1.svg" width="768" /></p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-17-1.svg" width="768" /></p>
 </section><section class="slide level2">
 
 <p>Claramente se ve…</p>
@@ -548,7 +1218,7 @@ Joshua Kunst, Septiembre 2017
 </section><section class="slide level2">
 
 <p>Mmmm… Veamos solamente las asociaciones más fuertes</p>
-<p><img src="index_files/figure-revealjs/unnamed-chunk-8-1.svg" width="768" /></p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-18-1.svg" width="768" /></p>
 <p>Yay!</p>
 </section><section class="slide level2">
 
@@ -557,21 +1227,36 @@ Joshua Kunst, Septiembre 2017
 <p>Nop, no tanto</p>
 </section><section class="slide level2">
 
-<p>¿Qué tan cercanas son las estaciones según sus valores y no por <strong>UN</strong> solo valor?</p>
-<p><img src="index_files/figure-revealjs/unnamed-chunk-9-1.svg" width="768" /></p>
-<p>Esto se llama dendograma</p>
+<p>¿Qué tan cercanas son las estaciones según sus valores?</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-19-1.svg" width="768" /></p>
 </section><section class="slide level2">
 
-<p>¿Y si resumimos? (vía <em>autoencoder</em>)</p>
-<p><img src="index_files/figure-revealjs/unnamed-chunk-11-1.svg" width="768" /></p>
+<p>¿Y si resumimos usando un <strong>autoencoder</strong>?</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-21-1.svg" width="768" /></p>
 </section><section class="slide level2">
 
-<p>Ahora agrupamos por k-media… y?!</p>
-<p><img src="index_files/figure-revealjs/unnamed-chunk-12-1.svg" width="768" /></p>
+<p>Ahora agrupamos por <strong>k-medias</strong>… y?!</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-22-1.svg" width="768" /></p>
 </section><section class="slide level2">
 
-<p>Mostramos grupos por separado y su comportamiento estimado</p>
-<p><img src="index_files/figure-revealjs/unnamed-chunk-13-1.svg" width="768" /></p>
+<p>Mostramos grupos por separado… <em>voilà</em></p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-23-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>O podemos agrear componente geoespacial</p>
+<p><img src="index_files/figure-revealjs/unnamed-chunk-24-1.svg" width="768" /></p>
+</section><section class="slide level2">
+
+<p>Ahora, quizás quizás un poco mejor</p>
+<p><img style="-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;background-image:linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);" src="http://i.giphy.com/aLdiZJmmx4OVW.gif" width="400px"></p>
+</section></section>
+<section><section id="conversemos" class="titleslide slide level1 center white" data-background="#FF5722"><h1>Conversemos :)!</h1></section><section id="conversemos-1" class="slide level2">
+<h2>Conversemos</h2>
+<ul>
+<li><span style="color:royalblue"> <i class="fa fa-cloud"></i> </span> <a href="http://jkunst.com" class="uri">http://jkunst.com</a></li>
+<li>Presentación: <a href="http://jkunst.com/r-material/201710-Visualizacion-en-el-Analisis/index.html" class="uri">http://jkunst.com/r-material/201710-Visualizacion-en-el-Analisis/index.html</a></li>
+<li><span style="color:#00aced"> <i class="fa fa-twitter"></i> </span> &amp; <span style="color:black"> <i class="fa fa-github"></i> </span> <strong>jbkunst</strong></li>
+</ul>
 </section></section>
     </div>
   </div>

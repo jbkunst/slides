@@ -1,0 +1,44 @@
+---
+title: "<div id=\"brand\">p|1o|2r|1q|2q|1u|2e  s|2h|1i|2n|3y1</div>"
+author: "<div id=\"subbrand\">Joshua Kunst, Diciembre 2017</div>"
+output:
+  revealjs::revealjs_presentation:
+    self_contained: false
+    reveal_plugins: ["zoom"]
+    mathjax: null
+    transition: fade
+    css: ["css/styles.css"]
+    incremental: true
+    center: false
+    # center: true
+    theme: simple
+    fig_width: 6
+    fig_height: 3.5
+    reveal_options:
+      slideNumber: true
+      controls: false
+      mouseWheel: false
+editor_options: 
+  chunk_output_type: console
+---
+
+# { data-background="img/data-culture.jpg"}
+
+```{r, include = FALSE}
+# source("R/setup.R")
+```
+
+## Que haremos?
+
+> - Introducción
+> - Análsis Exploratorio de Datos (AED)
+> - Estadística Descriptiva (ED)
+>      * Medidas de Tendencia
+>      * Visualización de datos
+> - Estudiar Ejemplos
+<span class="fragment">, hacer ejemplos</span><span class="fragment">, __equivocarnos__</span><span class="fragment">, __corregirnos__</span><span class="fragment">, vivir ejemplos</span>
+
+# Que <del>chichis</del> es **shiny** { .center .white data-background="#F44336"}
+
+## Introducción
+

@@ -28,18 +28,16 @@ editor_options:
 # source("R/setup.R")
 ```
 
-## Que haremos?
+## ¿Que haremos?
 
 > - ¿Qué es shiny?
+> - ¿Por qué shiny?
 > - ¿Por qué con estilo?
-> - Estadística Descriptiva (ED)
-> - Estadística Descriptiva (ED)
->      * Medidas de Tendencia
->      * Visualización de datos
-> - Estudiar Ejemplos
-<span class="fragment">, hacer ejemplos</span><span class="fragment">, __equivocarnos__</span><span class="fragment">, __corregirnos__</span><span class="fragment">, vivir ejemplos</span>
+> - Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> ordinaria</span><span class="fragment"> habitual</span>
 
-# Que <del>chichis</del> es **shiny** { .center .white data-background="#F44336"}
+# Que es shiny** { .center .white data-background="#F44336"}
+
+## 
 
 ## Introducción
 

@@ -10,6 +10,43 @@
   <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/reveal.css"/>
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
 
@@ -461,16 +498,49 @@ Joshua Kunst, Diciembre 2017
 </section>
 
 <section><section id="section" class="titleslide slide level1" data-background="img/data-culture.jpg"><h1></h1></section><section id="que-haremos" class="slide level2">
-<h2>Que haremos?</h2>
+<h2>¿Que haremos?</h2>
 <ul>
 <li>¿Qué es shiny?</li>
 <li>¿Por qué shiny?</li>
 <li>¿Por qué con estilo?</li>
-<li>Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment">común</span><span class="fragment"> ordinaria</span><span class="fragment"> habitual</span></li>
+<li>Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> y corriente</span><span class="fragment"> habitual</span></li>
 </ul>
 </section></section>
-<section><section id="que-chichis-es-shiny" class="titleslide slide level1 center white" data-background="#F44336"><h1>Que <del>chichis</del> es <strong>shiny</strong></h1></section><section id="introduccion" class="slide level2">
-<h2>Introducción</h2>
+<section><section id="que-es-shiny" class="titleslide slide level1 center white" data-background="#F44336"><h1>¿Qué es shiny?</h1></section><section id="que-es-shiny-1" class="slide level2">
+<h2>¿Qué es shiny?</h2>
+<ul>
+<li>Es un paquete para construir aplicaciones web usando solamente código <span style="color:#2066B9;font-weight:500">R</span></li>
+<li>De forma <strong>fácil</strong><span class="fragment">. Sin aprender <code>HTML</code></span><span class="fragment">, <code>Javascript</code></span><span class="fragment"> o <code>CSS</code></span></li>
+</ul>
+</section><section id="como-luce-una-shiny-app-en-codigo" class="slide level2">
+<h2>¿Cómo luce una <em>shiny-app</em> en código?</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
+
+ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+   <span class="kw">sidebarLayout</span>(
+      <span class="kw">sidebarPanel</span>(
+         <span class="kw">sliderInput</span>(<span class="st">&quot;nrandom&quot;</span>, <span class="st">&quot;N a simular:&quot;</span>,
+                     <span class="dt">min =</span> <span class="dv">1</span>, <span class="dt">max =</span> <span class="dv">50</span>, <span class="dt">value =</span> <span class="dv">30</span>),
+         <span class="kw">selectInput</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;Tipo:&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">&quot;p&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;b&quot;</span>))
+      ),
+      <span class="kw">mainPanel</span>(<span class="kw">plotOutput</span>(<span class="st">&quot;outplot&quot;</span>))
+   )
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
+   output<span class="op">$</span>outplot &lt;-<span class="st"> </span><span class="kw">renderPlot</span>({
+     x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(input<span class="op">$</span>nrandom)
+     <span class="kw">plot</span>(<span class="kw">cumsum</span>(x)<span class="op">/</span><span class="kw">seq</span>(<span class="kw">length</span>(x)), <span class="dt">type =</span> input<span class="op">$</span>type)
+   })
+}</code></pre></div>
+</section><section id="como-luce-una-shiny-app-funcionando" class="slide level2">
+<h2>¿Cómo luce una <em>shiny-app</em> funcionando?</h2>
+<p><small> <a href="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-01-basico/" class="uri">http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-01-basico/</a> </small></p>
+<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-01-basico/" width="100%" height="500px">
+</iframe>
+</section><section id="what" class="slide level2">
+<h2>WHAT?!</h2>
+<p><img src="imgs/shiny-structure.png" alt="WHAT" /></p>
 </section></section>
     </div>
   </div>

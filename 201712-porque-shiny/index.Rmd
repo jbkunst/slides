@@ -33,7 +33,7 @@ source("R/setup.R")
 - ¿Qué es shiny?
 - ¿Por qué shiny?
 - ¿Por qué con estilo?
-- Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> y corriente</span><span class="fragment"> habitual</span>
+- Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> y corriente</span><span class="fragment"> del día a día</span>
 
 # ¿Qué es shiny? { .center .white data-background="#75AADB"}
 
@@ -122,15 +122,19 @@ http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-01-basico/
 
 <iframe src="https://gallery.shinyapps.io/050-kmeans-example" width="100%" height="500px" ></iframe>
 
-## _Showcase_ de nuestros trabajos
+## _Showcase_ de trabajos
 
 Paquete R para __X-13ARIMA-SEATS__ [`r ico("link")`](http://www.seasonal.website/)
 
 <iframe src="http://www.seasonal.website/" width="100%" height="500px" ></iframe>
 
-## 
-¿Cuántos tienen su `r ico("mobile")` en la `r ico("hand")`?
-- 
+## Otra razones
+
+- ¿Cuántos tienen su `r ico("mobile")` en la mano?
+- ¿Cuántos siguen haciendo informes excel haciendo las resultados previos en `r R()`?
+- Salir del confort y aprender un mundo nuevo donde el primer paso es pequeño
+
+<span class="fragment"><iframe src="https://giphy.com/embed/2dJ5Iait4QrW8" width="480" height="311" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span>
 
 # ¿Por qué con estilo? { .center .white data-background="#3F51B5"}
 
@@ -147,10 +151,9 @@ Paquete R para __X-13ARIMA-SEATS__ [`r ico("link")`](http://www.seasonal.website
 
 <span class="fragment"><iframe src="https://giphy.com/embed/RrVzUOXldFe8M" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span>
 
-
 ## `shinythemes`
 
-Los más fácil de implementar, sin tan alto impacto en código ni imagen
+Los más fácil de implementar, sin tan alto impacto en código ni imagen.
 
 ![](imgs/shinythemes.png)
 
@@ -187,14 +190,14 @@ http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-02-shinythemes/
 
 ## `shinymaterial`
 
-Basado en las normativas de diseño __Material Design__ desarrolladas por Google para android
+Basado en las normativas de diseño __Material Design__ desarrollado por Google para android
 
 ![](imgs/Material_Design.svg.png)
 
 
 ## `shinymaterial`
 
-Se debe cambiar el `ui` :(, pero no así el `server` ;)
+Se debe cambiar el `ui` `r ico("frown-o")`<span class="fragment">, pero no así el `server` `r ico("smile-o")`</span>
 
 ```r
 library(shiny)
@@ -225,3 +228,94 @@ http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymateria
 </small>
 
 <iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymaterial/" width="100%" height="500px" ></iframe>
+
+## `shinydashboard`
+
+Orientados a __dashboards__<span class="fragment"> agrega más funcionalidades</span>
+
+![](https://rstudio.github.io/shinydashboard/images/crandash.png)
+
+
+## `shinydashboard`
+
+Cambio en el `ui`
+
+```r
+ui <- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(
+    sliderInput("nrand", "Simulaciones", min = 50, max = 100, value = 70),
+    selectInput("col", "Color", c("red", "blue", "black")),
+    checkboxInput("punto", "Puntos:", value = FALSE)
+  ),
+  dashboardBody(
+    fluidRow(box(width = 12, plotOutput("outplot")))
+  )
+)
+```
+
+## `shinydashboard`
+
+<small>
+http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/
+</small>
+
+<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/" width="100%" height="500px" ></iframe>
+
+
+## `CSS`
+
+La libertad a cierto costo
+
+![](https://s3.envato.com/files/237762797/theme-preview/02.jpg)
+
+## `CSS`
+
+- Todos los paquetes anteriores viven dentro de sus diseños/márgenes
+- `CSS` ofrece una libertad _infinita_
+- Claro, tiempo hay que dedicarle
+
+<span class="fragment"><iframe src="https://giphy.com/embed/tJeGZumxDB01q" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span>
+
+## `CSS`
+
+<small>
+http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/
+</small>
+
+<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/" width="100%" height="500px" ></iframe>
+
+
+# Una Historia { .center .white data-background="#607D8B"}
+
+## Comienza Así
+
+
+- El programa de Innovación de Alimentos + Saludables deseaba actualizar su
+sitio en cuanto a diseño y contenido
+- También agregar unos análisis que hacían... <span class="fragment">a mano</span>
+- Consolidando cientos y cientos... <span class="fragment"> de planillas excel </span>
+
+<span class="fragment"><iframe src="https://giphy.com/embed/12RfP2odT4hEOI" width="480" height="437" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span>
+
+## Los análisis
+
+- Se basaban en datos del UN Comtrade ( United Nations International Trade Statistics Database) y del OEC (Observatory of Economic complexity)
+- Se tenían los datos de países (muchos!) y sus transacciones de productos (muchos!!!)
+- El objetivo era comparar el posicionamiento de Chile respecto a sus competidores
+
+## Los análisis
+
+Imagen 1
+
+## Los análisis
+
+Imagen 2
+
+## Iteracion N
+
+link
+
+## Iteracion N
+
+

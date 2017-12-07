@@ -504,7 +504,7 @@ Joshua Kunst, Diciembre 2017
 <li class="fragment">¿Qué es shiny?</li>
 <li class="fragment">¿Por qué shiny?</li>
 <li class="fragment">¿Por qué con estilo?</li>
-<li class="fragment">Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> y corriente</span><span class="fragment"> habitual</span></li>
+<li class="fragment">Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> y corriente</span><span class="fragment"> del día a día</span></li>
 </ul>
 </section></section>
 <section><section id="que-es-shiny" class="titleslide slide level1 center white" data-background="#75AADB"><h1>¿Qué es shiny?</h1></section><section id="que-es-shiny-1" class="slide level2">
@@ -575,14 +575,19 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 <p><small><a href="https://gallery.shinyapps.io/050-kmeans-example" class="uri">https://gallery.shinyapps.io/050-kmeans-example</a></small></p>
 <iframe src="https://gallery.shinyapps.io/050-kmeans-example" width="100%" height="500px">
 </iframe>
-</section><section id="showcase-de-nuestros-trabajos" class="slide level2">
-<h2><em>Showcase</em> de nuestros trabajos</h2>
+</section><section id="showcase-de-trabajos" class="slide level2">
+<h2><em>Showcase</em> de trabajos</h2>
 <p>Paquete R para <strong>X-13ARIMA-SEATS</strong> <a href="http://www.seasonal.website/"><span> <i class="fa fa-link"></i> </span></a></p>
 <iframe src="http://www.seasonal.website/" width="100%" height="500px">
 </iframe>
-</section><section id="section-1" class="slide level2">
-<h2></h2>
-<p>¿Cuántos tienen su <span> <i class="fa fa-mobile"></i> </span> en la <span> <i class="fa fa-hand"></i> </span>? -</p>
+</section><section id="otra-razones" class="slide level2">
+<h2>Otra razones</h2>
+<ul>
+<li class="fragment">¿Cuántos tienen su <span> <i class="fa fa-mobile"></i> </span> en la mano?</li>
+<li class="fragment">¿Cuántos siguen haciendo informes excel haciendo las resultados previos en <span style="color:#2066B9;font-weight:500">R</span>?</li>
+<li class="fragment">Salir del confort y aprender un mundo nuevo donde el primer paso es pequeño</li>
+</ul>
+<p><span class="fragment"><iframe src="https://giphy.com/embed/2dJ5Iait4QrW8" width="480" height="311" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span></p>
 </section></section>
 <section><section id="por-que-con-estilo" class="titleslide slide level1 center white" data-background="#3F51B5"><h1>¿Por qué con estilo?</h1></section><section id="por-que-con-estilo-1" class="slide level2">
 <h2>¿Por qué con estilo?</h2>
@@ -598,7 +603,7 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 <p><span class="fragment"><iframe src="https://giphy.com/embed/RrVzUOXldFe8M" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span></p>
 </section><section id="shinythemes" class="slide level2">
 <h2><code>shinythemes</code></h2>
-<p>Los más fácil de implementar, sin tan alto impacto en código ni imagen</p>
+<p>Los más fácil de implementar, sin tan alto impacto en código ni imagen.</p>
 <p><img src="imgs/shinythemes.png" /></p>
 </section><section id="shinythemes-1" class="slide level2">
 <h2><code>shinythemes</code></h2>
@@ -621,11 +626,11 @@ ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
 </iframe>
 </section><section id="shinymaterial" class="slide level2">
 <h2><code>shinymaterial</code></h2>
-<p>Basado en las normativas de diseño <strong>Material Design</strong> desarrolladas por Google para android</p>
+<p>Basado en las normativas de diseño <strong>Material Design</strong> desarrollado por Google para android</p>
 <p><img src="imgs/Material_Design.svg.png" /></p>
 </section><section id="shinymaterial-1" class="slide level2">
 <h2><code>shinymaterial</code></h2>
-<p>Se debe cambiar el <code>ui</code> :(, pero no así el <code>server</code> ;)</p>
+<p>Se debe cambiar el <code>ui</code> <span> <i class="fa fa-frown-o"></i> </span><span class="fragment">, pero no así el <code>server</code> <span> <i class="fa fa-smile-o"></i> </span></span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
 <span class="kw">library</span>(shinymaterial)
 
@@ -650,6 +655,73 @@ ui &lt;-<span class="st"> </span><span class="kw">material_page</span>(
 <p><small> <a href="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymaterial/" class="uri">http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymaterial/</a> </small></p>
 <iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymaterial/" width="100%" height="500px">
 </iframe>
+</section><section id="shinydashboard" class="slide level2">
+<h2><code>shinydashboard</code></h2>
+<p>Orientados a <strong>dashboards</strong><span class="fragment"> agrega más funcionalidades</span></p>
+<p><img src="https://rstudio.github.io/shinydashboard/images/crandash.png" /></p>
+</section><section id="shinydashboard-1" class="slide level2">
+<h2><code>shinydashboard</code></h2>
+<p>Cambio en el <code>ui</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ui &lt;-<span class="st"> </span><span class="kw">dashboardPage</span>(
+  <span class="kw">dashboardHeader</span>(),
+  <span class="kw">dashboardSidebar</span>(
+    <span class="kw">sliderInput</span>(<span class="st">&quot;nrand&quot;</span>, <span class="st">&quot;Simulaciones&quot;</span>, <span class="dt">min =</span> <span class="dv">50</span>, <span class="dt">max =</span> <span class="dv">100</span>, <span class="dt">value =</span> <span class="dv">70</span>),
+    <span class="kw">selectInput</span>(<span class="st">&quot;col&quot;</span>, <span class="st">&quot;Color&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>)),
+    <span class="kw">checkboxInput</span>(<span class="st">&quot;punto&quot;</span>, <span class="st">&quot;Puntos:&quot;</span>, <span class="dt">value =</span> <span class="ot">FALSE</span>)
+  ),
+  <span class="kw">dashboardBody</span>(
+    <span class="kw">fluidRow</span>(<span class="kw">box</span>(<span class="dt">width =</span> <span class="dv">12</span>, <span class="kw">plotOutput</span>(<span class="st">&quot;outplot&quot;</span>)))
+  )
+)</code></pre></div>
+</section><section id="shinydashboard-2" class="slide level2">
+<h2><code>shinydashboard</code></h2>
+<p><small> <a href="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/" class="uri">http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/</a> </small></p>
+<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/" width="100%" height="500px">
+</iframe>
+</section><section id="css" class="slide level2">
+<h2><code>CSS</code></h2>
+<p>La libertad a cierto costo</p>
+<p><img src="https://s3.envato.com/files/237762797/theme-preview/02.jpg" /></p>
+</section><section id="css-1" class="slide level2">
+<h2><code>CSS</code></h2>
+<ul>
+<li class="fragment">Todos los paquetes anteriores viven dentro de sus diseños/márgenes</li>
+<li class="fragment"><code>CSS</code> ofrece una libertad <em>infinita</em></li>
+<li class="fragment">Claro, tiempo hay que dedicarle</li>
+</ul>
+<p><span class="fragment"><iframe src="https://giphy.com/embed/tJeGZumxDB01q" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span></p>
+</section><section id="css-2" class="slide level2">
+<h2><code>CSS</code></h2>
+<p><small> <a href="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/" class="uri">http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/</a> </small></p>
+<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/" width="100%" height="500px">
+</iframe>
+</section></section>
+<section><section id="una-historia" class="titleslide slide level1 center white" data-background="#607D8B"><h1>Una Historia</h1></section><section id="comienza-asi" class="slide level2">
+<h2>Comienza Así</h2>
+<ul>
+<li class="fragment">El programa de Innovación de Alimentos + Saludables deseaba actualizar su sitio en cuanto a diseño y contenido</li>
+<li class="fragment">También agregar unos análisis que hacían… <span class="fragment">a mano</span></li>
+<li class="fragment">Consolidando cientos y cientos… <span class="fragment"> de planillas excel </span></li>
+</ul>
+<p><span class="fragment"><iframe src="https://giphy.com/embed/12RfP2odT4hEOI" width="480" height="437" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span></p>
+</section><section id="los-analisis" class="slide level2">
+<h2>Los análisis</h2>
+<ul>
+<li class="fragment">Se basaban en datos del UN Comtrade ( United Nations International Trade Statistics Database) y del OEC (Observatory of Economic complexity)</li>
+<li class="fragment">Se tenían los datos de países (muchos!) y sus transacciones de productos (muchos!!!)</li>
+<li class="fragment">El objetivo era comparar el posicionamiento de Chile respecto a sus competidores</li>
+</ul>
+</section><section id="los-analisis-1" class="slide level2">
+<h2>Los análisis</h2>
+<p>Imagen 1</p>
+</section><section id="los-analisis-2" class="slide level2">
+<h2>Los análisis</h2>
+<p>Imagen 2</p>
+</section><section id="iteracion-n" class="slide level2">
+<h2>Iteracion <span class="math inline"><em>N</em></span></h2>
+<p>link</p>
+</section><section id="iteracion-nn" class="slide level2">
+<h2>Iteracion <span class="math inline"><em>N</em><em>N</em></span></h2>
 </section></section>
     </div>
   </div>

@@ -22,8 +22,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-# { data-background="img/data-culture.jpg"}
-
 ## ¿Que haremos?
 
 ```{r, include = FALSE}
@@ -280,10 +278,10 @@ La libertad a cierto costo
 ## `CSS`
 
 <small>
-http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/
+http://104.140.247.162:3838/shiny-apps/cl-educ/
 </small>
 
-<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-04-shinydashboard/" width="100%" height="500px" ></iframe>
+<iframe src="http://104.140.247.162:3838/shiny-apps/cl-educ/" width="100%" height="500px" ></iframe>
 
 
 # Una Historia { .center .white data-background="#607D8B"}
@@ -306,16 +304,54 @@ sitio en cuanto a diseño y contenido
 
 ## Los análisis
 
-Imagen 1
+![](imgs/pias1.png)
 
 ## Los análisis
 
-Imagen 2
+![](imgs/pias2.png)
 
-## Iteracion N
+## Los análisis
 
-link
+![](imgs/pias3.png)
 
-## Iteracion N
+## Los análisis
+
+![](imgs/pias4.png)
+
+## Primera version
+
+![](imgs/app1.png)
+
+## Primera version
+
+![](imgs/app2.png)
+
+## El sitio era
+
+http://www.piaschile.cl/
+
+![](imgs/piasweb1.png)
+
+## El sitio es ahora
+
+http://piaschile.portablehost3.net/
+
+![](imgs/piasweb2.png)
+
+# Entonces { .center .white data-background="#00BCD4"}
+
+- En aprender nunca hay pérdida
+- Expande tu área de acción
+- Hace todo más entretenido!
+
+
+## Gracias!
+
+Nos vemos pronto
+
+> - `r ico("cloud", "royalblue")` http://jkunst.com. Presentación: http://jkunst.com/r-material/201712-porque-shiny/index.html
+> - `r ico("twitter", "#00aced")` & `r ico("github", "black")` __jbkunst__
+
+<img style="-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;background-image:linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);" src="http://i.giphy.com/aLdiZJmmx4OVW.gif" width="400px">
 
 

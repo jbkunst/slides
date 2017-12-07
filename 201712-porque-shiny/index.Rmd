@@ -1,5 +1,5 @@
 ---
-title: "<h1 id=\"subbrand\">¿Por qué Shiny? ¿Por qué con estilo?</h1><h2 id=\"subbrand\">Contado a través de una historia</h2>"
+title: "<br><h1 id=\"subbrand\">¿Por qué Shiny? ¿Por qué con estilo?</h1><h2 id=\"subsubbrand\">Contado a través de preguntas y una historia</h2>"
 author: "<h3 id=\"subbrand\">Joshua Kunst, Diciembre 2017</h3>"
 output:
   revealjs::revealjs_presentation:
@@ -24,37 +24,37 @@ editor_options:
 
 # { data-background="img/data-culture.jpg"}
 
+## ¿Que haremos?
+
 ```{r, include = FALSE}
 source("R/setup.R")
 ```
 
-## ¿Que haremos?
+- ¿Qué es shiny?
+- ¿Por qué shiny?
+- ¿Por qué con estilo?
+- Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> y corriente</span><span class="fragment"> habitual</span>
 
-> - ¿Qué es shiny?
-> - ¿Por qué shiny?
-> - ¿Por qué con estilo?
-> - Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> y corriente</span><span class="fragment"> habitual</span>
-
-# ¿Qué es shiny? { .center .white data-background="#F44336"}
+# ¿Qué es shiny? { .center .white data-background="#75AADB"}
 
 ## ¿Qué es shiny?
 
-> - Es un paquete para construir aplicaciones web usando solamente
+- Es un paquete para construir aplicaciones web usando solamente
 código `r R()`
-> - De forma __fácil__<span class="fragment">. Sin aprender `HTML`</span><span class="fragment">, `Javascript`</span><span class="fragment"> o `CSS`</span>
+- De forma __fácil__<span class="fragment">. Sin aprender o saber de `HTML`</span><span class="fragment">, `Javascript`</span><span class="fragment"> `CSS`</span><span class="fragment"> frontend</span><span class="fragment"> o backend</span>
 
+<span class="fragment"><iframe src="https://giphy.com/embed/12mPcp41D9a1i0" width="480" height="275" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span>
 
 ## ¿Cómo luce una _shiny-app_ en código?
 
 ```r
-library(shiny)
-
 ui <- fluidPage(
    sidebarLayout(
       sidebarPanel(
-         sliderInput("nrandom", "N a simular:",
-                     min = 1, max = 50, value = 30),
-         selectInput("type", "Tipo:", choices = c("p", "l", "b"))
+        sliderInput("nrand", "Simulaciones",
+                    min = 50, max = 100, value = 70),
+        selectInput("col", "Color", c("red", "blue", "black")),
+        checkboxInput("punto", "Puntos:", value = FALSE)
       ),
       mainPanel(plotOutput("outplot"))
    )
@@ -62,8 +62,10 @@ ui <- fluidPage(
 
 server <- function(input, output) {
    output$outplot <- renderPlot({
-     x <- rnorm(input$nrandom)
-     plot(cumsum(x)/seq(length(x)), type = input$type)
+     set.seed(123)
+     x <- rnorm(input$nrand)
+     t <- ifelse(input$punto, "b", "l")
+     plot(x, type = t, col = input$col)
    })
 }
 ```
@@ -76,13 +78,150 @@ http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-01-basico/
 
 <iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-01-basico/" width="100%" height="500px" ></iframe>
 
-## Nice
+## Sospechosa
 
-<iframe src="https://giphy.com/embed/fDzM81OYrNjJC" width="480" height="286" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/happy-excited-shocked-fDzM81OYrNjJC">via GIPHY</a></p>
+![sospechosa](imgs/sospechosa.jpg)
 
-## What
-![WHAT](imgs/shiny-structure.png)
+## ¿Cómo? 
+
+![](imgs/shiny_works/Diapositiva1.PNG)
+
+## Contenedor 
+
+![](imgs/shiny_works/Diapositiva2.PNG)
+
+## Otros contenedores 
+
+![](imgs/shiny_works/Diapositiva3.PNG)
+
+## Inputs 
+
+![](imgs/shiny_works/Diapositiva4.PNG)
+
+## Output(s!) 
+
+![](imgs/shiny_works/Diapositiva5.PNG)
+
+## Interacción 
+
+![](imgs/shiny_works/Diapositiva6.PNG)
+
+## Resultado 
+
+![](imgs/shiny_works/Diapositiva7.PNG)
+
+## Me parece
+
+<iframe src="https://giphy.com/embed/vgUFOWBwBkziE" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+# ¿Por qué shiny? { .center .white data-background="#F44336"}
+
+## Educación 
+
+<small>https://gallery.shinyapps.io/050-kmeans-example</small>
+
+<iframe src="https://gallery.shinyapps.io/050-kmeans-example" width="100%" height="500px" ></iframe>
+
+## _Showcase_ de nuestros trabajos
+
+Paquete R para __X-13ARIMA-SEATS__ [`r ico("link")`](http://www.seasonal.website/)
+
+<iframe src="http://www.seasonal.website/" width="100%" height="500px" ></iframe>
+
+## 
+¿Cuántos tienen su `r ico("mobile")` en la `r ico("hand")`?
+- 
+
+# ¿Por qué con estilo? { .center .white data-background="#3F51B5"}
+
+## ¿Por qué con estilo? 
+
+![](imgs/shinyapps.gif)
+
+## Alternativas para refrescar
+
+- `shinythemes`
+- `shinymaterial`
+- `shinydashboard`
+- ...`CSS`
+
+<span class="fragment"><iframe src="https://giphy.com/embed/RrVzUOXldFe8M" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span>
 
 
+## `shinythemes`
+
+Los más fácil de implementar, sin tan alto impacto en código ni imagen
+
+![](imgs/shinythemes.png)
 
 
+## `shinythemes`
+
+Antes:
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+   sidebarLayout(...
+```
+
+Ahora:
+
+```r
+library(shiny)
+library(shinythemes)
+
+ui <- fluidPage(
+   theme = shinytheme("superhero"),
+   sidebarLayout(...
+```
+
+## `shinythemes`
+
+<small>
+http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-02-shinythemes/
+</small>
+
+<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-02-shinythemes/" width="100%" height="500px" ></iframe>
+
+## `shinymaterial`
+
+Basado en las normativas de diseño __Material Design__ desarrolladas por Google para android
+
+![](imgs/Material_Design.svg.png)
+
+
+## `shinymaterial`
+
+Se debe cambiar el `ui` :(, pero no así el `server` ;)
+
+```r
+library(shiny)
+library(shinymaterial)
+
+ui <- material_page(
+  nav_bar_color = "blue",
+  material_row(
+    material_column(width = 4, 
+      material_card(depth = 4,
+        material_slider("nrand", "Simulaciones", min_value = 50,
+                        max_value = 100, initial_value = 70),
+        material_dropdown("col", "Color", c("red", "blue", "black")),
+        material_checkbox("punto", "Puntos", initial_value = TRUE)
+      )
+    ),
+    material_column(width = 8,
+      material_card(plotOutput("outplot"), depth = 4)
+    )
+  )
+)
+```
+
+## `shinymaterial`
+
+<small>
+http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymaterial/
+</small>
+
+<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymaterial/" width="100%" height="500px" ></iframe>

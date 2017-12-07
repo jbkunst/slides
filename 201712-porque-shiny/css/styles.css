@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,500|Open+Sans:300,400,500");
 @import url("https://fonts.googleapis.com/css?family=Fira+Mono");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
 @font-face {
   font-family: 'Datalegreya-Gradient';
   src: url('https://cdn.rawgit.com/figs-lab/datalegreya/master/font-files/Datalegreya-Gradient.otf');
@@ -38,6 +39,11 @@ body {
 #subbrand {
   color: #555555;
   font-family: "Alegreya Sans SC", sans-serif;
+}
+
+#subsubbrand {
+  color: #555555;
+  font-family: 'Shadows Into Light', cursive;
   font-weight: 300;
 }
 

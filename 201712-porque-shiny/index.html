@@ -486,11 +486,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <div class="slides">
 
 <section>
-    <h1 class="title"><h1 id="subbrand">
+    <h1 class="title"><br>
+<h1 id="subbrand">
 ¿Por qué Shiny? ¿Por qué con estilo?
 </h1>
-<h2 id="subbrand">
-Contado a través de una historia
+<h2 id="subsubbrand">
+Contado a través de preguntas y una historia
 </h2></h1>
     <h2 class="author"><h3 id="subbrand">
 Joshua Kunst, Diciembre 2017
@@ -500,28 +501,28 @@ Joshua Kunst, Diciembre 2017
 <section><section id="section" class="titleslide slide level1" data-background="img/data-culture.jpg"><h1></h1></section><section id="que-haremos" class="slide level2">
 <h2>¿Que haremos?</h2>
 <ul>
-<li>¿Qué es shiny?</li>
-<li>¿Por qué shiny?</li>
-<li>¿Por qué con estilo?</li>
-<li>Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> y corriente</span><span class="fragment"> habitual</span></li>
+<li class="fragment">¿Qué es shiny?</li>
+<li class="fragment">¿Por qué shiny?</li>
+<li class="fragment">¿Por qué con estilo?</li>
+<li class="fragment">Ejemplos <span class="fragment"> de la vida</span><span class="fragment"> real</span><span class="fragment"> común</span><span class="fragment"> y corriente</span><span class="fragment"> habitual</span></li>
 </ul>
 </section></section>
-<section><section id="que-es-shiny" class="titleslide slide level1 center white" data-background="#F44336"><h1>¿Qué es shiny?</h1></section><section id="que-es-shiny-1" class="slide level2">
+<section><section id="que-es-shiny" class="titleslide slide level1 center white" data-background="#75AADB"><h1>¿Qué es shiny?</h1></section><section id="que-es-shiny-1" class="slide level2">
 <h2>¿Qué es shiny?</h2>
 <ul>
-<li>Es un paquete para construir aplicaciones web usando solamente código <span style="color:#2066B9;font-weight:500">R</span></li>
-<li>De forma <strong>fácil</strong><span class="fragment">. Sin aprender <code>HTML</code></span><span class="fragment">, <code>Javascript</code></span><span class="fragment"> o <code>CSS</code></span></li>
+<li class="fragment">Es un paquete para construir aplicaciones web usando solamente código <span style="color:#2066B9;font-weight:500">R</span></li>
+<li class="fragment">De forma <strong>fácil</strong><span class="fragment">. Sin aprender o saber de <code>HTML</code></span><span class="fragment">, <code>Javascript</code></span><span class="fragment"> <code>CSS</code></span><span class="fragment"> frontend</span><span class="fragment"> o backend</span></li>
 </ul>
+<p><span class="fragment"><iframe src="https://giphy.com/embed/12mPcp41D9a1i0" width="480" height="275" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span></p>
 </section><section id="como-luce-una-shiny-app-en-codigo" class="slide level2">
 <h2>¿Cómo luce una <em>shiny-app</em> en código?</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
-
-ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
    <span class="kw">sidebarLayout</span>(
       <span class="kw">sidebarPanel</span>(
-         <span class="kw">sliderInput</span>(<span class="st">&quot;nrandom&quot;</span>, <span class="st">&quot;N a simular:&quot;</span>,
-                     <span class="dt">min =</span> <span class="dv">1</span>, <span class="dt">max =</span> <span class="dv">50</span>, <span class="dt">value =</span> <span class="dv">30</span>),
-         <span class="kw">selectInput</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;Tipo:&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">&quot;p&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;b&quot;</span>))
+        <span class="kw">sliderInput</span>(<span class="st">&quot;nrand&quot;</span>, <span class="st">&quot;Simulaciones&quot;</span>,
+                    <span class="dt">min =</span> <span class="dv">50</span>, <span class="dt">max =</span> <span class="dv">100</span>, <span class="dt">value =</span> <span class="dv">70</span>),
+        <span class="kw">selectInput</span>(<span class="st">&quot;col&quot;</span>, <span class="st">&quot;Color&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>)),
+        <span class="kw">checkboxInput</span>(<span class="st">&quot;punto&quot;</span>, <span class="st">&quot;Puntos:&quot;</span>, <span class="dt">value =</span> <span class="ot">FALSE</span>)
       ),
       <span class="kw">mainPanel</span>(<span class="kw">plotOutput</span>(<span class="st">&quot;outplot&quot;</span>))
    )
@@ -529,8 +530,10 @@ ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
 
 server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
    output<span class="op">$</span>outplot &lt;-<span class="st"> </span><span class="kw">renderPlot</span>({
-     x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(input<span class="op">$</span>nrandom)
-     <span class="kw">plot</span>(<span class="kw">cumsum</span>(x)<span class="op">/</span><span class="kw">seq</span>(<span class="kw">length</span>(x)), <span class="dt">type =</span> input<span class="op">$</span>type)
+     <span class="kw">set.seed</span>(<span class="dv">123</span>)
+     x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(input<span class="op">$</span>nrand)
+     t &lt;-<span class="st"> </span><span class="kw">ifelse</span>(input<span class="op">$</span>punto, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;l&quot;</span>)
+     <span class="kw">plot</span>(x, <span class="dt">type =</span> t, <span class="dt">col =</span> input<span class="op">$</span>col)
    })
 }</code></pre></div>
 </section><section id="como-luce-una-shiny-app-funcionando" class="slide level2">
@@ -538,16 +541,115 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 <p><small> <a href="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-01-basico/" class="uri">http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-01-basico/</a> </small></p>
 <iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-01-basico/" width="100%" height="500px">
 </iframe>
-</section><section id="nice" class="slide level2">
-<h2>Nice</h2>
-<iframe src="https://giphy.com/embed/fDzM81OYrNjJC" width="480" height="286" frameBorder="0" class="giphy-embed" allowFullScreen>
+</section><section id="sospechosa" class="slide level2">
+<h2>Sospechosa</h2>
+<p><img src="imgs/sospechosa.jpg" alt="sospechosa" /></p>
+</section><section id="como" class="slide level2">
+<h2>¿Cómo?</h2>
+<p><img src="imgs/shiny_works/Diapositiva1.PNG" /></p>
+</section><section id="contenedor" class="slide level2">
+<h2>Contenedor</h2>
+<p><img src="imgs/shiny_works/Diapositiva2.PNG" /></p>
+</section><section id="otros-contenedores" class="slide level2">
+<h2>Otros contenedores</h2>
+<p><img src="imgs/shiny_works/Diapositiva3.PNG" /></p>
+</section><section id="inputs" class="slide level2">
+<h2>Inputs</h2>
+<p><img src="imgs/shiny_works/Diapositiva4.PNG" /></p>
+</section><section id="outputs" class="slide level2">
+<h2>Output(s!)</h2>
+<p><img src="imgs/shiny_works/Diapositiva5.PNG" /></p>
+</section><section id="interaccion" class="slide level2">
+<h2>Interacción</h2>
+<p><img src="imgs/shiny_works/Diapositiva6.PNG" /></p>
+</section><section id="resultado" class="slide level2">
+<h2>Resultado</h2>
+<p><img src="imgs/shiny_works/Diapositiva7.PNG" /></p>
+</section><section id="me-parece" class="slide level2">
+<h2>Me parece</h2>
+<iframe src="https://giphy.com/embed/vgUFOWBwBkziE" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen>
 </iframe>
-<p>
-<a href="https://giphy.com/gifs/happy-excited-shocked-fDzM81OYrNjJC">via GIPHY</a>
-</p>
-</section><section id="what" class="slide level2">
-<h2>What</h2>
-<p><img src="imgs/shiny-structure.png" alt="WHAT" /></p>
+</section></section>
+<section><section id="por-que-shiny" class="titleslide slide level1 center white" data-background="#F44336"><h1>¿Por qué shiny?</h1></section><section id="educacion" class="slide level2">
+<h2>Educación</h2>
+<p><small><a href="https://gallery.shinyapps.io/050-kmeans-example" class="uri">https://gallery.shinyapps.io/050-kmeans-example</a></small></p>
+<iframe src="https://gallery.shinyapps.io/050-kmeans-example" width="100%" height="500px">
+</iframe>
+</section><section id="showcase-de-nuestros-trabajos" class="slide level2">
+<h2><em>Showcase</em> de nuestros trabajos</h2>
+<p>Paquete R para <strong>X-13ARIMA-SEATS</strong> <a href="http://www.seasonal.website/"><span> <i class="fa fa-link"></i> </span></a></p>
+<iframe src="http://www.seasonal.website/" width="100%" height="500px">
+</iframe>
+</section><section id="section-1" class="slide level2">
+<h2></h2>
+<p>¿Cuántos tienen su <span> <i class="fa fa-mobile"></i> </span> en la <span> <i class="fa fa-hand"></i> </span>? -</p>
+</section></section>
+<section><section id="por-que-con-estilo" class="titleslide slide level1 center white" data-background="#3F51B5"><h1>¿Por qué con estilo?</h1></section><section id="por-que-con-estilo-1" class="slide level2">
+<h2>¿Por qué con estilo?</h2>
+<p><img src="imgs/shinyapps.gif" /></p>
+</section><section id="alternativas-para-refrescar" class="slide level2">
+<h2>Alternativas para refrescar</h2>
+<ul>
+<li class="fragment"><code>shinythemes</code></li>
+<li class="fragment"><code>shinymaterial</code></li>
+<li class="fragment"><code>shinydashboard</code></li>
+<li class="fragment">…<code>CSS</code></li>
+</ul>
+<p><span class="fragment"><iframe src="https://giphy.com/embed/RrVzUOXldFe8M" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></span></p>
+</section><section id="shinythemes" class="slide level2">
+<h2><code>shinythemes</code></h2>
+<p>Los más fácil de implementar, sin tan alto impacto en código ni imagen</p>
+<p><img src="imgs/shinythemes.png" /></p>
+</section><section id="shinythemes-1" class="slide level2">
+<h2><code>shinythemes</code></h2>
+<p>Antes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
+
+ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+   <span class="kw">sidebarLayout</span>(...</code></pre></div>
+<p>Ahora:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
+<span class="kw">library</span>(shinythemes)
+
+ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+   <span class="dt">theme =</span> <span class="kw">shinytheme</span>(<span class="st">&quot;superhero&quot;</span>),
+   <span class="kw">sidebarLayout</span>(...</code></pre></div>
+</section><section id="shinythemes-2" class="slide level2">
+<h2><code>shinythemes</code></h2>
+<p><small> <a href="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-02-shinythemes/" class="uri">http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-02-shinythemes/</a> </small></p>
+<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-02-shinythemes/" width="100%" height="500px">
+</iframe>
+</section><section id="shinymaterial" class="slide level2">
+<h2><code>shinymaterial</code></h2>
+<p>Basado en las normativas de diseño <strong>Material Design</strong> desarrolladas por Google para android</p>
+<p><img src="imgs/Material_Design.svg.png" /></p>
+</section><section id="shinymaterial-1" class="slide level2">
+<h2><code>shinymaterial</code></h2>
+<p>Se debe cambiar el <code>ui</code> :(, pero no así el <code>server</code> ;)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
+<span class="kw">library</span>(shinymaterial)
+
+ui &lt;-<span class="st"> </span><span class="kw">material_page</span>(
+  <span class="dt">nav_bar_color =</span> <span class="st">&quot;blue&quot;</span>,
+  <span class="kw">material_row</span>(
+    <span class="kw">material_column</span>(<span class="dt">width =</span> <span class="dv">4</span>, 
+      <span class="kw">material_card</span>(<span class="dt">depth =</span> <span class="dv">4</span>,
+        <span class="kw">material_slider</span>(<span class="st">&quot;nrand&quot;</span>, <span class="st">&quot;Simulaciones&quot;</span>, <span class="dt">min_value =</span> <span class="dv">50</span>,
+                        <span class="dt">max_value =</span> <span class="dv">100</span>, <span class="dt">initial_value =</span> <span class="dv">70</span>),
+        <span class="kw">material_dropdown</span>(<span class="st">&quot;col&quot;</span>, <span class="st">&quot;Color&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>)),
+        <span class="kw">material_checkbox</span>(<span class="st">&quot;punto&quot;</span>, <span class="st">&quot;Puntos&quot;</span>, <span class="dt">initial_value =</span> <span class="ot">TRUE</span>)
+      )
+    ),
+    <span class="kw">material_column</span>(<span class="dt">width =</span> <span class="dv">8</span>,
+      <span class="kw">material_card</span>(<span class="kw">plotOutput</span>(<span class="st">&quot;outplot&quot;</span>), <span class="dt">depth =</span> <span class="dv">4</span>)
+    )
+  )
+)</code></pre></div>
+</section><section id="shinymaterial-2" class="slide level2">
+<h2><code>shinymaterial</code></h2>
+<p><small> <a href="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymaterial/" class="uri">http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymaterial/</a> </small></p>
+<iframe src="http://104.140.247.162:3838/por-que-shiny-por-que-con-estilo/app-03-shinymaterial/" width="100%" height="500px">
+</iframe>
 </section></section>
     </div>
   </div>

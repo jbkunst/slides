@@ -1,0 +1,35 @@
+---
+title: "Bienvenidos"
+author: "<h3 id=\"subbrand\">Joshua Kunst, Diciembre 2017</h3>"
+output:
+  revealjs::revealjs_presentation:
+    self_contained: false
+    reveal_plugins: ["zoom"]
+    mathjax: null
+    transition: fade
+    css: ["css/styles.css"]
+    incremental: true
+    center: false
+    # center: true
+    theme: simple
+    fig_width: 6
+    fig_height: 3.5
+    reveal_options:
+      slideNumber: true
+      controls: false
+      mouseWheel: false
+editor_options: 
+  chunk_output_type: console
+---
+
+# Bienvenidos { .center .white data-background="#75AADB"}
+
+# ¿Por qué shiny? { .center .white data-background="#F44336"}
+
+# ¿Por qué con estilo? { .center .white data-background="#3F51B5"}
+
+# Una Historia { .center .white data-background="#607D8B"}
+
+# Entonces { .center .white data-background="#00BCD4"}
+
+

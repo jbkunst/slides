@@ -1,6 +1,6 @@
 ---
 title: "<br><h1 id=\"subbrand\">¿Por qué Shiny? ¿Por qué con estilo?</h1><h2 id=\"subsubbrand\">Contado a través de preguntas y una historia</h2>"
-author: "<h3 id=\"subbrand\">Joshua Kunst, @jbkunst, UAI Junio 2018</h3>"
+author: "<h6 id=\"subbrand\">Joshua Kunst, @jbkunst, UAI Junio 2018</h6><br>http://jkunst.com/r-material/201806-porque-shiny/"
 output:
   revealjs::revealjs_presentation:
     self_contained: false

@@ -2,12 +2,17 @@
 @import url("https://fonts.googleapis.com/css?family=Fira+Mono");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
 @import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
+
+/* thematic font */
+@import url("https://fonts.googleapis.com/css?family=Creepster");
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 @font-face {
   font-family: 'Datalegreya-Gradient';
   src: url('https://cdn.rawgit.com/figs-lab/datalegreya/master/font-files/Datalegreya-Gradient.otf');
   font-weight: normal;
   font-style: normal;
 }
+
 
 /* for Datalegreya */
 body {

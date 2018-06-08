@@ -284,7 +284,8 @@ http://104.140.247.162:3838/shiny-apps/cl-educ/
 <iframe src="http://104.140.247.162:3838/shiny-apps/cl-educ/" width="100%" height="500px" ></iframe>
 
 
-# Una Historia { .center .white data-background="#607D8B"}
+# <span style="font-family: 'Creepster'; font-size: 1.5em">Una pequeña historia<br>
+<span class="fragment" style="color: red">de terror</span></span><br><span style= "font-family: 'Amatic SC', cursive;" class="fragment">Migrando análisis a R + Shiny</span> { .white data-transition-speed="slow" data-transition="fade-in fade-out" .center data-background="#4D0000"}
 
 ## Comienza Así
 
@@ -334,13 +335,13 @@ http://www.piaschile.cl/
 
 ## El sitio es ahora
 
-http://piaschile.portablehost3.net/
+http://www.piaschile.cl/
 
 ![](imgs/piasweb2.png)
 
 ## La Integración
 
-http://piaschile.portablehost3.net/mercado/benchmarking-internacional/
+http://www.piaschile.cl/mercado/benchmarking-internacional/
 
 ![](imgs/integracion1.png)
 

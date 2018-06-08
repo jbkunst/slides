@@ -363,7 +363,7 @@ http://piaschile.portablehost3.net/mercado/benchmarking-internacional/
 
 Nos vemos pronto
 
-> - `r ico("cloud", "royalblue")` http://jkunst.com. Presentación: http://jkunst.com/r-material/201712-porque-shiny/index.html
+> - `r ico("cloud", "royalblue")` http://jkunst.com. Presentación: http://jkunst.com/r-material/201806-porque-shiny/
 > - `r ico("twitter", "#00aced")` & `r ico("github", "black")` __jbkunst__
 
 <img style="-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;background-image:linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);" src="http://i.giphy.com/aLdiZJmmx4OVW.gif" width="400px">

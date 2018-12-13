@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Visualizacion de Datos</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Joshua Kunst" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets\custom.css" type="text/css" />
+    <link rel="stylesheet" href="assets\bkgd.css" type="text/css" />
+    <link rel="stylesheet" href="https:\\cdnjs.cloudflare.com\ajax\libs\animate.css\3.7.0\animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Visualizacion de Datos
+## Una mirada desde la Estadística
+<html>
+<div style="float:left">
+
+</div>
+<hr color='#272822' size=1px width=796px>
+</html>
+### Joshua Kunst
+### Diciembre 2018
+
+---
+
+
+class: center, middle, clear, bkgd-pumpkin
+
+
+
+# Contexto
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#272822' size=1px width=720px&gt;&lt;/html&gt; 
+
+---
+
+# Contexto
+
+La visualización en el Análisis de Datos
+
+![](imgs/datapipeline.png)
+
+---
+
+# Contexto
+
+La visualización codifica información
+
+![](imgs/data-viz.jpg)
+
+---
+
+class: animated, fadeIn
+background-image: url(https://i.pinimg.com/originals/c4/03/8f/c4038f9866fbbdcfad725c0fed348104.jpg)
+
+# Ejemplo 
+
+---
+
+# Ejemplo
+
+![](imgs/unnamed-chunk-1-1.svg)&lt;!-- --&gt;
+
+---
+
+# Ejemplo
+
+![](imgs/unnamed-chunk-2-1.svg)&lt;!-- --&gt;
+
+---
+
+# Ejemplo
+
+![](imgs/unnamed-chunk-3-1.svg)&lt;!-- --&gt;
+
+---
+
+# Ejemplo
+
+![](imgs/unnamed-chunk-4-1.svg)&lt;!-- --&gt;
+
+---
+
+class: center, middle, clear, bkgd-pumpkin
+
+# Visualización Efectiva
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#272822' size=1px width=720px&gt;&lt;/html&gt; 
+
+---
+
+# Ejercicio
+
+¿Existe el mejor gráfico?
+¿Cuál de las siguientes formas funciona mejor con el título?
+
+--
+
+"La región del sur exhibe el mayor crecimiento"
+
+--
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; region &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Q1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Q2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Q3 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Q4 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; sur &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 150 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 225 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 290 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; norte &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 150 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 300 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; este &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 200 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 200 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 240 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; oeste &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 250 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 250 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 170 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Ejercicio - Opción #1
+
+![](imgs/unnamed-chunk-6-1.svg)&lt;!-- --&gt;
+
+---
+
+# Ejercicio - Opción #2
+
+![](imgs/unnamed-chunk-7-1.svg)&lt;!-- --&gt;
+
+---
+
+# Ejercicio - Opción #3
+
+![](imgs/unnamed-chunk-8-1.svg)&lt;!-- --&gt;
+
+---
+
+# Ejercicio - Entonces?
+
+![](imgs/unnamed-chunk-9-1.svg)&lt;!-- --&gt;
+
+--
+
+(Posible) Respuesta: __No. Dependerá de tu mensaje__
+
+
+---
+
+class: center, middle, clear, bkgd-pumpkin
+
+# Poniendo en práctica
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#272822' size=1px width=720px&gt;&lt;/html&gt; 
+
+---
+
+# Datos
+
+Ingresos de usuarios a estaciones de metros (+100) cada media hora
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; paraderosubida &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; mediahora &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; subidas_laboral_promedio &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 05:30:00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 06:00:00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 06:30:00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 53.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 07:00:00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 184.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 07:30:00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 364.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+La idea es obtener conocimiento de estos datos
+
+---
+
+# Simple
+
+![](imgs/unnamed-chunk-11-1.svg)&lt;!-- --&gt;
+
+--
+
+Es bueno equivocarse
+
+---
+
+# Simple 2
+
+
+![](imgs/unnamed-chunk-12-1.svg)&lt;!-- --&gt;
+
+---
+
+# Menos simple
+
+![](imgs/unnamed-chunk-13-1.svg)&lt;!-- --&gt;
+
+--
+
+correlación: 0.996
+
+---
+
+# Menos simple 2
+
+![](imgs/unnamed-chunk-14-1.svg)&lt;!-- --&gt;
+
+--
+
+correlación: -0.436
+
+
+---
+
+# Correlaciones
+
+Las correlaciones nos dan una métrica de que tanto
+se parecen unas estaciones de otras
+
+--
+
+¿Las obtenemos todas y graficamos?
+
+---
+
+# Correlaciones 2
+
+![](imgs/unnamed-chunk-15-1.svg)&lt;!-- --&gt;
+
+---
+
+# Correlaciones 3
+
+![](imgs/unnamed-chunk-16-1.svg)&lt;!-- --&gt;
+
+---
+
+# Correlaciones 4
+
+
+![](imgs/unnamed-chunk-17-1.svg)&lt;!-- --&gt;
+
+---
+
+# Reducción De dimensionalidad
+
+--
+
+Hasta ahora hemos usado correlaciones que miden asociacion linea 
+y no es um indicador robusto para uso de distancia
+
+--
+
+Usaremos todos los datos por estacion y usaremos __UMAP__, un algoritmo 
+para _resumir_ toda la información en 2 columnas/variables
+
+--
+
+Similares son: PCA, T-SNE, Autoencoders
+
+---
+
+# Reducción De dimensionalidad
+ 
+Lleva de
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; paraderosubida &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 05:30:00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 06:00:00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 06:30:00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 07:00:00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 07:30:00 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 53.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 184.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 364.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BAQUEDANO L1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 125.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 208.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 397.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 521.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BAQUEDANO L5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 199.8 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+A
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; paraderosubida &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4933046 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.479218 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BAQUEDANO L1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.2725922 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.298179 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BAQUEDANO L5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.1187017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.492220 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Reducción De dimensionalidad
+
+![](imgs/unnamed-chunk-20-1.svg)&lt;!-- --&gt;
+
+---
+
+# Reducción De dimensionalidad
+
+![](imgs/unnamed-chunk-21-1.svg)&lt;!-- --&gt;
+
+---
+
+# Reducción De dimensionalidad
+
+![](imgs/unnamed-chunk-22-1.svg)&lt;!-- --&gt;
+
+---
+
+# Finalmente
+
+![](imgs/unnamed-chunk-23-1.svg)&lt;!-- --&gt;
+
+---
+
+class: center, middle, clear, bkgd-pumpkin
+
+# Resumiendo
+
+---
+
+# Resumiendo
+
+La visualización...
+
+- Lleva información, mensaje
+--
+
+- Ejercicio mental para decodificarinformación
+--
+
+- No siempre es el fin
+--
+
+- Herramienta exploratoria
+--
+
+- Distintas visualizaciones en mismos datos son distintas historias
+
+
+---
+
+class: center, middle, clear, bkgd-pumpkin
+
+# Gracias
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "<div class=\"progress-bar-container\">   <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">   </div> </div> "
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

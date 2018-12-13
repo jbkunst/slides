@@ -58,7 +58,7 @@ La visualización codifica información
 
 ---
 
-background-image: url(https://i.pinimg.com/originals/c4/03/8f/c4038f9866fbbdcfad725c0fed348104.jpg)
+background-image: url(https://wallpaperplay.com/walls/full/8/b/9/112119.jpg)
 
 # Ejemplo 
 
@@ -113,10 +113,9 @@ ggplot(legos) +
 
 ---
 
-class: center, middle, clear, bkgd-indigo
+class: center, middle, clear, bkgd-light-blue
 
-# Visualización Efectiva
-
+# Visualización Efectiva & Buenas Prácticas
 
 
 ---
@@ -202,13 +201,139 @@ gridExtra::grid.arrange(
 
 (Posible) Respuesta: __No. Dependerá de tu mensaje__
 
+---
+
+# Pie Charts
+
+<!-- https://twitter.com/MetricsHulk/status/728014668913102848 -->
+![](https://pbs.twimg.com/media/Chpte5BVEAA-ppy.jpg)
+
+--
+
+Usuales dificultades: Compara áreas, y rotar
+para comparar 
 
 ---
 
-class: center, middle, clear, bkgd-base-01
+# Muy usado es el __pie chart__
+
+```{r}
+legos2 <- legos %>% 
+  mutate(Theme2 = fct_lump(Theme, n = 7)) %>% 
+  filter(Theme2 != "Other")
+  
+p1 <- ggplot(legos2) +
+  geom_bar(aes(Theme, fill = Theme)) +
+  scale_fill_viridis_d(option = "B", end = 0.7) +
+  theme_null() + 
+  xlab(NULL) + ylab(NULL)
+
+p2 <- ggplot(legos2) +
+  geom_bar(aes(x = factor(1), fill = Theme), width = 1) +
+  scale_fill_viridis_d(option = "B", end = 0.7) +
+  coord_polar(theta = "y") +
+  theme_null()
+
+gridExtra::grid.arrange(p1, p2, nrow = 1)
+```
+
+---
+
+# Muy (ab)usado es el __pie chart__
+
+```{r}
+legos3 <- legos %>% 
+  mutate(Theme2 = fct_lump(Theme, n = 15)) %>% 
+  filter(Theme2 != "Other")
+
+p1 <- ggplot(legos3) +
+  geom_bar(aes(Theme, fill = Theme)) +
+  scale_fill_viridis_d(option = "B") +
+  theme_null() + 
+  xlab(NULL) + ylab(NULL)
+
+p2 <- ggplot(legos3) +
+  geom_bar(aes(x = factor(1), fill = Theme), width = 1) +
+  scale_fill_viridis_d(option = "B") +
+  coord_polar(theta = "y") +
+  theme_null()
+
+gridExtra::grid.arrange(p1, p2, nrow = 1)
+```
+
+---
+
+# Dejar el Pie para el _postre_
+
+
+![](imgs/omgpie.gif)
+
+---
+
+# Convenciones
+
+Encuentre las anomalías
+
+--
+
+.center[
+
+<img src="https://pbs.twimg.com/media/CjZ9zUjWUAAkWEt.jpg" width="40%" />
+
+]
+
+
+---
+
+# Convenciones
+
+Rápidamente ¿Dónde se produce el máximo de muertes por arma?
+
+--
+
+.center[
+
+<img src="imgs/gun.jpg" width="40%" />
+
+]
+
+
+---
+
+# Tipografías
+
+![](imgs/comicsanscriminal.png)
+
+
+---
+
+# Colores
+
+La misma idea de las convenciones!
+
+--
+
+.center[
+
+<h1>
+<span style="color:gray">1 2 3 8 9 </span><span style="color:red">4</span><span style="color:gray">1 4</span>
+</h1>
+
+]
+
+
+--
+
+- Dar foco y llamar la atención
+--
+
+- Debiesen ser corcondantes con el dato
+
+---
+
+class: center, middle, clear, bkgd-green
 
 # Poniendo en práctica
-
 
 
 ---
@@ -238,11 +363,11 @@ La idea es obtener conocimiento de estos datos
 ```{r}
 p <- data %>% 
   filter(paraderosubida == "ALCANTARA") %>% 
-  ggplot(aes(mediahora, subidas_laboral_promedio, color = paraderosubida)) +
+  ggplot() +
   scale_color_viridis_d()
 
 p +
-  geom_point()
+  geom_point(aes(subidas_laboral_promedio, mediahora, color = paraderosubida))
 ```
 
 --
@@ -256,7 +381,7 @@ Es bueno equivocarse
 
 ```{r}
 p +
-  geom_line()
+  geom_line(aes(mediahora, subidas_laboral_promedio, color = paraderosubida))
 ```
 
 ---

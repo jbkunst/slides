@@ -316,7 +316,7 @@ La misma idea de las convenciones!
 .center[
 
 <h1>
-<span style="color:gray">1 2 3 8 9 </span><span style="color:red">4</span><span style="color:gray">1 4</span>
+<span style="color:gray">1 2 3 8 9 </span><span style="color:red">4 </span><span style="color:gray">1 4</span>
 </h1>
 
 ]
@@ -754,4 +754,4 @@ cuantitavias o predicitivas!
 
 class: center, middle, clear, bkgd-green
 
-# Gracias
+# Eso ;)! Gracias

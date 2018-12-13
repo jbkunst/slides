@@ -27,7 +27,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-class: center, middle, clear, bkgd-pumpkin
+class: center, middle, clear, bkgd-red
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -38,7 +38,7 @@ try(source("201812-visualizacion-de-datos-desde-la-estadistica/setup.R"))
 
 # Contexto
 
-<html><div style='float:left'></div><hr color='#272822' size=1px width=720px></html> 
+
 
 ---
 
@@ -113,11 +113,11 @@ ggplot(legos) +
 
 ---
 
-class: center, middle, clear, bkgd-pumpkin
+class: center, middle, clear, bkgd-indigo
 
 # Visualización Efectiva
 
-<html><div style='float:left'></div><hr color='#272822' size=1px width=720px></html> 
+
 
 ---
 
@@ -205,11 +205,11 @@ gridExtra::grid.arrange(
 
 ---
 
-class: center, middle, clear, bkgd-pumpkin
+class: center, middle, clear, bkgd-base-01
 
 # Poniendo en práctica
 
-<html><div style='float:left'></div><hr color='#272822' size=1px width=720px></html> 
+
 
 ---
 
@@ -473,13 +473,13 @@ ggplot(ggnet) +
 
 --
 
-Hasta ahora hemos usado correlaciones que miden asociacion linea 
-y no es um indicador robusto para uso de distancia
+Hasta ahora hemos usado solamente *correlaciones* que miden asociacion lineal 
+y no es um indicador necesariamente robusto para usarlo como métrica de distancia
 
 --
 
 Usaremos todos los datos por estacion y usaremos __UMAP__, un algoritmo 
-para _resumir_ toda la información en 2 columnas/variables
+para _resumir_ toda la información en *2* columnas/variables
 
 --
 
@@ -596,7 +596,7 @@ data %>%
 
 ---
 
-class: center, middle, clear, bkgd-pumpkin
+class: center, middle, clear, bkgd-amber
 
 # Resumiendo
 
@@ -621,11 +621,12 @@ La visualización...
 - Distintas visualizaciones en mismos datos son distintas historias
 --
 
+
 Y todo mejora, cuando agregamos un poco más de metodologías
 cuantitavias o predicitivas!
 
 ---
 
-class: center, middle, clear, bkgd-pumpkin
+class: center, middle, clear, bkgd-green
 
 # Gracias

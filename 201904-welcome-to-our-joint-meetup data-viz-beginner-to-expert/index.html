@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to our Joint Meetup</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Joshua Kunst" />
+    <meta name="date" content="2019-04-04" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css\custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <span style="color:white">Welcome to our Joint Meetup</span>
+## <span style="color:white">Data Viz Beginner to Expert</span>
+<html>
+<div style="float:left">
+
+</div>
+<hr color='white' size=1px width=796px>
+</html>
+### Joshua Kunst
+### 2019-04-04
+
+---
+
+
+
+
+
+class: inverse, middle, center
+
+# Hola! &lt;br&gt; ¿R? ¿Programar? &lt;br&gt; ¿Preguntas y respuestas? &lt;br&gt; ¿Que haremos?
+
+---
+
+class: inverse, middle, center
+
+# Principiantes
+
+---
+
+# Antes de Partir!
+
+&lt;blockquote class="twitter-tweet" data-lang="es"&gt;&lt;p lang="en" dir="ltr"&gt;I&amp;#39;m curious as to how the R community came to be so supportive and welcoming (as opposed to so much of the tech world). Anyone have ideas? &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt;&lt;/p&gt;&amp;mdash; David Keyes (@dgkeyes) &lt;a href="https://twitter.com/dgkeyes/status/1113547867984027648?ref_src=twsrc%5Etfw"&gt;3 de abril de 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;img src="img/img1.png" width="640" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Donde todos comenzamos!
+
+
+```r
+datos &lt;- c(1, 8, 5, 6, 7)
+
+plot(datos)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Todavía en los 80s
+
+
+```r
+plot(datos, type = "l", main = "Mi primer grafico :)")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# `plot` es mágico
+
+
+
+```r
+data("AirPassengers") # series de tiempo ¿?
+plot(AirPassengers)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# `plot` es poderoso
+
+
+```r
+plot(density(datos))
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(https://image.shutterstock.com/image-photo/portrait-asian-boy-glasses-showing-260nw-454434301.jpg)
+
+
+---
+
+class: inverse, middle, center
+
+# Intermedio
+
+---
+
+class: inverse, middle, center
+
+# ¿Intermedio?
+
+---
+
+class: inverse, middle, center
+
+# ¿Intermedio? &lt;br&gt; ¿Existe?
+
+---
+
+class: inverse, middle, center
+
+# Avanzado
+
+---
+
+# Avanzado
+
+
+- ggplot2
+- htmlwidgets
+
+--
+
+Go go!
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

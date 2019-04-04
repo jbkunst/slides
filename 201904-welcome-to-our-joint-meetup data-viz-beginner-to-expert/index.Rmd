@@ -24,6 +24,14 @@ class: inverse, middle, center
 
 # Hola! <br> ¿R? ¿Programar? <br> ¿Preguntas y respuestas? <br> ¿Que haremos?
 
+
+---
+
+class: middle, center
+
+# <span style='color:white'>http://jkunst.com/r-material/201904-welcome-to-our-joint-meetup%20data-viz-beginner-to-expert/#1</span>
+
+
 ---
 
 class: inverse, middle, center

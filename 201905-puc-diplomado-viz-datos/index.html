@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Computación estadística con R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="static/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="static/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="static\css\styles.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="diplomado-visualizacion-de-datos-r-estadistica-descriptiva-ggplot2-pacha-joshua-kunst-2019" class="title-slide slide level1 center white" data-background="#75AADB"><h1>Diplomado Visualización de Datos<br>R, estadística descriptiva, ggplot2<br><small>Pacha &amp; Joshua Kunst, 2019</small></h1></section><section id="importante" class="slide level2">
+<h2>Importante!!!</h2>
+<p><a href="https://es.r4ds.hadley.nz/" class="uri">https://es.r4ds.hadley.nz/</a></p>
+<p><a href="https://www.meetup.com/es/rladies-scl/" class="uri">https://www.meetup.com/es/rladies-scl/</a></p>
+<p><a href="https://twitter.com/hashtag/datosdemiercoles?src=hash" class="uri">https://twitter.com/hashtag/datosdemiercoles?src=hash</a></p>
+<p><a href="https://github.com/rivaquiroga/RLadies-Santiago/blob/master/2018-04_taller_primeros_pasos_en_R.Rmd" class="uri">https://github.com/rivaquiroga/RLadies-Santiago/blob/master/2018-04_taller_primeros_pasos_en_R.Rmd</a></p>
+</section><section id="por-que-visualizacion" class="slide level2">
+<h2>¿Por que visualización?</h2>
+<p><img data-src="http://img.kiosko.net/2017/07/18/uk/ft_uk.750.jpg" /></p>
+</section><section class="slide level2">
+
+<p><img data-src="https://pbs.twimg.com/media/DSNbnLrXkAAibaB.jpg" /></p>
+<!-- https://twitter.com/sdbernard/status/946701218298126341  -->
+</section><section id="definicion-tecnica-posible" class="slide level2">
+<h2>Definición técnica (Posible)</h2>
+<p>Representación gráfica de datos <strong>codificando la información</strong> como: posición, tamaño, formas, colores</p>
+<p><img src="static/img/data-viz.jpg" width="60%"></p>
+</section><section class="slide level2">
+
+<p>Muchos sabores:</p>
+<p><img data-src="static/img/charts.gif" /></p>
+</section><section class="slide level2">
+
+<p>Cosas importantes sobre visualización de datos:</p>
+<ul>
+<li class="fragment">Lleva información, es un mensaje</li>
+<li class="fragment">Ejercicio mental para interpretar o <em>decodificar</em>(!!) información</li>
+<li class="fragment">No siempre es el fin</li>
+<li class="fragment">Herramienta exploratoria</li>
+<li class="fragment">Distintas visualizaciones en mismos datos / Distintas historias</li>
+</ul>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(scales)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">data</span>(gapminder, <span class="dt">package =</span> <span class="st">&quot;gapminder&quot;</span>)</a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5">dg &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="st">  </span><span class="kw">distinct</span>(country, continent) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="st">  </span><span class="kw">count</span>(continent)</a>
+<a class="sourceLine" id="cb1-8" title="8"></a>
+<a class="sourceLine" id="cb1-9" title="9">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dg) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(continent, n, <span class="dt">fill =</span> continent), <span class="dt">width =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="st">  </span><span class="kw">labs</span>(</a>
+<a class="sourceLine" id="cb1-13" title="13">    <span class="dt">title =</span> <span class="st">&quot;Africa tiene más países que el resto de continentes&quot;</span>,</a>
+<a class="sourceLine" id="cb1-14" title="14">    <span class="dt">subtitle =</span> <span class="st">&quot;Un interesante subtitulo para contexto y dar detalles quizás puede ser</span><span class="ch">\n</span><span class="st">más largo pero quien soy yo para decir que se debe y lo que no&quot;</span>,</a>
+<a class="sourceLine" id="cb1-15" title="15">    <span class="dt">caption =</span> <span class="st">&quot;Importante mencionar la fuente, en caso contrario no me creen&quot;</span>,</a>
+<a class="sourceLine" id="cb1-16" title="16">    <span class="dt">x =</span> <span class="st">&quot;Contienentes&quot;</span>,</a>
+<a class="sourceLine" id="cb1-17" title="17">    <span class="dt">y =</span> <span class="st">&quot;Países&quot;</span></a>
+<a class="sourceLine" id="cb1-18" title="18">    ) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.subtitle =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">9</span>))</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-3-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">dg2 &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>() <span class="op">==</span><span class="st"> </span><span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw">ungroup</span>()</a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dg2) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(lifeExp, gdpPercap, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="st">  </span><span class="kw">scale_color_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;GDP per Capita&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Esperanza de vida&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="st">  </span><span class="kw">scale_size</span>(<span class="dt">labels =</span> comma, <span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">10</span>), <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">2000</span>)<span class="op">*</span><span class="fl">1e6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Esperanza de vida y GDP per capita &quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-5-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">legosets &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/seankross/lego/master/data-tidy/legosets.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(legosets) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Pieces, USD_MSRP, <span class="dt">size =</span> Minifigures, <span class="dt">color =</span> Year), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Precio USD&quot;</span>, <span class="dt">labels =</span> dollar, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">300</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="st">  </span><span class="kw">scale_x_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Piezas&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2000</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Precios según piezas&quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-7-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">lg2 &lt;-<span class="st"> </span>legosets <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year2 =</span> <span class="kw">floor</span>(Year<span class="op">/</span><span class="dv">10</span>)<span class="op">*</span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="st">  </span><span class="kw">select</span>(year2, Year, <span class="kw">everything</span>())</a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5">p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(lg2) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="kw">factor</span>(year2), USD_MSRP, <span class="dt">size =</span> Pieces, <span class="dt">color =</span> Year), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="fl">0.25</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Precio USD&quot;</span>, <span class="dt">labels =</span> dollar, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">300</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Década&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Precios/Década&quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-9-1.svg" width="960" /></p>
+</section><section id="ejercicio" class="slide level2">
+<h2>Ejercicio</h2>
+<p>¿Existe el mejor gráfico? ¿Cuál de las siguientes formas funciona mejor con el títutlo?</p>
+<p><strong>La región del sur exhibe el mayor crecimiento</strong></p>
+<p><br> <small> Adapatado del tweet de <a href="https://twitter.com/lisacrost/status/948233069110222848">Lisa Charlotte Rost</a> que a su vez está viene del ejemplo del libro “Show me the numbers” de Stephen Few </small> </span></p>
+</section><section class="slide level2">
+
+<p>Los datos:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: right;">Q1</th>
+<th style="text-align: right;">Q2</th>
+<th style="text-align: right;">Q3</th>
+<th style="text-align: right;">Q4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sur</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">290</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">norte</td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">300</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">este</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">240</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">oeste</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">170</td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level2">
+
+<p>Opción #1</p>
+<p><img src="static/img/unnamed-chunk-11-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>Opción #2</p>
+<p><img src="static/img/unnamed-chunk-12-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-13-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p><br></p>
+<p><img src="static/img/unnamed-chunk-14-1.svg" width="1152" /></p>
+</section><section class="slide level2">
+
+<p>(Posible) Respuesta</p>
+<p><strong>No. Dependerá de tu mensaje, de tu historia.</strong></p>
+</section></section>
+<section><section id="recomendaciones-tecnicas-y-algunas-miscelaneas" class="title-slide slide level1 center white" data-background="#75AADB"><h1>Recomendaciones Técnicas <br> y algunas Misceláneas</h1></section><section id="pie-charts-o-tortas" class="slide level2">
+<h2>Pie Charts (o tortas)</h2>
+<!-- https://twitter.com/MetricsHulk/status/728014668913102848 -->
+<p><img src="https://pbs.twimg.com/media/Chpte5BVEAA-ppy.jpg" width="80%"/></p>
+</section><section class="slide level2">
+
+<p>Usuales dificultades</p>
+<ul>
+<li class="fragment">Compara áreas</li>
+<li class="fragment">Ejercicio mental de rotar para comparar categorías</li>
+</ul>
+</section><section class="slide level2">
+
+<p>Es muy usado es el <strong>pie chart</strong></p>
+<p><img src="static/img/unnamed-chunk-15-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>Es muy (<strong>ab</strong>)usado es el <strong>pie chart</strong></p>
+<p><img src="static/img/unnamed-chunk-16-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p><img src="static/img/omgpie.gif" width="80%"></p>
+</section><section id="puntos-de-referencia" class="slide level2">
+<h2>Puntos de Referencia</h2>
+</section><section class="slide level2">
+
+<p><br> <img data-src="static/img/pinera.jpg" /></p>
+</section><section class="slide level2">
+
+<p><br> <img data-src="static/img/pinera2.jpg" /></p>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-17-1.svg" width="960" /></p>
+</section><section id="convenciones" class="slide level2">
+<h2>Convenciones</h2>
+<p>Ejercicio 2. Encuentre las <em>anomalías</em></p>
+<!-- https://twitter.com/MetricsHulk/status/735913911212515329 -->
+<p><img src="https://pbs.twimg.com/media/CjZ9zUjWUAAkWEt.jpg" width="40%" /></p>
+</section><section class="slide level2">
+
+<p>Rápidamente ¿Dónde se produce el máximo?</p>
+<p><img src="static/img/gun.jpg" width="40%" /></p>
+</section><section class="slide level2">
+
+<p>Mas de lo mismo:</p>
+<p><a href="https://twitter.com/lizardbill/status/1127005323636686848/photo/1" class="uri">https://twitter.com/lizardbill/status/1127005323636686848/photo/1</a></p>
+</section><section id="tipografia" class="slide level2">
+<h2>Tipografía</h2>
+<p>¿Conocen a …?</p>
+<span class="fragment">
+<h1>
+<font face="Arial">Arial</font>
+</h1>
+</span> <span class="fragment">
+<h1>
+<font face="Times New Roman">Times New Roman</font>
+</h1>
+</span> <span class="fragment">
+<h1>
+<font face="Comic Sans MS">Comic Sans</font>
+</h1>
+<p></span></p>
+</section><section class="slide level2">
+
+<p><img data-src="static/img/comicsanscriminal.png" /></p>
+</section><section class="slide level2">
+
+<p>Según <font face="Comic Sans MS"><a href="http://www.comicsanscriminal.com/">comic sans criminal</a></font>:</p>
+<ul>
+<li class="fragment">Fuentes tienen personalidad</li>
+<li class="fragment">Tiene un propósito</li>
+<li class="fragment">Armonía en el universo</li>
+</ul>
+</section><section id="colores" class="slide level2">
+<h2>Colores</h2>
+<p>La misma idea de las convenciones!</p>
+<h1>
+<big><strong> 1 2 3 <span style="color:red">4</span> 5 6 </strong></big>
+</h1>
+<ul>
+<li class="fragment">Dar foco y llamar la atención</li>
+<li class="fragment">Debiesen ser corcondantes con el dato</li>
+</ul>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="dt">pais =</span> <span class="kw">c</span>(<span class="st">&quot;Chile&quot;</span>, <span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Argentina&quot;</span>, <span class="st">&quot;Bolivia&quot;</span>),</a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="dt">crecimiento =</span> <span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>)<span class="op">/</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb5-4" title="4">) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pais =</span> <span class="kw">fct_inorder</span>(pais))</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7">p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(pais, crecimiento, <span class="dt">fill =</span> pais), <span class="dt">width =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> percent) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;#C8152B&quot;</span>, <span class="st">&quot;#FDD116&quot;</span>, <span class="st">&quot;#4F75AF&quot;</span>, <span class="st">&quot;#2C9A05&quot;</span>))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-19-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">p6 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(pais, crecimiento, <span class="dt">fill =</span> pais), <span class="dt">width =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> percent) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#C8152B&quot;</span>, <span class="st">&quot;#555555&quot;</span>, <span class="st">&quot;#555555&quot;</span>, <span class="st">&quot;#555555&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-21-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">p7 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(legosets) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Pieces, USD_MSRP, <span class="dt">size =</span> Minifigures, <span class="dt">color =</span> Year), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Precio USD&quot;</span>, <span class="dt">labels =</span> dollar, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">300</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="st">  </span><span class="kw">scale_x_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Piezas&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2000</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Precios según piezas&quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-23-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">lg3 &lt;-<span class="st"> </span>legosets <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Themesw =</span> Theme <span class="op">==</span><span class="st"> &quot;Star Wars&quot;</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3"></a>
+<a class="sourceLine" id="cb8-4" title="4">p8 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(lg3) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Pieces, USD_MSRP, <span class="dt">size =</span> Minifigures, <span class="dt">color =</span> Themesw), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">guide =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;gray90&quot;</span>, <span class="st">&quot;darkred&quot;</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Precio USD&quot;</span>, <span class="dt">labels =</span> dollar, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">300</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="st">  </span><span class="kw">scale_x_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;Piezas&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2000</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Precios según piezas&quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-25-1.svg" width="960" /></p>
+</section><section id="etiquetas" class="slide level2">
+<h2>Etiquetas</h2>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">p9 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dg2) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(lifeExp, gdpPercap, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw">scale_color_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;GDP per Capita&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Esperanza de vida&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw">scale_size</span>(<span class="dt">labels =</span> comma, <span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">10</span>), <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">2000</span>)<span class="op">*</span><span class="fl">1e6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Esperanza de vida y GDP per capita &quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-27-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">p10 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dg2) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(lifeExp, gdpPercap, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(lifeExp, gdpPercap, <span class="dt">label =</span> country, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">scale_color_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;GDP per Capita&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Esperanza de vida&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="st">  </span><span class="kw">scale_size</span>(<span class="dt">labels =</span> comma, <span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">10</span>), <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">2000</span>)<span class="op">*</span><span class="fl">1e6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Esperanza de vida y GDP per capita &quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-29-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p><a href="http://www.ggplot2-exts.org/gallery/" class="uri">http://www.ggplot2-exts.org/gallery/</a></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(ggrepel)</a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3">p11 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dg2) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(lifeExp, gdpPercap, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="st">  </span><span class="kw">geom_label_repel</span>(<span class="kw">aes</span>(lifeExp, gdpPercap, <span class="dt">label =</span> country, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="st">  </span><span class="kw">scale_color_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;GDP per Capita&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Esperanza de vida&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="st">  </span><span class="kw">scale_size</span>(<span class="dt">labels =</span> comma, <span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">10</span>), <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">2000</span>)<span class="op">*</span><span class="fl">1e6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-10" title="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Esperanza de vida y GDP per capita &quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-31-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">dg3 &lt;-<span class="st"> </span>dg2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">sample_n</span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb12-3" title="3"></a>
+<a class="sourceLine" id="cb12-4" title="4">p12 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dg2) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(lifeExp, gdpPercap, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent), <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">geom_label_repel</span>(<span class="kw">aes</span>(lifeExp, gdpPercap, <span class="dt">label =</span> country), <span class="dt">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="dt">data =</span> dg3, <span class="dt">force =</span> <span class="dv">100</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="st">  </span><span class="kw">scale_color_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-8" title="8"><span class="st">  </span><span class="kw">scale_y_sqrt</span>(<span class="dt">name =</span> <span class="st">&quot;GDP per Capita&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Esperanza de vida&quot;</span>, <span class="dt">labels =</span> comma, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="st">  </span><span class="kw">scale_size</span>(<span class="dt">labels =</span> comma, <span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">10</span>), <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">2000</span>)<span class="op">*</span><span class="fl">1e6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Esperanza de vida y GDP per capita &quot;</span>)</a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-33-1.svg" width="960" /></p>
+</section></section>
+<section><section id="formalizandovisualizando-con-ggplot2" class="title-slide slide level1 center white" data-background="#75AADB"><h1>Formalizando/Visualizando con ggplot2</h1></section><section id="ggplot2" class="slide level2">
+<h2>ggplot2</h2>
+<p>Características:</p>
+<ul>
+<li class="fragment">Paquete para visualizar datos mediante capas</li>
+<li class="fragment">Es muy poderoso y flexible</li>
+<li class="fragment">Se carga junto al <code>tidyverse</code></li>
+<li class="fragment">No es la única opción en R para graficar</li>
+</ul>
+</section><section id="datos" class="slide level2">
+<h2>Datos</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">theme_set</span>(<span class="kw">theme_gray</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw">library</span>(gapminder)</a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="kw">data</span>(gapminder)</a>
+<a class="sourceLine" id="cb14-4" title="4">paises &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(year))</a>
+<a class="sourceLine" id="cb14-6" title="6">paises</a></code></pre></div>
+<pre><code>## # A tibble: 142 x 6
+##    country     continent  year lifeExp       pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       2007    43.8  31889923      975.
+##  2 Albania     Europe     2007    76.4   3600523     5937.
+##  3 Algeria     Africa     2007    72.3  33333216     6223.
+##  4 Angola      Africa     2007    42.7  12420476     4797.
+##  5 Argentina   Americas   2007    75.3  40301927    12779.
+##  6 Australia   Oceania    2007    81.2  20434176    34435.
+##  7 Austria     Europe     2007    79.8   8199783    36126.
+##  8 Bahrain     Asia       2007    75.6    708573    29796.
+##  9 Bangladesh  Asia       2007    64.1 150448339     1391.
+## 10 Belgium     Europe     2007    79.4  10392226    33693.
+## # ... with 132 more rows</code></pre>
+</section><section id="creando-un-grafico" class="slide level2">
+<h2>Creando un gráfico :)</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> paises)</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-36-1.svg" width="960" /></p>
+</section><section id="mejorando-un-grafico" class="slide level2">
+<h2>Mejorando un gráfico</h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> paises) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lifeExp, <span class="dt">y =</span> gdpPercap))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-37-1.svg" width="960" /></p>
+</section><section id="que-sucedio" class="slide level2">
+<h2>Que sucedió?</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> paises) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lifeExp, <span class="dt">y =</span> gdpPercap))</a></code></pre></div>
+<p><small></p>
+<ul>
+<li class="fragment"><code>ggplot()</code> crea un sistema de coordenadas al cual se pueden agregar capas</li>
+<li class="fragment"><code>ggplot(data = paises)</code> da un grafico vacío pues no agregamos capas</li>
+<li class="fragment"><code>geom_point()</code> agrega una capa de puntos al gráfico usando las filas de <code>paises</code></li>
+<li class="fragment">Cada función <code>geom_algo</code> tiene un argumento de mapping que define cómo se asignan o se “mapean” las variables del conjunto de datos a propiedades visuales del <code>geom_algo</code></li>
+<li class="fragment">El argumento de mapping siempre aparece emparejado con <code>aes()</code>, y los argumentos <code>x</code> e <code>y</code> especifican qué variables asignar a los ejes <code>x</code> e <code>y</code></li>
+</ul>
+<p></small></p>
+</section><section class="slide level2">
+
+<p><img data-src="static/img/4_bubble-chart_mapping-vars.png" /></p>
+<p><a href="https://www.sharpsightlabs.com/blog/r-package-think-about-visualization/" class="uri">https://www.sharpsightlabs.com/blog/r-package-think-about-visualization/</a></p>
+</section><section class="slide level2">
+
+<p>Podemos setear las propiedades estéticas de tu geom manualmente:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> paises) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lifeExp, <span class="dt">y =</span> gdpPercap), <span class="dt">color =</span> <span class="st">&quot;darkred&quot;</span>)</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-38-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>En este caso un punto no solo puede poseer x e y, puede tener tamaño dado por una variable</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> paises) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lifeExp, <span class="dt">y =</span> gdpPercap, <span class="dt">size =</span> pop), <span class="dt">color =</span> <span class="st">&quot;darkred&quot;</span>)</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-39-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>Quizás en lugar de setar color fijo, podemos asignarlo segun una variable</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> paises) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lifeExp, <span class="dt">y =</span> gdpPercap, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-40-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>O realizar <em>facets</em>/paneles</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> paises) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lifeExp, <span class="dt">y =</span> gdpPercap, <span class="dt">size =</span> pop)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(continent))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-41-1.svg" width="960" /></p>
+</section></section>
+<section><section id="estadistica-descriptiva" class="title-slide slide level1 center white" data-background="#75AADB"><h1>Estadística Descriptiva</h1></section><section id="ejercicio-1" class="slide level2">
+<h2>Ejercicio</h2>
+<p>Supongamos que debemos decidir en curso debe ir nuestro hijo/sobrino/simil, entre el curso <strong>narnajo</strong> o <strong>azul</strong>. Nos dicen que el promedio de notas finales del año anterior para cada curso fue.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">curso</th>
+<th style="text-align: right;">cantidad_de_alumnos</th>
+<th style="text-align: right;">promedio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">azul</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">5.23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">naranjo</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">4.99</td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level2">
+
+<p>Más información:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">curso</th>
+<th style="text-align: right;">cantidad_de_alumnos</th>
+<th style="text-align: right;">promedio</th>
+<th style="text-align: right;">maxima_nota</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">azul</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">5.23</td>
+<td style="text-align: right;">7.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">naranjo</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">4.99</td>
+<td style="text-align: right;">5.53</td>
+</tr>
+</tbody>
+</table>
+</section><section class="slide level2">
+
+<p>Pero pero pero</p>
+<p><img src="static/img/unnamed-chunk-44-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>Quizás un poco más de información ayuda</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">estadistico</th>
+<th style="text-align: right;">azul</th>
+<th style="text-align: right;">naranjo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cantidad_de_alumnos</td>
+<td style="text-align: right;">50.00</td>
+<td style="text-align: right;">50.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">desviacion_estandiar</td>
+<td style="text-align: right;">1.33</td>
+<td style="text-align: right;">0.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">maximo</td>
+<td style="text-align: right;">7.00</td>
+<td style="text-align: right;">5.53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mediana</td>
+<td style="text-align: right;">4.65</td>
+<td style="text-align: right;">5.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">minimo</td>
+<td style="text-align: right;">4.00</td>
+<td style="text-align: right;">4.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">promedio</td>
+<td style="text-align: right;">5.23</td>
+<td style="text-align: right;">4.99</td>
+</tr>
+</tbody>
+</table>
+</section><section id="algunas-frases" class="slide level2">
+<h2>Algunas frases</h2>
+<ul>
+<li class="fragment">El promedio no vale mucho sin un indicador de variablidad</li>
+<li class="fragment">Guiarse por un valor solamente es usualmente peligroso para tomar de decisiones</li>
+</ul>
+</section><section id="datasaurus" class="slide level2">
+<h2>Datasaurus</h2>
+<p><img data-src="static/img/DinoSequential.gif" /></p>
+<p><small> No es que no le creamos al promedio u otro indicador, sino hay que saber que es lo que mide/nos dice/cuenta </small></p>
+</section><section id="anscombe" class="slide level2">
+<h2>Anscombe</h2>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">data</span>(<span class="st">&quot;anscombe&quot;</span>)</a>
+<a class="sourceLine" id="cb23-2" title="2">anscombe</a></code></pre></div>
+<pre><code>##    x1 x2 x3 x4    y1   y2    y3    y4
+## 1  10 10 10  8  8.04 9.14  7.46  6.58
+## 2   8  8  8  8  6.95 8.14  6.77  5.76
+## 3  13 13 13  8  7.58 8.74 12.74  7.71
+## 4   9  9  9  8  8.81 8.77  7.11  8.84
+## 5  11 11 11  8  8.33 9.26  7.81  8.47
+## 6  14 14 14  8  9.96 8.10  8.84  7.04
+## 7   6  6  6  8  7.24 6.13  6.08  5.25
+## 8   4  4  4 19  4.26 3.10  5.39 12.50
+## 9  12 12 12  8 10.84 9.13  8.15  5.56
+## 10  7  7  7  8  4.82 7.26  6.42  7.91
+## 11  5  5  5  8  5.68 4.74  5.73  6.89</code></pre>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">anscombe_tidy &lt;-<span class="st"> </span>anscombe <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">observation =</span> <span class="kw">seq_len</span>(<span class="kw">n</span>())) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="st">  </span><span class="kw">gather</span>(key, value,<span class="op">-</span>observation) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-4" title="4"><span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;set&quot;</span>), <span class="dv">1</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">set =</span> <span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;II&quot;</span>, <span class="st">&quot;III&quot;</span>, <span class="st">&quot;IV&quot;</span>)[set]) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-6" title="6"><span class="st">  </span><span class="kw">spread</span>(variable, value)</a>
+<a class="sourceLine" id="cb25-7" title="7"></a>
+<a class="sourceLine" id="cb25-8" title="8">p13 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(anscombe_tidy, <span class="kw">aes</span>(x, y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-9" title="9"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">color =</span> <span class="st">&quot;darkred&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-10" title="10"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-11" title="11"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>set) </a></code></pre></div>
+</section><section class="slide level2">
+
+<p><img src="static/img/unnamed-chunk-48-1.svg" width="960" /></p>
+</section></section>
+<section><section id="analisis-exploratorio-de-datos" class="title-slide slide level1 center white" data-background="#75AADB"><h1>Analisis Exploratorio de Datos</h1></section><section id="distribucion" class="slide level2">
+<h2>Distribución</h2>
+<p>Distribución se relaciona a la forma que varían los datos de medición en medición</p>
+<p><span class="fragment">Estudiando la forma de como se distribuyen los datos podemos ver cuales son los más comunes, o ver si exsiten casos raros<span></p>
+<p><span class="fragment">Y variará principalmente del tipo de variable analizada: <strong>categórica</strong> o <strong>continua</strong></span></p>
+</section><section id="ejercicio-2" class="slide level2">
+<h2>Ejercicio</h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="co"># cargar paquete con funciones que nos ayudarán</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb26-3" title="3"></a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="co"># leo datos desde una url</span></a>
+<a class="sourceLine" id="cb26-5" title="5">legos &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/seankross/lego/master/data-tidy/legosets.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb26-6" title="6"></a>
+<a class="sourceLine" id="cb26-7" title="7"><span class="co"># primer paso! paso #1</span></a>
+<a class="sourceLine" id="cb26-8" title="8"><span class="kw">glimpse</span>(legos)</a></code></pre></div>
+<pre><code>## Observations: 6,172
+## Variables: 14
+## $ Item_Number  &lt;chr&gt; &quot;10246&quot;, &quot;10247&quot;, &quot;10248&quot;, &quot;10249&quot;, &quot;10581&quot;, &quot;105...
+## $ Name         &lt;chr&gt; &quot;Detective&#39;s Office&quot;, &quot;Ferris Wheel&quot;, &quot;Ferrari F4...
+## $ Year         &lt;dbl&gt; 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2...
+## $ Theme        &lt;chr&gt; &quot;Advanced Models&quot;, &quot;Advanced Models&quot;, &quot;Advanced M...
+## $ Subtheme     &lt;chr&gt; &quot;Modular Buildings&quot;, &quot;Fairground&quot;, &quot;Vehicles&quot;, &quot;W...
+## $ Pieces       &lt;dbl&gt; 2262, 2464, 1158, 898, 13, 39, 32, 105, 13, 11, 5...
+## $ Minifigures  &lt;dbl&gt; 6, 10, NA, NA, 1, 2, 2, 3, 2, 2, 3, 1, NA, NA, NA...
+## $ Image_URL    &lt;chr&gt; &quot;http://images.brickset.com/sets/images/10246-1.j...
+## $ GBP_MSRP     &lt;dbl&gt; 132.99, 149.99, 69.99, 59.99, 9.99, 16.99, 19.99,...
+## $ USD_MSRP     &lt;dbl&gt; 159.99, 199.99, 99.99, 79.99, 9.99, 19.99, 24.99,...
+## $ CAD_MSRP     &lt;dbl&gt; 199.99, 229.99, 119.99, NA, 12.99, 24.99, 29.99, ...
+## $ EUR_MSRP     &lt;dbl&gt; 149.99, 179.99, 89.99, 69.99, 9.99, 19.99, 24.99,...
+## $ Packaging    &lt;chr&gt; &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, &quot;Box&quot;, ...
+## $ Availability &lt;chr&gt; &quot;Retail - limited&quot;, &quot;Retail - limited&quot;, &quot;LEGO exc...</code></pre>
+</section><section class="slide level2">
+
+<p>¿Cuántos temas hay?</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">legos <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="st">  </span><span class="kw">count</span>(Theme, <span class="dt">sort =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 115 x 2
+##    Theme                       n
+##    &lt;chr&gt;                   &lt;int&gt;
+##  1 Duplo                     471
+##  2 Star Wars                 379
+##  3 Town                      314
+##  4 Collectable Minifigures   311
+##  5 City                      282
+##  6 Bionicle                  276
+##  7 Technic                   243
+##  8 Creator                   219
+##  9 Castle                    206
+## 10 Racers                    195
+## # ... with 105 more rows</code></pre>
+</section><section class="slide level2">
+
+<p>¿Cuántos temas hay?</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">ggplot</span>(legos) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Theme))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-51-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántos temas hay?</p>
+<p><img src="https://i.giphy.com/media/JSueytO5O29yM/giphy.webp" onerror="this.onerror=null;this.src='https://i.giphy.com/JSueytO5O29yM.gif';" alt="" style="width:300px"></p>
+<p><span class="fragment">Muy <strong>seguro</strong> nos encontraremos con cosas de este estilo donde tenemos que modificar nuestros resultados</span></p>
+</section><section class="slide level2">
+
+<p>¿Cuántos temas hay?</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">library</span>(forcats)</a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="co"># creamos variable derivada que agrupe grupe las otras</span></a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="co"># categorías que no corresponden a los 7 más grandes </span></a>
+<a class="sourceLine" id="cb31-4" title="4">legos &lt;-<span class="st"> </span><span class="kw">mutate</span>(legos, <span class="dt">Theme2 =</span> <span class="kw">fct_lump</span>(Theme, <span class="dt">n =</span> <span class="dv">7</span>))</a>
+<a class="sourceLine" id="cb31-5" title="5"><span class="kw">ggplot</span>(legos) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Theme2))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-52-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuáles son los tipos de envoltorio?</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">legos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(Packaging, <span class="dt">sort =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 14 x 2
+##    Packaging                 n
+##    &lt;chr&gt;                 &lt;int&gt;
+##  1 Box                    3102
+##  2 Not specified          1747
+##  3 Polybag                 619
+##  4 Foil pack               291
+##  5 Blister pack            100
+##  6 Canister                 78
+##  7 Loose Parts              72
+##  8 Tub                      40
+##  9 Bucket                   36
+## 10 Other                    36
+## 11 Shrink-wrapped           18
+## 12 Box with backing card    17
+## 13 Plastic box              10
+## 14 Tag                       6</code></pre>
+</section><section class="slide level2">
+
+<p>¿Cuáles son los tipos de envoltorio?</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">ggplot</span>(legos) <span class="op">+</span></a>
+<a class="sourceLine" id="cb34-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Packaging))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-54-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>¿Y esas etiquetas?</p>
+<p><img src="https://i.giphy.com/media/tu54GM19sqJOw/giphy.webp" onerror="this.onerror=null;this.src='https://i.giphy.com/tu54GM19sqJOw.gif';" alt="" style="width: 500px;"></p>
+</section><section class="slide level2">
+
+<p>¿Y esas etiquetas?</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw">ggplot</span>(legos) <span class="op">+</span></a>
+<a class="sourceLine" id="cb35-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Packaging)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb35-3" title="3"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="co"># rotar :D</span></a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-55-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>¿Y esas etiquetas?</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">legos &lt;-<span class="st"> </span><span class="kw">mutate</span>(legos, <span class="dt">Packaging =</span> <span class="kw">fct_infreq</span>(Packaging)) <span class="co"># ordenar</span></a>
+<a class="sourceLine" id="cb36-2" title="2"><span class="kw">ggplot</span>(legos) <span class="op">+</span></a>
+<a class="sourceLine" id="cb36-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Packaging)) <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="co"># rotar :D</span></a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-56-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>¿Desde cuándo se <em>tenemos registros</em> de sets de legos?*</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">ggplot</span>(legos) <span class="op">+</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Year))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-57-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántas piezas traen los sets?</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw">ggplot</span>(legos) <span class="op">+</span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(Pieces))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-58-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántas piezas traen los sets?</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">legos &lt;-<span class="st"> </span><span class="kw">mutate</span>(legos, <span class="dt">Pieces2 =</span> <span class="kw">ifelse</span>(Pieces <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>, <span class="dv">1000</span>, Pieces))</a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="kw">ggplot</span>(legos) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(Pieces2))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-59-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántas minifuguras traen los sets?</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="kw">ggplot</span>(legos) <span class="op">+</span></a>
+<a class="sourceLine" id="cb40-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(Minifigures))</a></code></pre></div>
+<p><img src="static/img/unnamed-chunk-60-1.svg" width="960" /></p>
+</section><section class="slide level2">
+
+<p>¿Cuántos sets traen más de 25 figuras? ¿Cuáles son?</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">legos <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-2" title="2"><span class="st">  </span><span class="kw">filter</span>(Minifigures <span class="op">&gt;</span><span class="st"> </span><span class="dv">25</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-3" title="3"><span class="st">  </span><span class="kw">select</span>(Name, Year, Theme, Minifigures)</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##   Name                           Year Theme     Minifigures
+##   &lt;chr&gt;                         &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+## 1 The Battle for Helms Deep      2013 Games              28
+## 2 Star Wars: The Battle of Hoth  2012 Games              32
+## 3 Community Workers              2006 Education          31
+## 4 Community Workers              2005 Education          31
+## 5 Community Workers              1996 Dacta              30</code></pre>
+</section><section id="ejericio" class="slide level2">
+<h2>Ejericio</h2>
+<p>Revisar <code>analisis-exploratorio-datos.r</code></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="static/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="static/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display the page number of the current slide
+        slideNumber: false,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+        // Transition style
+        transition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'static/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

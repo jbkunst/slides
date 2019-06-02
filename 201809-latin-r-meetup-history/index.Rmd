@@ -1,0 +1,388 @@
+---
+title: false
+output:
+  revealjs::revealjs_presentation:
+    self_contained: false
+    lib_dir: libs
+    reveal_plugins: ["zoom"]
+    mathjax: null
+    transition: fade
+    css: ["static/css/styles.css", "static/css/custom.css"]
+    incremental: true
+    center: false
+    theme: simple
+    fig_width: 6
+    fig_height: 3.5
+    reveal_options:
+      slideNumber: true
+      controls: false
+      mouseWheel: false
+      minScale: 1.0
+      maxScale: 1.0
+editor_options: 
+  chunk_output_type: console
+---
+
+# <span>
+<span style="font-size: 120%; font-family: 'Bangers', cursive;">Grupo de Usuarios de R en Chile</span><br>
+<span style="font-size: 80%; font-family: 'Special Elite', cursive;">Una historia contada a través de la experiencia y los datos</span><br><br>
+<span style="font-size: 70%">Joshua Kunst | LatinR 2018</span>
+</span> { .center .white data-background="static/imgs/hero.jpg"}
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  dev = "svg",
+  cache = TRUE,
+  cache.path = ".cache/",
+  fig.path = "static/imgs/slides/",
+  fig.width = 13,
+  fig.height = 7
+)
+
+library(icon)
+library(jbkmisc)
+library(tidyverse)
+library(lubridate)
+
+theme_pres <- theme_jbk(
+  base_family = "Roboto Condensed",
+  # plot_margin = marginº(1, 1, 1, 1, unit = "pt"),
+  base_size = 17
+  ) + 
+  theme(
+    legend.position = "none",
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18)
+    )
+
+theme_set(theme_pres)
+```
+
+```{r}
+library(meetupr)
+# my ultra secret api key :)
+Sys.setenv(MEETUP_KEY = "0415f259076560493e4968452863")
+members <- meetupr::get_members("useRchile")
+events <- meetupr::get_events("useRchile", "past")
+```
+
+## ¡Hola! <br> <small><small>No encontré una mejor foto,<br>puse la mejor</small></small> { .left data-background="static/imgs/hello.gif" }
+
+## Me presento
+
+- Soy Joshua Kunst @jbkunst
+- Cofundador del meetup use<b style="color:#2569BD">R</b>chile<span class="fragment">. Uso R</span><span class="fragment">, respiro R</span><span class="fragment">, ~~como~~ vivo R</span>
+- Hoy quiero ser vuestro motivador<i class="fa fa-exclamation" style="color: darkgreen"></i><i class="fa fa-exclamation" style="color: darkgreen"></i>
+
+## { .left data-background="static/imgs/yay.gif" }
+
+## ¿Por que estamos acá reunidos?
+
+- Aprender
+- Me gusta **R**
+- Me encanta conocer gente, **networking**
+- No tengo nada mejor que hacer
+- Quería ser popular <span class="fragment"><small>Esta es mía</small>
+- ...
+
+## Entonces, ¿Por que...
+
+- Esperar un congreso, otro año
+- Tan extenso <span class="fragment"><small>Me gustan las dosis pequeñas</small>
+- Tan sesgado a la academia
+
+<span class="fragment">
+Alternativa: **meetup**
+
+## { data-background="static/imgs/stars-bg.jpg" }
+
+<br>
+<br>
+<div style="text-align: left;">
+<span style="color: #4ee; font-size: 150%; font-weight:bold">
+Hace poco tiempo,<br>
+en una galaxia no tan lejana...
+</div>
+</span>
+
+
+
+---- 
+
+Comenzó con  **George Vega** en **1872**
+
+![](static/imgs/gvegayon.png)
+
+Y su **motivación**
+
+----
+
+Nah... Fue el **2013**
+
+![](static/imgs/gvegayon.jpg)
+
+`r icon::fa_twitter(color = "#1da1f2")` @gvegayon
+
+----
+
+Partió con un **Hola**
+
+![](static/imgs/mensaje.png)
+
+
+## { data-background="static/imgs/meetup-slide-3-background-1.jpg" } 
+
+<img 
+  width="60%"
+  style="background: none; box-shadow: none"
+  src="static/imgs/logo--script.svg"
+/>
+<img 
+  width="30%"
+  style="background: none; box-shadow: none"
+  src="static/imgs/Rlogo.png"
+/>
+
+```{r}
+events <- events %>% 
+  mutate(date_format = format(local_date, "%B del %Y"))
+
+date_event <- function(n = 2) {
+  events %>% 
+    filter(row_number() == n) %>% 
+    pull(date_format)
+}
+
+```
+
+## 1ra reunión - 6 Personas <br> `r date_event(2)` { .right .gray20 data-background="static/imgs/highres_235491512.jpeg"} 
+
+## Mensaje #1: comienzos toman tiempo { .right .white .center data-background="static/imgs/pexels-photo-670720.jpeg"} 
+
+## Poco a poco <br> `r date_event(3)`  { .right .white data-background="static/imgs/highres_361638302.jpeg"} 
+
+## Y así <br> `r date_event(8)`  { .left .white data-background="static/imgs/highres_365437502.jpeg"} 
+
+## Mensaje #2: { .left .center .white data-background="static/imgs/maxresdefault.jpg"} 
+
+----
+
+Resumiendo el primer **ciclo**
+
+```{r, cache=FALSE}
+members <- members %>% 
+  mutate(
+    joined2 = map_dbl(resource, ~ .x[["group_profile"]][["created"]]),
+    joined2 = as.POSIXct(joined2/1000, origin="1970-01-01")
+  ) %>% 
+  arrange(joined2) %>% 
+  mutate(
+    nacum = 1,
+    nacum = cumsum(nacum)
+  )
+
+p <- ggplot() +
+  geom_vline(data = events, aes(xintercept = as.Date(time), color = as.numeric(time)), size  = 1.2, alpha = 0.3) +
+  geom_line(data = members, aes(as.Date(joined2), nacum), size = 2, color = "#ED1C40") +
+  scale_color_viridis_c(option = "A", direction = -1, begin = 0.2, end = 0.8) + 
+  labs(x = "Fecha", y = "Miembros")
+
+p +
+  scale_x_date(limits = c(ymd(20130101), ymd(20150101)), date_labels = "%Y", breaks = "1 year") +
+  scale_y_continuous(limits = c(NA, 100))
+```
+
+----
+
+George se va a **estudiar** al extranjero
+
+![](static/imgs/mensaje2.png)
+
+La gente no se veía **atraída**
+
+----
+
+Y así vivimos el **segundo** ciclo
+
+```{r}
+p +
+  scale_x_date(limits = c(ymd(20130101), ymd(20170301)), date_labels = "%Y", breaks = "1 year") +
+  scale_y_continuous(limits = c(NA, 210))
+```
+
+## Mensaje #3: <br> Si algo va mal, puede ir peor  { .center .white data-background="#0A0A0A"}
+
+## Mensaje #4: <br> Cuando estás abajo no queda otra que subir { .center .white data-background="#8BC34A"}
+
+----
+
+**Patricio Cofre** y **Metrics Arts** al rescate
+
+![](static/imgs/mensaje3.png)
+
+----
+
+Ayudó con **orden** y **constancia** al grupo:
+
+- **Patricio** llegó con energía e ideas.
+- Visita(ba) clientes y partners de **Metrics Arts**
+- Se canjean charlas de Empresas (**R**) a cambio de hostear el meetup
+
+----
+
+Hizo lo posible para que fuesemos **uno**
+
+<img src="static/imgs/usergroups.png" alt="drawing" width="800"/>
+
+de los R User Groups del **R Consortium**
+
+----
+
+Y partimos **nuevamente**
+
+<img src="static/imgs/highres_461758400.jpeg" alt="drawing" width="400"/>
+
+Patricio (c) y gente de **Microsoft Chile**
+
+## Luego a Entel <br> `r date_event(14)` <br> <small>(Encuentre a la Chair)</small>  { .right .white data-background="static/imgs/highres_465450948.jpeg"} 
+
+## MegaMeetup con R-ladies en PUC <br> `r date_event(17)`  { .left .black data-background="static/imgs/highres_466722831.jpeg"} 
+
+## Google Chile <br> `r date_event(18)`  { .right .white data-background="static/imgs/highres_469681709.jpeg"}
+
+----
+
+```{r, echo=FALSE}
+library(highcharter)
+library(htmltools)
+
+members <- members %>%
+  mutate(photo_link = ifelse(is.na(photo_link), "https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png", photo_link))
+
+brks <- ymd(
+  "20100101",
+  "20150101",
+  "20170301",
+  "20200101"
+)
+
+lbls <- c("El comienzo", "El fin?", "El Renacimiento")
+
+members <- members %>% 
+  mutate(joined2cat = cut(as.Date(joined2), breaks = brks, labels = lbls))
+
+# memebers
+tooltip <- c("name", "country") %>%
+  map(function(x){
+    tags$tr(
+      tags$th(str_replace_all(str_to_title(x), "_", " ")),
+      tags$td(paste0("{point.", x, "}"))
+    )
+  }) %>%
+  do.call(tagList, .) %>%
+  tags$table(cellspacing="0", cellpadding="0", style = "border:none;") %>% 
+  tagList(
+    tags$img(src = "{point.photo_link}", width = "100px")
+  ) %>%
+  as.character()
+
+plns <- events %>%
+  # sample_n(2) %>%
+  # mutate(local_date = highcharter::datetime_to_timestamp(as.Date(local_date))) %>%
+  select(value = local_date) %>%
+  pull() %>% 
+  # map(function(x) sprintf("Date.UTC(%s,%s,%s)", year(x), month(x) - 1, day(x))) %>% 
+  # map(function(x) list(value = JS(x))) %>% 
+  map(function(x) {
+    list(
+      value = highcharter::datetime_to_timestamp(x), 
+      label = list(text = ""),
+      color = "#DCDCDC",
+      width = 4,
+      zIndex = -1
+    )
+  }) 
+
+members %>% 
+  select(joined2, nacum, photo_link, name, country, joined2cat) %>% 
+  hchart(
+    "line", hcaes(as.Date(joined2), nacum, group = joined2cat),
+    visible = c(TRUE, FALSE, FALSE),
+    lineWidth = 10
+  ) %>%
+  hc_tooltip(
+    useHTML = TRUE,
+    backgroundColor = "white",
+    borderColor = "transparent",
+    headerFormat = "",
+    shadow = FALSE,
+    style = list(fontSize = ".6em", fontWeight = "normal"),
+    positioner = JS("function () { return { x: this.chart.plotLeft + 15, y: this.chart.plotTop + 0 }; }"),
+    shape = "square",
+    pointFormat = tooltip
+  ) %>%
+  hc_add_theme(hc_theme_smpl()) %>% 
+  hc_xAxis(
+    type = "datetime",
+    minTickInterval = 24 * 3600 * 1000 * 31 * 12,
+    pointStart = JS("Date.UTC(2013, 0, 1)"),
+    title = list(text = ""),
+    labels = list(style = list(fontSize = 20)),
+    dateTimeLabelFormats = list(year = "%Y", month = "%Y %b"),
+    # plotLines = list(
+    #   list(
+    #     label = list(text = "This is a plotLine"),
+    #     color = "#FF0000",
+    #     width = 5,
+    #     value = datetime_to_timestamp(as.Date('2014-01-01', tz = 'UTC'))
+    #   ) 
+    plotLines = plns
+  ) %>% 
+  hc_yAxis(
+    title = list(text = ""),
+    labels = list(style = list(fontSize = 20)),
+    showLastLabel = FALSE,
+    endOnTick = FALSE
+  ) %>% 
+  hc_size(height = 700)
+```
+
+
+----
+
+El **renacimiento**. Somos casi 1.000!
+
+```{r}
+p +
+  scale_x_date(date_labels = "%Y", breaks = "1 year") 
+```
+
+## ¡Sí! ¡Sí! YAS!  { .white data-background="static/imgs/ezgif.com-gif-maker.gif"}
+
+## Resumiendo
+
+- Se parte lento
+- No todo sale como se quiere
+- Siempre hay personas con el espíritu y gusto por **R**
+- Se puede
+- **Ahora el turno es de ustedes**
+
+## <span><small>
+<span style="font-size: 120%; font-family: 'Bangers', cursive;">Grupo de Usuarios de R en Chile</span><br>
+<span style="font-size: 80%; font-family: 'Special Elite', cursive;">Una historia contada a través de la experiencia y los datos</span><br>
+</small></span> 
+
+
+`r icon::fa_globe(color = "#6cc644")` jkunst.com
+
+`r icon::fa_twitter(color = "#1da1f2")` @jbkunst
+
+`r icon::fa_github(color = "#333333")` @jbkunst
+
+<small>
+slides: https://github.com/jbkunst/latin-r-meetup-history<br>
+charlas: http://www.userchile.cl/ 
+</small>

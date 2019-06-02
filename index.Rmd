@@ -1,5 +1,5 @@
 ---
-title: "R material"
+title: "Slides"
 output:
   html_document:
     theme: paper

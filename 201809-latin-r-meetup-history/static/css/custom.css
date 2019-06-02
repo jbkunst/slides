@@ -1,0 +1,27 @@
+/* thematic fonts */
+@import url("https://fonts.googleapis.com/css?family=Creepster");
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url('https://fonts.googleapis.com/css?family=Bangers');
+
+@import url('https://fonts.googleapis.com/css?family=Special+Elite');
+
+.reveal p > strong {
+  color: #555555;
+  font-family: "Special Elite", cursive;
+  font-size: 100%;
+  letter-spacing: 0;
+}
+
+.reveal ul > li > strong {
+  color: #555555;
+  font-family: "Special Elite", cursive;
+  font-size: 100%;
+  letter-spacing: 0;
+}
+
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  font-family: "Bangers", cursive;
+}
+
+

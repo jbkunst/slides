@@ -32,7 +32,7 @@ options(highcharter.theme = hc_theme_smpl(chart = list(backgroundColor = "transp
 # helpers -----------------------------------------------------------------
 ico <- function(x = "tv", color = NULL, ...) {
   # color <- "red"
-  as.character(tags$span(icon(x, ...), style = sprintf("color:%s", color)))
+  as.character(tags$span(shiny::icon(x, ...), style = sprintf("color:%s", color)))
 }
 
 R <- function() {

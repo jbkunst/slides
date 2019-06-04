@@ -20,33 +20,17 @@ editor_options:
 ---
 
 ```{r, include = FALSE}
-source(here::here("slides/R/setup.R"))
+source(here::here("R/setup.R"))
 H <- "650px"
 ```
 
-# <span>Apresentar <span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span> e suas melhores características em <b>60</b> minutos ou menos<br><small>Joshua Kunst, @jbkunst, SER Mayo 2019</small></span> { .center .white data-background="img/calm.jpg"}
+# <span><span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span> en 30 minutos o menos<br>...o más<small>Joshua Kunst, @jbkunst, Meetup UseRchile Junio 2019</small></span> { .center .white data-background="img/calm.jpg"}
 
-# <span class="impo"><span style="color:#BD0607;font-size:1.2em">Mission:Impossible</span><br><span style="color:#E9E2DF">Apresentar <span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span> e suas melhores características em 30 minutos ou menos</span></span> { .center data-background="img/mi.jpg"}
+## Antes de partir
 
-
-## Antes de começar 1 
-
-<br>
-
-Todas as traduções são feitas com o google tradutor
-
-![](img/translate.png)
-
-Vou falar em _portuñolglish_
-
-## Antes de começar 2
-
-- slides, código e material estão em https://github.com/jbkunst 
+- slides, código y material en https://github.com/jbkunst y jkunst.com/slides 
 - Twitter, gmail, github username _jbkunst_  
-- Muitos dos exemplos são detalhados e comentados na minha blog jkunst.com/blog
-
-
-
+- Muchos de los ejemplos vienen de jkunst.com/blog
 
 <script>
 (function (H) {
@@ -67,25 +51,23 @@ Vou falar em _portuñolglish_
 }(Highcharts));
 </script>
 
-## `r ico("hand-paper-o", "#ff0033", class="greeting")`, Ola. Eu sou joshua 
+## `r ico("hand-paper-o", "#ff0033", class="greeting")`, Hola! Que haremos?
 
-- Analista em um banco
-- co-fundador useRchile meetup
-- `highcharter` creator/developer
-- `r ico("heart", "read", class="pulse")` `r R()`
-- E…
+- Por que la visualización?
+- Que es HighchartsJS, y que es `highcharter`? 
+- Mostraremos las mejores características
 
-## O que eu acredito quando faço gráficos em highcharter { data-background="img/expectations.jpg" .black .left }
+## Así me siento<br>cuando uso highcharter { data-background="img/expectations.jpg" .black .left }
 
-## Realidade:<br>Onde eu deixei a documentação?<br>Ir um stackoverflow novamente { data-background="img/reality.jpg" .center .white }
+## Pero la realidad:<br>Donde está la documentación?!?!? { data-background="img/reality.jpg" .center .white }
 
-# Contexto:<br>Porque<br>visualização<br>de dados? { .white .center .left data-background="img/dataviz2.png"}
+# Porque<br>visualización<br>de dados? { .white .center .left data-background="img/dataviz2.png"}
 
-## Exercício
+## Ejercicio
 
 <br>
 
-Qual gráfico funciona bem com: **A região sul mostrou o maior aumento**
+Cuál gráfico funciona mejor con: **La región del sur mostró un mayor aumento**
 
 <br>
 
@@ -93,7 +75,7 @@ Qual gráfico funciona bem com: **A região sul mostrou o maior aumento**
 library(readxl)
 data1 <- read_excel("data/muestrame_los_numeros.xlsx") %>% 
   mutate(region = factor(region, levels = c("sur", "norte", "este", "oeste")))
-titulo <- "A região sul mostrou o maior aumento"
+titulo <- "La región del sur mostró un mayor aumento"
 data1 %>% 
   spread(cuarto, valor) %>% 
   arrange(region) %>% 
@@ -102,7 +84,7 @@ data1 %>%
 
 ----
 
-Opção #1
+Opción #1
 
 ```{r, echo=FALSE}
 p1 <- ggplot(data1) +
@@ -114,7 +96,7 @@ p1 + labs(title = titulo)
 
 ----
 
-Opção #2
+Opción #2
 
 ```{r, echo=FALSE}
 p2 <- ggplot(data1) +
@@ -126,7 +108,7 @@ p2 + labs(title = titulo)
 
 ----
 
-Opção #3
+Opción #3
 
 ```{r, echo=FALSE}
 p3 <- data1 %>% 
@@ -151,7 +133,7 @@ gridExtra::grid.arrange(
   nrow = 1)
 ```
 
-## no gráfico vai <big>sua</big> mensagem { .center .left }
+## En el gráfico va <br><span style="color:red" id="brand">n|1u|0e|3s|2t|1r|2o|1</span> <br>mensaje { .center .left }
 
 ----
 
@@ -164,9 +146,10 @@ gridExtra::grid.arrange(
 
 ## HighchartsJS & Highcharter
 
-- HighchartsJS é uma biblioteca javascript (como plotly)
-- HighchartsJS é uma livraria madura / antiga
-- Highcharter é apenas o _wrapper_ de highcharts mais algumas funcionalidades
+- HighchartsJS es una librería javascript (como plotly)
+- HighchartsJS es una librería madura, lleva tiempo
+- Highcharter es apenas un _wrapper_ de highcharts...
+- ...más algunas funcionalidades
 
 ![](img/highcharts.png)
 
@@ -174,40 +157,50 @@ gridExtra::grid.arrange(
 
 ## `hchart`
 
-- `hchart` é uma função genérica (semelhante a `plot`)
-- Dependendo da classe do objeto irá gerar um grafo particular
-- Interatividade com uma linha de código
+- `hchart` es una función genérica (similar a `plot`)
+- Dependiendo de la clase del objeto graficará algo particular
+- Interactividad con una línea de código
 
-## Datos
+## Importante: datos y paquetes
+
+```{r, include=FALSE}
+diamantes <- datos::diamantes
+```
+
+
 
 ```{r}
-data("diamonds", package = "ggplot2")
-glimpse(diamonds)
+library(tidyverse)
+library(highcharter)
+library(datos)
+
+data("diamantes", packages = "datos")
+glimpse(diamantes)
 ```
 
 ----
 
-Variáveis numéricas
+Variables numéricas
 
 ```{r}
-hchart(diamonds$price, name = "preco")
+hchart(diamantes$precio, name = "Precio")
 ```
 
 ----
 
-Fatores
+Factores
 
 ```{r}
-hchart(diamonds$cut, name = "corte")
+hchart(diamantes$corte, name = "Corte", color = "#509EF4")
 ```
 
 ----
 
-Séries temporais
+Series temporales
 
 ```{r}
 data("AirPassengers")
-hchart(AirPassengers, name = "Passengers")
+hchart(AirPassengers, showInLegend = FALSE, name = "Pasajeros")
 ```
 
 ----
@@ -215,13 +208,13 @@ hchart(AirPassengers, name = "Passengers")
 ```{r}
 library(forecast)
 fit <- forecast(AirPassengers)
-hchart(fit, name = "Passengers")
+hchart(fit, name = "Pasajeros")
 ```
 
 ----
 
 ```{r}
-corcar <- cor(mtcars)
+corcar <- cor(tibble::column_to_rownames(datos::mtautos, "modelo"))
 hchart(corcar)
 ```
 
@@ -235,25 +228,25 @@ hchart(goog)
 
 ----
 
-E muito mais:
+Y más:
 
-- Densidades
-- Pacotes `igraph`, `survival`, `quantmod` 
-- Componentes principais
-- Mais en http://jkunst.com/highcharter/hchart.html
+- Data frames, densidades
+- Paquetes `igraph`, `survival`, `quantmod` 
+- Componentes principales
+- Más en http://jkunst.com/highcharter/hchart.html
 
 ----
 
 <iframe src="https://giphy.com/embed/12NUbkX6p4xOO4" width="480" height="440" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/shia-labeouf-12NUbkX6p4xOO4">via GIPHY</a></p>
 
 
-# 2. Opções y Documentação { .white data-background="img/panel.jpg"}
+# 2. Opciones y Documentación { .white data-background="img/panel.jpg"}
 
-## Opções y Documentação
+## Opciones y Documentación
 
-- Highcharts (e portanto highcharter) têm muitas opções 
-- E ter um exemplo para cada parâmetro
-- Tudo neste link: https://api.highcharts.com/highcharts/
+- HighchartsJS (y entonces `highcharter`) tienens muuuchas opciones 
+- Existe al menos un ejemplo para cada parámetro
+- Referencia https://api.highcharts.com/highcharts/
 
 ![](img/docs.png)
 
@@ -278,29 +271,29 @@ hc <- hchart(citytemp_long, "line", hcaes(month, temp, group = city))
 
 hc2 <- hc %>% 
   hc_xAxis(
-    title = list(text = "Month in x Axis"),
+    title = list(text = "Meses en el eje x"),
     plotLines = list(list(
-      label = list(text = "This is a plotLine"),
+      label = list(text = "Esto es una linea (plotLine)"),
       color = "#FF0000", width = 2, value = 5.5
     ))
     ) %>% 
   hc_yAxis(
-    title = list(text = "Temperature in y Axis"),
+    title = list(text = "Temperatura en el eje y"),
     opposite = TRUE,
     plotBands = list(list(
       from = 25, to = 80, color = "rgba(100, 0, 0, 0.1)",
-      label = list(text = "This is a plotBand")
+      label = list(text = "Esto es una banda (plotBand)")
     ))
     ) %>%
     hc_annotations(
     list(
       labels = list(
-        list(point = list(x = 7, y = 26.5, xAxis = 0, yAxis = 0), text = "Muito Calor"))
+        list(point = list(x = 7, y = 26.5, xAxis = 0, yAxis = 0), text = "Mucho calor oe"))
     )) %>% 
     hc_legend(
       align = "left", verticalAlign = "top", layout = "vertical"
     ) %>%
-   hc_exporting(enabled = TRUE) # "exporting option" :) muito bom recurso
+   hc_exporting(enabled = TRUE) # "exporting option" :)
 ```
 
 ----
@@ -310,26 +303,30 @@ hc2 %>%
   hc_size(height = H)
 ```
 
-# 3. Flexibilidade<br>e Estilo { .right .white data-background="img/style.png"}
+# 3. Flexibilidad<br>y Estilo { .right .white data-background="img/style.png"}
 
-## Flexibilidade 
+## Flexibilidad 
 
-Highcharts (e portante highcharter) have a lot of type 
-of charts implemented. Os clássicos (pie, column, point), mais:
+HighchartsJS (y entonces `highcharter`) tienen muchos tipos de plots. Lss clásicos (pie, column, point), más:
 
 - streamgraphs
 - sankey 
 - pucketbubbles
 - items list
-- Miuto mais...Exemplo
+- funnel, watterfall, pyramid
+- ...
+
+http://jkunst.com/highcharter/highcharts.html
 
 ## Estilo 
 
-- Às vezes é importante dar contexto
-- Como vimos antes, a flexibilidade dos highcharts é impressionante  
-- Highcharter ajuda você a usar a fonte em https://fonts.google.com/
+- A veces es bueno dar contexto o enfatizarlo
+- Como vimos antes, la flexibilidad de highcharts es inmensa  
+- Highcharter tambien tiene la funcionalidad de obtener fuentes de font.google.com
 
 ---- 
+
+Ejemplo de http://jkunst.com/blog/posts/2017-03-03-giving-a-thematic-touch-to-your-interactive-chart/
 
 ```{r, echo=FALSE, results='hide'}
 library(tidyverse) 
@@ -357,7 +354,7 @@ glimpse(dspills)
 hcspills <- hchart(dspills, "areaspline", hcaes(x, y, group = "key")) %>% 
   hc_plotOptions(series = list(stacking = "normal")) %>% 
   hc_xAxis(type = "datetime") %>% 
-  hc_title(text = "Número de derramamentos de óleo nas últimas 4 décadas")
+  hc_title(text = "Número de derrame de pretróleo en las últimas 4 décadas")
 ```
 
 ----
@@ -379,7 +376,7 @@ hcspills2 <- hcspills %>%
             verticalAlign = "top",
             layout = "horizontal") %>%
   hc_credits(enabled = TRUE,
-             text = "Data from ITOPF.com",
+             text = "Data extraída de ITOPF.com",
              href = "http://www.itopf.com/knowledge-resources/data-statistics/statistics/") %>%
   hc_chart(divBackgroundImage = "https://images-na.ssl-images-amazon.com/images/I/71EUEG8orVL._SL1500_.jpg",
            backgroundColor = hex_to_rgba("white", 0.50)) %>%
@@ -412,10 +409,9 @@ hcspills2 %>%
   hc_size(height = H)
 ```
 
-
 ----
 
-Expressar-se com seu próprio estilo
+Exprésate con tu propio estilo!
 
 <iframe src="https://giphy.com/embed/vQ8ma8B3TB5QI" width="480" height="271" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/disneypixar-disney-pixar-vQ8ma8B3TB5QI">via GIPHY</a></p>
 
@@ -426,24 +422,25 @@ Expressar-se com seu próprio estilo
 
 ## highcharter e shiny
 
-- highcharter é um htmlwidget, por isso _shiny-ready_
-- Com a flexibilidade do highchart você pode obter o design que você quer
+- `highcharter` es un htmlwidget, por lo que es _shiny-ready_
+- Y con la flexibilidad de `shiny` y `highcharter` puedes hacer lo 
+que te de la gana
 
-## Por que mais design? 
+## Por que más diseño? 
 
-no início, todas as aplicações são semelhantes
+Al principio, todas as aplicaciónes se parecen mucho
 
 ![](img/shinyapps.gif)
 
-## Exemplo da vida real 
+## Ejemplo de la vida real 
 
-O site foi
+Este era un sitio...
 
 ![](img/piasweb1.png)
 
 ----
 
-O site é agora
+Se remodeló y ahora tiene una aplicación shiny
 
 ![](img/piasweb2.png)
 
@@ -454,18 +451,17 @@ http://www.piaschile.cl/
 
 <br>
 
-- o site tinha que ter um _shiny app_
-- e deve corresponder ao estilo de design
+- Obviamente tenía que compartir el lenguaje de diseño, o estilo
+- Obviamente se podía :)
 - http://www.piaschile.cl/mercado/benchmarking-internacional/
 
 # 5. Tooltips { .left data-background="img/tooltip.jpg"}
 
 ## Tooltips
 
-- Bom recurso para não saturar um gráfico escondendo informações
-- Permite dar detalhes que o usuário decide ver
-- (eu gosto dos tooltips)
-
+- Buen recurso para no saturar de información un gráfico con información
+- Permite dar detalle que el _usuario_ decide ver
+- (Y sob bknes por que a mi me gustan)
 
 ----
 
@@ -480,56 +476,70 @@ hc
 hc_tooltip(hc, shared = TRUE, sort = TRUE)
 ```
 
-## Exemplo mais real
+## Ejemplo más real
+
+Ejemplos de http://jkunst.com/blog/posts/2019-02-04-using-tooltips-in-unexpected-ways/
+
+```{r, include=FALSE}
+paises <- datos::paises
+```
 
 ```{r}
-dabr <- read_excel("data/BasesEstados.xlsx") %>% 
-  select(Sigla, Perc_pobres, Expectativa_anos_de_estudo, Populacao,
-         PIB, Gini, Agua, Estado, CodigoReg)
+glimpse(paises)
 
-glimpse(dabr)
+paises2 <- paises %>% 
+  filter(max(anio) == anio) 
+```
 
-hcbr <- hchart(dabr, "point", hcaes(Perc_pobres, Expectativa_anos_de_estudo,  z = Populacao, group = CodigoReg))
+---
+
+```{r}
+hcpaises <- hchart(
+  paises2,
+  "point",
+  hcaes(pib_per_capita, esperanza_de_vida,  z = poblacion, group = continente)
+  )
 ```
 
 ----
 
 ```{r, echo=FALSE}
-hcbr %>% 
+hcpaises %>% 
   hc_size(height = H)
 ```
 
 
 ----
 
-`tooltip_table` permite: "tooltip" as "table" ;)
+`tooltip_table` permite hacer: "tooltip"s como "tablas" ;)
 
 ```{r, results="hide"}
-x <- c("Estado", "PIB", "Gini", "Agua")
+x <- c("pais", "pib_per_capita", "esperanza_de_vida", "poblacion")
 y <- str_c("{point.", x, "}")
+x <- str_replace_all(x, "_", " ")
 tt <- tooltip_table(x, y)
 
-hcbr2 <- hcbr %>% 
+hcpaises <- hcpaises %>% 
   hc_tooltip(pointFormat = tt, useHTML = TRUE, headerFormat = "")
 ```
 
 ----
 
 ```{r, echo=FALSE}
-hcbr2 %>% 
+hcpaises %>% 
   hc_size(height = H)
 ```
 
 ----
 
 ```{r}
-dabt_temporal <- read_excel("data/BasesEstadosSerie.xlsx") %>% 
-  select(Sigla, x = ANO, y = PIB_Estadual) %>% 
-  nest(-Sigla) %>% 
+paises3 <- paises %>% 
+  select(pais, x = anio, y = esperanza_de_vida) %>% 
+  nest(-pais) %>% 
   rename(ttdata = data) %>% 
   mutate(ttdata = map(ttdata, list_parse))
   
-dabt_temporal
+paises3
 ```
 
 ----
@@ -537,17 +547,24 @@ dabt_temporal
 `tooltip_chart` permite...
 
 ```{r}
-dabr <- left_join(dabr, dabt_temporal, by = "Sigla")
+paises2 <- left_join(paises2, paises3, by = "pais")
 
 ttchart <- tooltip_chart("ttdata", hc_opts = list(title = list(text = "point.name")),
                          width = 350, height = 250)
 
-hcbr3 <- hchart(dabr, "point", hcaes(Perc_pobres, Expectativa_anos_de_estudo,  z = Populacao, group = CodigoReg, name = Estado)) %>% 
-  hc_tooltip(pointFormatter = ttchart, useHTML = TRUE, headerFormat = "") %>% 
+hcpaises3 <- hchart(
+  paises2, "point",
+  hcaes(pib_per_capita, esperanza_de_vida,  z = poblacion, group = continente, name = pais)
+  ) %>% 
+  hc_tooltip(
+    headerFormat = "<b>{point.name}</b>",
+    pointFormatter = ttchart, useHTML = TRUE
+    ) %>% 
   hc_plotOptions(series = list(maxSize = 30))
 ```
 
 ```
+# mi torpedo
 tooltip_chart -> pointFormatter
 tooltip_table -> pointFormat
 ```
@@ -555,22 +572,50 @@ tooltip_table -> pointFormat
 ----
 
 ```{r, echo=FALSE}
-hcbr3 %>% 
+hcpaises3 %>% 
   hc_size(height = H)
 ```
 
 
 ----
 
+```{r}
+donutdata <- paises2 %>% 
+  group_by(continente) %>% 
+  summarise(poblacion = sum(poblacion/1e6)*1e6)
+
+glimpse(donutdata)
+```
+
+---- 
+
+```{r}
+donutdata <- paises2 %>% 
+  select(continente, x = esperanza_de_vida, y = pib_per_capita) %>% 
+  nest(-continente) %>% 
+  mutate(data = map(data, list_parse)) %>%
+  rename(ttdata = data) %>% 
+  left_join(donutdata, by = "continente")
+
+glimpse(donutdata)
+```
+
+----
 
 ```{r, results="hide"}
-hcbr4 <- hchart(dabr, "pie", hcaes(name = Estado, y = PIB), innerSize = 400)  %>% 
+hc <- hchart(
+  donutdata,
+  "pie",
+  hcaes(name = continente, y = poblacion),
+  innerSize = 375
+  ) %>% 
   hc_tooltip(
     useHTML = TRUE,
     headerFormat = "<b>{point.key}</b>",
     pointFormatter = tooltip_chart(
       accesor = "ttdata",
       hc_opts = list(
+        chart = list(type = "scatter"),
         credits = list(enabled = FALSE),
         plotOptions = list(scatter = list(marker = list(radius = 2)))
         ),
@@ -596,43 +641,13 @@ hcbr4 <- hchart(dabr, "pie", hcaes(name = Estado, y = PIB), innerSize = 400)  %>
 ----
 
 ```{r, echo=FALSE}
-hcbr4 %>% 
+hc %>% 
   hc_size(height = H)
 ```
 
 
-## Bonus: Mapas
-
-Eu quase esqueci de mostrar mapas
-
-```{r}
-hcbr5 <- hcmap("countries/br/br-all", showInLegend = FALSE, data = dabr, value = "Gini") %>% 
-  hc_colorAxis(dataClasses = color_classes(breaks = seq(0.45, 0.65, length.out = 5))) %>% 
-  hc_legend(layout = "vertical", align = "right", floating = TRUE, valueDecimals = 2, valueSuffix = "%") 
-```
-
-----
-
-```{r}
-hcbr5
-```
-
----- 
-
-```{r}
-hc_tooltip(hcbr5, pointFormatter = ttchart, useHTML = TRUE, headerFormat = "")
-```
-
+## Bonus
 
 # { data-background="img/ty2.gif"}
 
-## { data-background="img/ty.gif"}
-
-## Estou muito grato
-
-<br> 
-
-- SER: Luciane, Ariel, Orlando, Steven, ...
-- Obrigado por ser tão gentil e alegre (e bom para o futebol) 
-
-## <span>Apresentar <span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span> e suas melhores características em <strike>60</strike> <b>30</b> minutos ou menos<br><small>Joshua Kunst, @jbkunst, SER Mayo 2019</small></span> { .center .white data-background="img/calm.jpg"}
+## <span><span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span> en 30 minutos o menos<br>...o más<small>Joshua Kunst, @jbkunst, Meetup UseRchile Junio 2019</small></span> { .center .white data-background="img/calm.jpg"}

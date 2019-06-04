@@ -267,7 +267,9 @@ glimpse(citytemp_long)
 ----
 
 ```{r, results='hide'}
-hc <- hchart(citytemp_long, "line", hcaes(month, temp, group = city))
+hc <- hchart(citytemp_long, "line", hcaes(month, temp, group = city)) %>% 
+  hc_title(text = "Mi zuperderduper gráfico") %>% 
+  hc_credits(enabled = TRUE, text = "Este grafico es serio porque tiene <b>caption<b>", useHTML = TRUE)
 
 hc2 <- hc %>% 
   hc_xAxis(
@@ -290,9 +292,7 @@ hc2 <- hc %>%
       labels = list(
         list(point = list(x = 7, y = 26.5, xAxis = 0, yAxis = 0), text = "Mucho calor oe"))
     )) %>% 
-    hc_legend(
-      align = "left", verticalAlign = "top", layout = "vertical"
-    ) %>%
+    hc_legend(verticalAlign = "top") %>%
    hc_exporting(enabled = TRUE) # "exporting option" :)
 ```
 
@@ -321,8 +321,27 @@ http://jkunst.com/highcharter/highcharts.html
 ## Estilo 
 
 - A veces es bueno dar contexto o enfatizarlo
-- Como vimos antes, la flexibilidad de highcharts es inmensa  
-- Highcharter tambien tiene la funcionalidad de obtener fuentes de font.google.com
+- Como vimos antes, la flexibilidad de highcharts es inmensa
+- `highcharter` tiene incluído algunos temas (http://jkunst.com/highcharts-themes-collection)
+- `highcharter` tambien tiene la funcionalidad de obtener fuentes de font.google.com
+
+## `ggplot2`
+
+```{r}
+hc_add_theme(hc, hc_theme_ggplot2())
+```
+
+## Financial times { data-backgorund=#FFF1E0 }
+
+```{r}
+hc_add_theme(hc, hc_theme_ft())
+```
+
+## Alone { data-backgorund=#34495e }
+
+```{r}
+hc_add_theme(hc, hc_theme_flatdark())
+```
 
 ---- 
 
@@ -362,7 +381,6 @@ hcspills <- hchart(dspills, "areaspline", hcaes(x, y, group = "key")) %>%
 ```{r}
 hcspills
 ```
-
 
 ----
 

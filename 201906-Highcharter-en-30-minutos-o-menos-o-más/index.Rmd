@@ -542,6 +542,8 @@ hcspills2 %>%
 
 ----
 
+<br>
+
 Exprésate con tu propio estilo!
 
 <iframe src="https://giphy.com/embed/vQ8ma8B3TB5QI" width="480" height="271" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/disneypixar-disney-pixar-vQ8ma8B3TB5QI">via GIPHY</a></p>
@@ -580,6 +582,7 @@ http://www.piaschile.cl/
 
 ----
 
+Y...
 <br>
 
 - Obviamente tenía que compartir el lenguaje de diseño, o estilo
@@ -592,7 +595,7 @@ http://www.piaschile.cl/
 
 - Buen recurso para no saturar de información un gráfico con información
 - Permite dar detalle que el _usuario_ decide ver
-- (Y sob bknes por que a mi me gustan)
+- (Y son bknes porque a mi me gustan)
 
 ----
 
@@ -607,7 +610,7 @@ hc
 hc_tooltip(hc, shared = TRUE, sort = TRUE)
 ```
 
-## Ejemplo más real
+## Otro ejemplo
 
 Ejemplos de http://jkunst.com/blog/posts/2019-02-04-using-tooltips-in-unexpected-ways/
 
@@ -629,7 +632,8 @@ hcpaises <- hchart(
   paises2,
   "point",
   hcaes(pib_per_capita, esperanza_de_vida,  z = poblacion, group = continente)
-  )
+  ) %>% 
+  hc_xAxis(type = "logarithmic")
 ```
 
 ----
@@ -680,15 +684,14 @@ paises3
 ```{r}
 paises2 <- left_join(paises2, paises3, by = "pais")
 
-ttchart <- tooltip_chart("ttdata", hc_opts = list(title = list(text = "point.name")),
-                         width = 350, height = 250)
+ttchart <- tooltip_chart("ttdata", width = 350, height = 250)
 
 hcpaises3 <- hchart(
   paises2, "point",
   hcaes(pib_per_capita, esperanza_de_vida,  z = poblacion, group = continente, name = pais)
   ) %>% 
   hc_tooltip(
-    headerFormat = "<b>{point.name}</b>",
+    headerFormat = "<b>{point.key}</b>",
     pointFormatter = ttchart, useHTML = TRUE
     ) %>% 
   hc_plotOptions(series = list(maxSize = 30))
@@ -738,7 +741,7 @@ hc <- hchart(
   donutdata,
   "pie",
   hcaes(name = continente, y = poblacion),
-  innerSize = 375
+  innerSize = 400
   ) %>% 
   hc_tooltip(
     useHTML = TRUE,

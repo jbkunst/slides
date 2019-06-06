@@ -24,7 +24,7 @@ source(here::here("R/setup.R"))
 H <- "650px"
 ```
 
-# <span><span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span> en 30 minutos o menos<br>...o más<small>Joshua Kunst, @jbkunst, Meetup UseRchile Junio 2019</small></span> { .center .white data-background="img/calm.jpg"}
+# <span><span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span><br>en 30 minutos o menos<br>...o más<small>Joshua Kunst, @jbkunst, Meetup UseRchile Junio 2019</small></span> { .center .white data-background="img/calm.jpg"}
 
 ## Antes de partir
 
@@ -51,7 +51,7 @@ H <- "650px"
 }(Highcharts));
 </script>
 
-## `r ico("hand-paper-o", "#ff0033", class="greeting")`, Hola! Qué haremos?
+## `r ico("hand-paper-o", "#ff0033", class="greeting")` Hola! Qué haremos?
 
 - Por qué la visualización?
 - Qué es HighchartsJS, y que es `highcharter`? 
@@ -309,14 +309,13 @@ hc2 %>%
 
 ## Flexibilidad 
 
-HighchartsJS (y entonces `highcharter`) tienen muchos tipos de plots. Lss clásicos (pie, column, point), más:
+HighchartsJS (y entonces `highcharter`) tienen muchos tipos de plots:
 
-- streamgraphs
-- sankey 
-- pucketbubbles
-- items list
-- funnel, waterfall, pyramid
-- ...
+- Los clásicos: pie, column, point
+- streamgraphs, sankey 
+- pucketbubbles, items list
+- funnel, waterfall, pyramid, wordclouds
+- y más...
 
 http://jkunst.com/highcharter/highcharts.html
 
@@ -553,7 +552,7 @@ Exprésate con tu propio estilo!
 
 ----
 
-## highcharter e shiny
+## highcharter y shiny
 
 - `highcharter` es un htmlwidget, por lo que es _shiny-ready_
 - Y con la flexibilidad de `shiny` y `highcharter` puedes hacer lo 
@@ -782,6 +781,137 @@ hc %>%
 
 ## Bonus
 
+```{r}
+# remotes::install_github("rladies/meetupr")
+library(meetupr) # paquete r-ladies :)
+
+# my ultra secret api key :)
+Sys.setenv(MEETUP_KEY = "0415f259076560493e4968452863")
+
+miembros <- get_members("useRchile")
+
+eventos  <- get_events("useRchile", "past")
+```
+
+## Un poco (?!?!) de cleaning/wrangling
+
+```{r}
+# obtengo fecha incorporacion
+miembros <- miembros %>% 
+  mutate(
+    gp = map(resource, "group_profile"),
+    fecha_inc = map_dbl(gp, "created"),
+    fecha_inc = as.Date(as.POSIXct(fecha_inc/1000, origin="1970-01-01"))
+  )
+
+# vino hoy?
+evento_hoy <- get_events("useRchile", "upcoming") %>% 
+  pull(id) %>% 
+  get_event_rsvps("useRchile", event_id = .) %>% 
+  select(id = member_id) %>% 
+  mutate(vino_hoy = TRUE)
+
+miembros <- left_join(miembros, evento_hoy, by = "id")
+
+miembros <- miembros %>%
+  arrange(fecha_inc) %>% 
+  mutate(
+    photo_link = replace_na(photo_link, "https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png"),
+    bio = replace_na(bio, ""),
+    nacum = 1, nacum = cumsum(nacum),
+    vino_hoy = replace_na(vino_hoy, FALSE)
+  ) %>% 
+  select(id, name, bio, fecha_inc, city, photo_link, nacum, vino_hoy)
+
+urlheart <- "https://static.xx.fbcdn.net/images/emoji.php/v9/f6c/1/16/2764.png"
+miembros <- miembros %>% 
+  mutate(
+    marker = map_if(vino_hoy, vino_hoy, ~ list(enabled = TRUE, symbol = sprintf("url(%s)", urlheart))) 
+  )
+
+# memebers
+x <-  c("city", "bio")
+y <- str_c("{point.", x, "}")
+x <- str_replace_all(x, "_", " ")
+tt <- tooltip_table(
+  # x, y,
+  x = NULL, y = NULL,
+  img = tags$img(src = "{point.photo_link}", width = "120px"),
+  title = "{point.name}"
+)
+```
+
+## Finalmente
+
+```{r}
+glimpse(miembros)
+```
+
+## Entonces
+
+```{r}
+hcmeetup <- hchart(miembros, "line", hcaes(fecha_inc, nacum), 
+                   lineWidth = 10, color = "white") %>%
+  hc_chart(
+    backgroundColor = "rgba(255, 255, 255, 0.0)",
+    # backgroundColor = "black",
+    style = list(color = "white")
+    ) %>% 
+  hc_navigator(enabled = TRUE, buttonOptions = list(enabled = TRUE)) %>% 
+  hc_rangeSelector(
+    enabled = TRUE,
+    labelStyle = list(display = "none"),
+    inputEnabled = FALSE,
+    buttons = list(
+      list(type = "month", count = 1, text = "mes"),
+      list(type = "year", count = 1, text = "año"),
+       list(type = "all", text =  "Todo")
+    )
+    ) %>% 
+  hc_tooltip(
+    useHTML = TRUE,
+    backgroundColor = "transparent",
+    borderColor = "transparent",
+    shadow = FALSE,
+    headerFormat = "",
+    shadow = FALSE,
+    style = list(fontSize = "1.0em", fontWeight = "normal", color = "white"),
+    positioner = JS("function () { return { x: this.chart.plotLeft + 15, y: this.chart.plotTop + 0 }; }"),
+    shape = "square",
+    pointFormat = tt
+  ) %>%
+  hc_xAxis(
+    type = "datetime",
+    minTickInterval = 24 * 3600 * 1000 * 31 * 12,
+    pointStart = JS("Date.UTC(2013, 0, 1)"),
+    title = list(text = ""),
+    labels = list(style = list(fontSize = 20, color = "white")),
+    # plotLines = plns
+    dateTimeLabelFormats = list(year = "%Y", month = "%Y %b"),
+    gridLineWidth = 0,
+    lineWidth = 2,
+    tickWidth = 2
+  ) %>% 
+  hc_yAxis(
+    title = list(text = ""),
+    labels = list(style = list(fontSize = 20, color = "white")),
+    gridLineWidth = 0,
+    showLastLabel = FALSE,
+    opposite = TRUE,
+    lineWidth = 2,
+    tickWidth = 2
+  ) 
+hcmeetup
+```
+
+## { data-background="img/meetup-bk.jpg"}
+
+```{r, echo=FALSE}
+hcmeetup %>% 
+  hc_size(height = 600, width = 1200)
+```
+
+
 # { data-background="img/ty2.gif"}
 
-## <span><span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span> en 30 minutos o menos<br>...o más<small>Joshua Kunst, @jbkunst, Meetup UseRchile Junio 2019</small></span> { .center .white data-background="img/calm.jpg"}
+## <span><span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span><br>en 30 minutos o menos<br>...o más<small>Joshua Kunst, @jbkunst, Meetup UseRchile Junio 2019</small></span> { .center .white data-background="img/calm.jpg"}

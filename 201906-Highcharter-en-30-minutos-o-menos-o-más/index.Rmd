@@ -908,7 +908,7 @@ hcmeetup
 
 ```{r, echo=FALSE}
 hcmeetup %>% 
-  hc_size(height = 600, width = 1200)
+  hc_size(height = 600, width = 1000)
 ```
 
 

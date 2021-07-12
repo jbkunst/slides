@@ -1,0 +1,89 @@
+---
+title: "{20:00}§2v|0i|2s|3u|2a|1l|0[-]i|1z|2a|1c|3[++]i|2o|1n|2{14jul}[16°c[10°c]"
+subtitle: "desde el análsis de datos"
+author: "Joshua Kunst @jbkunst"
+# institute: "@jbkunst"
+# date: "2020/07/12 (actualizado: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      titleSlideClass: ["left", "middle", "my-title"]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{css}
+@import url('http://fonts.cdnfonts.com/css/datalegreya');
+
+.title-slide > h1 {
+  font-family: 'Datalegreya', sans-serif;
+  font-size: 7em;
+}
+
+.title-slide > h1,
+.title-slide > h2,
+.title-slide > h3 {
+  padding: 5px;
+  margin: 5px;
+}
+```
+
+
+```{r, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#47475C",
+  header_font_google = google_font("Alegreya Sans SC", "100"),
+  text_font_google   = google_font("Alegreya Sans"),
+  code_font_google   = google_font("Fira Mono")
+)
+
+library(ggplot2)
+
+xaringanExtra::use_tile_view() # press O
+xaringanExtra::use_webcam()    # press W
+xaringanExtra::use_progress_bar(color = "#47475C", location = "bottom")
+xaringanExtra::use_freezeframe() # for GIFs!
+
+```
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+???
+
+Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sharingan_triple.svg)
+
+---
+class: center, middle
+
+# xaringan
+
+### /ʃaː.'riŋ.ɡan/
+
+
+---
+
+# R Plots
+
+```{r cars, fig.height=4, dev='svg', echo=FALSE}
+library(ggplot2)
+ggplot(mpg) +
+  geom_point(aes(cty, hwy)) +
+  labs(
+    title = "Fuel Efficiency of Various Cars",
+    subtitle = "Subtitle",
+    xlab = "xlab",
+    ylab = "ylab"
+  ) +
+  theme_xaringan()
+```

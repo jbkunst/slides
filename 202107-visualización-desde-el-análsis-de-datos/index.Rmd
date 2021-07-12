@@ -19,7 +19,7 @@ editor_options:
 ---
 
 ```{css}
-@import url('http://fonts.cdnfonts.com/css/datalegreya');
+@import url('https://fonts.cdnfonts.com/css/datalegreya');
 
 .title-slide > h1 {
   font-family: 'Datalegreya', sans-serif;

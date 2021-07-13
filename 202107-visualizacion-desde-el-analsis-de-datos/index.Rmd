@@ -661,21 +661,30 @@ dfnet2 <- ggnet %>%
 
 ggplot(ggnet) + 
   geom_edges(
-    aes(x, y, size = width, color = factor(comm), xend = xend, yend = yend), 
+    aes(-x, -y, size = width, color = factor(comm), xend = -xend, yend = -yend), 
     color = "gray", size = 1, alpha = 0.25
     ) +
   geom_point(
-    aes(x, y, size = size, color = factor(comm))
+    aes(-x, -y, size = size, color = factor(comm))
     ) +
   ggrepel::geom_text_repel(
-    aes(x, y, label = name), size = 2,
+    aes(-x, -y, label = name), size = 2,
     data = dfnet2, color = "#666666",
     force = 10,
     family = "main_font"
     ) +
   scale_color_viridis_d() + 
-  theme_blank() +
+  # theme_void() +
+  theme(
+    panel.grid.major = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    legend.position = "right"
+  ) +
+  guides(color = guide_legend(override.aes = list(size = 5))) +
   labs(
+    x = NULL,
+    y = NULL,
     size = "Subidas",
     color = "Comunidad"
     )

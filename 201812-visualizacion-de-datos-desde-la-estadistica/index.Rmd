@@ -15,14 +15,14 @@ output:
       - "assets/bkgd.css"
       - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
     nature:
+        </div>
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       slideNumberFormat: |
         <div class="progress-bar-container">
-          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
           </div>
-        </div>
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
 editor_options: 
   chunk_output_type: console
 ---

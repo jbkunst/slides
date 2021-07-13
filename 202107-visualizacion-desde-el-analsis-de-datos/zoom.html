@@ -1,0 +1,12 @@
+<script src="https://lab.hakim.se/zoom-js/js/zoom.js" type="text/javascript"></script>
+<script type="text/javascript">
+	slideshow.on( "beforeHideSlide", function( slide ) {
+		zoom.out();
+	} );
+	slideshow.on( "afterShowSlide", function( slide ) {
+		document.querySelector( ".remark-visible" ).addEventListener( "click", function( event ) {
+			event.preventDefault();
+			zoom.to( {element: event.target} );
+		} );
+	} );
+</script>

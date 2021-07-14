@@ -30,9 +30,11 @@ class: left, middle, my-title, title-slide
 ---
 
 
-# Hola!
+class: left top
+background-image: url(imgs/hello.gif)
+background-size: 100%
 
-### Soy Joshua
+# Hola! &lt;br/&gt; Soy Joshua
 
 
 
@@ -42,7 +44,7 @@ class: left, middle, my-title, title-slide
 @import url('https://fonts.cdnfonts.com/css/datalegreya');
 
 .title-slide {
-  background-image: url(title-slide-bg.png);
+  background-image: url(imgs/title-slide-bg.png);
   background-size: cover;
 }
 
@@ -67,6 +69,16 @@ class: left, middle, my-title, title-slide
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
+
+.highlight-last-item &gt; ul &gt; li, 
+.highlight-last-item &gt; ol &gt; li {
+  opacity: 0.5;
+}
+.highlight-last-item &gt; ul &gt; li:last-of-type,
+.highlight-last-item &gt; ol &gt; li:last-of-type {
+  opacity: 1;
+}
+
 &lt;/style&gt;
 
 
@@ -75,11 +87,42 @@ body {
 
 ---
 
-# Visualización
+class: highlight-last-item
 
-Como parte del análisis de datos
+# Hola! &lt;br/&gt; Soy Joshua
+
+--
+
+
+- Soy estadístico.
+
+--
+
+- Me gusta programar (en R!).
+
+--
+
+- Escribo código para comer. Y como para escribir código.
+
+--
+
+- Mi __misión__ es motivarlos en los que veremos hoy!
+
+---
+
+class: left top
+background-image: url(imgs/yay.gif)
+background-size: 100%
+
+# &lt;span style="background-color:white;margin:5px"&gt;Yay!&lt;/span&gt;
+
+---
+
+# Visualización en el análisis de datos
 
 &lt;br&gt;
+&lt;br&gt;
+
 
 &lt;img src="imgs/data-science.svg" width="80%" style="display: block; margin: auto;" /&gt;
 
@@ -89,14 +132,45 @@ Como parte del análisis de datos
 
 Herramienta que codifica información a través...
 
+&lt;br&gt;
+
 &lt;img src="imgs/data-viz.jpg" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-class: center middle
-background-image: url(https://wallpaperplay.com/walls/full/8/b/9/112119.jpg)
+# Visualización __de datos__
 
-# Ejemplo 
+Cada atributo de un círculo -posición, tamaño- es representado por un valor de los datos.
+
+&lt;br&gt;
+
+&lt;img src="imgs/viz-mapping-vars.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Antes de seguir
+
+Un poco de jerga:
+
+--
+
+- Una __variable__ es una cantidad, que puede ser medida: estatura, magnitud de un sismo, velocidad.
+
+- Un __valor__ es un estado de la variable cuando se mide: 1.20 metros, 8° Richter.
+
+- Una __observación__ o caso es un conjunto de mediciones -no de la misma variable necesariamente- pero si en un mismo instante y a un mismo objeto.
+
+--
+
+&lt;img src="imgs/tidy-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: left middle
+background-image: url(imgs/legobricks.jpg)
+background-size: 100%
+
+# &lt;span style="background-color:white;margin:5px"&gt;Un primer ejemplo&lt;/span&gt;
 
 ---
 
@@ -112,7 +186,7 @@ background-image: url(https://wallpaperplay.com/walls/full/8/b/9/112119.jpg)
 
 ¿Qué vemos?
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -120,7 +194,7 @@ background-image: url(https://wallpaperplay.com/walls/full/8/b/9/112119.jpg)
 
 Codificamos mayor información
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -128,13 +202,16 @@ Codificamos mayor información
 
 Cada visualización cuenta una historia distinta...
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
-class: center middle
+class: right top
+background-image: url(imgs/metro.jpg)
+background-size: 100%
 
-# Poniendo en práctica
+# &lt;span style="color:white"&gt;Entendimiento de los datos &lt;br/&gt;con la visualización&lt;/span&gt;
+
 
 ---
 
@@ -152,15 +229,15 @@ Ingresos de usuarios a estaciones de metros cada media hora
 
 Visualicemos los datos de una estación:
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # ¿Simple?
 
-Es bueno equivocarse
+Es bueno equivocarse (?).
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -168,7 +245,7 @@ Es bueno equivocarse
 
 Hay ciertas convenciones que no es malo seguir...
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -176,7 +253,7 @@ Hay ciertas convenciones que no es malo seguir...
 
 Importante observar patrones/relaciones en los datos.
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -184,7 +261,9 @@ Importante observar patrones/relaciones en los datos.
 
 Es una _métrica_ de asociación lineal. Nos ayuda a _cuantificar_ la asociación.
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+--
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -193,41 +272,19 @@ Es una _métrica_ de asociación lineal. Nos ayuda a _cuantificar_ la asociació
 Un valor calculado con dos valores numéricos. Va de -1 a 1.
 
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Entonces...
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
-
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Otro par de estaciones
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-
-# Correlaciones
-
-&lt;br&gt;
-
-
-Las correlaciones nos dan una métrica de que tanto se parecen unas estaciones de otras
-
---
-
-¿Las obtenemos todas y graficamos?
-
---
-
-- ¿Las obtenemos todas y graficamos?
-- ¿Las obtenemos todas y graficamos?
-- ¿Las obtenemos todas y graficamos?
-
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -237,8 +294,9 @@ Las correlaciones nos dan una métrica de que tanto se parecen unas estaciones d
 
 Calculamos con 106 estaciones 11,130 correlaciones. Visualización vía __heatmap__.
 
+--
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -249,7 +307,7 @@ Calculamos con 106 estaciones 11,130 correlaciones. Visualización vía __heatma
 
 El orden, en este caso, importa.
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -262,7 +320,7 @@ Considerando las 250 correlaciones más altas realizamos una red donde el peso
 del vértice es la correlación y el tamaño es la cantidad de subidas.
 
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-24-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -377,26 +435,6 @@ Lleva de una tabla con muchas columnas por observación a 2 columnas:
    &lt;td style="text-align:right;"&gt; 2484.0 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1873.0 &lt;/td&gt;
   &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; CAMINO AGRICOLA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 38.2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 113.2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 281.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 530.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 606.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 572.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 470.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; CARLOS VALDOVINOS &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 113.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 210.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 342.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 431.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 407.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 333.4 &lt;/td&gt;
-  &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 ] 
@@ -451,16 +489,6 @@ Lleva de una tabla con muchas columnas por observación a 2 columnas:
    &lt;td style="text-align:right;"&gt; -0.2660237 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 3.7753796 &lt;/td&gt;
   &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; CAMINO AGRICOLA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2622275 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2290107 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; CARLOS VALDOVINOS &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.7879500 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -0.9876676 &lt;/td&gt;
-  &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 ]
@@ -473,33 +501,112 @@ Lleva de una tabla con muchas columnas por observación a 2 columnas:
 
 De esta forma:
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Clustering 
 
-De vez en cuando es relevante agrupar información/perfilar.
+De vez en cuando es relevante agrupar información/perfilar. __Diagramas de Voronoi__.
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Reducción de Dimensionalidad
+# ¿Por qué 4 grupos?
+
+El algoritmo para encontrar grupos usado fue __K-means__. Uno usualmente
+da el número de grupos y determina que observación queda en que grupo.
+
+--
+
+Una regla para decidir el número de cluster es realizando el proceso
+varias veces con distintas cantidad de centros.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Clustering (ver. 2)
 
 __Dendograma__ visualiza la forma de agrupación a medida que aumento distancia.
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-30-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Finalmente
+# Clustering (ver. 3)
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
+Otra visualización con los mismos datos del dendograma. __Árbol filogenético__.
+
+
+
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-32-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
-&lt;img src="imgs/knitr-img-unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
+# Clustering (ver. 3)
+
+No sirve de mucho si las etiquetas.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-33-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Entonces, ¿significan algo los cluster generados?
+
+--
+
+Revisamos _nuestro primer gráfico_ para cada estación y separados por grupo.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-34-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Contextualizar
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-35-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Contextualizar (ver. 2)
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-36-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-37-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Resumiendo
+
+La __visualización de datos__:
+
+--
+
+- Lleva información, es un mensaje.
+
+- Ejercicio mental para decodificar información.
+
+- Herramienta exploratoria.
+
+- Distintas visualizaciones en mismos datos es una distinta historia.
+
+
+---
+
+# Gracias! Conversemos!
+
+- http://jkunst.com
+- Presentación: http://jkunst.com/r-material/201710-Visualizacion-en-el-Analisis/index.html
+- __jbkunst__
 
 
 

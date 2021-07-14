@@ -1,0 +1,262 @@
+---
+title: "{20:00}§2v|0i|2s|3u|2a|1l|0[-]i|1z|2a|1c|3[++]i|2o|1n|2{14jul}[16°c[10°c]"
+subtitle: "desde el análsis de datos"
+author: "<br>Joshua Kunst<br>@jbkunst"
+# institute: ""
+# date: "2020/07/12 (actualizado: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    # css: [metropolis, xaringan-themer.css]
+    # css: [metropolis, metro-custom.css]
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      titleSlideClass: ["left", "middle", "my-title"]
+      highlightStyle: github
+editor_options: 
+  chunk_output_type: console
+---
+
+class: left top
+background-image: url(imgs/hello.gif)
+background-size: 100%
+
+# Hola! <br/> Soy Joshua
+
+```{r parameters, include=FALSE, warning=FALSE}
+MAIN_COLOR <- "#47475C"
+BCKGRN_COLOR <- "#FFFAFA" # snow white
+# MAIN_FONT <- "Lato"
+# MAIN_FONT <- "Alegreya Sans SC"
+MAIN_FONT <- "IBM Plex Sans"
+
+```
+
+```{r, include=FALSE, warning=FALSE}
+library(tableHTML)
+
+mycss <- make_css(
+  list('.remark-slide-content',
+       c('background-color', 'border-top'),
+       c(BCKGRN_COLOR, paste("80px solid", MAIN_COLOR))),
+   file = here::here("202107-visualizacion-desde-el-analsis-de-datos/metro-custom.css")
+  )
+```
+
+```{css, echo=FALSE}
+@import url('https://fonts.cdnfonts.com/css/datalegreya');
+
+.title-slide {
+  background-image: url(imgs/title-slide-bg.png);
+  background-size: cover;
+}
+
+.title-slide > h1,
+.title-slide > h2,
+.remark__tile-view__header {
+  font-family: 'Datalegreya', sans-serif;
+  font-weight: 400;
+}
+
+.title-slide > h1,
+.remark__tile-view__header {
+  font-size: 6em;
+}
+
+.title-slide > h1,
+.title-slide > h2 {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.highlight-last-item > ul > li, 
+.highlight-last-item > ol > li {
+  opacity: 0.5;
+}
+.highlight-last-item > ul > li:last-of-type,
+.highlight-last-item > ol > li:last-of-type {
+  opacity: 1;
+}
+
+```
+
+```{r setup-xaringan, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_mono_accent(
+  base_color       = MAIN_COLOR,
+  background_color = BCKGRN_COLOR,
+  # header_font_google = google_font("Alegreya Sans SC", 100),
+  header_font_google = google_font(MAIN_FONT, 100),
+  text_font_google   = google_font("Roboto"),
+  code_font_google   = google_font("Fira Mono"),
+  base_font_size = "22px",
+  header_h1_font_size = "2.0rem", # "2.75rem",
+  header_h3_font_size = "1.5rem", # "2.75rem",
+  outfile = here::here("202107-visualizacion-desde-el-analsis-de-datos/xaringan-themer.css")
+)
+
+xaringanExtra::use_scribble(pen_color = MAIN_COLOR) # press S
+xaringanExtra::use_tile_view()                      # press O
+xaringanExtra::use_webcam()                         # press W
+xaringanExtra::use_animate_all("fade")
+xaringanExtra::use_freezeframe() # for GIFs!
+# xaringanExtra::use_progress_bar(color = "red", location = "bottom", height = "30px")
+```
+
+```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE,
+  dev = "svg",
+  cache = FALSE,
+  fig.path = "imgs/knitr-img-",
+  fig.align = "center",
+  fig.width = 11,
+  fig.height = 5
+)
+
+library(tidyverse)
+library(kunstomverse)
+library(patchwork)
+library(ggforce)
+library(showtext)
+
+font_add_google(MAIN_FONT, "main_font")
+
+showtext_auto()
+
+theme_set(
+  kunstomverse::theme_knst(
+    base_size       = 10,
+    axis_title_size = 8,
+    base_family     = "main_font",
+    plot_margin     = ggplot2::margin(10, 10, 10, 10),
+    plot_title_face = "plain", 
+    subtitle_face = "plain"
+    ) +
+    theme(
+      plot.title = element_text(face = "plain"),
+      plot.background = element_rect(fill = BCKGRN_COLOR, colour = NA),
+      panel.background = element_rect(fill = BCKGRN_COLOR, colour = NA),
+      legend.key.width = unit(1.5, "cm")
+    )
+  )
+
+scale_fill_pres_c <- function(option = "C", begin = 0.05, end = 0.85, ...) {
+  scale_fill_viridis_c(option = option, begin = begin, end = end, ...)
+}
+
+scale_fill_pres_d <- function(option = "C", begin = 0.05, end = 0.85, ...) {
+  scale_fill_viridis_d(option = option, begin = begin, end = end, ...)
+}
+
+scale_color_pres_c <- function(option = "C", begin = 0.05, end = 0.85, ...) {
+  scale_color_viridis_c(option = option, begin = begin, end = end, ...)
+}
+scale_color_pres_d <- function(option = "C", begin = 0.05, end = 0.85, ...) {
+  scale_color_viridis_d(option = option, begin = begin, end = end, ...)
+}
+```
+
+---
+
+class: highlight-last-item
+
+# Hola! <br/> Soy Joshua
+
+--
+
+
+- Soy estadístico.
+
+--
+
+- Me gusta programar (en R!).
+
+--
+
+- Escribo código para comer. Y como para escribir código.
+
+--
+
+- Mi __misión__ es motivarlos en los que veremos hoy!
+
+---
+
+class: left top
+background-image: url(imgs/yay.gif)
+background-size: 100%
+
+# <span style="background-color:white;margin:5px">Yay!</span>
+
+---
+
+# Visualización en el análisis de datos
+
+<br>
+<br>
+
+
+```{r out.width="80%"}
+ knitr::include_graphics("imgs/data-science.svg")
+```
+
+---
+
+# Visualización __de datos__
+
+Herramienta que codifica información a través...
+
+<br>
+
+```{r out.width="60%", fig.align='center'}
+knitr::include_graphics("imgs/data-viz.jpg")
+```
+
+---
+
+# Visualización __de datos__
+
+Cada atributo de un círculo -posición, tamaño- es representado por un valor de los datos.
+
+<br>
+
+```{r out.width="70%", fig.align='center'}
+knitr::include_graphics("imgs/viz-mapping-vars.png")
+```
+
+---
+
+# Antes de seguir
+
+Un poco de jerga:
+
+--
+
+- Una __variable__ es una cantidad, que puede ser medida: estatura, magnitud de un sismo, velocidad.
+
+- Un __valor__ es un estado de la variable cuando se mide: 1.20 metros, 8° Richter.
+
+- Una __observación__ o caso es un conjunto de mediciones -no de la misma variable necesariamente- pero si en un mismo instante y a un mismo objeto.
+
+--
+
+```{r out.width="70%", fig.align='center'}
+knitr::include_graphics("imgs/tidy-1.png")
+```
+
+---
+
+class: left middle
+background-image: url(imgs/legobricks.jpg)
+background-size: 100%
+
+# <span style="background-color:white;margin:5px">Un primer ejemplo</span>
+

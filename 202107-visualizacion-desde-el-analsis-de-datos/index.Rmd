@@ -1322,6 +1322,15 @@ list(p1, p2, pcors, pnet, pumapkm, pkm, pdend, pphylo, pfin, pmetro, ggmap) %>%
   reduce(`+`)
 ```
 
+
+---
+
+class: left top
+background-image: url(imgs/charts.gif)
+background-size: 100%
+
+# <span style="background-color:white;margin:5px">Hay muchos mas!</span>
+
 ---
   
 # Resumiendo

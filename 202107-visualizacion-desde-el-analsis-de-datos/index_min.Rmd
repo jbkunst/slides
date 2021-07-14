@@ -255,7 +255,7 @@ knitr::include_graphics("imgs/tidy-1.png")
 ---
 
 class: left middle
-background-image: url(imgs/legobricks.jpg)
+background-image: url(imgs/charts.gif)
 background-size: 100%
 
 # <span style="background-color:white;margin:5px">Un primer ejemplo</span>

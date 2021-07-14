@@ -54,6 +54,7 @@ mycss <- make_css(
 .title-slide > h2,
 .remark__tile-view__header {
   font-family: 'Datalegreya', sans-serif;
+  font-weight: 400;
 }
 
 .title-slide > h1,
@@ -96,7 +97,6 @@ xaringanExtra::use_freezeframe() # for GIFs!
 # xaringanExtra::use_progress_bar(color = "red", location = "bottom", height = "30px")
 ```
 
-
 ```{r setup, include=FALSE, warning=FALSE}
 knitr::opts_chunk$set(
   message = FALSE,
@@ -106,13 +106,14 @@ knitr::opts_chunk$set(
   cache = FALSE,
   fig.path = "imgs/knitr-img-",
   fig.align = "center",
-  fig.width = 10,
+  fig.width = 11,
   fig.height = 5
 )
 
 library(tidyverse)
 library(kunstomverse)
 library(patchwork)
+library(ggforce)
 library(showtext)
 
 font_add_google(MAIN_FONT, "main_font")
@@ -136,7 +137,6 @@ theme_set(
   )
 ```
 
-
 ---
 
 # Visualización
@@ -152,9 +152,9 @@ Como parte del análisis de datos
 
 ---
 
-# Visualización **de datos**
+# Visualización __de datos__
 
-Herramienta que codifica información a travéz...
+Herramienta que codifica información a través...
 
 ```{r out.width="60%", fig.align='center'}
 # knitr::include_graphics(here::here("202107-visualizacion-desde-el-analsis-de-datos/imgs/data-viz.jpg"))
@@ -249,7 +249,6 @@ class: center middle
 
 # Poniendo en práctica
 
-
 ---
 
 # Datos
@@ -258,6 +257,7 @@ Ingresos de usuarios a estaciones de metros cada media hora
 
 ```{r metrodata, cache=TRUE, include=FALSE}
 data <- read_delim(url("https://tinyurl.com/data-metro-scl"), delim = ";")
+
 data <- data %>% 
   filter(!str_detect(paraderosubida, "[0-9]+-[0-9]")) %>% 
   filter(paraderosubida != "-") %>% 
@@ -268,6 +268,11 @@ data <- data %>%
 
 year(data$mediahora) <- 2015
 
+data <- data %>% 
+  tidyr::expand(paraderosubida, mediahora) %>% 
+  left_join(data, by = c("paraderosubida", "mediahora")) %>% 
+  mutate(subidas_laboral_promedio = coalesce(subidas_laboral_promedio, 0))
+
 data
 ```
 
@@ -276,16 +281,17 @@ data
 knitr::include_graphics("imgs/metrocsv.png")
 ```
 
-
 ---
 
 # Partamos por lo simple
 
-```{r}
-dalcantara <- data %>% 
-  filter(paraderosubida == "ALCANTARA")
+Visualicemos los datos de una estación:
 
-ggplot(dalcantara) +
+```{r}
+dplazamaipu <- data %>% 
+  filter(paraderosubida == "PLAZA MAIPU")
+
+ggplot(dplazamaipu) +
   geom_point(aes(subidas_laboral_promedio, mediahora, color = paraderosubida), size = 1.5) +
   scale_y_datetime(date_labels = "%R") +
   scale_x_continuous(labels = comma) +
@@ -299,7 +305,7 @@ ggplot(dalcantara) +
 Es bueno equivocarse
 
 ```{r}
-ggplot(dalcantara) +
+ggplot(dplazamaipu) +
   geom_path(aes(subidas_laboral_promedio, mediahora, color = paraderosubida), size = 1.5) +
   scale_y_datetime(date_labels = "%R") +
   scale_x_continuous(labels = comma) +
@@ -313,11 +319,11 @@ ggplot(dalcantara) +
 Hay ciertas convenciones que no es malo seguir...
 
 ```{r}
-ggplot(dalcantara) +
+ggplot(dplazamaipu) +
   geom_path(aes(mediahora, subidas_laboral_promedio, color = paraderosubida), size = 1.5) +
   scale_x_datetime(date_labels = "%R") +
   scale_y_continuous(labels = comma) +
-  scale_color_viridis_d(guide = "none")
+  scale_color_viridis_d(option = "A", end = 0.8, name = NULL)
 ```
 
 ---
@@ -355,7 +361,7 @@ p1
 
 # Correlación 
 
-Es una _métrica_ de asociación _lineal_. Nos ayuda a _cuantificar_ la asociación.
+Es una _métrica_ de asociación lineal. Nos ayuda a _cuantificar_ la asociación.
 
 ```{r}
 set.seed(123)
@@ -421,7 +427,7 @@ lab_dates <- df %>%
 
 lab_dates_lbls <- str_extract(lab_dates, "[0-9]{2}:[0-9]{2}")
 
-p2 <-  d1 %>% 
+p2 <- d1 %>% 
   spread(paraderosubida, subidas_laboral_promedio) %>%  
   ggplot(aes(`LAGUNA SUR`, `PLAZA MAIPU`)) +
   kunstomverse::geom_point2(aes(fill = as.numeric(mediahora)), alpha = 0.8, size = 3) +
@@ -529,7 +535,7 @@ nest <- dcor %>%
   comma()
 ```
 
-Calculamos con `r nest` estaciones `r ncors` correlaciones.
+Calculamos con `r nest` estaciones `r ncors` correlaciones. Visualización vía __heatmap__.
 
 
 ```{r}
@@ -538,7 +544,7 @@ ggplot(dcor) +
   scale_fill_viridis_c(
     option = "A",
     limits = c(-1, 1),
-    breaks = seq(-1, 1, length.out = 8),
+    breaks = seq(-1, 1, length.out = 5),
     labels = percent,
     ) +
   theme(
@@ -574,12 +580,12 @@ lvls <- colnames(M)
 dcor <- dcor %>% 
   mutate_if(is.character, factor, levels = lvls)
 
-ggplot(dcor) +
+pcors <- ggplot(dcor) +
   geom_tile(aes(item1, item2, fill = correlation)) + 
   scale_fill_viridis_c(
     option = "A",
     limits = c(-1, 1),
-    breaks = seq(-1, 1, length.out = 8),
+    breaks = seq(-1, 1, length.out = 5),
     labels = percent,
     ) +
   theme(
@@ -589,6 +595,8 @@ ggplot(dcor) +
     legend.key.width = unit(0.5, "cm")
     ) +
   labs(x = NULL, y = NULL)
+
+pcors
 ```
 
 ---
@@ -648,9 +656,9 @@ V(g)$color <- dvert$comm
 
 set.seed(123)
 
-ggnet <- ggnetwork(g)
+dfnet <- ggnetwork(g)
 
-dfnet2 <- ggnet %>%
+dfnet2 <- dfnet %>%
   as.matrix() %>%
   as.data.frame() %>%
   tbl_df() %>%
@@ -659,7 +667,7 @@ dfnet2 <- ggnet %>%
   mutate_at(vars(x, y, weight, size), as.numeric) %>%
   filter(is.na(weight))
 
-ggplot(ggnet) + 
+pnet <- ggplot(dfnet) + 
   geom_edges(
     aes(-x, -y, size = width, color = factor(comm), xend = -xend, yend = -yend), 
     color = "gray", size = 1, alpha = 0.25
@@ -688,13 +696,14 @@ ggplot(ggnet) +
     size = "Subidas",
     color = "Comunidad"
     )
+
+pnet
 ```
 
 ---
 
 # Reducción de Dimensionalidad
 
---
 Hasta ahora hemos usado solamente *correlaciones* que miden asociacion lineal 
 y no es um indicador necesariamente robusto para usarlo como métrica de distancia.
 
@@ -731,14 +740,16 @@ datas %>%
 ```{r, cache=TRUE}
 library(uwot)
 
+set.seed(123)
+
 um <- umap(datas, verbose = TRUE, n_threads = 3, n_neighbors = 20)
 
-umd <- as.data.frame(um) %>% 
+dumap <- as.data.frame(um) %>% 
   tbl_df() %>% 
   mutate(paraderosubida = pull(datas, paraderosubida)) %>% 
   select(paraderosubida, everything())
 
-umd %>% 
+dumap %>% 
   head(nhead) %>% 
   knitr::kable(format = "html")
 ```
@@ -750,35 +761,108 @@ umd %>%
 
 # Reducción de Dimensionalidad
 
+De esta forma:
+
 ```{r}
-ggplot(umd) +
+set.seed(1234)
+
+ggplot(dumap) +
   geom_point(aes(V1, V2), alpha = 0.3) +
   ggrepel::geom_text_repel(
     aes(V1, V2, label = paraderosubida),
     data = . %>% sample_n(30),
     size = 3,
     force = 10
-    ) 
+    ) +
+  xlim(c(-4, 3)) + ylim(c(-3, 5))
+```
+
+---
+
+# Clustering 
+
+De vez en cuando es relevante agrupar información/perfilar.
+
+```{r}
+withins <- map_dbl(1:15, function(k = 4){
+
+  km <- kmeans(
+    dumap %>% select(-paraderosubida), 
+    centers = k,
+    nstart = 50,
+    iter.max = 150
+    )
+  
+  km$tot.withinss
+    
+}) 
+
+# plot(withins)
+
+km <- kmeans(
+  dumap %>% select(-paraderosubida), 
+  centers = 4,
+  nstart = 50,
+  iter.max = 150
+  )
+
+dumap <- dumap %>% 
+  mutate(cluster = as.character(km$cluster))
+
+dcenters <- km$centers %>% 
+  as.data.frame() %>% 
+  as_tibble() %>% 
+  mutate(cluster = as.character(row_number()))
+
+set.seed(1234)
+
+# xmin, xmax, ymin, ymax.
+bnd <- c(-4, 3, -3, 5)
+
+pumapkm <- ggplot(dumap, aes(V1, V2, fill = cluster, group = -1)) +
+  
+  geom_voronoi_tile(data = dcenters, alpha = 0.1, bound = bnd) +
+  geom_voronoi_segment(data = dcenters, color = "gray70", bound = bnd) +
+  
+  geom_point(aes(V1, V2, fill = cluster), alpha = 0.3) +
+  # kunstomverse::geom_point2(aes(V1, V2, fill = cluster), alpha = 0.6, size = 5) +
+  
+  ggrepel::geom_text_repel(
+    aes(V1, V2, label = paraderosubida),
+    data = . %>% sample_n(30),
+    size = 3,
+    force = 10
+    ) +
+  
+  scale_fill_viridis_d(begin = 0.1, end = .8) +
+  
+  xlim(c(-4, 3)) + ylim(c(-3, 5)) +
+  
+  theme(legend.position = "none")
+
+pumapkm
 ```
 
 ---
 
 # Reducción de Dimensionalidad
 
+__Dendograma__ visualiza la forma de agrupación a medida que aumento distancia.
+
 ```{r}
 library(ggdendro)
 
-rownames(umd) <- pull(umd, paraderosubida)
+dhclust <- dumap %>% 
+  column_to_rownames("paraderosubida") %>% 
+  select(V1, V2)
 
-hcd <- hclust(dist(umd))
-
-hc       <- hclust(dist(umd), "ave")           # heirarchal clustering
-dendr    <- dendro_data(hc, type="rectangle") # convert for ggplot
-clust    <- cutree(hc, k = 4)                    # find 2 clusters
+hc       <- hclust(dist(dhclust), "ave")           # heirarchal clustering
+dendr    <- dendro_data(hc, type="rectangle")    # convert for ggplot
+clust    <- cutree(hc, k = 4)                    # find 4 clusters
 clust.df <- data.frame(label = names(clust), cluster = factor(clust))
 dendr[["labels"]] <- merge(dendr[["labels"]], clust.df, by = "label")
 
-ggplot() +
+pdend <- ggplot() +
   geom_segment(
     data = segment(dendr),
     aes(x = x, y = y, xend = xend, yend = yend)
@@ -786,11 +870,11 @@ ggplot() +
   geom_text(
     data = label(dendr),
     aes(x, y, label = label, hjust = 1, color = cluster),
-    size = 2
+    size = 1.8
   ) +
   coord_flip() +
   scale_color_viridis_d(begin = 0.1, end = 0.8) +
-  scale_y_continuous(limits = c(-0.10, NA)) +
+  # scale_y_continuous(limits = c(-0.10, NA)) +
   # scale_y_reverse(expand=c(0.2, 0)) +
   theme(
     axis.line.y = element_blank(),
@@ -799,38 +883,49 @@ ggplot() +
     axis.title.y = element_blank(),
     panel.grid.major.y = element_blank(),
     panel.grid = element_blank(),
-    legend.position = "none"
-  )
-```
+    legend.position = "right"
+  ) +
+  guides(color = guide_legend(override.aes = list(size = 5))) 
 
----
-
-# Reducción de Dimensionalidad
-
-```{r}
-umd2 <- umd %>% 
-  left_join(clust.df, by = c("paraderosubida" = "label")) 
-
-ggplot(umd2) +
-  geom_point(aes(V1, V2, color = cluster), alpha = 0.8) +
-  scale_color_viridis_d() +
-  ggrepel::geom_text_repel(aes(V1, V2, label = paraderosubida),
-                  data = . %>% sample_n(20),
-                  size = 3,
-                  force = 10) 
+pdend
 ```
 
 ---
 
 # Finalmente
 
-```{r}
-data %>% 
-  left_join(umd2 %>% select(paraderosubida, cluster)) %>% 
-  ggplot(aes(mediahora, subidas_laboral_promedio)) +
-  geom_line(aes(group = paraderosubida), alpha = 0.1, size = 1) +
-  geom_smooth(aes(color = cluster), se = FALSE, size = 2) + 
+```{r, fig.width = 13}
+dataf <- data %>% 
+  left_join(dumap %>% select(paraderosubida, cluster), by = "paraderosubida")
+
+pfin <- ggplot(dataf, aes(mediahora, subidas_laboral_promedio)) +
+  geom_line(aes(group = paraderosubida), alpha = 0.1, size = 0.8) +
+  geom_smooth(
+    aes(color = cluster),
+    se = FALSE, size = 2,
+    method = 'gam',
+    formula = y ~ s(x, bs = "cs")
+    ) + 
   scale_color_viridis_d() +
-  facet_wrap(vars(cluster))
+  facet_wrap(vars(cluster), ncol = 4) +
+  scale_x_datetime(date_labels = "%R") +
+  scale_y_continuous(labels = comma)
+
+pfin
 ```
+
+---
+
+```{r, fig.width = 15, fig.height=9}
+list(p1, p2, pcors, pnet, pumapkm, pdend, pfin) %>%
+  map(function(p){
+    p + 
+      theme(legend.position = "none") +
+      labs(x = NULL, y = NULL, title = NULL, subtitle = NULL)
+    
+  }) %>% 
+  reduce(`+`)
+```
+
+
 

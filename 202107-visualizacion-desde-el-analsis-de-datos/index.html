@@ -50,6 +50,7 @@ class: left, middle, my-title, title-slide
 .title-slide &gt; h2,
 .remark__tile-view__header {
   font-family: 'Datalegreya', sans-serif;
+  font-weight: 400;
 }
 
 .title-slide &gt; h1,
@@ -72,8 +73,6 @@ body {
 
 
 
-
-
 ---
 
 # Visualización
@@ -86,9 +85,9 @@ Como parte del análisis de datos
 
 ---
 
-# Visualización **de datos**
+# Visualización __de datos__
 
-Herramienta que codifica información a travéz...
+Herramienta que codifica información a través...
 
 &lt;img src="imgs/data-viz.jpg" width="60%" style="display: block; margin: auto;" /&gt;
 
@@ -137,7 +136,6 @@ class: center middle
 
 # Poniendo en práctica
 
-
 ---
 
 # Datos
@@ -148,10 +146,11 @@ Ingresos de usuarios a estaciones de metros cada media hora
 
 &lt;img src="imgs/metrocsv.png" width="45%" style="display: block; margin: auto;" /&gt;
 
-
 ---
 
 # Partamos por lo simple
+
+Visualicemos los datos de una estación:
 
 &lt;img src="imgs/knitr-img-unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
 
@@ -183,7 +182,7 @@ Importante observar patrones/relaciones en los datos.
 
 # Correlación 
 
-Es una _métrica_ de asociación _lineal_. Nos ayuda a _cuantificar_ la asociación.
+Es una _métrica_ de asociación lineal. Nos ayuda a _cuantificar_ la asociación.
 
 &lt;img src="imgs/knitr-img-unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
 
@@ -236,7 +235,7 @@ Las correlaciones nos dan una métrica de que tanto se parecen unas estaciones d
 
 
 
-Calculamos con 106 estaciones 11,130 correlaciones.
+Calculamos con 106 estaciones 11,130 correlaciones. Visualización vía __heatmap__.
 
 
 &lt;img src="imgs/knitr-img-unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
@@ -269,7 +268,6 @@ del vértice es la correlación y el tamaño es la cantidad de subidas.
 
 # Reducción de Dimensionalidad
 
---
 Hasta ahora hemos usado solamente *correlaciones* que miden asociacion lineal 
 y no es um indicador necesariamente robusto para usarlo como métrica de distancia.
 
@@ -415,53 +413,53 @@ Lleva de una tabla con muchas columnas por observación a 2 columnas:
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.6885953 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.3056378 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.7841239 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.6194443 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; BAQUEDANO L1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -0.7464836 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2.2334628 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.0766196 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.3275863 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; BAQUEDANO L5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.2166255 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.0159449 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0706558 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1709780 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; BARRANCAS &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.5322996 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -1.1927269 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.8057389 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.3425911 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; BELLAS ARTES &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.8554469 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.0988635 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.7961735 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5936810 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; BELLAVISTA DE LA FLORIDA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -1.4636204 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -1.0108738 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.9081488 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3556561 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; BLANQUEADO &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.8927846 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -1.7248202 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.6293506 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -3.0070179 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; CAL Y CANTO &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -1.7735818 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2.7721443 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.2660237 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.7753796 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; CAMINO AGRICOLA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.3891411 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.7216269 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2622275 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2290107 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; CARLOS VALDOVINOS &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2.0885103 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.1412665 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.7879500 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.9876676 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -473,17 +471,23 @@ Lleva de una tabla con muchas columnas por observación a 2 columnas:
 
 # Reducción de Dimensionalidad
 
+De esta forma:
+
 &lt;img src="imgs/knitr-img-unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Reducción de Dimensionalidad
+# Clustering 
+
+De vez en cuando es relevante agrupar información/perfilar.
 
 &lt;img src="imgs/knitr-img-unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Reducción de Dimensionalidad
+
+__Dendograma__ visualiza la forma de agrupación a medida que aumento distancia.
 
 &lt;img src="imgs/knitr-img-unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
 
@@ -492,6 +496,12 @@ Lleva de una tabla con muchas columnas por observación a 2 columnas:
 # Finalmente
 
 &lt;img src="imgs/knitr-img-unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="imgs/knitr-img-unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
+
+
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

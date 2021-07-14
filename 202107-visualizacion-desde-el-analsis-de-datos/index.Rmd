@@ -28,7 +28,6 @@ BCKGRN_COLOR <- "#FFFAFA" # snow white
 # MAIN_FONT <- "Lato"
 # MAIN_FONT <- "Alegreya Sans SC"
 MAIN_FONT <- "IBM Plex Sans"
-
 ```
 
 ```{css, echo=FALSE, purl=FALSE}
@@ -1266,10 +1265,15 @@ ggmap
 ```
 
 
-
 ---
-
+  
 ```{r, fig.width = 15, fig.height=9}
+# knitr::purl(
+#   here::here("202107-visualizacion-desde-el-analsis-de-datos/index.Rmd"),
+#   here::here("202107-visualizacion-desde-el-analsis-de-datos/index.R"),
+#   documentation = 0L
+# )
+
 # https://stackoverflow.com/a/46221054/829971
 remove_geom <- function(ggplot2_object, geom_type) {
   # Delete layers that match the requested type.
@@ -1293,18 +1297,18 @@ list(p1, p2, pcors, pnet, pumapkm, pkm, pdend, pphylo, pfin, pmetro, ggmap) %>%
     nfacets <- pb$layout$layout$PANEL %>% length() 
     
     p <- remove_geom(p, "GeomTextRepel") + 
-       theme(
-         panel.grid.major = element_blank(),
-         axis.text.x = element_blank(),
-         axis.text.y = element_blank(),
-         legend.position = "none",
-         strip.text = element_blank(),
-         panel.spacing = unit(0.1, "lines")
-         
-         ) +
+      theme(
+        panel.grid.major = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        legend.position = "none",
+        strip.text = element_blank(),
+        panel.spacing = unit(0.1, "lines")
+        
+      ) +
       labs(x = NULL, y = NULL, title = NULL, subtitle = NULL) +
       coord_cartesian() 
-      
+    
     
     if(nfacets != 1){
       p <- p + 
@@ -1316,17 +1320,10 @@ list(p1, p2, pcors, pnet, pumapkm, pkm, pdend, pphylo, pfin, pmetro, ggmap) %>%
     
   }) %>% 
   reduce(`+`)
-
-
-knitr::purl(
-  here::here("202107-visualizacion-desde-el-analsis-de-datos/index.Rmd"),
-  here::here("202107-visualizacion-desde-el-analsis-de-datos/index.R"),
-  documentation = 0L
-  )
 ```
 
 ---
-
+  
 # Resumiendo
 
 La __visualización de datos__:
@@ -1345,7 +1342,7 @@ La __visualización de datos__:
 
 
 ---
-
+  
 # Gracias! 
 
 Conversemos!
@@ -1359,7 +1356,6 @@ Conversemos!
 - Presentación: http://jkunst.com/slides/202107-visualizacion-desde-el-analsis-de-datos/index.html
 
 - Código para hacer _toooodos_ los gráficos y análisis: http://jkunst.com/slides/202107-visualizacion-desde-el-analsis-de-datos/index.R
-
 
 
 

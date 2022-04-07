@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>{20:00}§2v|0i|2s|3u|2a|1l|0[-]i|1z|2a|1c|3[++]i|2o|1n|2{14jul}[16°c[10°c]</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=" Joshua Kunst @jbkunst" />
+    <script src="libs/header-attrs-2.13/header-attrs.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#47475C"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <link href="libs/animate.css-xaringan-3.7.2/animate.fade.css" rel="stylesheet" />
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: left, middle, my-title, title-slide
+
+# {20:00}§2v|0i|2s|3u|2a|1l|0[-]i|1z|2a|1c|3[++]i|2o|1n|2{14jul}[16°c[10°c]
+## desde el análsis de datos
+### <br>Joshua Kunst<br><span class="citation">@jbkunst</span>
+
+---
+
+
+class: left top
+background-image: url(imgs/hello.gif)
+background-size: 100%
+
+# Hola! &lt;br/&gt; Soy Joshua
+
+
+
+&lt;style type="text/css"&gt;
+@import url('https://fonts.cdnfonts.com/css/datalegreya');
+
+.title-slide {
+  background-image: url(imgs/title-slide-bg.png);
+  background-size: cover;
+}
+
+.title-slide &gt; h1,
+.title-slide &gt; h2,
+.remark__tile-view__header {
+  font-family: 'Datalegreya', sans-serif;
+  font-weight: 400;
+}
+
+.title-slide &gt; h1,
+.remark__tile-view__header {
+  font-size: 6em;
+}
+
+.title-slide &gt; h1,
+.title-slide &gt; h2 {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.highlight-last-item &gt; ul &gt; li, 
+.highlight-last-item &gt; ol &gt; li {
+  opacity: 0.5;
+}
+.highlight-last-item &gt; ul &gt; li:last-of-type,
+.highlight-last-item &gt; ol &gt; li:last-of-type {
+  opacity: 1;
+}
+
+&lt;/style&gt;
+
+
+
+
+
+---
+
+class: highlight-last-item
+
+# Hola! &lt;br/&gt; Soy Joshua
+
+--
+
+
+- Soy estadístico.
+
+--
+
+- Me gusta programar (en R!).
+
+--
+
+- Escribo código para comer. Y como para escribir código.
+
+--
+
+- Mi __misión__ es motivarlos en los que veremos hoy!
+
+---
+
+class: left top
+background-image: url(imgs/yay.gif)
+background-size: 100%
+
+# &lt;span style="background-color:white;margin:5px"&gt;Yay!&lt;/span&gt;
+
+---
+
+# Visualización en el análisis de datos
+
+&lt;br&gt;
+&lt;br&gt;
+
+
+&lt;img src="imgs/data-science.svg" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Visualización __de datos__
+
+Herramienta que codifica información a través...
+
+&lt;br&gt;
+
+&lt;img src="imgs/data-viz.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Visualización __de datos__
+
+Cada atributo de un círculo -posición, tamaño- es representado por un valor de los datos.
+
+&lt;br&gt;
+
+&lt;img src="imgs/viz-mapping-vars.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Antes de seguir
+
+Un poco de jerga:
+
+--
+
+- Una __variable__ es una cantidad, que puede ser medida: estatura, magnitud de un sismo, velocidad.
+
+- Un __valor__ es un estado de la variable cuando se mide: 1.20 metros, 8° Richter.
+
+- Una __observación__ o caso es un conjunto de mediciones -no de la misma variable necesariamente- pero si en un mismo instante y a un mismo objeto.
+
+--
+
+&lt;img src="imgs/tidy-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: left middle
+background-image: url(imgs/legobricks.jpg)
+background-size: 100%
+
+# &lt;span style="background-color:white;margin:5px"&gt;Un primer ejemplo&lt;/span&gt;
+
+---
+
+# Datos
+
+
+
+&lt;img src="imgs/legoscsv.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Explorar
+
+¿Qué vemos?
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Intento inicial
+
+Codificamos mayor información
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Otro intento
+
+Cada visualización cuenta una historia distinta...
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: right top
+background-image: url(imgs/metro.jpg)
+background-size: 100%
+
+# &lt;span style="color:white"&gt;Entendimiento de los datos &lt;br/&gt;con la visualización&lt;/span&gt;
+
+
+---
+
+# Datos
+
+Ingresos de usuarios a estaciones de metros cada media hora
+
+
+
+&lt;img src="imgs/metrocsv.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Partamos por lo simple
+
+Visualicemos los datos de una estación:
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ¿Simple?
+
+Es bueno equivocarse (?).
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Ahora sí!!
+
+Hay ciertas convenciones que no es malo seguir...
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Combinemos
+
+Importante observar patrones/relaciones en los datos.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Correlación 
+
+Es una _métrica_ de asociación lineal. Nos ayuda a _cuantificar_ la asociación.
+
+--
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Correlación 
+
+Un valor calculado con dos valores numéricos. Va de -1 a 1.
+
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Entonces...
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Otro par de estaciones
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Correlaciones
+
+
+
+Calculamos con 106 estaciones 11,130 correlaciones. Visualización vía __heatmap__.
+
+--
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+# Correlaciones
+
+El orden, en este caso, importa.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Redes y comunidades
+
+
+
+
+Considerando las 250 correlaciones más altas realizamos una red donde el peso
+del vértice es la correlación y el tamaño es la cantidad de subidas.
+
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Reducción de Dimensionalidad
+
+Hasta ahora hemos usado solamente *correlaciones* que miden asociacion lineal 
+y no es un indicador necesariamente robusto para usarlo como métrica de distancia.
+
+--
+
+Usaremos todos los datos por estacion y usaremos __UMAP__, un algoritmo 
+para _resumir_ toda la información en *2* columnas/variables.
+
+--
+
+Lleva de una tabla con muchas columnas por observación a 2 columnas:
+
+&lt;small&gt;&lt;small&gt;&lt;small&gt;&lt;small&gt;&lt;small&gt;&lt;small&gt;
+
+.pull-left[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; paraderosubida &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 05:30 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 06:00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 06:30 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 07:00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 07:30 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 08:00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 08:30 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 53.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 184.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 364.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 546.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 478.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BAQUEDANO L1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 125.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 208.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 397.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 521.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 589.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 561.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BAQUEDANO L5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 199.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 193.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 173.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BARRANCAS &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 195.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 406.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 736.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 799.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 660.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 490.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BELLAS ARTES &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 92.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 177.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 282.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 295.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 230.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BELLAVISTA DE LA FLORIDA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 157.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 297.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 565.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1113.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1162.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1303.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1009.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BLANQUEADO &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 199.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 411.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 646.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 736.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 620.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 443.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; CAL Y CANTO &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 103.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 575.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1281.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2309.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2640.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2484.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1873.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+] 
+
+.pull-right[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; paraderosubida &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ALCANTARA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.7841239 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.6194443 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BAQUEDANO L1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.0766196 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.3275863 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BAQUEDANO L5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0706558 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1709780 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BARRANCAS &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.8057389 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.3425911 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BELLAS ARTES &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.7961735 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5936810 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BELLAVISTA DE LA FLORIDA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.9081488 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3556561 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BLANQUEADO &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.6293506 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -3.0070179 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; CAL Y CANTO &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.2660237 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.7753796 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;/small&gt;&lt;/small&gt;&lt;/small&gt;&lt;/small&gt;&lt;/small&gt;&lt;/small&gt;
+
+---
+
+# Reducción de Dimensionalidad
+
+De esta forma:
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Clustering 
+
+De vez en cuando es relevante agrupar información/perfilar. __Diagramas de Voronoi__.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ¿Por qué 4 grupos?
+
+El algoritmo para encontrar grupos usado fue __K-means__. Uno usualmente
+da el número de grupos y determina que observación queda en que grupo.
+
+--
+
+Una regla para decidir el número de cluster es realizando el proceso
+varias veces con distintas cantidad de centros.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Clustering (ver. 2)
+
+__Dendograma__ visualiza la forma de agrupación a medida que aumento distancia.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Clustering (ver. 3)
+
+Otra visualización con los mismos datos del dendograma. __Árbol filogenético__.
+
+
+
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-31-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Clustering (ver. 3)
+
+No sirve de mucho si las etiquetas.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-32-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Entonces, ¿significan algo los cluster generados?
+
+--
+
+Revisamos _nuestro primer gráfico_ para cada estación y separados por grupo.
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-33-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Contextualizar
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-34-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Contextualizar (ver. 2)
+
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-35-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+  
+&lt;img src="imgs-r/knitr-img-unnamed-chunk-36-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: left top
+background-image: url(imgs/charts.gif)
+background-size: 100%
+
+# &lt;span style="background-color:white;margin:5px"&gt;Hay muchos mas!&lt;/span&gt;
+
+---
+  
+# Resumiendo
+
+La __visualización de datos__:
+
+&lt;br/&gt;
+
+--
+
+- Lleva información, es un mensaje.
+
+- Ejercicio mental para decodificar información.
+
+- Herramienta exploratoria.
+
+- Distintas visualizaciones en mismos datos es una distinta historia.
+
+
+---
+  
+# Gracias! 
+
+Conversemos!
+
+&lt;br/&gt;
+
+--
+
+- Más ideas en http://jkunst.com/blog
+
+- Presentación: http://jkunst.com/slides/202107-visualizacion-desde-el-analsis-de-datos/index.html
+
+- Código para hacer _toooodos_ los gráficos y análisis: http://jkunst.com/slides/202107-visualizacion-desde-el-analsis-de-datos/index.R
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

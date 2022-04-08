@@ -452,11 +452,13 @@ ggplot(dplazamaipu) +
 Quizás mucha **tinta**? (_Data-Ink Ratio_).
 
 ```{r}
-ggplot(dplazamaipu) +
+p0 <- ggplot(dplazamaipu) +
   geom_col(aes(mediahora, subidas_laboral_promedio, fill = paraderosubida), size = 1.5) +
   scale_x_datetime(date_labels = "%R") +
   scale_y_continuous(labels = comma) +
   scale_fill_pres_d(name = NULL)
+
+p0
 ```
 
 ---
@@ -1357,7 +1359,7 @@ remove_geom <- function(ggplot2_object, geom_type) {
   ggplot2_object
 }
 
-list(p1, p2, pcors, pnet, pumapkm, pkm, pdend, pphylo, pfin, pmetro, ggmap) %>%
+list(p0, p1, p2, pcors, pnet, pumapkm, pkm, pdend, pphylo, pfin, pmetro, ggmap) %>%
   map(function(p){
     
     pb <- ggplot_build(p)

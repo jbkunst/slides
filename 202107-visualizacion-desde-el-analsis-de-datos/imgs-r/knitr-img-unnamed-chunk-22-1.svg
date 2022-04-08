@@ -73,12 +73,12 @@
 <clipPath id="clip24">
   <path d="M 504.699219 305.550781 L 717.296875 305.550781 L 717.296875 322.832031 L 504.699219 322.832031 Z M 504.699219 305.550781 "/>
 </clipPath>
-<image id="image203" width="300" height="1" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAIAAADrWgR+AAAABmJLR0QA/wD/AP+gvaeTAAAAqElEQVQokY2SQQ4EIQgEq032Nfvd/S9zUBAYTfbWNtXIOOj7+Q0QGqApDMFAoojN2KGUxUiMLoz+ZJDsVBLCxhJItswQR1MIK8IBcqrFyUBJCSjmilDitp2ZkuFiNY+jAAvSm8+XevEUn0iRLuIlYqRzh07GP9hj+F2kbyENVp17isZHdc3m1XiWli1klNJiLaCZaavM98kuvJGu9sgR6zPU0n6NgOP4AAcogubzbhN0AAAAAElFTkSuQmCC"/>
+<image id="image193" width="300" height="1" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAIAAADrWgR+AAAABmJLR0QA/wD/AP+gvaeTAAAAqElEQVQokY2SQQ4EIQgEq032Nfvd/S9zUBAYTfbWNtXIOOj7+Q0QGqApDMFAoojN2KGUxUiMLoz+ZJDsVBLCxhJItswQR1MIK8IBcqrFyUBJCSjmilDitp2ZkuFiNY+jAAvSm8+XevEUn0iRLuIlYqRzh07GP9hj+F2kbyENVp17isZHdc3m1XiWli1klNJiLaCZaavM98kuvJGu9sgR6zPU0n6NgOP4AAcogubzbhN0AAAAAElFTkSuQmCC"/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="300" height="1"  patternTransform="matrix(0.708661,0,0,17.28,504.700787,305.55208)">
-  <use xlink:href="#image203"/>
+  <use xlink:href="#image193"/>
 </pattern>
 </defs>
-<g id="surface199">
+<g id="surface189">
 <rect x="0" y="0" width="792" height="360" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <rect x="0" y="0" width="792" height="360" style="fill:rgb(100%,98.039216%,98.039216%);fill-opacity:1;stroke:none;"/>
 <g clip-path="url(#clip1)" clip-rule="nonzero">
